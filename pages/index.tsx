@@ -2,6 +2,7 @@ import { Heading, Stack, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import PageLayout from '../components/PageLayout';
 
 const Home: NextPage = () => {
   return (
@@ -12,7 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <PageLayout>
         <Stack spacing={{ base: 10 }}>
           <Heading as="h1">Wingspan Companion</Heading>
           <Text>
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
           <Link href="/new-game">New game as guest</Link>
           <Link href="/join-game">Join existing game</Link>
         </Stack>
-      </main>
+      </PageLayout>
 
       <footer></footer>
     </div>
