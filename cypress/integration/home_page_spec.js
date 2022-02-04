@@ -5,6 +5,14 @@ describe('The Home Page', () => {
     cy.visit(URLS.HOME_PAGE);
   });
 
+  it('has title', () => {
+    cy.get('h1').should('be.visible');
+  });
+
+  it('has description', () => {
+    cy.get('p').should('be.visible');
+  });
+
   it('provides user a link to new game page', () => {
     cy.get(`a[href="${URLS.NEW_GAME_PAGE}"]`).should('be.visible');
   });
