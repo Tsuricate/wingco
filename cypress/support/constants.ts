@@ -9,3 +9,7 @@ export enum URLS {
   'SIGN_UP_PAGE' = '/sign-up',
 }
 //TODO: List missing pages
+
+export enum SELECTORS {
+  'NAVBAR' = 'nav',
+}
