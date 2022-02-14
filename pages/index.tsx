@@ -1,9 +1,13 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import PageLayout from '../components/PageLayout';
 
 const Home: NextPage = () => {
+  const { t } = useTranslation('common');
+
   return (
     <PageLayout title="WingCo">
       <Stack spacing={{ base: 10 }}>
@@ -15,7 +19,7 @@ const Home: NextPage = () => {
           dolorem ex facilis sapiente. Dolore facilis doloremque magnam soluta fugit hic culpa.
         </Text>
         <Link href="/sign-in">Log in / Sign up</Link>
-        <Link href="/new-game">New game as guest</Link>
+        <Link href="/new-game">{t('guest')}</Link>
         <Link href="/join-game">Join existing game</Link>
       </Stack>
     </PageLayout>
@@ -23,3 +27,9 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getStaticProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common'])),
+  },
+});
