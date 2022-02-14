@@ -14,7 +14,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({ title, children }) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Container as="main">{children}</Container>
+    <Container as="main" maxW={{ xl: '2xl' }}>
+      {children}
+    </Container>
   </>
 );
 
