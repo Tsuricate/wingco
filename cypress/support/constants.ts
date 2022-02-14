@@ -7,9 +7,16 @@ export enum URLS {
   'SIGN_IN_PAGE' = '/sign-in',
   'SIGN_OUT_PAGE' = '/sign-out',
   'SIGN_UP_PAGE' = '/sign-up',
+  'ACCOUNT_PAGE' = '/account',
 }
 //TODO: List missing pages
 
 export enum SELECTORS {
   'NAVBAR' = 'nav',
+  'BURGER_BUTTON' = 'button[data-cy="burgerButton"]',
+  'BURGER_MENU' = '[data-cy="burgerMenu"]',
+}
+
+export enum DEVICES {
+  'MOBILE' = 'iphone-4',
 }
