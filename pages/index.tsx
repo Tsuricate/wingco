@@ -13,9 +13,9 @@ const Home: NextPage = () => {
       <Stack spacing={{ base: 10 }}>
         <Heading as="h1">{t('title')}</Heading>
         <Text>{t('description')}</Text>
-        <Link href="/sign-in">{t('signIn')}</Link>
-        <Link href="/new-game">{t('newGameAsGuest')}</Link>
-        <Link href="/join-game">{t('joinGame')}</Link>
+        <Link href="/sign-in">{t('signIn', { ns: 'common' })}</Link>
+        <Link href="/new-game">{t('newGameAsGuest', { ns: 'common' })}</Link>
+        <Link href="/join-game">{t('joinGame', { ns: 'common' })}</Link>
       </Stack>
     </PageLayout>
   );
