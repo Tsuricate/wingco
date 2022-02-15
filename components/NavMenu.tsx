@@ -3,7 +3,11 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
-const NavMenu: React.FC = () => {
+interface NavMenuProps {
+  onClick: () => void;
+}
+
+const NavMenu: React.FC<NavMenuProps> = ({ onClick }) => {
   const { t } = useTranslation('common');
   const navLinks = [
     {
@@ -25,10 +29,10 @@ const NavMenu: React.FC = () => {
   ];
 
   return (
-    <Stack as="nav" data-cy="navMenu" bg="goldenrod">
+    <Stack as="nav" data-cy="navMenu">
       <List>
         {navLinks.map((link) => (
-          <ListItem key={link.label}>
+          <ListItem key={link.label} onClick={onClick}>
             <Link href={link.url}>{t(link.label)}</Link>
           </ListItem>
         ))}

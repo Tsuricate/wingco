@@ -1,25 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, IconButton, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import NavMenu from './NavMenu';
 
 const NavBar: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onToggle } = useDisclosure();
 
   return (
     <Box as="header">
-      <Flex bg="tomato" justifyContent="space-evenly">
+      <Flex justifyContent="space-evenly">
         <Heading>Wingspan Companion</Heading>
         <IconButton
           data-cy="burgerButton"
           aria-label="Open menu"
           icon={<HamburgerIcon />}
-          onClick={onOpen}
+          onClick={onToggle}
         />
       </Flex>
       <Box display={isOpen ? 'block' : 'none'}>
-        <NavMenu />
+        <NavMenu onClick={onClose} />
       </Box>
     </Box>
   );
