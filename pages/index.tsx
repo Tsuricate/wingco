@@ -6,7 +6,7 @@ import Link from 'next/link';
 import PageLayout from '../components/PageLayout';
 
 const Home: NextPage = () => {
-  const { t } = useTranslation('home');
+  const { t } = useTranslation(['home', 'common']);
 
   return (
     <PageLayout title="WingCo">
@@ -25,6 +25,6 @@ export default Home;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['home'])),
+    ...(await serverSideTranslations(locale, ['home', 'common'])),
   },
 });
