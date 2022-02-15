@@ -40,7 +40,7 @@ describe('The Navigation Bar', () => {
   });
 
   context('on small viewport', () => {
-    before(() => {
+    beforeEach(() => {
       cy.viewport(DEVICES.MOBILE);
     });
 
