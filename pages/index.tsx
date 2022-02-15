@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const { t } = useTranslation(['home', 'common']);
 
   return (
-    <PageLayout title="WingCo">
+    <PageLayout title={t('metaTitle')}>
       <Stack spacing={{ base: 10 }}>
         <Heading as="h1">{t('title')}</Heading>
         <Text>{t('description')}</Text>
