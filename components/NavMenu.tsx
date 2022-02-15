@@ -1,4 +1,4 @@
-import { Stack } from '@chakra-ui/react';
+import { List, ListItem, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
@@ -25,12 +25,14 @@ const NavMenu: React.FC = () => {
   ];
 
   return (
-    <Stack bg="goldenrod">
-      {navLinks.map((link) => (
-        <Link key={link.label} href={link.url}>
-          {t(link.label)}
-        </Link>
-      ))}
+    <Stack as="nav" data-cy="navMenu" bg="goldenrod">
+      <List>
+        {navLinks.map((link) => (
+          <ListItem key={link.label}>
+            <Link href={link.url}>{t(link.label)}</Link>
+          </ListItem>
+        ))}
+      </List>
     </Stack>
   );
 };
