@@ -1,13 +1,14 @@
-import { List, ListItem, Stack } from '@chakra-ui/react';
+import { Box, List, ListItem, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React from 'react';
 
 interface NavMenuProps {
-  onClick: () => void;
+  onClick?: () => void;
+  direction: 'column' | 'row';
 }
 
-const NavMenu: React.FC<NavMenuProps> = ({ onClick }) => {
+const NavMenu: React.FC<NavMenuProps> = ({ onClick, direction }) => {
   const { t } = useTranslation('common');
   const navLinks = [
     {
@@ -29,15 +30,15 @@ const NavMenu: React.FC<NavMenuProps> = ({ onClick }) => {
   ];
 
   return (
-    <Stack as="nav" data-cy="navMenu">
-      <List>
+    <Box as="nav" data-cy="navMenu">
+      <Stack as={List} direction={direction} spacing={{ md: 5 }}>
         {navLinks.map((link) => (
           <ListItem key={link.label} onClick={onClick}>
             <Link href={link.url}>{t(link.label)}</Link>
           </ListItem>
         ))}
-      </List>
-    </Stack>
+      </Stack>
+    </Box>
   );
 };
 

@@ -8,17 +8,21 @@ const NavBar: React.FC = () => {
 
   return (
     <Box as="header">
-      <Flex justifyContent="space-evenly">
-        <Heading>Wingspan Companion</Heading>
+      <Flex justifyContent="space-between">
+        <Heading>WingCo</Heading>
         <IconButton
           data-cy="burgerButton"
           aria-label="Open menu"
+          display={{ md: 'none' }}
           icon={<HamburgerIcon />}
           onClick={onToggle}
         />
+        <Box display={{ base: 'none', md: 'block' }}>
+          <NavMenu direction="row" />
+        </Box>
       </Flex>
       <Box display={isOpen ? 'block' : 'none'}>
-        <NavMenu onClick={onClose} />
+        <NavMenu onClick={onClose} direction="column" />
       </Box>
     </Box>
   );
