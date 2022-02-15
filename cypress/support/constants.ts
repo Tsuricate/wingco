@@ -12,11 +12,13 @@ export enum URLS {
 //TODO: List missing pages
 
 export enum SELECTORS {
-  'NAVBAR' = 'nav',
+  'NAVBAR' = 'header',
   'BURGER_BUTTON' = 'button[data-cy="burgerButton"]',
-  'BURGER_MENU' = '[data-cy="burgerMenu"]',
+  'NAV_MENU' = '[data-cy="navMenu"]',
 }
 
 export enum DEVICES {
   'MOBILE' = 'iphone-4',
+  'TABLET' = 'ipad-2',
+  'DESKTOP' = 'macbook-13',
 }
