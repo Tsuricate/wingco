@@ -6,16 +6,16 @@ import Link from 'next/link';
 import PageLayout from '../components/PageLayout';
 
 const Home: NextPage = () => {
-  const { t } = useTranslation('home');
+  const { t } = useTranslation(['home', 'common']);
 
   return (
     <PageLayout title={t('metaTitle')}>
       <Stack spacing={{ base: 10 }}>
         <Heading as="h1">{t('title')}</Heading>
         <Text>{t('description')}</Text>
-        <Link href="/sign-in">{t('signIn')}</Link>
-        <Link href="/new-game">{t('newGameAsGuest')}</Link>
-        <Link href="/join-game">{t('joinGame')}</Link>
+        <Link href="/sign-in">{t('signIn', { ns: 'common' })}</Link>
+        <Link href="/new-game">{t('newGameAsGuest', { ns: 'common' })}</Link>
+        <Link href="/join-game">{t('joinGame', { ns: 'common' })}</Link>
       </Stack>
     </PageLayout>
   );
@@ -25,6 +25,6 @@ export default Home;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['home'])),
+    ...(await serverSideTranslations(locale, ['home', 'common'])),
   },
 });
