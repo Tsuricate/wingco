@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
           <NavMenu direction="row" />
         </Box>
       </Flex>
-      <Box display={isOpen ? 'block' : 'none'}>
+      <Box display={{ base: isOpen ? 'block' : 'none', md: 'none' }}>
         <NavMenu onClick={onClose} direction="column" />
       </Box>
     </Box>
