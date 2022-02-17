@@ -14,7 +14,7 @@ import Link from 'next/link';
 import React from 'react';
 import PageLayout from '../components/PageLayout';
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn']);
 
   return (
