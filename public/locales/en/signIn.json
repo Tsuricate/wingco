@@ -1,0 +1,12 @@
+{
+  "title": "Sign In",
+  "usernameLabel": "Username",
+  "usernameHelperText": "Enter your username",
+  "passwordLabel": "Password",
+  "passwordHelperText": "Enter your password",
+  "forgotPassword": "Forgot password ?",
+  "rememberMe": "Remember me",
+  "signInButtonLabel": "Sign in",
+  "signUp": "Sign up",
+  "notRegisteredYet": "Not registered yet ?"
+}
