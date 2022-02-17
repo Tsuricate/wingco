@@ -12,6 +12,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import React from 'react';
+import FormLayout from '../components/FormLayout';
 import PageLayout from '../components/PageLayout';
 
 const SignIn: React.FC = () => {
@@ -20,7 +21,7 @@ const SignIn: React.FC = () => {
   return (
     <PageLayout title={t('title', { ns: 'signIn' })}>
       <Heading as="h1">{t('title', { ns: 'signIn' })}</Heading>
-      <form>
+      <FormLayout>
         <FormControl>
           <FormLabel htmlFor="username">{t('usernameLabel', { ns: 'signIn' })}</FormLabel>
           <Input id="username" name="username" />
@@ -36,7 +37,7 @@ const SignIn: React.FC = () => {
         <Button type="submit" name="signIn">
           {t('signInButtonLabel', { ns: 'signIn' })}
         </Button>
-      </form>
+      </FormLayout>
       <Text>{t('notRegisteredYet', { ns: 'signIn' })}</Text>
       <Link href="/sign-up">{t('signUp', { ns: 'signIn' })}</Link>
     </PageLayout>
