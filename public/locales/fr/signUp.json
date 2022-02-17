@@ -1,0 +1,13 @@
+{
+  "title": "S'inscrire",
+  "usernameLabel": "Nom d'utilisateur",
+  "usernameHelperText": "Choisissez votre nom d'utilisateur",
+  "passwordLabel": "Mot de passe",
+  "passwordHelperText": "Saisissez votre mot de passe",
+  "signUpButtonLabel": "S'inscrire",
+  "emailLabel": "Adresse email",
+  "emailHelperText": "Saisissez votre adresse email",
+  "passwordLabelValidation": "Mot de passe (validation)",
+  "passwordValidationHelperText": "Confirmez votre mot de passe",
+  "alreadyRegistered": "Vous êtes déjà inscrit·e ?"
+}
