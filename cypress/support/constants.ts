@@ -19,8 +19,11 @@ export enum SELECTORS {
   'NAV_MENU' = '[data-cy="navMenu"]',
   'USERNAME_INPUT' = 'input[name="username"]',
   'PASSWORD_INPUT' = 'input[name="password"]',
+  'PASSWORD_VALIDATION_INPUT' = 'input[name="passwordValidation"]',
+  'EMAIL_INPUT' = 'input[name="email"]',
   'REMEMBER_ME_INPUT' = 'input[name="rememberMe"]',
   'SIGNIN_BUTTON' = 'button[name="signIn"]',
+  'SIGNUP_BUTTON' = 'button[name="signUp"]',
 }
 
 export enum DEVICES {
