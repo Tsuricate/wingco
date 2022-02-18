@@ -14,6 +14,7 @@ export enum URLS {
 
 export enum SELECTORS {
   'NAVBAR' = 'header',
+  'PAGE_CONTENT' = 'main',
   'PAGE_TITLE' = 'h1',
   'BURGER_BUTTON' = 'button[data-cy="burgerButton"]',
   'NAV_MENU' = '[data-cy="navMenu"]',
