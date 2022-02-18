@@ -9,5 +9,6 @@
   "emailHelperText": "Saisissez votre adresse email",
   "passwordLabelValidation": "Mot de passe (validation)",
   "passwordValidationHelperText": "Confirmez votre mot de passe",
-  "alreadyRegistered": "Vous êtes déjà inscrit·e ?"
+  "alreadyRegistered": "Vous êtes déjà inscrit·e ?",
+  "signIn": "Connexion"
 }
