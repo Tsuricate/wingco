@@ -1,0 +1,14 @@
+{
+  "title": "Sign Up",
+  "usernameLabel": "Username",
+  "usernameHelperText": "Chose your username",
+  "passwordLabel": "Password",
+  "passwordHelperText": "Enter your password",
+  "signUpButtonLabel": "Sign Up",
+  "emailLabel": "Email address",
+  "emailHelperText": "Enter your email address",
+  "passwordLabelValidation": "Password verification",
+  "passwordValidationHelperText": "Confirm your password",
+  "alreadyRegistered": "Already have an account ?",
+  "signIn": "Connection"
+}

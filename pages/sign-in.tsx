@@ -37,9 +37,9 @@ const SignIn: React.FC = () => {
         <Button type="submit" name="signIn">
           {t('signInButtonLabel', { ns: 'signIn' })}
         </Button>
+        <Text>{t('notRegisteredYet', { ns: 'signIn' })}</Text>
+        <Link href="/sign-up">{t('signUp', { ns: 'signIn' })}</Link>
       </FormLayout>
-      <Text>{t('notRegisteredYet', { ns: 'signIn' })}</Text>
-      <Link href="/sign-up">{t('signUp', { ns: 'signIn' })}</Link>
     </PageLayout>
   );
 };
