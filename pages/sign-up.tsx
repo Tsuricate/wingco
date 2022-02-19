@@ -1,8 +1,8 @@
 import { Button, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
 import React from 'react';
+import Link from '../components/Link';
 import FormControl from '../components/FormControl';
 import FormLayout from '../components/FormLayout';
 import PageLayout from '../components/PageLayout';

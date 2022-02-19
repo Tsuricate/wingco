@@ -4,7 +4,7 @@ import { Link as ChakraLink } from '@chakra-ui/react';
 
 interface LinkProps {
   href: string;
-  dataCy: string;
+  dataCy?: string;
 }
 
 const Link: React.FC<LinkProps> = ({ href, children, dataCy }) => {

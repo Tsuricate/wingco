@@ -2,7 +2,7 @@ import { Stack, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
+import Link from '../components/Link';
 import PageLayout from '../components/PageLayout';
 
 const Home: NextPage = () => {
