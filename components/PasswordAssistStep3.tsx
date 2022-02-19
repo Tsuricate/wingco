@@ -1,9 +1,8 @@
 import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import Button from './Button';
+import FormActions from './FormActions';
 import FormControl from './FormControl';
-import Link from './Link';
 
 const PasswordAssistStep3: React.FC = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
@@ -27,12 +26,7 @@ const PasswordAssistStep3: React.FC = () => {
         label={t('newPasswordValidationLabel', { ns: 'passwordAssistance' })}
         helperText={t('newPasswordValidationHelperText', { ns: 'passwordAssistance' })}
       />
-      <Link href="/sign-in" dataCy="cancelAction">
-        {t('cancel', { ns: 'commom' })}
-      </Link>
-      <Button type="submit" dataCy="submitButton" onClick={handleSubmit}>
-        {t('continue', { ns: 'common' })}
-      </Button>
+      <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
     </>
   );
 };
