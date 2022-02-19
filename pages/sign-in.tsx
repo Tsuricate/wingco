@@ -4,7 +4,6 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
-  Heading,
   Input,
   Text,
 } from '@chakra-ui/react';
@@ -20,7 +19,6 @@ const SignIn: React.FC = () => {
 
   return (
     <PageLayout title={t('title', { ns: 'signIn' })}>
-      <Heading as="h1">{t('title', { ns: 'signIn' })}</Heading>
       <FormLayout>
         <FormControl>
           <FormLabel htmlFor="username">{t('usernameLabel', { ns: 'signIn' })}</FormLabel>

@@ -1,4 +1,4 @@
-import { Container } from '@chakra-ui/react';
+import { Container, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import React from 'react';
 import NavBar from './NavBar';
@@ -17,6 +17,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ title, children }) => (
 
     <NavBar />
     <Container as="main" maxW={{ xl: '2xl' }}>
+      <Heading as="h1">{title}</Heading>
       {children}
     </Container>
   </>

@@ -1,12 +1,4 @@
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  Text,
-} from '@chakra-ui/react';
+import { Button, FormControl, FormHelperText, FormLabel, Input, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
@@ -19,7 +11,6 @@ const SignUp: React.FC = () => {
 
   return (
     <PageLayout title={t('title', { ns: 'signUp' })}>
-      <Heading as="h1">{t('title', { ns: 'signUp' })}</Heading>
       <FormLayout>
         <FormControl>
           <FormLabel htmlFor="username">{t('usernameLabel', { ns: 'signUp' })}</FormLabel>
