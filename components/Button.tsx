@@ -3,14 +3,20 @@ import React from 'react';
 
 type ButtonProps = {
   type?: ChakraButtonProps['type'];
-  name: string;
+  dataCy?: string;
   variant?: ChakraButtonProps['variant'];
   onClick: () => void;
 };
 
-const Button: React.FC<ButtonProps> = ({ type, name, children, variant, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ type, dataCy, children, variant, onClick }) => {
   return (
-    <ChakraButton type={type} name={name} variant={variant} onClick={onClick} colorScheme="blue">
+    <ChakraButton
+      data-cy={dataCy}
+      type={type}
+      variant={variant}
+      onClick={onClick}
+      colorScheme="blue"
+    >
       {children}
     </ChakraButton>
   );
