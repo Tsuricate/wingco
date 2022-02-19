@@ -3,14 +3,14 @@ import NextLink from 'next/link';
 import { Link as ChakraLink } from '@chakra-ui/react';
 
 interface LinkProps {
-  url: string;
-  label: string;
+  href: string;
+  dataCy: string;
 }
 
-const Link: React.FC<LinkProps> = ({ url, label }) => {
+const Link: React.FC<LinkProps> = ({ href, children, dataCy }) => {
   return (
-    <NextLink href={url} passHref>
-      <ChakraLink>{label}</ChakraLink>
+    <NextLink href={href} passHref>
+      <ChakraLink data-cy={dataCy}>{children}</ChakraLink>
     </NextLink>
   );
 };
