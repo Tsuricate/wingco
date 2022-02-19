@@ -1,40 +1,38 @@
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Heading,
-  Input,
-  Text,
-} from '@chakra-ui/react';
+import { Checkbox, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Link from 'next/link';
 import React from 'react';
+import Link from '../components/Link';
+import FormControl from '../components/FormControl';
 import FormLayout from '../components/FormLayout';
 import PageLayout from '../components/PageLayout';
+import Button from '../components/Button';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn']);
 
+  const handleSubmit = () => {
+    console.log('Button clicked');
+  };
+
   return (
     <PageLayout title={t('title', { ns: 'signIn' })}>
-      <Heading as="h1">{t('title', { ns: 'signIn' })}</Heading>
       <FormLayout>
-        <FormControl>
-          <FormLabel htmlFor="username">{t('usernameLabel', { ns: 'signIn' })}</FormLabel>
-          <Input id="username" name="username" />
-          <FormHelperText>{t('usernameHelperText', { ns: 'signIn' })}</FormHelperText>
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="password">{t('passwordLabel', { ns: 'signIn' })}</FormLabel>
-          <Input id="password" name="password" type="password" />
-          <FormHelperText>{t('passwordHelperText', { ns: 'signIn' })}</FormHelperText>
-        </FormControl>
-        <Link href="/forgot-password">{t('forgotPassword', { ns: 'signIn' })}</Link>
+        <FormControl
+          id="username"
+          name="username"
+          label={t('usernameLabel', { ns: 'signIn' })}
+          helperText={t('usernameHelperText', { ns: 'signIn' })}
+        />
+        <FormControl
+          id="password"
+          name="password"
+          label={t('passwordLabel', { ns: 'signIn' })}
+          helperText={t('passwordHelperText', { ns: 'signIn' })}
+        />
+        <Link href="/password-assistance">{t('forgotPassword', { ns: 'signIn' })}</Link>
         <Checkbox name="rememberMe">{t('rememberMe', { ns: 'signIn' })}</Checkbox>
-        <Button type="submit" name="signIn">
+        <Button type="submit" dataCy="signIn" variant="solid" onClick={handleSubmit}>
           {t('signInButtonLabel', { ns: 'signIn' })}
         </Button>
         <Text>{t('notRegisteredYet', { ns: 'signIn' })}</Text>

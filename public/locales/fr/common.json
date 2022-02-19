@@ -2,5 +2,7 @@
   "home": "Accueil",
   "signIn": "Se connecter / S'inscrire",
   "newGameAsGuest": "Nouvelle partie en tant qu'invité",
-  "joinGame": "Rejoindre une partie"
+  "joinGame": "Rejoindre une partie",
+  "cancel": "Annuler",
+  "continue": "Continuer"
 }

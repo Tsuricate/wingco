@@ -22,7 +22,7 @@ describe('The Sign In Page', () => {
   });
 
   it('has a link to forgot password page', () => {
-    cy.get('@pageContent').find(`a[href="${URLS.FORGOT_PASSWORD_PAGE}"]`).should('be.visible');
+    cy.get('@pageContent').find(`a[href="${URLS.PASSWORD_ASSISTANCE_PAGE}"]`).should('be.visible');
   });
 
   it('has a remember me checkbox', () => {
