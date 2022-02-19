@@ -1,7 +1,7 @@
-import { Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import Button from './Button';
+import TwoColumnsLayout from './layout/TwoColumnsLayout';
 import Link from './Link';
 
 interface FormActionsProps {
@@ -13,14 +13,14 @@ const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, onSubmit }) => {
   const { t } = useTranslation('common');
 
   return (
-    <Stack direction="row">
+    <TwoColumnsLayout>
       <Link href={cancelUrl} dataCy="cancelAction">
         {t('cancel', { ns: 'commom' })}
       </Link>
       <Button type="submit" dataCy="submitButton" onClick={onSubmit}>
         {t('continue', { ns: 'common' })}
       </Button>
-    </Stack>
+    </TwoColumnsLayout>
   );
 };
 
