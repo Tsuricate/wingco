@@ -42,7 +42,7 @@ const SignUp: React.FC = () => {
           label={t('passwordLabelValidation', { ns: 'signUp' })}
           helperText={t('passwordValidationHelperText', { ns: 'signUp' })}
         />
-        <Button type="submit" name="signUp" onClick={handleSubmit}>
+        <Button type="submit" dataCy="signUp" onClick={handleSubmit}>
           {t('signUpButtonLabel', { ns: 'signUp' })}
         </Button>
         <Text>{t('alreadyRegistered', { ns: 'signUp' })}</Text>

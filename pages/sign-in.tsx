@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
         />
         <Link href="/password-assistance">{t('forgotPassword', { ns: 'signIn' })}</Link>
         <Checkbox name="rememberMe">{t('rememberMe', { ns: 'signIn' })}</Checkbox>
-        <Button type="submit" name="signIn" variant="solid" onClick={handleSubmit}>
+        <Button type="submit" dataCy="signIn" variant="solid" onClick={handleSubmit}>
           {t('signInButtonLabel', { ns: 'signIn' })}
         </Button>
         <Text>{t('notRegisteredYet', { ns: 'signIn' })}</Text>
