@@ -8,7 +8,7 @@ export enum URLS {
   'SIGN_OUT_PAGE' = '/sign-out',
   'SIGN_UP_PAGE' = '/sign-up',
   'ACCOUNT_PAGE' = '/account',
-  'FORGOT_PASSWORD_PAGE' = '/forgot-password',
+  'PASSWORD_ASSISTANCE_PAGE' = '/password-assistance',
 }
 //TODO: List missing pages
 
@@ -25,6 +25,8 @@ export enum SELECTORS {
   'REMEMBER_ME_INPUT' = 'input[name="rememberMe"]',
   'SIGNIN_BUTTON' = 'button[name="signIn"]',
   'SIGNUP_BUTTON' = 'button[name="signUp"]',
+  'CANCEL_ACTION' = '[data-cy="cancelAction"]',
+  'SUBMIT_BUTTON' = 'button[data-cy="submitButton"]',
 }
 
 export enum DEVICES {
