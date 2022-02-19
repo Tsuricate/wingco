@@ -8,6 +8,10 @@ type ButtonProps = {
   onClick: () => void;
 };
 
+export const buttonDefaultStyle: ChakraButtonProps = {
+  colorScheme: 'blue',
+};
+
 const Button: React.FC<ButtonProps> = ({ type, dataCy, children, variant, onClick }) => {
   return (
     <ChakraButton
@@ -15,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({ type, dataCy, children, variant, onClic
       type={type}
       variant={variant}
       onClick={onClick}
-      colorScheme="blue"
+      {...buttonDefaultStyle}
     >
       {children}
     </ChakraButton>
