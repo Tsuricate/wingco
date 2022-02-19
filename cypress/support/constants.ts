@@ -27,6 +27,7 @@ export enum SELECTORS {
   'SIGNUP_BUTTON' = 'button[data-cy="signUp"]',
   'CANCEL_ACTION' = '[data-cy="cancelAction"]',
   'SUBMIT_BUTTON' = 'button[data-cy="submitButton"]',
+  'RESET_CODE_INPUT' = 'input[name="resetCode"]',
 }
 
 export enum DEVICES {
