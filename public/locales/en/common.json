@@ -2,5 +2,7 @@
   "home": "Home",
   "signIn": "Sign in / Sign up",
   "newGameAsGuest": "New game as guest",
-  "joinGame": "Join existing game"
+  "joinGame": "Join existing game",
+  "cancel": "Cancel",
+  "continue": "Continue"
 }
