@@ -10,7 +10,7 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({ type, name, children, variant, onClick }) => {
   return (
-    <ChakraButton type={type} name={name} variant={variant} onClick={onClick}>
+    <ChakraButton type={type} name={name} variant={variant} onClick={onClick} colorScheme="blue">
       {children}
     </ChakraButton>
   );

@@ -1,4 +1,4 @@
-import { Button, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
@@ -6,9 +6,14 @@ import Link from '../components/Link';
 import FormControl from '../components/FormControl';
 import FormLayout from '../components/FormLayout';
 import PageLayout from '../components/PageLayout';
+import Button from '../components/Button';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp']);
+
+  const handleSubmit = () => {
+    console.log('Button clicked');
+  };
 
   return (
     <PageLayout title={t('title', { ns: 'signUp' })}>
@@ -37,7 +42,7 @@ const SignUp: React.FC = () => {
           label={t('passwordLabelValidation', { ns: 'signUp' })}
           helperText={t('passwordValidationHelperText', { ns: 'signUp' })}
         />
-        <Button type="submit" name="signUp">
+        <Button type="submit" name="signUp" onClick={handleSubmit}>
           {t('signUpButtonLabel', { ns: 'signUp' })}
         </Button>
         <Text>{t('alreadyRegistered', { ns: 'signUp' })}</Text>
