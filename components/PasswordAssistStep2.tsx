@@ -5,11 +5,15 @@ import Button from './Button';
 import FormControl from './FormControl';
 import Link from './Link';
 
-const PasswordAssistStep2: React.FC = () => {
+interface PasswordAssistStep2Props {
+  onSubmit: () => void;
+}
+
+const PasswordAssistStep2: React.FC<PasswordAssistStep2Props> = ({ onSubmit }) => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
 
-  const handleSubmit = () => {
-    console.log('Button clicked !');
+  const handleClick = () => {
+    onSubmit();
   };
 
   return (
@@ -24,7 +28,7 @@ const PasswordAssistStep2: React.FC = () => {
       <Link href="/sign-in" dataCy="cancelAction">
         {t('cancel', { ns: 'commom' })}
       </Link>
-      <Button type="submit" dataCy="submitButton" onClick={handleSubmit}>
+      <Button type="submit" dataCy="submitButton" onClick={handleClick}>
         {t('continue', { ns: 'common' })}
       </Button>
     </>

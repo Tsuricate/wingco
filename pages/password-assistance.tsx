@@ -11,17 +11,24 @@ const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
 
   const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
+  const [hasCorrectResetCode, setHasCorrectResetCode] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmitStep1 = () => {
     setHasProvidedEmail(true);
+  };
+
+  const handleSubmitStep2 = () => {
+    setHasCorrectResetCode(true);
   };
 
   return (
     <PageLayout title={t('title')}>
       <FormLayout>
-        {!hasProvidedEmail && <PasswordAssistStep1 onSubmit={handleSubmit} />}
-        {hasProvidedEmail && <PasswordAssistStep2 />}
-        <PasswordAssistStep3 />
+        {!hasProvidedEmail && <PasswordAssistStep1 onSubmit={handleSubmitStep1} />}
+        {hasProvidedEmail && !hasCorrectResetCode && (
+          <PasswordAssistStep2 onSubmit={handleSubmitStep2} />
+        )}
+        {hasCorrectResetCode && <PasswordAssistStep3 />}
       </FormLayout>
     </PageLayout>
   );
