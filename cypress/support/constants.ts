@@ -23,8 +23,8 @@ export enum SELECTORS {
   'PASSWORD_VALIDATION_INPUT' = 'input[name="passwordValidation"]',
   'EMAIL_INPUT' = 'input[name="email"]',
   'REMEMBER_ME_INPUT' = 'input[name="rememberMe"]',
-  'SIGNIN_BUTTON' = 'button[name="signIn"]',
-  'SIGNUP_BUTTON' = 'button[name="signUp"]',
+  'SIGNIN_BUTTON' = 'button[data-cy="signIn"]',
+  'SIGNUP_BUTTON' = 'button[data-cy="signUp"]',
   'CANCEL_ACTION' = '[data-cy="cancelAction"]',
   'SUBMIT_BUTTON' = 'button[data-cy="submitButton"]',
 }
