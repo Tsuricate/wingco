@@ -1,7 +1,7 @@
 import { Container, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import React from 'react';
-import NavBar from './NavBar';
+import NavBar from '../NavBar';
 
 interface PageLayoutProps {
   title: string;
