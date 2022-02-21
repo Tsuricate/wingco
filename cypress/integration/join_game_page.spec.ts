@@ -18,7 +18,7 @@ describe('The Join Game page', () => {
   });
 
   it('provides user a way to sign in', () => {
-    cy.get('@pageContent').find(SELECTORS.SIGNIN_BUTTON).should('be.visible');
+    cy.get('@pageContent').find(`a[href="${URLS.SIGN_IN_PAGE}"]`).should('be.visible');
   });
 
   it('provides user a way to choose an avatar', () => {

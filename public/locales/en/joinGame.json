@@ -1,0 +1,9 @@
+{
+  "title": "Join Game",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae dolor suscipit corporis quibusdam error officiis quidem eum at, reprehenderit, inventore maiores distinctio debitis incidunt ducimus",
+  "usernameLabel": "Username",
+  "usernameHelperText": "Enter your username",
+  "gameIdLabel": "Game ID",
+  "gameIdHelperText": "Enter the Game ID to join",
+  "join": "Join"
+}
