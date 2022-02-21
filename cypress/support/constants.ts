@@ -28,6 +28,8 @@ export enum SELECTORS {
   'CANCEL_ACTION' = '[data-cy="cancelAction"]',
   'SUBMIT_BUTTON' = 'button[data-cy="submitButton"]',
   'RESET_CODE_INPUT' = 'input[name="resetCode"]',
+  'AVATAR_SELECTOR' = '[data-cy="avatarSelector"]',
+  'GAMEID_INPUT' = 'input[name=gameId]',
 }
 
 export enum DEVICES {
