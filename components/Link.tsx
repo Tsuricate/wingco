@@ -1,4 +1,9 @@
-import { Button as ChakraButton, ButtonProps, Link as ChakraLink } from '@chakra-ui/react';
+import {
+  Button as ChakraButton,
+  ButtonProps,
+  Link as ChakraLink,
+  LinkOverlay as ChakraLinkOverlay,
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
 import { buttonDefaultStyle } from './Button';
@@ -8,6 +13,7 @@ interface LinkProps {
   dataCy?: string;
   asButton?: boolean;
   buttonVariant?: ButtonProps['variant'];
+  asOverlay?: boolean;
 }
 
 const Link: React.FC<LinkProps> = ({
@@ -16,6 +22,7 @@ const Link: React.FC<LinkProps> = ({
   dataCy,
   asButton = false,
   buttonVariant = 'outline',
+  asOverlay = false,
 }) => {
   return (
     <NextLink href={href} passHref>
@@ -34,7 +41,9 @@ const Link: React.FC<LinkProps> = ({
           {children}
         </ChakraButton>
       ) : (
-        <ChakraLink data-cy={dataCy}>{children}</ChakraLink>
+        <ChakraLink as={asOverlay ? ChakraLinkOverlay : ChakraLink} data-cy={dataCy}>
+          {children}
+        </ChakraLink>
       )}
     </NextLink>
   );
