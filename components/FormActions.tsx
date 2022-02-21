@@ -15,7 +15,7 @@ const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, onSubmit }) => {
   return (
     <TwoColumnsLayout>
       <Link href={cancelUrl} dataCy="cancelAction" asButton>
-        {t('cancel', { ns: 'commom' })}
+        {t('cancel', { ns: 'common' })}
       </Link>
       <Button type="submit" dataCy="submitButton" onClick={onSubmit}>
         {t('continue', { ns: 'common' })}
