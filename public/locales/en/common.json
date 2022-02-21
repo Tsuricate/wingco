@@ -4,5 +4,6 @@
   "newGameAsGuest": "New game as guest",
   "joinGame": "Join existing game",
   "cancel": "Cancel",
-  "continue": "Continue"
+  "continue": "Continue",
+  "signOut": "Sign out"
 }

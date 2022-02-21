@@ -4,5 +4,6 @@
   "newGameAsGuest": "Nouvelle partie en tant qu'invité",
   "joinGame": "Rejoindre une partie",
   "cancel": "Annuler",
-  "continue": "Continuer"
+  "continue": "Continuer",
+  "signOut": "Déconnexion"
 }

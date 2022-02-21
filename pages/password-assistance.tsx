@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
-import FormLayout from '../components/FormLayout';
-import PageLayout from '../components/PageLayout';
+import FormLayout from '../components/layout/FormLayout';
+import PageLayout from '../components/layout/PageLayout';
 import PasswordAssistStep1 from '../components/PasswordAssistStep1';
 import PasswordAssistStep2 from '../components/PasswordAssistStep2';
 import PasswordAssistStep3 from '../components/PasswordAssistStep3';

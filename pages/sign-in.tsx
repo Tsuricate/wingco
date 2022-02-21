@@ -4,8 +4,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Link from '../components/Link';
 import FormControl from '../components/FormControl';
-import FormLayout from '../components/FormLayout';
-import PageLayout from '../components/PageLayout';
+import FormLayout from '../components/layout/FormLayout';
+import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
 
 const SignIn: React.FC = () => {

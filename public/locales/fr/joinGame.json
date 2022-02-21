@@ -1,0 +1,9 @@
+{
+  "title": "Rejoindre une partie",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae dolor suscipit corporis quibusdam error officiis quidem eum at, reprehenderit, inventore maiores distinctio debitis incidunt ducimus",
+  "usernameLabel": "Nom d'utilisateur",
+  "usernameHelperText": "Saisissez votre nom d'utilisateur",
+  "gameIdLabel": "Identifiant de la partie",
+  "gameIdHelperText": "Saisissez l'identifiant de la partie à rejoindre",
+  "join": "Rejoindre"
+}

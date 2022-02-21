@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from '../components/Link';
-import PageLayout from '../components/PageLayout';
+import PageLayout from '../components/layout/PageLayout';
 
 const Home: NextPage = () => {
   const { t } = useTranslation(['home', 'common']);
