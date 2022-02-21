@@ -12,9 +12,15 @@ const Home: NextPage = () => {
     <PageLayout title={t('title', { ns: 'home' })}>
       <Stack spacing={{ base: 10 }}>
         <Text>{t('description', { ns: 'home' })}</Text>
-        <Link href="/sign-in">{t('signIn', { ns: 'common' })}</Link>
-        <Link href="/new-game">{t('newGameAsGuest', { ns: 'common' })}</Link>
-        <Link href="/join-game">{t('joinGame', { ns: 'common' })}</Link>
+        <Link href="/sign-in" asButton>
+          {t('signIn', { ns: 'common' })}
+        </Link>
+        <Link href="/new-game" asButton>
+          {t('newGameAsGuest', { ns: 'common' })}
+        </Link>
+        <Link href="/join-game" asButton>
+          {t('joinGame', { ns: 'common' })}
+        </Link>
       </Stack>
     </PageLayout>
   );
