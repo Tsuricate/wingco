@@ -8,7 +8,7 @@ const NavBar: React.FC = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
 
   return (
-    <Box as="header">
+    <Box as="header" p={2}>
       <Flex justifyContent="space-between">
         <Heading>WingCo</Heading>
         <Stack direction="row" display={{ md: 'none' }}>
