@@ -9,7 +9,7 @@ const NavBar: React.FC = () => {
 
   return (
     <Box as="header" p={2}>
-      <Flex justifyContent="space-between">
+      <Flex align="center" justify="space-between">
         <Heading>WingCo</Heading>
         <Stack direction="row" display={{ md: 'none' }}>
           <ColorModeToggle />
