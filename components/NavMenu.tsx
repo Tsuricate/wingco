@@ -1,6 +1,6 @@
 import { Box, List, ListItem, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
+import Link from './Link';
 import React from 'react';
 
 interface NavMenuProps {
