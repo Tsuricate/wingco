@@ -31,7 +31,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ onClick, direction }) => {
 
   return (
     <Box p={2} as="nav" data-cy="navMenu">
-      <Stack as={List} direction={direction} spacing={{ base: 2, md: 5 }}>
+      <Stack align="flex-end" as={List} direction={direction} spacing={{ base: 2, md: 5 }}>
         {navLinks.map((link) => (
           <ListItem key={link.label} onClick={onClick}>
             <Link href={link.url}>{t(link.label)}</Link>
