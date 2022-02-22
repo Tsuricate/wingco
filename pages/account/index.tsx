@@ -2,9 +2,9 @@ import { Avatar, Center, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import AccountPanel, { AccountPanelProps } from '../components/AccountPanel';
-import Button from '../components/Button';
-import PageLayout from '../components/layout/PageLayout';
+import AccountPanel, { AccountPanelProps } from '../../components/AccountPanel';
+import Button from '../../components/Button';
+import PageLayout from '../../components/layout/PageLayout';
 
 const Account: React.FC = () => {
   const { t } = useTranslation(['account', 'common']);
