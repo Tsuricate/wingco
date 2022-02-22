@@ -5,5 +5,10 @@
   "joinGame": "Rejoindre une partie",
   "cancel": "Annuler",
   "continue": "Continuer",
-  "signOut": "Déconnexion"
+  "signOut": "Déconnexion",
+  "colorMode": {
+    "dark": "sombre",
+    "light": "clair",
+    "toggleMode": "Utiliser le mode {{mode}}"
+  }
 }

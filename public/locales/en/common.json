@@ -5,5 +5,10 @@
   "joinGame": "Join existing game",
   "cancel": "Cancel",
   "continue": "Continue",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+  "colorMode": {
+    "dark": "dark",
+    "light": "light",
+    "toggleMode": "Switch to {{mode}} mode"
+  }
 }
