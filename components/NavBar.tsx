@@ -1,6 +1,7 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { Box, Flex, Heading, IconButton, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Heading, IconButton, Stack, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
+import ColorModeToggle from './ColorModeToggle';
 import NavMenu from './NavMenu';
 
 const NavBar: React.FC = () => {
@@ -10,13 +11,15 @@ const NavBar: React.FC = () => {
     <Box as="header">
       <Flex justifyContent="space-between">
         <Heading>WingCo</Heading>
-        <IconButton
-          data-cy="burgerButton"
-          aria-label="Open menu"
-          display={{ md: 'none' }}
-          icon={<HamburgerIcon />}
-          onClick={onToggle}
-        />
+        <Stack direction="row" display={{ md: 'none' }}>
+          <ColorModeToggle />
+          <IconButton
+            data-cy="burgerButton"
+            aria-label="Open menu"
+            icon={<HamburgerIcon />}
+            onClick={onToggle}
+          />
+        </Stack>
         <Box display={{ base: 'none', md: 'block' }}>
           <NavMenu direction="row" />
         </Box>
