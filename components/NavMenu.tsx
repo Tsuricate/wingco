@@ -30,7 +30,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ onClick, direction }) => {
   ];
 
   return (
-    <Box as="nav" data-cy="navMenu">
+    <Box p={2} as="nav" data-cy="navMenu">
       <Stack as={List} direction={direction} spacing={{ md: 5 }}>
         {navLinks.map((link) => (
           <ListItem key={link.label} onClick={onClick}>
