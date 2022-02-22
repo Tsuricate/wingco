@@ -8,8 +8,8 @@ const NavBar: React.FC = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
 
   return (
-    <Box as="header">
-      <Flex justifyContent="space-between">
+    <Box as="header" p={2}>
+      <Flex align="center" justify="space-between">
         <Heading>WingCo</Heading>
         <Stack direction="row" display={{ md: 'none' }}>
           <ColorModeToggle />
