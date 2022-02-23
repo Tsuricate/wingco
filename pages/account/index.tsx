@@ -21,9 +21,9 @@ const Account: React.FC = () => {
       url: '/account/statistics',
     },
     {
-      title: 'gameHistory',
+      title: 'gamesHistory',
       background: 'blackAlpha.200',
-      url: '/account/game-history',
+      url: '/account/games-history',
     },
     {
       title: 'manageAccount',
