@@ -1,19 +1,9 @@
 import { Avatar, AvatarBadge, Heading, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import Player from '../models/players';
+import { getBadgeColor } from '../utils/playersUtils';
 import Link from './Link';
-
-enum BADGE_COLORS {
-  Gold = 'GOLD',
-  Silver = 'SILVER',
-  Bronze = 'BRONZE',
-}
-
-interface Player {
-  id: number;
-  name: string;
-  badge: BADGE_COLORS | undefined;
-}
 
 export interface GamesHistoryPanelProps {
   id: number;
@@ -27,11 +17,14 @@ const GamesHistoryPanel: React.FC<GamesHistoryPanelProps> = ({ id, date, players
   return (
     <Stack>
       <Heading>{date}</Heading>
-      {players.map((player: Player) => (
-        <Avatar key={player.id} name={player.name}>
-          {player.badge && <AvatarBadge boxSize="1.25em" bg={player.badge} />}
-        </Avatar>
-      ))}
+      {players.map((player: Player) => {
+        const badgeColor = player.badge ? getBadgeColor(player.badge) : undefined;
+        return (
+          <Avatar key={player.id} name={player.name}>
+            {player.badge && <AvatarBadge boxSize="1.25em" bg={badgeColor} />}
+          </Avatar>
+        );
+      })}
       <Link href={`/game-result/${id}`} asButton>
         {t('viewDetail', { ns: 'common' })}
       </Link>
