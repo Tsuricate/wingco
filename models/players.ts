@@ -7,5 +7,5 @@ export enum PLAYER_BADGE {
 export default interface Player {
   id: number;
   name: string;
-  badge: PLAYER_BADGE | undefined;
+  badge?: PLAYER_BADGE | undefined;
 }
