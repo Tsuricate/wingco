@@ -11,5 +11,16 @@
     "light": "light",
     "toggleMode": "Switch to {{mode}} mode"
   },
-  "viewDetail": "View details"
+  "viewDetail": "View details",
+  "points": "points",
+  "categories": {
+    "totalScore": "Total score",
+    "birds": "Birds",
+    "bonusCards": "Bonus Cards",
+    "endOfRoundGoals": "End-of-round goals",
+    "eggs": "Eggs",
+    "foodOnCards": "Food on cards",
+    "tuckedCards": "Tucked cards",
+    "nectar": "Nectar"
+  }
 }

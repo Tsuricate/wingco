@@ -11,5 +11,16 @@
     "light": "clair",
     "toggleMode": "Utiliser le mode {{mode}}"
   },
-  "viewDetail": "Voir le détail"
+  "viewDetail": "Voir le détail",
+  "points": "points",
+  "categories": {
+    "totalScore": "Score total",
+    "birds": "Oiseaux",
+    "bonusCards": "Carte bonus",
+    "endOfRoundGoals": "Objectifs de manche",
+    "eggs": "Oeufs",
+    "foodOnCards": "Nourriture stockée",
+    "tuckedCards": "Cartes recouvertes",
+    "nectar": "Nectar"
+  }
 }

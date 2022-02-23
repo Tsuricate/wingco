@@ -17,14 +17,16 @@ const GamesHistoryPanel: React.FC<GamesHistoryPanelProps> = ({ id, date, players
   return (
     <Stack>
       <Heading>{date}</Heading>
-      {players.map((player: Player) => {
-        const badgeColor = player.badge ? getBadgeColor(player.badge) : undefined;
-        return (
-          <Avatar key={player.id} name={player.name}>
-            {player.badge && <AvatarBadge boxSize="1.25em" bg={badgeColor} />}
-          </Avatar>
-        );
-      })}
+      <Stack direction="row">
+        {players.map((player: Player) => {
+          const badgeColor = player.badge ? getBadgeColor(player.badge) : undefined;
+          return (
+            <Avatar key={player.id} name={player.name}>
+              {player.badge && <AvatarBadge boxSize="1.25em" bg={badgeColor} />}
+            </Avatar>
+          );
+        })}
+      </Stack>
       <Link href={`/game-result/${id}`} asButton>
         {t('viewDetail', { ns: 'common' })}
       </Link>
