@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import PageLayout from '../../components/layout/PageLayout';
 import GamesHistoryPanel from '../../components/GamesHistoryPanel';
-import gamesHistoryData from '../../mockData/gamesHistory';
+import gamesHistoryData from '../../mockData/gamesHistoryData';
 
 const GamesHistory: React.FC = () => {
   const { t } = useTranslation(['gamesHistory', 'common']);

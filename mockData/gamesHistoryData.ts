@@ -1,4 +1,5 @@
 import { GamesHistoryPanelProps } from '../components/GamesHistoryPanel';
+import { PLAYER_BADGE } from '../models/players';
 
 const gamesHistoryData: Array<GamesHistoryPanelProps> = [
   {
@@ -8,12 +9,12 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
       {
         id: 1,
         name: 'Tsuricate',
-        badge: undefined,
+        badge: PLAYER_BADGE.Gold,
       },
       {
         id: 2,
         name: 'Trololo',
-        badge: undefined,
+        badge: PLAYER_BADGE.Silver,
       },
     ],
   },
@@ -24,12 +25,12 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
       {
         id: 2,
         name: 'Trololo',
-        badge: undefined,
+        badge: PLAYER_BADGE.Gold,
       },
       {
         id: 1,
         name: 'Tsuricate',
-        badge: undefined,
+        badge: PLAYER_BADGE.Silver,
       },
     ],
   },
@@ -40,7 +41,7 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
       {
         id: 3,
         name: 'Natsu',
-        badge: undefined,
+        badge: PLAYER_BADGE.Gold,
       },
       {
         id: 2,
@@ -50,7 +51,12 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
       {
         id: 1,
         name: 'Tsuricate',
-        badge: undefined,
+        badge: PLAYER_BADGE.Silver,
+      },
+      {
+        id: 4,
+        name: 'Thaïs',
+        badge: PLAYER_BADGE.Bronze,
       },
     ],
   },
