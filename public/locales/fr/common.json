@@ -10,5 +10,6 @@
     "dark": "sombre",
     "light": "clair",
     "toggleMode": "Utiliser le mode {{mode}}"
-  }
+  },
+  "viewDetail": "Voir le détail"
 }
