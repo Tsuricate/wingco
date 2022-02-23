@@ -11,5 +11,6 @@
     "light": "light",
     "toggleMode": "Switch to {{mode}} mode"
   },
-  "viewDetail": "View details"
+  "viewDetail": "View details",
+  "points": "points"
 }

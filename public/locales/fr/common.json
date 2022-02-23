@@ -11,5 +11,6 @@
     "light": "clair",
     "toggleMode": "Utiliser le mode {{mode}}"
   },
-  "viewDetail": "Voir le détail"
+  "viewDetail": "Voir le détail",
+  "points": "points"
 }

@@ -1,4 +1,9 @@
 {
   "title": "Statistiques",
-  "victories": "Victoires / Parties jouées"
+  "victories": "Victoires / Parties jouées",
+  "bestScores": "Meilleurs scores",
+  "bestScoresDescription": "Découvrez vos meilleurs scores !",
+  "versus": "Versus",
+  "versusDescription": "Découvrez qui détient les meilleurs scores !",
+  "detainedBestScore": "Yay ! Vous détenez le meilleur score avec {{score}} points"
 }
