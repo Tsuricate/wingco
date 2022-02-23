@@ -1,8 +1,8 @@
-import { SunIcon } from '@chakra-ui/icons';
-import { Avatar, Box, Heading, Stack, Text } from '@chakra-ui/react';
+import { Avatar, Box, Heading, Icon, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import Player from '../models/players';
+import { GiPartyPopper } from 'react-icons/gi';
 
 export interface VersusPanelProps {
   title: string;
@@ -19,7 +19,7 @@ const VersusPanel: React.FC<VersusPanelProps> = ({ title, hasBestScore, bestScor
 
       {hasBestScore ? (
         <Stack direction="row">
-          <SunIcon />
+          <Icon as={GiPartyPopper} />
           <Text>{t('detainedBestScore', { score: bestScore })}</Text>
         </Stack>
       ) : (
