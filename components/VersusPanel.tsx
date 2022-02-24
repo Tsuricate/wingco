@@ -14,17 +14,16 @@ export interface VersusPanelProps {
 const VersusPanel: React.FC<VersusPanelProps> = ({ title, hasBestScore, bestScore, player }) => {
   const { t } = useTranslation('statistics');
   return (
-    <Box>
+    <Box mt={2}>
       <Heading fontSize="md">{title}</Heading>
-
       {hasBestScore ? (
-        <Stack direction="row">
-          <Icon as={GiPartyPopper} />
+        <Stack direction="row" align="center">
+          <Icon as={GiPartyPopper} boxSize={5} />
           <Text>{t('detainedBestScore', { score: bestScore })}</Text>
         </Stack>
       ) : (
-        <Stack direction="row">
-          <Avatar name={player.name} />
+        <Stack direction="row" align="center">
+          <Avatar name={player.name} size="sm" />
           <Text>
             {player.name} : {bestScore} {t('points')}
           </Text>
