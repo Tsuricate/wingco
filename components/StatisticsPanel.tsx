@@ -1,5 +1,5 @@
 import { Icon } from '@chakra-ui/icons';
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { IconType } from 'react-icons';
 
@@ -16,9 +16,13 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
 }) => {
   return (
     <Box>
-      <Icon as={icon} />
-      <Heading fontSize="lg">{title}</Heading>
-      <Text>{description}</Text>
+      <Flex alignItems="center">
+        <Icon as={icon} boxSize={8} />
+        <Stack spacing={0} m={2}>
+          <Heading fontSize="lg">{title}</Heading>
+          <Text>{description}</Text>
+        </Stack>
+      </Flex>
       {children}
     </Box>
   );
