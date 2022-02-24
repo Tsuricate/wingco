@@ -21,8 +21,8 @@ const PasswordAssistStep1: React.FC<PasswordAssistStep1Props> = ({ onSubmit }) =
       <FormControl
         id="email"
         name="email"
-        label={t('emailLabel', { ns: 'passwordAssistance' })}
-        helperText={t('emailHelperText', { ns: 'passwordAssistance' })}
+        label={t('emailLabel', { ns: 'common' })}
+        helperText={t('emailHelperText', { ns: 'common' })}
       />
       <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
     </>

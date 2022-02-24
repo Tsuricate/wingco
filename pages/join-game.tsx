@@ -9,7 +9,7 @@ import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 
 const JoinGame: React.FC = () => {
-  const { t } = useTranslation('joinGame');
+  const { t } = useTranslation(['joinGame', 'common']);
 
   const handleClick = () => {
     console.log('Join game!');
@@ -27,8 +27,8 @@ const JoinGame: React.FC = () => {
           <FormControl
             id="username"
             name="username"
-            label={t('usernameLabel', { ns: 'joinGame' })}
-            helperText={t('usernameHelperText', { ns: 'joinGame' })}
+            label={t('usernameLabel', { ns: 'common' })}
+            helperText={t('usernameHelperText', { ns: 'common' })}
           />
         </Stack>
         <FormControl

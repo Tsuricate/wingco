@@ -9,7 +9,7 @@ import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
 
 const SignIn: React.FC = () => {
-  const { t } = useTranslation(['signIn']);
+  const { t } = useTranslation(['signIn', 'common']);
 
   const handleSubmit = () => {
     console.log('Button clicked');
@@ -21,8 +21,8 @@ const SignIn: React.FC = () => {
         <FormControl
           id="username"
           name="username"
-          label={t('usernameLabel', { ns: 'signIn' })}
-          helperText={t('usernameHelperText', { ns: 'signIn' })}
+          label={t('usernameLabel', { ns: 'common' })}
+          helperText={t('usernameHelperText', { ns: 'common' })}
         />
         <FormControl
           id="password"

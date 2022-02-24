@@ -22,5 +22,10 @@
     "foodOnCards": "Nourriture stockée",
     "tuckedCards": "Cartes recouvertes",
     "nectar": "Nectar"
-  }
+  },
+  "usernameLabel": "Nom d'utilisateur",
+  "usernameHelperText": "Saisissez votre nom d'utilisateur",
+  "emailLabel": "Adresse email",
+  "emailHelperText": "Saisissez votre adresse email",
+  "save": "Enregistrer"
 }

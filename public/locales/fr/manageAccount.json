@@ -1,0 +1,8 @@
+{
+  "title": "Gestion du compte",
+  "description": "N'hésitez pas à changer les informations de votre compte",
+  "usernameHelperText": "Saisissez votre nouveau nom d'utilisateur",
+  "emailHelperText": "Mettez à jour votre adresse email",
+  "changePassword": "Changer votre mot de passe",
+  "delete": "Supprimer votre compte"
+}

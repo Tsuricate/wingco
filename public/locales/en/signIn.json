@@ -1,7 +1,5 @@
 {
   "title": "Sign In",
-  "usernameLabel": "Username",
-  "usernameHelperText": "Enter your username",
   "passwordLabel": "Password",
   "passwordHelperText": "Enter your password",
   "forgotPassword": "Forgot password ?",
