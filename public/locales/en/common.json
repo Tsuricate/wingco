@@ -22,5 +22,9 @@
     "foodOnCards": "Food on cards",
     "tuckedCards": "Tucked cards",
     "nectar": "Nectar"
-  }
+  },
+  "usernameLabel": "Username",
+  "usernameHelperText": "Enter your username",
+  "emailLabel": "Email address",
+  "emailHelperText": "Enter your email address"
 }
