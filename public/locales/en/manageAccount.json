@@ -1,0 +1,8 @@
+{
+  "title": "Manage account",
+  "description": "Feel free to update your informations",
+  "usernameHelperText": "Choose your new username",
+  "emailHelperText": "Update your email address",
+  "changePassword": "Change password",
+  "delete": "Delete account"
+}

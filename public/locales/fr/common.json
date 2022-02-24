@@ -26,5 +26,6 @@
   "usernameLabel": "Nom d'utilisateur",
   "usernameHelperText": "Saisissez votre nom d'utilisateur",
   "emailLabel": "Adresse email",
-  "emailHelperText": "Saisissez votre adresse email"
+  "emailHelperText": "Saisissez votre adresse email",
+  "save": "Enregistrer"
 }
