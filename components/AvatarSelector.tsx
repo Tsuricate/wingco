@@ -5,7 +5,7 @@ const AvatarSelector: React.FC = () => {
   const handleClick = () => {
     console.log('Choose an avatar!');
   };
-  return <Avatar size="sm" onClick={handleClick} />;
+  return <Avatar size="md" onClick={handleClick} />;
 };
 
 export default AvatarSelector;

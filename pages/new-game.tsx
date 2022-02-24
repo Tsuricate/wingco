@@ -4,13 +4,16 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import FormLayout from '../components/layout/FormLayout';
 import PageLayout from '../components/layout/PageLayout';
+import NewGamePlayer from '../components/NewGamePlayer';
 
-const NewGame = () => {
+const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   return (
     <PageLayout title={t('title')}>
       <Text>ID #156D5E8</Text>
-      <FormLayout></FormLayout>
+      <FormLayout>
+        <NewGamePlayer />
+      </FormLayout>
     </PageLayout>
   );
 };
