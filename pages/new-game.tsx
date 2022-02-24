@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Button from '../components/Button';
+import InvitePlayerButton from '../components/InvitePlayerButton';
 import FormLayout from '../components/layout/FormLayout';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
@@ -15,9 +16,7 @@ const NewGame: React.FC = () => {
   const handleAddPlayer = () => {
     console.log('Add player !');
   };
-  const handleInvitePlayer = () => {
-    console.log('Invite player !');
-  };
+
   return (
     <PageLayout title={t('title')}>
       <Text>ID {gameId}</Text>
@@ -27,9 +26,7 @@ const NewGame: React.FC = () => {
           <NewGamePlayer />
         </Stack>
         <Button onClick={handleAddPlayer}>{t('addPlayer')}</Button>
-        <Button variant="outline" onClick={handleInvitePlayer}>
-          {t('invitePlayer')}
-        </Button>
+        <InvitePlayerButton />
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="useNectar">{t('useNectar')}</FormLabel>
           <Switch id="useNectar" />
