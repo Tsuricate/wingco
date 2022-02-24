@@ -1,4 +1,17 @@
 {
   "title": "New game",
-  "player": "Player"
+  "player": "Player",
+  "addPlayer": "Add player",
+  "invitePlayer": "Invite player",
+  "useNectar": "Use Nectar (Oceania Expansion)",
+  "estimatedTime": "Estimated game time : {{duration}} minutes",
+  "startGame": "Start game",
+  "howInvitePlayer": "How to invite a player",
+  "howInviteDescription": "Your game ID is : {{gameId}}",
+  "howInviteIntro": "In order to join your game, your friend has to :",
+  "howInviteStep1": "Visit wingco.vercel.app",
+  "howInviteStep2": "Click on \"Join existing game\" button",
+  "howInviteStep3": "Register, log in or join as an anonymous player",
+  "howInviteStep4": "Enter your game ID : {{gameId}}",
+  "closeMessage": "Got it !"
 }

@@ -1,4 +1,17 @@
 {
   "title": "Nouvelle partie",
-  "player": "Joueur"
+  "player": "Joueur",
+  "addPlayer": "Ajouter un joueur",
+  "invitePlayer": "Inviter un joueur",
+  "useNectar": "Inclure Nectar (Extension Océanie)",
+  "estimatedTime": "Durée estimée de la partie : {{duration}} minutes",
+  "startGame": "Démarrer la partie",
+  "howInvitePlayer": "Comment inviter un joueur",
+  "howInviteDescription": "L'id de votre partie est {{gameId}}",
+  "howInviteIntro": "Pour rejoindre la partie, votre ami doit :",
+  "howInviteStep1": "Se rendre sur wingco.vercel.app",
+  "howInviteStep2": "Cliquer sur le bouton \"Rejoindre une partie\"",
+  "howInviteStep3": "S'inscrire, se connecter ou rejoindre la partie en tant que joueur anonyme",
+  "howInviteStep4": "Renseigner l'ID de votre partie",
+  "closeMessage": "Compris !"
 }
