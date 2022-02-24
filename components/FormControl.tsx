@@ -25,7 +25,7 @@ const FormControl: React.FC<FormControlProps> = ({
   rightSlot,
 }) => {
   return (
-    <ChakraFormControl mx={2}>
+    <ChakraFormControl>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       <Stack direction="row" align="center">
         {leftSlot}

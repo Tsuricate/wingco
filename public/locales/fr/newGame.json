@@ -1,4 +1,9 @@
 {
   "title": "Nouvelle partie",
-  "player": "Joueur"
+  "player": "Joueur",
+  "addPlayer": "Ajouter un joueur",
+  "invitePlayer": "Inviter un joueur",
+  "useNectar": "Inclure Nectar (Extension Océanie)",
+  "estimatedTime": "Durée estimée de la partie : {{duration}} minutes",
+  "startGame": "Démarrer la partie"
 }

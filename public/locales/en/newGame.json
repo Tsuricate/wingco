@@ -1,4 +1,9 @@
 {
   "title": "New game",
-  "player": "Player"
+  "player": "Player",
+  "addPlayer": "Add player",
+  "invitePlayer": "Invite player",
+  "useNectar": "Use Nectar (Oceania Expansion)",
+  "estimatedTime": "Estimated game time : {{duration}} minutes",
+  "startGame": "Start game"
 }
