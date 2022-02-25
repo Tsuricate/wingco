@@ -1,8 +1,9 @@
-import { Avatar, Box, Heading, Icon, Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, Icon, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import Player from '../models/players';
 import { GiPartyPopper } from 'react-icons/gi';
+import Player from '../models/players';
+import PlayerAvatar from './PlayerAvatar';
 
 export interface VersusPanelProps {
   title: string;
@@ -23,9 +24,9 @@ const VersusPanel: React.FC<VersusPanelProps> = ({ title, hasBestScore, bestScor
         </Stack>
       ) : (
         <Stack direction="row" align="center">
-          <Avatar name={player.name} size="sm" />
+          <PlayerAvatar playerName={player.name} />
           <Text>
-            {player.name} : {bestScore} {t('points')}
+            {bestScore} {t('points')}
           </Text>
         </Stack>
       )}

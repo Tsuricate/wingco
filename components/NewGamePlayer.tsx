@@ -5,16 +5,29 @@ import React from 'react';
 import AvatarSelector from './AvatarSelector';
 import FormControl from './FormControl';
 
-const NewGamePlayer: React.FC = () => {
+interface NewGamePlayerProps {
+  playerNumber: number;
+  onDeletePlayer: () => void;
+}
+
+const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber, onDeletePlayer }) => {
   const { t } = useTranslation('newGame');
+
   return (
     <FormControl
-      id="player"
-      name="player"
-      label={t('player')}
+      id={`player${playerNumber}`}
+      name={`player${playerNumber}`}
+      label={t('player', { number: playerNumber })}
       leftSlot={<AvatarSelector />}
       rightSlot={
-        <IconButton aria-label="Remove player from game" colorScheme="red" icon={<DeleteIcon />} />
+        playerNumber > 1 ? (
+          <IconButton
+            aria-label="Remove player from game"
+            colorScheme="red"
+            icon={<DeleteIcon />}
+            onClick={onDeletePlayer}
+          />
+        ) : undefined
       }
     />
   );

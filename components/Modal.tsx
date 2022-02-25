@@ -6,6 +6,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -16,6 +17,7 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   description: string;
+  saveMessage?: string;
   closeMessage: string;
 }
 
@@ -25,6 +27,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   description,
   children,
+  saveMessage,
   closeMessage,
 }) => {
   return (
@@ -36,8 +39,11 @@ const Modal: React.FC<ModalProps> = ({
           <Text textAlign="center">{description}</Text>
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>{closeMessage}</Button>
+          <ModalFooter justifyContent="center">
+            <Stack>
+              {saveMessage && <Button onClick={onClose}>{saveMessage}</Button>}
+              <Button onClick={onClose}>{closeMessage}</Button>
+            </Stack>
           </ModalFooter>
         </ModalContent>
       </ChakraModal>
