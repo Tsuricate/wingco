@@ -12,22 +12,22 @@ const Account: React.FC = () => {
 
   const panels: Array<AccountPanelProps> = [
     {
-      title: 'createGame',
+      title: t('account:createGame'),
       background: 'blackAlpha.50',
       url: '/new-game',
     },
     {
-      title: 'statistics',
+      title: t('account:statistics'),
       background: 'blackAlpha.100',
       url: '/account/statistics',
     },
     {
-      title: 'gamesHistory',
+      title: t('account:gamesHistory'),
       background: 'blackAlpha.200',
       url: '/account/games-history',
     },
     {
-      title: 'manageAccount',
+      title: t('account:manageAccount'),
       background: 'blackAlpha.300',
       url: '/account/manage',
     },
@@ -51,7 +51,7 @@ const Account: React.FC = () => {
             return (
               <AccountPanel
                 key={panel.title}
-                title={t(`account:${panel.title}`)}
+                title={panel.title}
                 background={panel.background}
                 url={panel.url}
               />
