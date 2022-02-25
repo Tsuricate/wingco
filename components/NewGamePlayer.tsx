@@ -7,9 +7,10 @@ import FormControl from './FormControl';
 
 interface NewGamePlayerProps {
   playerNumber: number;
+  onDeletePlayer: () => void;
 }
 
-const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber }) => {
+const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber, onDeletePlayer }) => {
   const { t } = useTranslation('newGame');
 
   return (
@@ -24,6 +25,7 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber }) => {
             aria-label="Remove player from game"
             colorScheme="red"
             icon={<DeleteIcon />}
+            onClick={onDeletePlayer}
           />
         ) : undefined
       }

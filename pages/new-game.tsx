@@ -1,3 +1,4 @@
+import uniqid from 'uniqid';
 import { FormControl, FormLabel, Stack, Switch, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -11,13 +12,18 @@ import NewGamePlayer from '../components/NewGamePlayer';
 
 const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
-  const [players, setPlayers] = useState([{}]);
+  const [players, setPlayers] = useState([{ id: uniqid() }]);
   const gameId = '#156D5E8';
 
   const handleAddPlayer = () => {
     if (players.length < 5) {
-      setPlayers([...players, {}]);
+      setPlayers([...players, { id: uniqid() }]);
     }
+  };
+
+  const handleDeletePlayer = (playerId: string) => {
+    const newPlayersList = players.filter((player) => player.id !== playerId);
+    setPlayers([...newPlayersList]);
   };
 
   return (
@@ -26,7 +32,11 @@ const NewGame: React.FC = () => {
       <FormLayout>
         <Stack>
           {players.map((player, index) => (
-            <NewGamePlayer key={index} playerNumber={index + 1} />
+            <NewGamePlayer
+              key={player.id}
+              playerNumber={index + 1}
+              onDeletePlayer={() => handleDeletePlayer(player.id)}
+            />
           ))}
         </Stack>
         <Button onClick={handleAddPlayer}>{t('addPlayer')}</Button>
