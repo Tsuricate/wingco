@@ -5,13 +5,17 @@ import React from 'react';
 import AvatarSelector from './AvatarSelector';
 import FormControl from './FormControl';
 
-const NewGamePlayer: React.FC = () => {
+interface NewGamePlayerProps {
+  playerNumber: number;
+}
+
+const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber }) => {
   const { t } = useTranslation('newGame');
   return (
     <FormControl
-      id="player"
-      name="player"
-      label={t('player')}
+      id={`player${playerNumber}`}
+      name={`player${playerNumber}`}
+      label={t('player', { number: playerNumber })}
       leftSlot={<AvatarSelector />}
       rightSlot={
         <IconButton aria-label="Remove player from game" colorScheme="red" icon={<DeleteIcon />} />
