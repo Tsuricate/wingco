@@ -1,6 +1,6 @@
 {
   "title": "New game",
-  "player": "Player",
+  "player": "Player {{number}}",
   "addPlayer": "Add player",
   "invitePlayer": "Invite player",
   "useNectar": "Use Nectar (Oceania Expansion)",
