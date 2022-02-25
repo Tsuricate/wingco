@@ -1,0 +1,31 @@
+{
+  "home": "Accueil",
+  "signIn": "Se connecter / S'inscrire",
+  "newGameAsGuest": "Nouvelle partie en tant qu'invité",
+  "joinGame": "Rejoindre une partie",
+  "cancel": "Annuler",
+  "continue": "Continuer",
+  "signOut": "Déconnexion",
+  "colorMode": {
+    "dark": "sombre",
+    "light": "clair",
+    "toggleMode": "Utiliser le mode {{mode}}"
+  },
+  "viewDetail": "Voir le détail",
+  "points": "points",
+  "categories": {
+    "totalScore": "Score total",
+    "birds": "Oiseaux",
+    "bonusCards": "Carte bonus",
+    "endOfRoundGoals": "Objectifs de manche",
+    "eggs": "Oeufs",
+    "foodOnCards": "Nourriture stockée",
+    "tuckedCards": "Cartes recouvertes",
+    "nectar": "Nectar"
+  },
+  "usernameLabel": "Nom d'utilisateur",
+  "usernameHelperText": "Saisissez votre nom d'utilisateur",
+  "emailLabel": "Adresse email",
+  "emailHelperText": "Saisissez votre adresse email",
+  "save": "Enregistrer"
+}

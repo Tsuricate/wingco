@@ -1,0 +1,10 @@
+{
+  "title": "Connexion",
+  "passwordLabel": "Mot de passe",
+  "passwordHelperText": "Saisissez votre mot de passe",
+  "forgotPassword": "Mot de passe oublié ?",
+  "rememberMe": "Se souvenir de moi",
+  "signInButtonLabel": "Connexion",
+  "signUp": "S'inscrire",
+  "notRegisteredYet": "Pas encore inscrit ?"
+}
