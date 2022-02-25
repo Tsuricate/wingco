@@ -11,6 +11,7 @@ interface NewGamePlayerProps {
 
 const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber }) => {
   const { t } = useTranslation('newGame');
+
   return (
     <FormControl
       id={`player${playerNumber}`}
@@ -18,7 +19,13 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber }) => {
       label={t('player', { number: playerNumber })}
       leftSlot={<AvatarSelector />}
       rightSlot={
-        <IconButton aria-label="Remove player from game" colorScheme="red" icon={<DeleteIcon />} />
+        playerNumber > 1 ? (
+          <IconButton
+            aria-label="Remove player from game"
+            colorScheme="red"
+            icon={<DeleteIcon />}
+          />
+        ) : undefined
       }
     />
   );
