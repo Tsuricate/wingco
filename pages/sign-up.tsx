@@ -16,37 +16,37 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <PageLayout title={t('title', { ns: 'signUp' })}>
+    <PageLayout title={t('signUp:title')}>
       <FormLayout>
         <FormControl
           id="username"
           name="username"
-          label={t('usernameLabel', { ns: 'common' })}
-          helperText={t('usernameHelperText', { ns: 'common' })}
+          label={t('common:usernameLabel')}
+          helperText={t('common:usernameHelperText')}
         />
         <FormControl
           id="email"
           name="email"
-          label={t('emailLabel', { ns: 'common' })}
-          helperText={t('emailHelperText', { ns: 'common' })}
+          label={t('common:emailLabel')}
+          helperText={t('common:emailHelperText')}
         />
         <FormControl
           id="password"
           name="password"
-          label={t('passwordLabel', { ns: 'signUp' })}
-          helperText={t('passwordHelperText', { ns: 'signUp' })}
+          label={t('signUp:passwordLabel')}
+          helperText={t('signUp:passwordHelperText')}
         />
         <FormControl
           id="passwordValidation"
           name="passwordValidation"
-          label={t('passwordLabelValidation', { ns: 'signUp' })}
-          helperText={t('passwordValidationHelperText', { ns: 'signUp' })}
+          label={t('signUp:passwordLabelValidation')}
+          helperText={t('signUp:passwordValidationHelperText')}
         />
         <Button type="submit" dataCy="signUp" onClick={handleSubmit}>
-          {t('signUpButtonLabel', { ns: 'signUp' })}
+          {t('signUp:signUpButtonLabel')}
         </Button>
-        <Text>{t('alreadyRegistered', { ns: 'signUp' })}</Text>
-        <Link href="/sign-in">{t('signIn', { ns: 'signUp' })}</Link>
+        <Text>{t('signUp:alreadyRegistered')}</Text>
+        <Link href="/sign-in">{t('signUp:signIn')}</Link>
       </FormLayout>
     </PageLayout>
   );

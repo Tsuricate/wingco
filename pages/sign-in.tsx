@@ -16,27 +16,27 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <PageLayout title={t('title', { ns: 'signIn' })}>
+    <PageLayout title={t('signIn:title')}>
       <FormLayout>
         <FormControl
           id="username"
           name="username"
-          label={t('usernameLabel', { ns: 'common' })}
-          helperText={t('usernameHelperText', { ns: 'common' })}
+          label={t('common:usernameLabel')}
+          helperText={t('common:usernameHelperText')}
         />
         <FormControl
           id="password"
           name="password"
-          label={t('passwordLabel', { ns: 'signIn' })}
-          helperText={t('passwordHelperText', { ns: 'signIn' })}
+          label={t('signIn:passwordLabel')}
+          helperText={t('signIn:passwordHelperText')}
         />
-        <Link href="/password-assistance">{t('forgotPassword', { ns: 'signIn' })}</Link>
-        <Checkbox name="rememberMe">{t('rememberMe', { ns: 'signIn' })}</Checkbox>
+        <Link href="/password-assistance">{t('signIn:forgotPassword')}</Link>
+        <Checkbox name="rememberMe">{t('signIn:rememberMe')}</Checkbox>
         <Button type="submit" dataCy="signIn" variant="solid" onClick={handleSubmit}>
-          {t('signInButtonLabel', { ns: 'signIn' })}
+          {t('signIn:signInButtonLabel')}
         </Button>
-        <Text>{t('notRegisteredYet', { ns: 'signIn' })}</Text>
-        <Link href="/sign-up">{t('signUp', { ns: 'signIn' })}</Link>
+        <Text>{t('signIn:notRegisteredYet')}</Text>
+        <Link href="/sign-up">{t('signIn:signUp')}</Link>
       </FormLayout>
     </PageLayout>
   );

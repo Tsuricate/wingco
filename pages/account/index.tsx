@@ -37,12 +37,12 @@ const Account: React.FC = () => {
     console.log('Sign out button was clicked!');
   };
   return (
-    <PageLayout title={t('title', { ns: 'account' })}>
+    <PageLayout title={t('account:title')}>
       <Stack spacing={8}>
         <Stack as={Center}>
           <PlayerAvatar playerName="Lorem Ipsum" direction="column" avatarSize="lg" />
           <Button dataCy="signOut" onClick={handleSignOut}>
-            {t('signOut', { ns: 'common' })}
+            {t('common:signOut')}
           </Button>
         </Stack>
 
@@ -51,7 +51,7 @@ const Account: React.FC = () => {
             return (
               <AccountPanel
                 key={panel.title}
-                title={t(panel.title, { ns: 'account' })}
+                title={t(`account:${panel.title}`)}
                 background={panel.background}
                 url={panel.url}
               />

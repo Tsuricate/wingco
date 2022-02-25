@@ -16,29 +16,29 @@ const JoinGame: React.FC = () => {
   };
 
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('joinGame:title')}>
       <FormLayout>
-        <Text>{t('description', { ns: 'joinGame' })}</Text>
+        <Text>{t('joinGame:description')}</Text>
         <Link href="/sign-in" asButton>
-          {t('signIn', { ns: 'common' })}
+          {t('common:signIn')}
         </Link>
         <Stack direction="row" align="center">
           <Avatar name="Lorem Ipsum" data-cy="avatarSelector" />
           <FormControl
             id="username"
             name="username"
-            label={t('usernameLabel', { ns: 'common' })}
-            helperText={t('usernameHelperText', { ns: 'common' })}
+            label={t('common:usernameLabel')}
+            helperText={t('common:usernameHelperText')}
           />
         </Stack>
         <FormControl
           id="gameId"
           name="gameId"
-          label={t('gameIdLabel', { ns: 'joinGame' })}
-          helperText={t('gameIdHelperText', { ns: 'joinGame' })}
+          label={t('joinGame:gameIdLabel')}
+          helperText={t('joinGame:gameIdHelperText')}
         />
         <Button type="submit" dataCy="submitButton" onClick={handleClick}>
-          {t('join')}
+          {t('joinGame:join')}
         </Button>
       </FormLayout>
     </PageLayout>

@@ -23,10 +23,10 @@ const AvatarSelector: React.FC = () => {
       <Modal
         onClose={onClose}
         isOpen={isOpen}
-        title={t('chooseAvatar')}
-        description={t('chooseAvatarDescription')}
-        closeMessage={t('cancel', { ns: 'common' })}
-        saveMessage={t('save', { ns: 'common' })}
+        title={t('newGame:chooseAvatar')}
+        description={t('newGame:chooseAvatarDescription')}
+        closeMessage={t('common:cancel')}
+        saveMessage={t('common:save')}
       >
         <SimpleGrid columns={{ base: 2 }} spacing={10}>
           {avatarImages.map((image) => (
