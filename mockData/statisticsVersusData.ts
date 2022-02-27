@@ -1,4 +1,5 @@
 import { VersusPanelProps } from '../components/VersusPanel';
+import uniqid from 'uniqid';
 
 export const statisticsVersusData: Array<VersusPanelProps> = [
   {
@@ -6,7 +7,7 @@ export const statisticsVersusData: Array<VersusPanelProps> = [
     hasBestScore: false,
     bestScore: 124,
     player: {
-      id: 1,
+      id: uniqid(),
       name: 'Tsuricate',
     },
   },
@@ -15,7 +16,7 @@ export const statisticsVersusData: Array<VersusPanelProps> = [
     hasBestScore: true,
     bestScore: 25,
     player: {
-      id: 2,
+      id: uniqid(),
       name: 'Trololo',
     },
   },
