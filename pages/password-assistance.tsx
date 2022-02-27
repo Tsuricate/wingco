@@ -30,7 +30,7 @@ const PasswordAssistance = () => {
   };
 
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('passwordAssistance:title')}>
       <FormLayout>
         {!hasProvidedEmail && <PasswordAssistStep1 onSubmit={handleSubmitStep1} />}
         {hasProvidedEmail && !hasCorrectResetCode && (

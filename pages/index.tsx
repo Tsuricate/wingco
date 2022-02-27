@@ -9,17 +9,17 @@ const Home: NextPage = () => {
   const { t } = useTranslation(['home', 'common']);
 
   return (
-    <PageLayout title={t('title', { ns: 'home' })}>
+    <PageLayout title={t('home:title')}>
       <Stack spacing={{ base: 10 }}>
-        <Text>{t('description', { ns: 'home' })}</Text>
+        <Text>{t('home:description')}</Text>
         <Link href="/sign-in" asButton>
-          {t('signIn', { ns: 'common' })}
+          {t('common:signIn')}
         </Link>
         <Link href="/new-game" asButton>
-          {t('newGameAsGuest', { ns: 'common' })}
+          {t('common:newGameAsGuest')}
         </Link>
         <Link href="/join-game" asButton>
-          {t('joinGame', { ns: 'common' })}
+          {t('common:joinGame')}
         </Link>
       </Stack>
     </PageLayout>

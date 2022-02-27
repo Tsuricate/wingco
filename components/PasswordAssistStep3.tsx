@@ -13,18 +13,18 @@ const PasswordAssistStep3: React.FC = () => {
 
   return (
     <>
-      <Text>{t('descriptionStep3', { ns: 'passwordAssistance' })}</Text>
+      <Text>{t('passwordAssistance:descriptionStep3')}</Text>
       <FormControl
         id="password"
         name="password"
-        label={t('newPasswordLabel', { ns: 'passwordAssistance' })}
-        helperText={t('newPasswordHelperText', { ns: 'passwordAssistance' })}
+        label={t('passwordAssistance:newPasswordLabel')}
+        helperText={t('passwordAssistance:newPasswordHelperText')}
       />
       <FormControl
         id="passwordValidation"
         name="passwordValidation"
-        label={t('newPasswordValidationLabel', { ns: 'passwordAssistance' })}
-        helperText={t('newPasswordValidationHelperText', { ns: 'passwordAssistance' })}
+        label={t('passwordAssistance:newPasswordValidationLabel')}
+        helperText={t('passwordAssistance:newPasswordValidationHelperText')}
       />
       <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
     </>
