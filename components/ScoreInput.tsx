@@ -2,7 +2,7 @@ import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { IconButton, Input, Stack } from '@chakra-ui/react';
 import React from 'react';
 
-const ScoreInput = () => {
+const ScoreInput: React.FC = () => {
   return (
     <Stack direction="row" align="center">
       <IconButton aria-label="Decrease score" icon={<MinusIcon />} size="sm" />
