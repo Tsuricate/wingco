@@ -15,10 +15,10 @@ const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, onSubmit }) => {
   return (
     <Stack direction={{ base: 'column', md: 'row-reverse' }}>
       <Button type="submit" dataCy="submitButton" onClick={onSubmit}>
-        {t('continue', { ns: 'common' })}
+        {t('common:continue')}
       </Button>
       <Link href={cancelUrl} dataCy="cancelAction" asButton>
-        {t('cancel', { ns: 'common' })}
+        {t('common:cancel')}
       </Link>
     </Stack>
   );

@@ -13,29 +13,29 @@ const Statistics: React.FC = () => {
   const { t } = useTranslation(['statistics', 'common']);
 
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('statistics:title')}>
       <Stat>
-        <StatLabel> {t('victories')}</StatLabel>
+        <StatLabel> {t('statistics:victories')}</StatLabel>
         <StatNumber>45 / 156</StatNumber>
       </Stat>
       <StatisticsPanel
-        title={t('bestScores')}
-        description={t('bestScoresDescription')}
+        title={t('statistics:bestScores')}
+        description={t('statistics:bestScoresDescription')}
         icon={GiTrophy}
       >
         <List>
           {bestScoreByCategory.map((category) => (
             <ListItem key={category.name}>
               <Text>
-                {category.score} {t(`categories.${category.name}`, { ns: 'common' })}
+                {category.score} {t(`common:categories.${category.name}`)}
               </Text>
             </ListItem>
           ))}
         </List>
       </StatisticsPanel>
       <StatisticsPanel
-        title={t('versus')}
-        description={t('versusDescription')}
+        title={t('statistics:versus')}
+        description={t('statistics:versusDescription')}
         icon={GiCrossedSabres}
       >
         {statisticsVersusData.map((stat) => (

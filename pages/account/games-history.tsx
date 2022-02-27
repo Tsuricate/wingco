@@ -9,7 +9,7 @@ const GamesHistory: React.FC = () => {
   const { t } = useTranslation(['gamesHistory', 'common']);
 
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('gamesHistory:title')}>
       {gamesHistoryData.map((game) => (
         <GamesHistoryPanel key={game.id} {...game} />
       ))}

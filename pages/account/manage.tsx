@@ -19,28 +19,30 @@ const ManageAccount = () => {
 
   const email = 'tsuricate@gmail.com';
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('manageAccount:title')}>
       <FormLayout>
-        <Text>{t('description')}</Text>
+        <Text>{t('manageAccount:description')}</Text>
         <Divider />
         <FormControl
           id="username"
           name="username"
-          label={t('usernameLabel', { ns: 'common' })}
-          helperText={t('usernameHelperText')}
+          label={t('common:usernameLabel')}
+          helperText={t('manageAccount:usernameHelperText')}
         />
         <FormControl
           id="email"
           name="email"
-          label={t('emailLabel', { ns: 'common' })}
-          helperText={t('emailHelperText')}
+          label={t('common:emailLabel')}
+          helperText={t('manageAccount:emailHelperText')}
         />
         <Divider />
-        <Button onClick={handleSave}>{t('save', { ns: 'common' })}</Button>
+        <Button onClick={handleSave}>{t('common:save')}</Button>
         <Divider />
-        <Link href={`/password-assistance?email=${email}`}>{t('changePassword')}</Link>
+        <Link href={`/password-assistance?email=${email}`}>
+          {t('manageAccount:changePassword')}
+        </Link>
         <Divider />
-        <Button onClick={handleDelete}>{t('delete')}</Button>
+        <Button onClick={handleDelete}>{t('manageAccount:delete')}</Button>
       </FormLayout>
     </PageLayout>
   );

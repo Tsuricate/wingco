@@ -17,12 +17,12 @@ const PasswordAssistStep1: React.FC<PasswordAssistStep1Props> = ({ onSubmit }) =
 
   return (
     <>
-      <Text>{t('description', { ns: 'passwordAssistance' })}</Text>
+      <Text>{t('passwordAssistance:description')}</Text>
       <FormControl
         id="email"
         name="email"
-        label={t('emailLabel', { ns: 'common' })}
-        helperText={t('emailHelperText', { ns: 'common' })}
+        label={t('common:emailLabel')}
+        helperText={t('common:emailHelperText')}
       />
       <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
     </>

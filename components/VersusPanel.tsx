@@ -26,7 +26,7 @@ const VersusPanel: React.FC<VersusPanelProps> = ({ title, hasBestScore, bestScor
         <Stack direction="row" align="center">
           <PlayerAvatar playerName={player.name} />
           <Text>
-            {bestScore} {t('points')}
+            {bestScore} {t('common:points')}
           </Text>
         </Stack>
       )}

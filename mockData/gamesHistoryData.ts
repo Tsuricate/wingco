@@ -1,5 +1,6 @@
 import { GamesHistoryPanelProps } from '../components/GamesHistoryPanel';
 import { PLAYER_BADGE } from '../models/players';
+import uniqid from 'uniqid';
 
 const gamesHistoryData: Array<GamesHistoryPanelProps> = [
   {
@@ -7,12 +8,12 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
     date: '1',
     players: [
       {
-        id: 1,
+        id: uniqid(),
         name: 'Tsuricate',
         badge: PLAYER_BADGE.Gold,
       },
       {
-        id: 2,
+        id: uniqid(),
         name: 'Trololo',
         badge: PLAYER_BADGE.Silver,
       },
@@ -23,12 +24,12 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
     date: '2',
     players: [
       {
-        id: 2,
+        id: uniqid(),
         name: 'Trololo',
         badge: PLAYER_BADGE.Gold,
       },
       {
-        id: 1,
+        id: uniqid(),
         name: 'Tsuricate',
         badge: PLAYER_BADGE.Silver,
       },
@@ -39,22 +40,22 @@ const gamesHistoryData: Array<GamesHistoryPanelProps> = [
     date: '3',
     players: [
       {
-        id: 3,
+        id: uniqid(),
         name: 'Natsu',
         badge: PLAYER_BADGE.Gold,
       },
       {
-        id: 2,
+        id: uniqid(),
         name: 'Trololo',
         badge: undefined,
       },
       {
-        id: 1,
+        id: uniqid(),
         name: 'Tsuricate',
         badge: PLAYER_BADGE.Silver,
       },
       {
-        id: 4,
+        id: uniqid(),
         name: 'Thaïs',
         badge: PLAYER_BADGE.Bronze,
       },

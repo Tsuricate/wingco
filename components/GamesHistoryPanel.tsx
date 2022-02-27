@@ -28,7 +28,7 @@ const GamesHistoryPanel: React.FC<GamesHistoryPanelProps> = ({ id, date, players
         })}
       </Stack>
       <Link href={`/game-result/${id}`} asButton>
-        {t('viewDetail', { ns: 'common' })}
+        {t('common:viewDetail')}
       </Link>
     </Stack>
   );
