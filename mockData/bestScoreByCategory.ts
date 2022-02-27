@@ -1,4 +1,4 @@
-const categories = [
+export const categories = [
   'totalScore',
   'birds',
   'bonusCards',
