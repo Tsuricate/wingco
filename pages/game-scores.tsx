@@ -13,19 +13,19 @@ const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'common']);
   const gameId = '#156D5E8';
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('gameScores:title')}>
       <FormLayout>
         <Stack spacing={5}>
           {categories.map((category) => (
             <ScoresSection
               key={category}
-              title={t(`categories.${category}`, { ns: 'common' })}
+              title={t(`common:categories.${category}`)}
               players={players}
             />
           ))}
         </Stack>
         <Link asButton href={`/game-results?gameId=${gameId}`} buttonVariant="solid">
-          {t('computeScores')}
+          {t('gameScores:computeScores')}
         </Link>
       </FormLayout>
     </PageLayout>

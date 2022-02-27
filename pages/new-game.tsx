@@ -27,7 +27,7 @@ const NewGame: React.FC = () => {
   };
 
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('newGame:title')}>
       <Text>ID {gameId}</Text>
       <FormLayout>
         <Stack>
@@ -39,15 +39,15 @@ const NewGame: React.FC = () => {
             />
           ))}
         </Stack>
-        <Button onClick={handleAddPlayer}>{t('addPlayer')}</Button>
+        <Button onClick={handleAddPlayer}>{t('newGame:addPlayer')}</Button>
         <InvitePlayerButton />
         <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="useNectar">{t('useNectar')}</FormLabel>
+          <FormLabel htmlFor="useNectar">{t('newGame:useNectar')}</FormLabel>
           <Switch id="useNectar" />
         </FormControl>
-        <Text>{t('estimatedTime', { duration: 45 })}</Text>
+        <Text>{t('newGame:estimatedTime', { duration: 45 })}</Text>
         <Link href={`/game-scores?gameId=${gameId}`} asButton buttonVariant="solid">
-          {t('startGame')}
+          {t('newGame:startGame')}
         </Link>
       </FormLayout>
     </PageLayout>
