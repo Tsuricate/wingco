@@ -1,4 +1,4 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Heading, Stack } from '@chakra-ui/react';
 import React from 'react';
 import Player from '../models/players';
 import TwoColumnsLayout from './layout/TwoColumnsLayout';
@@ -6,21 +6,21 @@ import PlayerAvatar from './PlayerAvatar';
 import ScoreInput from './ScoreInput';
 
 interface ScoresSectionProps {
-  scoreTitle: string;
+  title: string;
   players: Array<Player>;
 }
 
-const ScoresSection: React.FC<ScoresSectionProps> = ({ scoreTitle, players }) => {
+const ScoresSection: React.FC<ScoresSectionProps> = ({ title, players }) => {
   return (
-    <Box>
-      <Heading>{scoreTitle}</Heading>
+    <Stack>
+      <Heading>{title}</Heading>
       {players.map((player) => (
         <TwoColumnsLayout key={player.id}>
           <PlayerAvatar playerName={player.name} />
           <ScoreInput />
         </TwoColumnsLayout>
       ))}
-    </Box>
+    </Stack>
   );
 };
 
