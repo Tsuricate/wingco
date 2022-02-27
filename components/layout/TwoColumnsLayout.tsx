@@ -9,7 +9,7 @@ const TwoColumnsLayout: React.FC<TwoColumnsLayoutProps> = ({ children, noSpacing
   const spacing = noSpacing ? 0 : 2;
 
   return (
-    <SimpleGrid spacing={spacing} columns={{ base: 1, sm: 2 }}>
+    <SimpleGrid spacing={spacing} columns={2}>
       {children}
     </SimpleGrid>
   );
