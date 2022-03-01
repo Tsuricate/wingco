@@ -1,5 +1,6 @@
 {
   "title": "Results",
   "newRecord": "New",
-  "newRecordDescription": "With {{newRecord}} {{category}}, {{playerName}} has break a new personal record ! (previously {{previousRecord}})"
+  "newRecordDescription": "With {{newRecord}} {{category}}, {{playerName}} has break a new personal record ! (previously {{previousRecord}})",
+  "allDetails": "See all details"
 }
