@@ -21,3 +21,18 @@ export const gameResults: Array<Player> = [
     score: 85,
   },
 ];
+
+export const newRecords = [
+  {
+    playerName: 'Tsuricate',
+    newRecord: 25,
+    previousRecord: 23,
+    category: 'Tucked cards',
+  },
+  {
+    playerName: 'Alex',
+    newRecord: 16,
+    previousRecord: 14,
+    category: 'Food on cards',
+  },
+];
