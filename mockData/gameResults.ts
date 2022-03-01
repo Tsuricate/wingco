@@ -1,5 +1,6 @@
-import Player, { PLAYER_BADGE } from '../models/players';
 import uniqid from 'uniqid';
+import Player, { PLAYER_BADGE } from '../models/players';
+import { categories } from './bestScoreByCategory';
 
 export const gameResults: Array<Player> = [
   {
@@ -36,3 +37,24 @@ export const newRecords = [
     category: 'Food on cards',
   },
 ];
+
+export const playerResultsByCategory = categories.map((category) => ({
+  category,
+  players: [
+    {
+      id: uniqid(),
+      name: 'Chäémelon',
+      score: Math.floor(Math.random() * 100),
+    },
+    {
+      id: uniqid(),
+      name: 'Alex',
+      score: Math.floor(Math.random() * 100),
+    },
+    {
+      id: uniqid(),
+      name: 'Tsuricate',
+      score: Math.floor(Math.random() * 100),
+    },
+  ],
+}));
