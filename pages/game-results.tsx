@@ -9,6 +9,7 @@ import PlayerAvatar from '../components/PlayerAvatar';
 import { gameResults, newRecords, playerResultsByCategory } from '../mockData/gameResults';
 import Button from '../components/Button';
 import ScoresSection from '../components/ScoresSection';
+import Link from '../components/Link';
 
 const GameResults: React.FC = () => {
   const { t } = useTranslation(['gameResults', 'common']);
@@ -40,18 +41,22 @@ const GameResults: React.FC = () => {
           />
         ))}
 
-        <Button variant="outline" onClick={handleSeeDetails}>
-          {t('gameResults:allDetails')}
-        </Button>
-
-        {showDetails &&
+        {!showDetails ? (
+          <Button variant="outline" onClick={handleSeeDetails}>
+            {t('gameResults:allDetails')}
+          </Button>
+        ) : (
           playerResultsByCategory.map((result) => (
             <ScoresSection
               key={result.category}
               title={t(`common:categories.${result.category}`)}
               players={result.players}
             />
-          ))}
+          ))
+        )}
+        <Link href="/" asButton buttonVariant="solid">
+          {t('common:close')}
+        </Link>
       </Stack>
     </PageLayout>
   );
