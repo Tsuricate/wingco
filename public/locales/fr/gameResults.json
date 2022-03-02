@@ -1,0 +1,6 @@
+{
+  "title": "Résultats",
+  "newRecord": "Nouveau",
+  "newRecordDescription": "Avec {{newRecord}} {{category}}, {{playerName}} a établi un nouveau record personnel ! (anciennement {{previousRecord}})",
+  "allDetails": "Voir le détail"
+}
