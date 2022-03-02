@@ -13,7 +13,9 @@ interface ScoresSectionProps {
 const ScoresSection: React.FC<ScoresSectionProps> = ({ title, players }) => {
   return (
     <Stack>
-      <Heading>{title}</Heading>
+      <Heading as="h3" fontSize="2xl">
+        {title}
+      </Heading>
       {players.map((player) => (
         <TwoColumnsLayout key={player.id}>
           <PlayerAvatar playerName={player.name} />
