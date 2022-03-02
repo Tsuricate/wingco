@@ -8,4 +8,5 @@ export default interface Player {
   id: string;
   name: string;
   badge?: PLAYER_BADGE | undefined;
+  score?: number;
 }

@@ -27,5 +27,6 @@
   "usernameHelperText": "Enter your username",
   "emailLabel": "Email address",
   "emailHelperText": "Enter your email address",
-  "save": "Save"
+  "save": "Save",
+  "close": "Close"
 }
