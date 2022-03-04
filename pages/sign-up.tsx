@@ -7,12 +7,22 @@ import FormControl from '../components/FormControl';
 import FormLayout from '../components/layout/FormLayout';
 import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
+import axios from 'axios';
+import { NewPlayer } from '../models/players';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);
 
+  const newPlayer: NewPlayer = {
+    name: 'Steven Universe',
+    email: 'stevenu@gmail.com',
+    password: 'lion',
+  };
+
   const handleSubmit = () => {
-    console.log('Button clicked');
+    axios.post('/api/sign-up', newPlayer).then((response) => {
+      console.log('response : ', response);
+    });
   };
 
   return (
@@ -54,8 +64,10 @@ const SignUp: React.FC = () => {
 
 export default SignUp;
 
-export const getStaticProps = async ({ locale }: { locale: string }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['signUp', 'common'])),
-  },
-});
+export const getStaticProps = async ({ locale }: { locale: string }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['signUp', 'common'])),
+    },
+  };
+};
