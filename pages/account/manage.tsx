@@ -10,6 +10,11 @@ import Link from '../../components/Link';
 
 const ManageAccount = () => {
   const { t } = useTranslation(['manageAccount', 'common']);
+
+  const updateField = () => {
+    console.log('Update');
+  };
+
   const handleSave = () => {
     console.log('Informations has been changed !');
   };
@@ -28,12 +33,14 @@ const ManageAccount = () => {
           name="username"
           label={t('common:usernameLabel')}
           helperText={t('manageAccount:usernameHelperText')}
+          updateField={updateField}
         />
         <FormControl
           id="email"
           name="email"
           label={t('common:emailLabel')}
           helperText={t('manageAccount:emailHelperText')}
+          updateField={updateField}
         />
         <Divider />
         <Button onClick={handleSave}>{t('common:save')}</Button>

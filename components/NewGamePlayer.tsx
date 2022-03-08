@@ -13,11 +13,16 @@ interface NewGamePlayerProps {
 const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber, onDeletePlayer }) => {
   const { t } = useTranslation('newGame');
 
+  const updateField = () => {
+    console.log('Update');
+  };
+
   return (
     <FormControl
       id={`player${playerNumber}`}
       name={`player${playerNumber}`}
       label={t('player', { number: playerNumber })}
+      updateField={updateField}
       leftSlot={<AvatarSelector />}
       rightSlot={
         playerNumber > 1 ? (
