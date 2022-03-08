@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { saveUser, SUBMIT_SIGN_UP } from '../actions/auth';
+import { saveUser, SUBMIT_SIGN_UP } from '../actions/signUp';
 import { Middleware, Dispatch, Action } from 'redux';
 
-const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
+const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
   switch (action.type) {
     case SUBMIT_SIGN_UP: {
       const newPlayer = store.getState().auth;
@@ -27,4 +27,4 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
       next(action);
   }
 };
-export default authMiddleware;
+export default signUpMiddleware;
