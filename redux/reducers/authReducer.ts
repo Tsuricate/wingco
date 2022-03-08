@@ -2,7 +2,10 @@ import { AnyAction } from 'redux';
 import { UPDATE_EMAIL } from '../actions/auth';
 
 const initialState = {
+  name: '',
   email: '',
+  password: '',
+  isLogged: false,
 };
 
 const authReducer = (state = initialState, action: AnyAction) => {
