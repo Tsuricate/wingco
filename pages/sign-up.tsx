@@ -8,13 +8,13 @@ import FormControl from '../components/FormControl';
 import FormLayout from '../components/layout/FormLayout';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
-import { UPDATE_SIGN_UP_INFOS } from '../redux/actions/signUp';
+import { SUBMIT_SIGN_UP, UPDATE_SIGN_UP_INFOS } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);
   const { username, email, password, passwordValidation } = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.signUp
   );
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const SignUp: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log('playerInfos : ', name, email);
+    dispatch({ type: SUBMIT_SIGN_UP });
   };
 
   return (
