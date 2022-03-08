@@ -2,27 +2,28 @@ import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import Link from '../components/Link';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../components/Button';
 import FormControl from '../components/FormControl';
 import FormLayout from '../components/layout/FormLayout';
 import PageLayout from '../components/layout/PageLayout';
-import Button from '../components/Button';
-import axios from 'axios';
-import { NewPlayer } from '../models/players';
+import Link from '../components/Link';
+import { UPDATE_SIGN_UP_INFOS } from '../redux/actions/signUp';
+import { RootState } from '../redux/reducers';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);
+  const { username, email, password, passwordValidation } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const dispatch = useDispatch();
 
-  const newPlayer: NewPlayer = {
-    name: 'Steven Universe',
-    email: 'stevenu@gmail.com',
-    password: 'lion',
+  const updateField = (value: string, name: string) => {
+    dispatch({ type: UPDATE_SIGN_UP_INFOS, value, name });
   };
 
   const handleSubmit = () => {
-    axios.post('/api/sign-up', newPlayer).then((response) => {
-      console.log('response : ', response);
-    });
+    console.log('playerInfos : ', name, email);
   };
 
   return (
@@ -33,24 +34,32 @@ const SignUp: React.FC = () => {
           name="username"
           label={t('common:usernameLabel')}
           helperText={t('common:usernameHelperText')}
+          value={username}
+          updateField={updateField}
         />
         <FormControl
           id="email"
           name="email"
           label={t('common:emailLabel')}
           helperText={t('common:emailHelperText')}
+          value={email}
+          updateField={updateField}
         />
         <FormControl
           id="password"
           name="password"
           label={t('signUp:passwordLabel')}
           helperText={t('signUp:passwordHelperText')}
+          value={password}
+          updateField={updateField}
         />
         <FormControl
           id="passwordValidation"
           name="passwordValidation"
           label={t('signUp:passwordLabelValidation')}
           helperText={t('signUp:passwordValidationHelperText')}
+          value={passwordValidation}
+          updateField={updateField}
         />
         <Button type="submit" dataCy="signUp" onClick={handleSubmit}>
           {t('signUp:signUpButtonLabel')}
