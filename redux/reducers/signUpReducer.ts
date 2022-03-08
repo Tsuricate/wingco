@@ -1,12 +1,12 @@
 import { AnyAction } from 'redux';
-import { UPDATE_SIGN_UP_INFOS } from '../actions/signUp';
+import { SAVE_USER, UPDATE_SIGN_UP_INFOS } from '../actions/signUp';
 
 const initialState = {
   username: '',
   email: '',
   password: '',
   passwordValidation: '',
-  isLogged: false,
+  isRegistered: false,
 };
 
 const signUpReducer = (state = initialState, action: AnyAction) => {
@@ -16,6 +16,13 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
         ...state,
         [action.name]: action.value,
       };
+
+    case SAVE_USER: {
+      return {
+        ...state,
+        isRegistered: action.isRegistered,
+      };
+    }
 
     default:
       return state;
