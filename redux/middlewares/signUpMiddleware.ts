@@ -5,13 +5,19 @@ import { Middleware, Dispatch, Action } from 'redux';
 const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
   switch (action.type) {
     case SUBMIT_SIGN_UP: {
-      const newPlayer = store.getState().auth;
+      const { username, email, password } = store.getState().signUp;
+      const newPlayer = {
+        name: username,
+        email,
+        password,
+      };
 
       axios
         .post('/api/sign-up', newPlayer)
         .then((response) => {
-          console.log('response sign-up : ', response);
-          store.dispatch(saveUser(true));
+          if (response.status === 201) {
+            store.dispatch(saveUser(true));
+          }
         })
         .catch((error) => {
           console.log(error);
