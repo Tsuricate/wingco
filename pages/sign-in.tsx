@@ -11,6 +11,10 @@ import Button from '../components/Button';
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'common']);
 
+  const updateField = () => {
+    console.log('Update');
+  };
+
   const handleSubmit = () => {
     console.log('Button clicked');
   };
@@ -23,12 +27,14 @@ const SignIn: React.FC = () => {
           name="username"
           label={t('common:usernameLabel')}
           helperText={t('common:usernameHelperText')}
+          updateField={updateField}
         />
         <FormControl
           id="password"
           name="password"
           label={t('signIn:passwordLabel')}
           helperText={t('signIn:passwordHelperText')}
+          updateField={updateField}
         />
         <Link href="/password-assistance">{t('signIn:forgotPassword')}</Link>
         <Checkbox name="rememberMe">{t('signIn:rememberMe')}</Checkbox>

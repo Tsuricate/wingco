@@ -11,6 +11,10 @@ import Link from '../components/Link';
 const JoinGame: React.FC = () => {
   const { t } = useTranslation(['joinGame', 'common']);
 
+  const updateField = () => {
+    console.log('Update');
+  };
+
   const handleClick = () => {
     console.log('Join game!');
   };
@@ -29,6 +33,7 @@ const JoinGame: React.FC = () => {
             name="username"
             label={t('common:usernameLabel')}
             helperText={t('common:usernameHelperText')}
+            updateField={updateField}
           />
         </Stack>
         <FormControl
@@ -36,6 +41,7 @@ const JoinGame: React.FC = () => {
           name="gameId"
           label={t('joinGame:gameIdLabel')}
           helperText={t('joinGame:gameIdHelperText')}
+          updateField={updateField}
         />
         <Button type="submit" dataCy="submitButton" onClick={handleClick}>
           {t('joinGame:join')}
