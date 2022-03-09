@@ -1,7 +1,15 @@
 import { AnyAction } from 'redux';
 import { SAVE_USER, UPDATE_SIGN_UP_INFOS } from '../actions/signUp';
 
-const initialState = {
+interface initialStateProps {
+  username: string;
+  email: string;
+  password: string;
+  passwordValidation: string;
+  isRegistered: boolean;
+}
+
+const initialState: initialStateProps = {
   username: '',
   email: '',
   password: '',
