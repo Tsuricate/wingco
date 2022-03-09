@@ -3,15 +3,14 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ValidationError } from 'yup';
 import Button from '../components/Button';
 import FormControl from '../components/FormControl';
 import FormLayout from '../components/layout/FormLayout';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
-import { SUBMIT_SIGN_UP, UPDATE_SIGN_UP_INFOS } from '../redux/actions/signUp';
+import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
-import { getErrorsMessages } from '../utils/formUtils';
+import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { signUpSchema } from '../validations/signUpValidation';
 
 const SignUp: React.FC = () => {
@@ -23,20 +22,15 @@ const SignUp: React.FC = () => {
   const dispatch = useDispatch();
 
   const updateField = (value: string, name: string) => {
-    dispatch({ type: UPDATE_SIGN_UP_INFOS, value, name });
+    dispatch(updateSignUpInfos(value, name));
   };
 
-  const handleSubmit = async () => {
-    await signUpSchema
-      .validate(newPlayerInfos, { abortEarly: false })
+  const handleSubmit = () => {
+    validateFormData(signUpSchema, newPlayerInfos)
       .then(() => {
-        dispatch({ type: SUBMIT_SIGN_UP });
+        dispatch(submitSignUp());
       })
-      .catch((errors) => {
-        const errorsArray = errors.inner.map((error: ValidationError) => ({
-          name: error.path,
-          message: error.message,
-        }));
+      .catch((errorsArray) => {
         setFormErrors(errorsArray);
       });
   };
