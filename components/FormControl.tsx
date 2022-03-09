@@ -1,5 +1,6 @@
 import {
   FormControl as ChakraFormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   Input,
@@ -16,6 +17,7 @@ interface FormControlProps {
   helperText?: string;
   leftSlot?: ReactElement;
   rightSlot?: ReactElement;
+  errors?: Array<string>;
 }
 
 const FormControl: React.FC<FormControlProps> = ({
@@ -27,20 +29,27 @@ const FormControl: React.FC<FormControlProps> = ({
   helperText,
   leftSlot,
   rightSlot,
+  errors = [],
 }) => {
   const manageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateField(event.target.value, name);
   };
 
+  const isInvalid: boolean = errors.length ? true : false;
+
   return (
-    <ChakraFormControl>
+    <ChakraFormControl isInvalid={isInvalid}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       <Stack direction="row" align="center">
         {leftSlot}
         <Input id={id} name={name} value={value} onChange={manageChange} />
         {rightSlot}
       </Stack>
-      <FormHelperText>{helperText}</FormHelperText>
+      {!isInvalid ? (
+        <FormHelperText>{helperText}</FormHelperText>
+      ) : (
+        errors.map((error) => <FormErrorMessage key={error}>{error}</FormErrorMessage>)
+      )}
     </ChakraFormControl>
   );
 };
