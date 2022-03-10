@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { saveUser, SUBMIT_SIGN_UP } from '../actions/signUp';
-import { Middleware, Dispatch, Action } from 'redux';
+import { Action, Dispatch, Middleware } from 'redux';
+import { sendEmail } from '../../utils/api/sendEmail';
+import { SUBMIT_SIGN_UP } from '../actions/signUp';
 
 const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
   switch (action.type) {
@@ -16,16 +17,12 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
         .post('/api/sign-up', newPlayer)
         .then((response) => {
           if (response.status === 201) {
-            store.dispatch(saveUser(true));
+            sendEmail(username, email);
           }
         })
         .catch((error) => {
           console.log(error);
-        })
-        .finally(() => {
-          //
         });
-
       next(action);
       break;
     }
