@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Button from '../../components/Button';
 import FormControl from '../../components/FormControl';
-import FormLayout from '../../components/Form';
+import Form from '../../components/Form';
 import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 
@@ -25,7 +25,7 @@ const ManageAccount = () => {
   const email = 'tsuricate@gmail.com';
   return (
     <PageLayout title={t('manageAccount:title')}>
-      <FormLayout>
+      <Form onSubmit={handleSave}>
         <Text>{t('manageAccount:description')}</Text>
         <Divider />
         <FormControl
@@ -43,14 +43,14 @@ const ManageAccount = () => {
           updateField={updateField}
         />
         <Divider />
-        <Button onClick={handleSave}>{t('common:save')}</Button>
+        <Button type="submit">{t('common:save')}</Button>
         <Divider />
         <Link href={`/password-assistance?email=${email}`}>
           {t('manageAccount:changePassword')}
         </Link>
         <Divider />
         <Button onClick={handleDelete}>{t('manageAccount:delete')}</Button>
-      </FormLayout>
+      </Form>
     </PageLayout>
   );
 };

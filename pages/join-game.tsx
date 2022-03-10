@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Button from '../components/Button';
 import FormControl from '../components/FormControl';
-import FormLayout from '../components/Form';
+import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 
@@ -15,13 +15,13 @@ const JoinGame: React.FC = () => {
     console.log('Update');
   };
 
-  const handleClick = () => {
+  const handleSubmit = () => {
     console.log('Join game!');
   };
 
   return (
     <PageLayout title={t('joinGame:title')}>
-      <FormLayout>
+      <Form onSubmit={handleSubmit}>
         <Text>{t('joinGame:description')}</Text>
         <Link href="/sign-in" asButton>
           {t('common:signIn')}
@@ -43,10 +43,10 @@ const JoinGame: React.FC = () => {
           helperText={t('joinGame:gameIdHelperText')}
           updateField={updateField}
         />
-        <Button type="submit" dataCy="submitButton" onClick={handleClick}>
+        <Button type="submit" dataCy="submitButton">
           {t('joinGame:join')}
         </Button>
-      </FormLayout>
+      </Form>
     </PageLayout>
   );
 };

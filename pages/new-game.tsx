@@ -5,9 +5,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
 import Button from '../components/Button';
 import InvitePlayerButton from '../components/InvitePlayerButton';
-import FormLayout from '../components/Form';
+import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
-import Link from '../components/Link';
 import NewGamePlayer from '../components/NewGamePlayer';
 
 const NewGame: React.FC = () => {
@@ -26,10 +25,14 @@ const NewGame: React.FC = () => {
     setPlayers([...newPlayersList]);
   };
 
+  const handleSubmit = () => {
+    console.log('Submit !');
+  };
+
   return (
     <PageLayout title={t('newGame:title')}>
       <Text>ID {gameId}</Text>
-      <FormLayout>
+      <Form onSubmit={handleSubmit}>
         <Stack>
           {players.map((player, index) => (
             <NewGamePlayer
@@ -46,10 +49,8 @@ const NewGame: React.FC = () => {
           <Switch id="useNectar" />
         </FormControl>
         <Text>{t('newGame:estimatedTime', { duration: 45 })}</Text>
-        <Link href={`/game-scores?gameId=${gameId}`} asButton buttonVariant="solid">
-          {t('newGame:startGame')}
-        </Link>
-      </FormLayout>
+        <Button type="submit">{t('newGame:startGame')}</Button>
+      </Form>
     </PageLayout>
   );
 };

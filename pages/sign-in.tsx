@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Link from '../components/Link';
 import FormControl from '../components/FormControl';
-import FormLayout from '../components/Form';
+import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
 
@@ -21,7 +21,7 @@ const SignIn: React.FC = () => {
 
   return (
     <PageLayout title={t('signIn:title')}>
-      <FormLayout>
+      <Form onSubmit={handleSubmit}>
         <FormControl
           id="username"
           name="username"
@@ -38,12 +38,12 @@ const SignIn: React.FC = () => {
         />
         <Link href="/password-assistance">{t('signIn:forgotPassword')}</Link>
         <Checkbox name="rememberMe">{t('signIn:rememberMe')}</Checkbox>
-        <Button type="submit" dataCy="signIn" variant="solid" onClick={handleSubmit}>
+        <Button type="submit" dataCy="signIn" variant="solid">
           {t('signIn:signInButtonLabel')}
         </Button>
         <Text>{t('signIn:notRegisteredYet')}</Text>
         <Link href="/sign-up">{t('signIn:signUp')}</Link>
-      </FormLayout>
+      </Form>
     </PageLayout>
   );
 };

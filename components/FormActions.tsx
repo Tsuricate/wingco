@@ -6,15 +6,14 @@ import Link from './Link';
 
 interface FormActionsProps {
   cancelUrl: string;
-  onSubmit: () => void;
 }
 
-const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, onSubmit }) => {
+const FormActions: React.FC<FormActionsProps> = ({ cancelUrl }) => {
   const { t } = useTranslation('common');
 
   return (
     <Stack direction={{ base: 'column', md: 'row-reverse' }}>
-      <Button type="submit" dataCy="submitButton" onClick={onSubmit}>
+      <Button type="submit" dataCy="submitButton">
         {t('common:continue')}
       </Button>
       <Link href={cancelUrl} dataCy="cancelAction" asButton>
