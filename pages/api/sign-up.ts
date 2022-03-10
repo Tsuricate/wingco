@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../apollo-client';
 import { NewPlayer } from '../../models/players';
 import { CREATE_PLAYER } from '../../queries/signup.queries';
-import { getHashedPassword } from '../../utils/api/sign-up';
+import { getHashedPassword } from '../../utils/api/hashPassword';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, email, password }: NewPlayer = req.body;
