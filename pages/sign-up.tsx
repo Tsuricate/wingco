@@ -28,6 +28,7 @@ const SignUp: React.FC = () => {
   const handleSubmit = () => {
     validateFormData(signUpSchema, newPlayerInfos)
       .then(() => {
+        setFormErrors([]);
         dispatch(submitSignUp());
       })
       .catch((errorsArray) => {
