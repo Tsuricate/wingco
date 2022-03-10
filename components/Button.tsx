@@ -5,7 +5,7 @@ type ButtonProps = {
   type?: ChakraButtonProps['type'];
   dataCy?: string;
   variant?: ChakraButtonProps['variant'];
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const buttonDefaultStyle: ChakraButtonProps = {

@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import FormLayout from '../components/layout/FormLayout';
+import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import PasswordAssistStep1 from '../components/PasswordAssistStep1';
 import PasswordAssistStep2 from '../components/PasswordAssistStep2';
@@ -14,6 +14,12 @@ const PasswordAssistance = () => {
 
   const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
   const [hasCorrectResetCode, setHasCorrectResetCode] = useState(false);
+  const isStep1 = !hasProvidedEmail;
+  const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
+  const handleSubmit = () => {
+    if (isStep1) handleSubmitStep1();
+    if (isStep2) handleSubmitStep2();
+  };
 
   useEffect(() => {
     if (query.email) {
@@ -31,13 +37,11 @@ const PasswordAssistance = () => {
 
   return (
     <PageLayout title={t('passwordAssistance:title')}>
-      <FormLayout>
-        {!hasProvidedEmail && <PasswordAssistStep1 onSubmit={handleSubmitStep1} />}
-        {hasProvidedEmail && !hasCorrectResetCode && (
-          <PasswordAssistStep2 onSubmit={handleSubmitStep2} />
-        )}
+      <Form onSubmit={handleSubmit}>
+        {isStep1 && <PasswordAssistStep1 />}
+        {isStep2 && <PasswordAssistStep2 />}
         {hasCorrectResetCode && <PasswordAssistStep3 />}
-      </FormLayout>
+      </Form>
     </PageLayout>
   );
 };

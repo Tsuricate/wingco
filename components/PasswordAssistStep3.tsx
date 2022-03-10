@@ -11,10 +11,6 @@ const PasswordAssistStep3: React.FC = () => {
     console.log('Update');
   };
 
-  const handleSubmit = () => {
-    console.log('Button clicked !');
-  };
-
   return (
     <>
       <Text>{t('passwordAssistance:descriptionStep3')}</Text>
@@ -32,7 +28,7 @@ const PasswordAssistStep3: React.FC = () => {
         helperText={t('passwordAssistance:newPasswordValidationHelperText')}
         updateField={updateField}
       />
-      <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
+      <FormActions cancelUrl="/sign-in" />
     </>
   );
 };
