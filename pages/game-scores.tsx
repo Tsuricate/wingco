@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import FormLayout from '../components/layout/FormLayout';
+import FormLayout from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import ScoresSection from '../components/ScoresSection';

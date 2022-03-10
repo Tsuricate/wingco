@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import FormControl from '../components/FormControl';
-import FormLayout from '../components/layout/FormLayout';
+import FormLayout from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
