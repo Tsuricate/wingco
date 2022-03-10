@@ -12,13 +12,13 @@ import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { signUpSchema } from '../validations/signUpValidation';
+import { signUpForm } from '../data/form/signUpForm';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);
   const [formErrors, setFormErrors] = useState([]);
 
   const newPlayerInfos = useSelector((state: RootState) => state.signUp);
-  const { username, email, password, passwordValidation } = newPlayerInfos;
   const dispatch = useDispatch();
 
   const updateField = (value: string, name: string) => {
@@ -38,42 +38,18 @@ const SignUp: React.FC = () => {
   return (
     <PageLayout title={t('signUp:title')}>
       <Form onSubmit={handleSubmit}>
-        <FormControl
-          id="username"
-          name="username"
-          label={t('common:usernameLabel')}
-          helperText={t('common:usernameHelperText')}
-          value={username}
-          updateField={updateField}
-          errors={getErrorsMessages(formErrors, 'username')}
-        />
-        <FormControl
-          id="email"
-          name="email"
-          label={t('common:emailLabel')}
-          helperText={t('common:emailHelperText')}
-          value={email}
-          updateField={updateField}
-          errors={getErrorsMessages(formErrors, 'email')}
-        />
-        <FormControl
-          id="password"
-          name="password"
-          label={t('signUp:passwordLabel')}
-          helperText={t('signUp:passwordHelperText')}
-          value={password}
-          updateField={updateField}
-          errors={getErrorsMessages(formErrors, 'password')}
-        />
-        <FormControl
-          id="passwordValidation"
-          name="passwordValidation"
-          label={t('signUp:passwordLabelValidation')}
-          helperText={t('signUp:passwordValidationHelperText')}
-          value={passwordValidation}
-          updateField={updateField}
-          errors={getErrorsMessages(formErrors, 'passwordValidation')}
-        />
+        {signUpForm.map((form) => (
+          <FormControl
+            key={form.name}
+            id={form.name}
+            name={form.name}
+            label={t(`${form.label}`)}
+            helperText={t(`${form.helperText}`)}
+            value={newPlayerInfos[form.name]}
+            updateField={updateField}
+            errors={getErrorsMessages(formErrors, `${form.name}`)}
+          />
+        ))}
         <Button type="submit" dataCy="signUp">
           {t('signUp:signUpButtonLabel')}
         </Button>
