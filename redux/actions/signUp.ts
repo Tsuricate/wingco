@@ -1,6 +1,7 @@
 export const UPDATE_SIGN_UP_INFOS = 'UPDATE_SIGN_UP_INFOS';
 export const SUBMIT_SIGN_UP = 'SUBMIT_SIGN_UP';
 export const SAVE_USER = 'SAVE_USER';
+export const RESET_FORM = 'RESET_FORM';
 
 export const updateSignUpInfos = (value: string, name: string) => ({
   type: UPDATE_SIGN_UP_INFOS,
@@ -15,4 +16,8 @@ export const submitSignUp = () => ({
 export const saveUser = (isRegistered: boolean) => ({
   type: SAVE_USER,
   isRegistered,
+});
+
+export const resetForm = () => ({
+  type: RESET_FORM,
 });
