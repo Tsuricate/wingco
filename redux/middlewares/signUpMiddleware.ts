@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
 import { sendEmail } from '../../utils/api/sendEmail';
-import { resetForm, SUBMIT_SIGN_UP } from '../actions/signUp';
+import {
+  errorWhileCreatingUser,
+  errorWhileSendingEmail,
+  isSignUpProcessOver,
+  resetForm,
+  SUBMIT_SIGN_UP,
+} from '../actions/signUp';
 
 const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
   switch (action.type) {
@@ -18,20 +24,21 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
         .then((response) => {
           if (response.status === 201) {
             sendEmail(username, email)
-              .then((response) => {
-                console.log('Email sent ! ', response);
-              })
-              .catch((err) => {
-                console.log(err);
+              .catch(() => {
+                store.dispatch(errorWhileSendingEmail());
               })
               .finally(() => {
                 store.dispatch(resetForm());
               });
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          store.dispatch(errorWhileCreatingUser());
+        })
+        .finally(() => {
+          store.dispatch(isSignUpProcessOver());
         });
+
       next(action);
       break;
     }
