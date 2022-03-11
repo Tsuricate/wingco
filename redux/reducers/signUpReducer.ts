@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { SAVE_USER, UPDATE_SIGN_UP_INFOS } from '../actions/signUp';
+import { RESET_FORM, SAVE_USER, UPDATE_SIGN_UP_INFOS } from '../actions/signUp';
 
 interface initialStateProps {
   username: string;
@@ -29,6 +29,13 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         isRegistered: action.isRegistered,
+      };
+    }
+
+    case RESET_FORM: {
+      return {
+        ...state,
+        ...initialState,
       };
     }
 
