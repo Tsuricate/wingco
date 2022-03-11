@@ -35,7 +35,10 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
     case RESET_FORM: {
       return {
         ...state,
-        ...initialState,
+        username: '',
+        email: '',
+        password: '',
+        passwordValidation: '',
       };
     }
 
