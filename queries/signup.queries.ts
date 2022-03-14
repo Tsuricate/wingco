@@ -14,3 +14,12 @@ export const CREATE_PLAYER = gql`
     }
   }
 `;
+
+export const SET_VALIDATION_EMAIL_TOKEN = gql`
+  mutation UpdatePlayer($id: ID, $validationEmailToken: String!) {
+    updatePlayer(data: { validationEmailToken: $validationEmailToken }, where: { id: $id }) {
+      id
+      validationEmailToken
+    }
+  }
+`;
