@@ -1,4 +1,5 @@
 import { Text, useDisclosure } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
@@ -6,33 +7,30 @@ import Modal from './Modal';
 
 interface ModalProps {
   title: string;
-  description: string;
   closeMessage: string;
   children: string;
 }
 
 const successModal: ModalProps = {
-  title: 'Success',
-  description: 'Everything went right !',
-  closeMessage: 'Sign up',
-  children: 'Please check your emails and click on the confirmation link !',
+  title: 'signUp:successModal.title',
+  closeMessage: 'common:gotIt',
+  children: 'signUp:successModal.children',
 };
 
 const errorCreatingUserModal: ModalProps = {
-  title: 'Error',
-  description: 'Error',
-  closeMessage: 'Try again',
-  children: 'Sorry, something went wront while creating your account',
+  title: 'signUp:errorCreatingUserModal.title',
+  closeMessage: 'common:gotIt',
+  children: 'signUp:errorCreatingUserModal.children',
 };
 
 const errorSendingEmailModal: ModalProps = {
-  title: 'Error',
-  description: 'Error ',
-  closeMessage: 'Try again',
-  children: 'Sorry, something went wront while sending your confirmation email',
+  title: 'signUp:errorSendingEmailModal.title',
+  closeMessage: 'common:gotIt',
+  children: 'signUp:errorSendingEmailModal.children',
 };
 
 const SignUpModal: React.FC = () => {
+  const { t } = useTranslation(['signUp', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { showSignUpModal, errorWhileCreatingUser, errorWhileSendingEmail } = useSelector(
     (state: RootState) => state.signUp
@@ -56,11 +54,10 @@ const SignUpModal: React.FC = () => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={modalToShow.title}
-      description={modalToShow.description}
-      closeMessage={modalToShow.closeMessage}
+      title={t(`${modalToShow.title}`)}
+      closeMessage={t(`${modalToShow.closeMessage}`)}
     >
-      <Text>{modalToShow.children}</Text>
+      <Text>{t(`${modalToShow.children}`)}</Text>
     </Modal>
   );
 };

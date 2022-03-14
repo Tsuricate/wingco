@@ -8,5 +8,20 @@
   "passwordLabelValidation": "Mot de passe (validation)",
   "passwordValidationHelperText": "Confirmez votre mot de passe",
   "alreadyRegistered": "Vous êtes déjà inscrit·e ?",
-  "signIn": "Connexion"
+  "signIn": "Connexion",
+  "successModal": {
+    "title": "Votre compte a bien été créé !",
+    "description": "f",
+    "children": "Un email de confirmation a été envoyé à l'adresse fournie. Veuillez suivre les instructions indiquées dans celui-ci afin d'activer votre compte ! "
+  },
+  "errorCreatingUserModal": {
+    "title": "Une erreur est survenue !",
+    "description": "",
+    "children": "Votre compte n'a pas pu être créé. Peut-être avez-vous déjà un compte enregistré avec cette adresse email ? En cas de doute, n'hésitez pas à utiliser la fonctionalité 'Mot de passe perdu'. Sinon, nous vous invitons à réessayer dans quelques minutes !"
+  },
+  "errorSendingEmailModal": {
+    "title": "Une erreur est survenue !",
+    "description": "",
+    "children": "L'email de confirmation n'a pas pu être envoyé."
+  }
 }
