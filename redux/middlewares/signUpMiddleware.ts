@@ -4,7 +4,7 @@ import { sendEmail } from '../../utils/api/sendEmail';
 import {
   errorWhileCreatingUser,
   errorWhileSendingEmail,
-  isSignUpProcessOver,
+  showSignUpModal,
   resetForm,
   SUBMIT_SIGN_UP,
 } from '../actions/signUp';
@@ -36,7 +36,7 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
           store.dispatch(errorWhileCreatingUser());
         })
         .finally(() => {
-          store.dispatch(isSignUpProcessOver());
+          store.dispatch(showSignUpModal());
         });
 
       next(action);
