@@ -23,3 +23,11 @@ export const SET_VALIDATION_EMAIL_TOKEN = gql`
     }
   }
 `;
+
+export const VERIFY_VALIDATION_EMAIL_TOKEN = gql`
+  query VerifyEmailToken($validationEmailToken: String!) {
+    player(where: { validationEmailToken: $validationEmailToken }) {
+      id
+    }
+  }
+`;
