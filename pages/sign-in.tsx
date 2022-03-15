@@ -1,6 +1,7 @@
-import { Checkbox, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Checkbox, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 import React from 'react';
 import Link from '../components/Link';
 import FormControl from '../components/FormControl';
@@ -9,7 +10,9 @@ import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
 
 const SignIn: React.FC = () => {
-  const { t } = useTranslation(['signIn', 'common']);
+  const { t } = useTranslation(['signIn', 'signUp', 'common']);
+  const router = useRouter();
+  const { validatedEmail } = router.query;
 
   const updateField = () => {
     console.log('Update');
@@ -21,6 +24,12 @@ const SignIn: React.FC = () => {
 
   return (
     <PageLayout title={t('signIn:title')}>
+      {validatedEmail && (
+        <Alert status="success" my={5}>
+          <AlertIcon />
+          {t('signUp:emailAddressValid')}
+        </Alert>
+      )}
       <Form onSubmit={handleSubmit}>
         <FormControl
           id="username"
@@ -52,6 +61,6 @@ export default SignIn;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['signIn', 'common'])),
+    ...(await serverSideTranslations(locale, ['signIn', 'signUp', 'common'])),
   },
 });

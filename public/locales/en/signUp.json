@@ -23,5 +23,8 @@
     "title": "Something went wrong !",
     "description": "Test",
     "children": "We failed to send you the confirmation email."
-  }
+  },
+  "emailValidation": "Email address validation",
+  "emailAddressValid": "Thank you for verifying your email address. You may now sign in !",
+  "emailAddressInvalid": "It looks like you may have clicked on an invalid link. "
 }

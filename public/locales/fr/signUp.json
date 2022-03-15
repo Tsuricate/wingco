@@ -23,5 +23,8 @@
     "title": "Une erreur est survenue !",
     "description": "",
     "children": "L'email de confirmation n'a pas pu être envoyé."
-  }
+  },
+  "emailValidation": "Validation de l'adresse email",
+  "emailAddressValid": "Merci d'avoir vérifié votre adresse email ! Vous pouvez dès à présent vous connecter !",
+  "emailAddressInvalid": "Il semblerait que vous ayez cliqué sur un lien invalide. !"
 }
