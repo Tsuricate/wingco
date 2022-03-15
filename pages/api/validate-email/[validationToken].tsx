@@ -6,12 +6,12 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const { validationToken } = req.query;
 
   client
-    .query({
-      query: VERIFY_VALIDATION_EMAIL_TOKEN,
+    .mutate({
+      mutation: VERIFY_VALIDATION_EMAIL_TOKEN,
       variables: { validationEmailToken: validationToken },
     })
     .then((response) => {
-      if (response.data.player) {
+      if (response.data.updatePlayer) {
         res.status(200).redirect('/sign-in');
       } else {
         res.status(400).json('Something went wrong !');

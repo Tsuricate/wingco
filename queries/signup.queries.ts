@@ -6,9 +6,16 @@ export const CREATE_PLAYER = gql`
     $email: String!
     $password: String!
     $isRegistered: Boolean!
+    $hasVerifiedEmail: Boolean!
   ) {
     createPlayer(
-      data: { name: $name, email: $email, password: $password, isRegistered: $isRegistered }
+      data: {
+        name: $name
+        email: $email
+        password: $password
+        isRegistered: $isRegistered
+        hasVerifiedEmail: $hasVerifiedEmail
+      }
     ) {
       id
     }
@@ -25,8 +32,11 @@ export const SET_VALIDATION_EMAIL_TOKEN = gql`
 `;
 
 export const VERIFY_VALIDATION_EMAIL_TOKEN = gql`
-  query VerifyEmailToken($validationEmailToken: String!) {
-    player(where: { validationEmailToken: $validationEmailToken }) {
+  mutation VerifyEmailToken($validationEmailToken: String!) {
+    updatePlayer(
+      where: { validationEmailToken: $validationEmailToken }
+      data: { hasVerifiedEmail: true }
+    ) {
       id
     }
   }
