@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-export const sendEmail = (username: string, email: string) => {
-  axios
-    .post('/api/send-email', { username, email })
-    .then((response) => {
-      console.log('Email sent ! ', response);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export const sendEmail = (userId: string, username: string, email: string) => {
+  return axios.post('/api/send-email', { userId, username, email });
 };

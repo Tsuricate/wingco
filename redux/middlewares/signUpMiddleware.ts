@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
 import { sendEmail } from '../../utils/api/sendEmail';
-import { SUBMIT_SIGN_UP } from '../actions/signUp';
+import {
+  errorWhileCreatingUser,
+  errorWhileSendingEmail,
+  showSignUpModal,
+  resetForm,
+  SUBMIT_SIGN_UP,
+} from '../actions/signUp';
 
 const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
   switch (action.type) {
@@ -17,12 +23,23 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
         .post('/api/sign-up', newPlayer)
         .then((response) => {
           if (response.status === 201) {
-            sendEmail(username, email);
+            const userId = response.data.id;
+            sendEmail(userId, username, email)
+              .catch(() => {
+                store.dispatch(errorWhileSendingEmail());
+              })
+              .finally(() => {
+                store.dispatch(resetForm());
+              });
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          store.dispatch(errorWhileCreatingUser());
+        })
+        .finally(() => {
+          store.dispatch(showSignUpModal());
         });
+
       next(action);
       break;
     }

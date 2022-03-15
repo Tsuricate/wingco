@@ -5,7 +5,7 @@ import Button from './Button';
 import Modal from './Modal';
 
 const InvitePlayerButton: React.FC = () => {
-  const { t } = useTranslation('newGame');
+  const { t } = useTranslation(['newGame', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleInvitePlayer = () => {
@@ -15,22 +15,22 @@ const InvitePlayerButton: React.FC = () => {
   return (
     <>
       <Button variant="outline" onClick={handleInvitePlayer}>
-        {t('invitePlayer')}
+        {t('newGame:invitePlayer')}
       </Button>
       <Modal
         onClose={onClose}
         isOpen={isOpen}
-        title={t('howInvitePlayer')}
-        description={t('howInviteDescription', { gameId: '#156D5E8' })}
-        closeMessage={t('closeMessage')}
+        title={t('newGame:howInvitePlayer')}
+        description={t('newGame:howInviteDescription', { gameId: '#156D5E8' })}
+        closeMessage={t('common:gotIt')}
       >
         <Stack>
-          <Text>{t('howInviteIntro')}</Text>
+          <Text>{t('newGame:howInviteIntro')}</Text>
           <UnorderedList>
-            <ListItem>{t('howInviteStep1')}</ListItem>
-            <ListItem>{t('howInviteStep2')}</ListItem>
-            <ListItem>{t('howInviteStep3')}</ListItem>
-            <ListItem>{t('howInviteStep4', { gameId: '#156D5E8' })}</ListItem>
+            <ListItem>{t('newGame:howInviteStep1')}</ListItem>
+            <ListItem>{t('newGame:howInviteStep2')}</ListItem>
+            <ListItem>{t('newGame:howInviteStep3')}</ListItem>
+            <ListItem>{t('newGame:howInviteStep4', { gameId: '#156D5E8' })}</ListItem>
           </UnorderedList>
         </Stack>
       </Modal>

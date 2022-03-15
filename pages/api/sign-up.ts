@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       variables: { name, email, password: hashedPassword, isRegistered: true },
     });
 
-    res.status(201).json(createPlayer);
+    res.status(201).json(createPlayer.data.createPlayer);
   } catch (err) {
     res.status(400).json(err);
   }

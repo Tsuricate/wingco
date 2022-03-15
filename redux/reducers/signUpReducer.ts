@@ -1,11 +1,20 @@
 import { AnyAction } from 'redux';
-import { SAVE_USER, UPDATE_SIGN_UP_INFOS } from '../actions/signUp';
+import {
+  ERROR_WHILE_CREATING_USER,
+  ERROR_WHILE_SENDING_EMAIL,
+  SHOW_SIGN_UP_MODAL,
+  RESET_FORM,
+  UPDATE_SIGN_UP_INFOS,
+} from '../actions/signUp';
 
 interface initialStateProps {
   username: string;
   email: string;
   password: string;
   passwordValidation: string;
+  showSignUpModal: boolean;
+  errorWhileCreatingUser: boolean;
+  errorWhileSendingEmail: boolean;
   isRegistered: boolean;
 }
 
@@ -14,6 +23,9 @@ const initialState: initialStateProps = {
   email: '',
   password: '',
   passwordValidation: '',
+  showSignUpModal: false,
+  errorWhileCreatingUser: false,
+  errorWhileSendingEmail: false,
   isRegistered: false,
 };
 
@@ -25,10 +37,37 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
         [action.name]: action.value,
       };
 
-    case SAVE_USER: {
+    case RESET_FORM: {
       return {
         ...state,
-        isRegistered: action.isRegistered,
+        username: '',
+        email: '',
+        password: '',
+        passwordValidation: '',
+        showSignUpModal: false,
+      };
+    }
+
+    case SHOW_SIGN_UP_MODAL: {
+      return {
+        ...state,
+        showSignUpModal: true,
+      };
+    }
+
+    case ERROR_WHILE_CREATING_USER: {
+      return {
+        ...state,
+        errorWhileCreatingUser: true,
+        showSignUpModal: false,
+      };
+    }
+
+    case ERROR_WHILE_SENDING_EMAIL: {
+      return {
+        ...state,
+        errorWhileSendingEmail: true,
+        showSignUpModal: false,
       };
     }
 

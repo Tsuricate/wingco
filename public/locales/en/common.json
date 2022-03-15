@@ -28,5 +28,6 @@
   "emailLabel": "Email address",
   "emailHelperText": "Enter your email address",
   "save": "Save",
-  "close": "Close"
+  "close": "Close",
+  "gotIt": "Got it !"
 }

@@ -16,7 +16,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  description: string;
+  description?: string;
   saveMessage?: string;
   closeMessage: string;
 }
