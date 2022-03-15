@@ -1,8 +1,11 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import client from '../../apollo-client';
 import nodemailer from 'nodemailer';
+import uniqid from 'uniqid';
+import { SET_VALIDATION_EMAIL_TOKEN } from '../../queries/signup.queries';
 
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { username, email } = req.body;
+  const { userId, username, email } = req.body;
 
   const transporter = nodemailer.createTransport({
     port: 465,
@@ -13,6 +16,15 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     },
   });
 
+  const emailValidationToken = uniqid();
+
+  const setValidationEmailToken = await client.mutate({
+    mutation: SET_VALIDATION_EMAIL_TOKEN,
+    variables: { id: userId, validationEmailToken: emailValidationToken },
+  });
+
+  const validationToken = setValidationEmailToken.data.updatePlayer.validationEmailToken;
+
   const message = {
     from: '"WingCo App" <wingspan.companion@gmail.com>',
     to: email,
@@ -20,7 +32,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     html: `
       <h3> Hello ${username} </h3>
       <p>Thank you for registering into our Application. Much appreciated! Just one last step is laying ahead of you...</p>
-      <p>To activate your account please follow this link: <a target="_">Validate your email</a></p>
+      <p>To activate your account please follow this link: <a target="_" href="${process.env.WEB_URI}/api/activate/${validationToken}">Validate your email</a></p>
       <p>Cheers</p>
       <p>Your Application Team</p>
     `,
