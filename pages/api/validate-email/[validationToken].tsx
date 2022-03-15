@@ -14,7 +14,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       if (response.data.updatePlayer) {
         res.status(200).redirect('/sign-in?validatedEmail=true');
       } else {
-        res.status(400).json('Something went wrong !');
+        res.status(400).redirect('/verify-email?validatedEmail=false');
       }
     })
     .catch((err) => {

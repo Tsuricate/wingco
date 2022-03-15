@@ -24,7 +24,7 @@ const SignIn: React.FC = () => {
 
   return (
     <PageLayout title={t('signIn:title')}>
-      {validatedEmail && (
+      {validatedEmail === 'true' && (
         <Alert status="success" my={5}>
           <AlertIcon />
           {t('signUp:emailAddressValid')}
