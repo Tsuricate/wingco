@@ -16,11 +16,11 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     },
   });
 
-  const emailValidationToken = uniqid();
+  const validationEmailToken = uniqid();
 
   const setValidationEmailToken = await client.mutate({
     mutation: SET_VALIDATION_EMAIL_TOKEN,
-    variables: { id: userId, validationEmailToken: emailValidationToken },
+    variables: { id: userId, validationEmailToken: validationEmailToken },
   });
 
   const validationToken = setValidationEmailToken.data.updatePlayer.validationEmailToken;
@@ -32,7 +32,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     html: `
       <h3> Hello ${username} </h3>
       <p>Thank you for registering into our Application. Much appreciated! Just one last step is laying ahead of you...</p>
-      <p>To activate your account please follow this link: <a target="_" href="${process.env.WEB_URI}/api/activate/${validationToken}">Validate your email</a></p>
+      <p>To activate your account please follow this link: <a target="_blank" href="${process.env.WEB_URI}/api/validate-email/${validationToken}">Validate your email</a></p>
       <p>Cheers</p>
       <p>Your Application Team</p>
     `,

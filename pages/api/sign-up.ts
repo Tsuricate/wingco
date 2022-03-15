@@ -12,7 +12,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const createPlayer = await client.mutate({
       mutation: CREATE_PLAYER,
-      variables: { name, email, password: hashedPassword, isRegistered: true },
+      variables: {
+        name,
+        email,
+        password: hashedPassword,
+        isRegistered: true,
+        hasVerifiedEmail: false,
+      },
     });
 
     res.status(201).json(createPlayer.data.createPlayer);
