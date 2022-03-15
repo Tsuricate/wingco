@@ -7,10 +7,10 @@ interface FormError {
 }
 
 interface formData {
-  username: string;
+  username?: string;
   email: string;
-  password: string;
-  passwordValidation: string;
+  password?: string;
+  passwordValidation?: string;
 }
 
 export const getErrorsMessages = (errorsArray: Array<FormError>, inputName: string) => {
