@@ -29,5 +29,6 @@
   "emailHelperText": "Saisissez votre adresse email",
   "save": "Enregistrer",
   "close": "Fermer",
-  "gotIt": "Compris !"
+  "gotIt": "Compris !",
+  "send": "Envoyer"
 }

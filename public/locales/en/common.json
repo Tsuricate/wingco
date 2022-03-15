@@ -29,5 +29,6 @@
   "emailHelperText": "Enter your email address",
   "save": "Save",
   "close": "Close",
-  "gotIt": "Got it !"
+  "gotIt": "Got it !",
+  "send": "Send"
 }
