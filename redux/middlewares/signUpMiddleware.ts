@@ -23,7 +23,8 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
         .post('/api/sign-up', newPlayer)
         .then((response) => {
           if (response.status === 201) {
-            sendEmail(username, email)
+            const userId = response.data.id;
+            sendEmail(userId, username, email)
               .catch(() => {
                 store.dispatch(errorWhileSendingEmail());
               })
