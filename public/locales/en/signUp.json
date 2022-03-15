@@ -26,5 +26,5 @@
   },
   "emailValidation": "Email address validation",
   "emailAddressValid": "Thank you for verifying your email address. You may now sign in !",
-  "emailAddressInvalid": "It looks like you may have clicked on an invalid link. "
+  "emailAddressInvalid": "An error as occured : email couldn't be verfied. You may have clicked on an invalid link. You can generate a new activation link using the form below !"
 }
