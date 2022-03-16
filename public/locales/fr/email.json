@@ -1,0 +1,3 @@
+{
+  "signUpEmail": "<h3> Bonjour {{username}} 👋</h3><p> Merci de vous être inscrit·e sur l'application Wingco ! Nous sommes ravis de vous compter parmi nous ! Une dernière étape vous attend...</p><p>Pour activer votre compte, veuillez cliquer sur le lien suivant : <a target='_blank' href='{{domain}}/api/validate-email/{{validationToken}}'>Valider votre adresse email</a></p><p>À bientôt !</p><p>L'équipe WingCo 🦜</p>"
+}

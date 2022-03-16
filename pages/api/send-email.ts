@@ -3,6 +3,7 @@ import client from '../../apollo-client';
 import nodemailer from 'nodemailer';
 import uniqid from 'uniqid';
 import { SET_VALIDATION_EMAIL_TOKEN } from '../../queries/signup.queries';
+import { i18n } from 'next-i18next';
 
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId, username, email } = req.body;
@@ -29,13 +30,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     from: '"WingCo App" <wingspan.companion@gmail.com>',
     to: email,
     subject: 'Validate your email',
-    html: `
-      <h3> Hello ${username} </h3>
-      <p>Thank you for registering into our Application. Much appreciated! Just one last step is laying ahead of you...</p>
-      <p>To activate your account please follow this link: <a target="_blank" href="${process.env.WEB_URI}/api/validate-email/${validationToken}">Validate your email</a></p>
-      <p>Cheers</p>
-      <p>Your Application Team</p>
-    `,
+    html: i18n?.t('email:signUpEmail', { username, domain: process.env.WEB_URI, validationToken }),
   };
 
   transporter.sendMail(message, (err, info) => {
