@@ -2,7 +2,8 @@ import { Alert, AlertIcon, Checkbox, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
-import React from 'react';
+import * as yup from 'yup';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from '../components/Link';
 import FormControl from '../components/FormControl';
@@ -11,10 +12,16 @@ import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
 import { updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
+import { getErrorsMessages, validateFormData } from '../utils/formUtils';
+
+const emailValidationSchema = yup.object().shape({
+  email: yup.string().email().required(),
+});
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'signUp', 'common']);
-  const { username, password, rememberMe } = useSelector((state: RootState) => state.signIn);
+  const { email, password, rememberMe } = useSelector((state: RootState) => state.signIn);
+  const [formErrors, setFormErrors] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
   const { validatedEmail } = router.query;
@@ -28,7 +35,14 @@ const SignIn: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Button clicked');
+    validateFormData(emailValidationSchema, { email })
+      .then(() => {
+        setFormErrors([]);
+        console.log('Submit !');
+      })
+      .catch((errorsArray) => {
+        setFormErrors(errorsArray);
+      });
   };
 
   return (
@@ -41,12 +55,13 @@ const SignIn: React.FC = () => {
       )}
       <Form onSubmit={handleSubmit}>
         <FormControl
-          id="username"
-          name="username"
-          value={username}
-          label={t('common:usernameLabel')}
-          helperText={t('common:usernameHelperText')}
+          id="email"
+          label={t('common:emailLabel')}
+          name="email"
+          value={email}
           updateField={updateField}
+          helperText={t('common:emailHelperText')}
+          errors={getErrorsMessages(formErrors, 'email')}
         />
         <FormControl
           id="password"

@@ -2,13 +2,13 @@ import { AnyAction } from 'redux';
 import { UPDATE_REMEMBER_ME, UPDATE_SIGN_IN_INFOS } from '../actions/signIn';
 
 interface signInReducerProps {
-  username: string;
+  email: string;
   password: string;
   rememberMe: boolean;
 }
 
 const initialState: signInReducerProps = {
-  username: '',
+  email: '',
   password: '',
   rememberMe: false,
 };
