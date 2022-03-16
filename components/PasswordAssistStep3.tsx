@@ -7,8 +7,8 @@ import FormControl from './FormControl';
 const PasswordAssistStep3: React.FC = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
 
-  const handleSubmit = () => {
-    console.log('Button clicked !');
+  const updateField = () => {
+    console.log('Update');
   };
 
   return (
@@ -19,14 +19,16 @@ const PasswordAssistStep3: React.FC = () => {
         name="password"
         label={t('passwordAssistance:newPasswordLabel')}
         helperText={t('passwordAssistance:newPasswordHelperText')}
+        updateField={updateField}
       />
       <FormControl
         id="passwordValidation"
         name="passwordValidation"
         label={t('passwordAssistance:newPasswordValidationLabel')}
         helperText={t('passwordAssistance:newPasswordValidationHelperText')}
+        updateField={updateField}
       />
-      <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
+      <FormActions cancelUrl="/sign-in" />
     </>
   );
 };

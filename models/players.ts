@@ -10,3 +10,9 @@ export default interface Player {
   badge?: PLAYER_BADGE | undefined;
   score?: number;
 }
+
+export interface NewPlayer {
+  name: string;
+  email: string;
+  password: string;
+}

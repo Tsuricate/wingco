@@ -28,5 +28,7 @@
   "emailLabel": "Adresse email",
   "emailHelperText": "Saisissez votre adresse email",
   "save": "Enregistrer",
-  "close": "Fermer"
+  "close": "Fermer",
+  "gotIt": "Compris !",
+  "send": "Envoyer"
 }

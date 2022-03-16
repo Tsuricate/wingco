@@ -13,7 +13,6 @@
   "howInviteStep2": "Click on \"Join existing game\" button",
   "howInviteStep3": "Register, log in or join as an anonymous player",
   "howInviteStep4": "Enter your game ID : {{gameId}}",
-  "closeMessage": "Got it !",
   "chooseAvatar": "Avatar selector",
   "chooseAvatarDescription": "Choose an avatar in the following list by clicking on it."
 }

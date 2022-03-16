@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import FormLayout from '../components/layout/FormLayout';
+import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import ScoresSection from '../components/ScoresSection';
@@ -12,9 +12,14 @@ import players from '../mockData/fakePlayers';
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'common']);
   const gameId = '#156D5E8';
+
+  const handleSubmit = () => {
+    console.log('Submit !');
+  };
+
   return (
     <PageLayout title={t('gameScores:title')}>
-      <FormLayout>
+      <Form onSubmit={handleSubmit}>
         <Stack spacing={5}>
           {categories.map((category) => (
             <ScoresSection
@@ -27,7 +32,7 @@ const GameScores: React.FC = () => {
         <Link asButton href={`/game-results?gameId=${gameId}`} buttonVariant="solid">
           {t('gameScores:computeScores')}
         </Link>
-      </FormLayout>
+      </Form>
     </PageLayout>
   );
 };

@@ -4,15 +4,11 @@ import React from 'react';
 import FormActions from './FormActions';
 import FormControl from './FormControl';
 
-interface PasswordAssistStep2Props {
-  onSubmit: () => void;
-}
-
-const PasswordAssistStep2: React.FC<PasswordAssistStep2Props> = ({ onSubmit }) => {
+const PasswordAssistStep2: React.FC = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
 
-  const handleSubmit = () => {
-    onSubmit();
+  const updateField = () => {
+    console.log('Update');
   };
 
   return (
@@ -23,8 +19,9 @@ const PasswordAssistStep2: React.FC<PasswordAssistStep2Props> = ({ onSubmit }) =
         name="resetCode"
         label={t('passwordAssistance:resetCodeLabel')}
         helperText={t('passwordAssistance:resetCodeHelperText')}
+        updateField={updateField}
       />
-      <FormActions cancelUrl="/sign-in" onSubmit={handleSubmit} />
+      <FormActions cancelUrl="/sign-in" />
     </>
   );
 };

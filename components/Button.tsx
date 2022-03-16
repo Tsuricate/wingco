@@ -5,19 +5,28 @@ type ButtonProps = {
   type?: ChakraButtonProps['type'];
   dataCy?: string;
   variant?: ChakraButtonProps['variant'];
-  onClick: () => void;
+  isDisabled?: boolean;
+  onClick?: () => void;
 };
 
 export const buttonDefaultStyle: ChakraButtonProps = {
   colorScheme: 'blue',
 };
 
-const Button: React.FC<ButtonProps> = ({ type, dataCy, children, variant, onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  type,
+  dataCy,
+  children,
+  variant,
+  isDisabled,
+  onClick,
+}) => {
   return (
     <ChakraButton
       data-cy={dataCy}
       type={type}
       variant={variant}
+      isDisabled={isDisabled}
       onClick={onClick}
       {...buttonDefaultStyle}
     >
