@@ -11,17 +11,14 @@
   "signIn": "Connection",
   "successModal": {
     "title": "Your account has been created !",
-    "description": "f",
     "children": "A confirmation email has been sent to the email address you provided. Please follow instructions in order to activate your account !"
   },
   "errorCreatingUserModal": {
     "title": "Something went wrong !",
-    "description": "",
     "children": "Your account could not be created. Maybe you already have an account registered with this email address ? If unsure, feel free to use the lost password feature. Otherwise, you can try again in a few minutes !"
   },
   "errorSendingEmailModal": {
     "title": "Something went wrong !",
-    "description": "Test",
     "children": "We failed to send you the confirmation email."
   },
   "emailValidation": "Email address validation",
