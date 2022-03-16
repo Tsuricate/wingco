@@ -22,6 +22,15 @@ export const CREATE_PLAYER = gql`
   }
 `;
 
+export const FIND_PLAYER = gql`
+  query FindPlayer($email: String!) {
+    player(where: { email: $email }) {
+      id
+      name
+    }
+  }
+`;
+
 export const SET_VALIDATION_EMAIL_TOKEN = gql`
   mutation UpdatePlayer($id: ID, $validationEmailToken: String!) {
     updatePlayer(data: { validationEmailToken: $validationEmailToken }, where: { id: $id }) {
