@@ -3,19 +3,22 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Link from '../components/Link';
 import FormControl from '../components/FormControl';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Button from '../components/Button';
+import { updateSignInInfos } from '../redux/actions/signIn';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'signUp', 'common']);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { validatedEmail } = router.query;
 
-  const updateField = () => {
-    console.log('Update');
+  const updateField = (value: string, name: string) => {
+    dispatch(updateSignInInfos(value, name));
   };
 
   const handleSubmit = () => {
