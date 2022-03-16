@@ -9,6 +9,8 @@ import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import { findPlayerByEmail } from '../utils/api/playerUtils';
+import { sendEmail } from '../utils/api/sendEmail';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 
 const emailValidationSchema = yup.object().shape({
@@ -21,6 +23,7 @@ const VerifyEmail: React.FC = () => {
   const { validatedEmail } = router.query;
   const [email, setEmail] = useState('');
   const [formErrors, setFormErrors] = useState([]);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleChange = (email: string) => {
     setEmail(email);
@@ -30,6 +33,16 @@ const VerifyEmail: React.FC = () => {
     validateFormData(emailValidationSchema, { email })
       .then(() => {
         setFormErrors([]);
+        findPlayerByEmail(email)
+          .then((response) => {
+            if (response.data.player) {
+              const { id, name } = response.data.player;
+              sendEmail(id, name, email);
+            }
+          })
+          .finally(() => {
+            setEmailSent(true);
+          });
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
@@ -38,10 +51,16 @@ const VerifyEmail: React.FC = () => {
 
   return (
     <PageLayout title={t('signUp:emailValidation')}>
-      {validatedEmail === 'false' && (
+      {validatedEmail === 'false' && !emailSent && (
         <Alert status="error">
           <AlertIcon />
           {t('signUp:emailAddressInvalid')}
+        </Alert>
+      )}
+      {emailSent && (
+        <Alert status="success">
+          <AlertIcon />
+          {t('signUp:successModal.children')}
         </Alert>
       )}
       <Form onSubmit={handleSubmit}>
@@ -53,8 +72,10 @@ const VerifyEmail: React.FC = () => {
           updateField={handleChange}
           helperText={t('common:emailHelperText')}
           errors={getErrorsMessages(formErrors, 'email')}
-        ></FormControl>
-        <Button type="submit">{t('common:send')}</Button>
+        />
+        <Button type="submit" isDisabled={emailSent}>
+          {t('common:send')}
+        </Button>
         <Link href="/" asButton>
           {t('common:cancel')}
         </Link>
