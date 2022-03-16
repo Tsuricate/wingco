@@ -1,7 +1,8 @@
 import { Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetErrors } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 import Modal from './Modal';
 
@@ -31,10 +32,16 @@ const errorSendingEmailModal: ModalProps = {
 
 const SignUpModal: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);
+  const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { showSignUpModal, errorWhileCreatingUser, errorWhileSendingEmail } = useSelector(
     (state: RootState) => state.signUp
   );
+
+  const handleClose = () => {
+    onClose();
+    dispatch(resetErrors());
+  };
 
   const getModalToShow = () => {
     if (errorWhileCreatingUser) return errorCreatingUserModal;
@@ -53,7 +60,7 @@ const SignUpModal: React.FC = () => {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       title={t(`${modalToShow.title}`)}
       closeMessage={t(`${modalToShow.closeMessage}`)}
     >

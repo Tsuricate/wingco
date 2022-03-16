@@ -5,6 +5,7 @@ import {
   SHOW_SIGN_UP_MODAL,
   RESET_FORM,
   UPDATE_SIGN_UP_INFOS,
+  RESET_ERRORS,
 } from '../actions/signUp';
 
 interface initialStateProps {
@@ -44,7 +45,15 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
         email: '',
         password: '',
         passwordValidation: '',
+      };
+    }
+
+    case RESET_ERRORS: {
+      return {
+        ...state,
         showSignUpModal: false,
+        errorWhileCreatingUser: false,
+        errorWhileSendingEmail: false,
       };
     }
 
@@ -59,7 +68,6 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         errorWhileCreatingUser: true,
-        showSignUpModal: false,
       };
     }
 
@@ -67,7 +75,6 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         errorWhileSendingEmail: true,
-        showSignUpModal: false,
       };
     }
 
