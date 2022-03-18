@@ -6,5 +6,6 @@
   "rememberMe": "Se souvenir de moi",
   "signInButtonLabel": "Connexion",
   "signUp": "S'inscrire",
-  "notRegisteredYet": "Pas encore inscrit ?"
+  "notRegisteredYet": "Pas encore inscrit ?",
+  "errorSignIn": "Une erreur est survenue : votre adresse email ou votre mot de passe est incorrect."
 }
