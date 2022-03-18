@@ -17,6 +17,6 @@ export const comparePassword = (password: string, hashedPassword: string) => {
   if (isPasswordValid) {
     return true;
   } else {
-    throw new Error();
+    throw new Error('Password not valid');
   }
 };

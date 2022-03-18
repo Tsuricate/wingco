@@ -20,6 +20,6 @@ export const findVerifiedPlayerByEmail = async (email: string) => {
   if (player) {
     return player;
   } else {
-    throw new Error();
+    throw new Error('No email corresponding');
   }
 };
