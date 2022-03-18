@@ -10,3 +10,13 @@ export const getHashedPassword = (password: string) => {
     });
   });
 };
+
+export const comparePassword = (password: string, hashedPassword: string) => {
+  const isPasswordValid = bcrypt.compareSync(password, hashedPassword);
+
+  if (isPasswordValid) {
+    return true;
+  } else {
+    throw new Error();
+  }
+};
