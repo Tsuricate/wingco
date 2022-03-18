@@ -13,8 +13,7 @@ import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import { updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
-import { comparePassword } from '../utils/api/password';
-import { findVerifiedPlayerByEmail } from '../utils/api/playerUtils';
+import { signIn } from '../utils/authUtils';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 
 const emailValidationSchema = yup.object().shape({
@@ -40,19 +39,9 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = () => {
     validateFormData(emailValidationSchema, { email })
-      .then(() => {
+      .then(async () => {
         setFormErrors([]);
-        findVerifiedPlayerByEmail(email)
-          .then((player) => {
-            const isPasswordValid = comparePassword(password, player.password);
-            if (isPasswordValid) {
-              setErrorSignIn(false);
-              console.log('Valid user ! ');
-            }
-          })
-          .catch(() => {
-            setErrorSignIn(true);
-          });
+        signIn({ email, password, setErrorSignIn });
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
