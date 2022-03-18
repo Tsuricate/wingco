@@ -6,5 +6,6 @@
   "rememberMe": "Remember me",
   "signInButtonLabel": "Sign in",
   "signUp": "Sign up",
-  "notRegisteredYet": "Not registered yet ?"
+  "notRegisteredYet": "Not registered yet ?",
+  "errorSignIn": "An error as occured : your email address or password is incorrect."
 }

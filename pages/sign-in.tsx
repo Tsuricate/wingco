@@ -2,16 +2,18 @@ import { Alert, AlertIcon, Checkbox, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
-import * as yup from 'yup';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Link from '../components/Link';
-import FormControl from '../components/FormControl';
-import Form from '../components/Form';
-import PageLayout from '../components/layout/PageLayout';
+import * as yup from 'yup';
 import Button from '../components/Button';
+import Form from '../components/Form';
+import FormControl from '../components/FormControl';
+import PageLayout from '../components/layout/PageLayout';
+import Link from '../components/Link';
 import { updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
+import { comparePassword } from '../utils/api/password';
+import { findVerifiedPlayerByEmail } from '../utils/api/playerUtils';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 
 const emailValidationSchema = yup.object().shape({
@@ -21,6 +23,7 @@ const emailValidationSchema = yup.object().shape({
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'signUp', 'common']);
   const { email, password, rememberMe } = useSelector((state: RootState) => state.signIn);
+  const [errorSignIn, setErrorSignIn] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -38,7 +41,17 @@ const SignIn: React.FC = () => {
     validateFormData(emailValidationSchema, { email })
       .then(() => {
         setFormErrors([]);
-        console.log('Submit !');
+        findVerifiedPlayerByEmail(email)
+          .then((player) => {
+            const isPasswordValid = comparePassword(password, player.password);
+            if (isPasswordValid) {
+              setErrorSignIn(false);
+              console.log('Valid user ! ');
+            }
+          })
+          .catch(() => {
+            setErrorSignIn(true);
+          });
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
@@ -53,22 +66,28 @@ const SignIn: React.FC = () => {
           {t('signUp:emailAddressValid')}
         </Alert>
       )}
+      {errorSignIn && (
+        <Alert status="error">
+          <AlertIcon />
+          {t('signIn:errorSignIn')}
+        </Alert>
+      )}
       <Form onSubmit={handleSubmit}>
         <FormControl
           id="email"
-          label={t('common:emailLabel')}
           name="email"
+          label={t('common:emailLabel')}
+          helperText={t('common:emailHelperText')}
           value={email}
           updateField={updateField}
-          helperText={t('common:emailHelperText')}
           errors={getErrorsMessages(formErrors, 'email')}
         />
         <FormControl
           id="password"
           name="password"
-          value={password}
           label={t('signIn:passwordLabel')}
           helperText={t('signIn:passwordHelperText')}
+          value={password}
           updateField={updateField}
         />
         <Link href="/password-assistance">{t('signIn:forgotPassword')}</Link>
