@@ -1,10 +1,11 @@
-import { Alert, AlertIcon, Checkbox, Text } from '@chakra-ui/react';
+import { Checkbox, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
@@ -61,17 +62,10 @@ const SignIn: React.FC = () => {
   return (
     <PageLayout title={t('signIn:title')}>
       {validatedEmail === 'true' && (
-        <Alert status="success" my={5}>
-          <AlertIcon />
-          {t('signUp:emailAddressValid')}
-        </Alert>
+        <AlertMessage status="success">{t('signUp:emailAddressValid')}</AlertMessage>
       )}
-      {errorSignIn && (
-        <Alert status="error">
-          <AlertIcon />
-          {t('signIn:errorSignIn')}
-        </Alert>
-      )}
+      {errorSignIn && <AlertMessage status="error">{t('signIn:errorSignIn')}</AlertMessage>}
+
       <Form onSubmit={handleSubmit}>
         <FormControl
           id="email"
