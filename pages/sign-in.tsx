@@ -39,7 +39,7 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = () => {
     validateFormData(emailValidationSchema, { email })
-      .then(async () => {
+      .then(() => {
         setFormErrors([]);
         signIn({ email, password, setErrorSignIn });
       })
