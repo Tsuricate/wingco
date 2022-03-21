@@ -5,7 +5,11 @@ export const FIND_VERIFIED_PLAYER = gql`
     players(where: { email: $email, hasVerifiedEmail: true }) {
       id
       name
+      email
       password
+      avatar {
+        url
+      }
     }
   }
 `;
