@@ -1,4 +1,4 @@
-import { comparePassword } from './api/password';
+import { comparePassword } from './password';
 import { findVerifiedPlayerByEmail } from './api/playerUtils';
 
 interface SignInProps {
