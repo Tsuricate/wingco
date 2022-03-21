@@ -7,6 +7,8 @@ export enum PLAYER_BADGE {
 export default interface Player {
   id: string;
   name: string;
+  email?: string;
+  avatar?: string;
   badge?: PLAYER_BADGE | undefined;
   score?: number;
 }

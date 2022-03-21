@@ -1,7 +1,7 @@
 import { Avatar, AvatarBadge, Stack, StackDirection, Text, ThemingProps } from '@chakra-ui/react';
 import React from 'react';
 import { PLAYER_BADGE } from '../models/players';
-import { getBadgeColor } from '../utils/playersUtils';
+import { getBadgeColor } from '../utils/badgeUtils';
 
 interface PlayerAvatar {
   playerName: string;

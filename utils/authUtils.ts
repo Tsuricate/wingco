@@ -1,4 +1,4 @@
-import { comparePassword } from './api/password';
+import { comparePassword } from './password';
 import { findVerifiedPlayerByEmail } from './api/playerUtils';
 
 interface SignInProps {
@@ -14,7 +14,7 @@ export const signIn = async ({ email, password, setErrorSignIn }: SignInProps) =
       const isPasswordValid = comparePassword(password, player.password);
       if (isPasswordValid) {
         setErrorSignIn(false);
-        console.log('Valid user ! ');
+        return player;
       } else {
         throw new Error('Password not corresponding !');
       }

@@ -11,6 +11,7 @@ import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import { saveUser } from '../redux/actions/auth';
 import { updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
 import { signIn } from '../utils/authUtils';
@@ -41,7 +42,11 @@ const SignIn: React.FC = () => {
     validateFormData(emailValidationSchema, { email })
       .then(async () => {
         setFormErrors([]);
-        signIn({ email, password, setErrorSignIn });
+        const player = await signIn({ email, password, setErrorSignIn });
+        if (player) {
+          dispatch(saveUser(player, rememberMe));
+          router.push('/account');
+        }
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
