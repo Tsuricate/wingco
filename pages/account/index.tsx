@@ -2,36 +2,14 @@ import { Center, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import AccountPanel, { AccountPanelProps } from '../../components/AccountPanel';
+import AccountPanel from '../../components/AccountPanel';
 import Button from '../../components/Button';
 import PageLayout from '../../components/layout/PageLayout';
 import PlayerAvatar from '../../components/PlayerAvatar';
+import { panels } from '../../data/account';
 
 const Account: React.FC = () => {
   const { t } = useTranslation(['account', 'common']);
-
-  const panels: Array<AccountPanelProps> = [
-    {
-      title: t('account:createGame'),
-      background: 'blackAlpha.50',
-      url: '/new-game',
-    },
-    {
-      title: t('account:statistics'),
-      background: 'blackAlpha.100',
-      url: '/account/statistics',
-    },
-    {
-      title: t('account:gamesHistory'),
-      background: 'blackAlpha.200',
-      url: '/account/games-history',
-    },
-    {
-      title: t('account:manageAccount'),
-      background: 'blackAlpha.300',
-      url: '/account/manage',
-    },
-  ];
 
   const handleSignOut = () => {
     console.log('Sign out button was clicked!');
@@ -51,7 +29,7 @@ const Account: React.FC = () => {
             return (
               <AccountPanel
                 key={panel.title}
-                title={panel.title}
+                title={t(panel.title)}
                 background={panel.background}
                 url={panel.url}
               />
