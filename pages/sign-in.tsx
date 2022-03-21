@@ -43,7 +43,10 @@ const SignIn: React.FC = () => {
       .then(async () => {
         setFormErrors([]);
         const player = await signIn({ email, password, setErrorSignIn });
-        dispatch(saveUser(player, rememberMe));
+        if (player) {
+          dispatch(saveUser(player, rememberMe));
+          router.push('/account');
+        }
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
