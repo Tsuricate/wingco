@@ -21,7 +21,7 @@ const Account: React.FC = () => {
     <PageLayout title={t('account:title')}>
       <Stack spacing={8}>
         <Stack as={Center}>
-          <PlayerAvatar playerName={name} avatar={avatar?.url} direction="column" avatarSize="lg" />
+          <PlayerAvatar playerName={name} avatar={avatar} direction="column" avatarSize="lg" />
           <Button dataCy="signOut" onClick={handleSignOut}>
             {t('common:signOut')}
           </Button>
