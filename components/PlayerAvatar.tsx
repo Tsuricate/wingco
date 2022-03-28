@@ -8,6 +8,7 @@ interface PlayerAvatar {
   direction?: StackDirection;
   badge?: PLAYER_BADGE;
   avatarSize?: ThemingProps<'Avatar'>['size'];
+  avatar?: string;
 }
 
 const PlayerAvatar: React.FC<PlayerAvatar> = ({
@@ -15,12 +16,13 @@ const PlayerAvatar: React.FC<PlayerAvatar> = ({
   playerName,
   badge,
   avatarSize = 'sm',
+  avatar = undefined,
 }) => {
   const badgeColor = badge ? getBadgeColor(badge) : undefined;
 
   return (
     <Stack direction={direction} align="center">
-      <Avatar name={playerName} size={avatarSize}>
+      <Avatar name={playerName} size={avatarSize} src={avatar}>
         {badge && <AvatarBadge boxSize="1.25em" bg={badgeColor} />}
       </Avatar>
       <Text>{playerName}</Text>

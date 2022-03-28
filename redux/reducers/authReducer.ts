@@ -26,7 +26,7 @@ const authReducer = (state = initialState, action: AnyAction) => {
         ...state,
         id: action.id,
         name: action.name,
-        avatar: action.avatar,
+        avatar: action.avatar.url,
         email: action.email,
         rememberMe: action.rememberMe,
       };
