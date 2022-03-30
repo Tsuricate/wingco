@@ -8,8 +8,9 @@ import VersusPanel from '../../components/VersusPanel';
 import { statisticsVersusData } from '../../mockData/statisticsVersusData';
 import { GiCrossedSabres, GiTrophy } from 'react-icons/gi';
 import { bestScoreByCategory } from '../../mockData/bestScoreByCategory';
+import { NextPageWithAuth } from '../../models/pageWithAuth';
 
-const Statistics: React.FC = () => {
+const Statistics: NextPageWithAuth = () => {
   const { t } = useTranslation(['statistics', 'common']);
 
   return (
@@ -47,6 +48,8 @@ const Statistics: React.FC = () => {
 };
 
 export default Statistics;
+
+Statistics.requireAuth = true;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
