@@ -30,13 +30,17 @@ const SignIn: React.FC = () => {
   const [formErrors, setFormErrors] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { validatedEmail } = router.query;
+  const { validatedEmail, unauthorized } = router.query;
 
   useEffect(() => {
     const redirect = getRedirection('sign_in_redirect');
-    if (id && redirect) {
-      router.push(redirect);
-      removeRedirection('sign_in_redirect');
+    if (id) {
+      if (redirect) {
+        router.push(redirect);
+        removeRedirection('sign_in_redirect');
+      } else {
+        router.push('/account');
+      }
     }
   });
 
@@ -65,6 +69,7 @@ const SignIn: React.FC = () => {
         <AlertMessage status="success">{t('signUp:emailAddressValid')}</AlertMessage>
       )}
       {errorSignIn && <AlertMessage status="error">{t('signIn:errorSignIn')}</AlertMessage>}
+      {unauthorized && <AlertMessage status="error">{t('signIn:errorUnauthorized')}</AlertMessage>}
 
       <Form onSubmit={handleSubmit}>
         <FormControl

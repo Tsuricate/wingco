@@ -14,7 +14,7 @@ const AuthGuard: React.FC = ({ children }) => {
       // remember the page that user tried to access
       setRedirection('sign_in_redirect', router.route);
       // and redirect
-      router.push('/sign-in');
+      router.push('/sign-in?unauthorized=true');
     }
   }, [router, id]);
 
