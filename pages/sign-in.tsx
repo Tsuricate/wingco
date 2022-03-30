@@ -14,6 +14,7 @@ import Link from '../components/Link';
 import { submitSignIn, updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
+import { getRedirection, removeRedirection } from '../utils/redirection';
 
 const emailValidationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -32,7 +33,11 @@ const SignIn: React.FC = () => {
   const { validatedEmail } = router.query;
 
   useEffect(() => {
-    if (id) router.push('/account');
+    const redirect = getRedirection('sign_in_redirect');
+    if (id && redirect) {
+      router.push(redirect);
+      removeRedirection('sign_in_redirect');
+    }
   });
 
   const updateField = (value: string, name: string) => {
