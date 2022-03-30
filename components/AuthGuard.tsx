@@ -1,0 +1,28 @@
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers';
+
+const AuthGuard: React.FC = ({ children }) => {
+  const { id } = useSelector((state: RootState) => state.auth);
+  const router = useRouter();
+
+  useEffect(() => {
+    // If there is no user
+    if (!id) {
+      // remember the page that user tried to access
+      window.sessionStorage.setItem('sign_in_redirect', router.route);
+      // and redirect
+      router.push('/sign-in');
+    }
+  }, [router, id]);
+
+  if (id) {
+    return <>{children}</>;
+  }
+
+  /* otherwise don't return anything, will do a redirect from useEffect */
+  return null;
+};
+
+export default AuthGuard;
