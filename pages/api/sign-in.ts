@@ -5,7 +5,7 @@ import { findVerifiedPlayerByEmail } from '../../utils/api/playerUtils';
 import { comparePassword } from '../../utils/password';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
 
   try {
     const player = await findVerifiedPlayerByEmail(email);
@@ -16,9 +16,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const payload = {
           id: player.id,
         };
+
+        // expiration time set to 1 week if rememberMe was checked, 2 hours otherwise.
+        const expirationTime = rememberMe ? 60 * 60 * 24 * 7 : 60 * 60 * 2;
         const jwtSecret: jwt.Secret = process.env.JWT_SECRET_KEY || '';
+
         const token = jwt.sign(payload, jwtSecret, {
-          expiresIn: 60 * 60 * 24 * 7,
+          expiresIn: expirationTime,
         });
 
         res.setHeader(
