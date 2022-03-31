@@ -1,17 +1,40 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import type { AppProps } from 'next/app';
-import { appWithTranslation } from 'next-i18next';
 import { ApolloProvider } from '@apollo/client';
+import { ChakraProvider } from '@chakra-ui/react';
+import axios from 'axios';
+import { appWithTranslation } from 'next-i18next';
+import type { AppProps } from 'next/app';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import client from '../apollo-client';
-import { wrapper } from '../redux/store';
 import AuthGuard from '../components/AuthGuard';
 import { NextPageWithAuth } from '../models/pageWithAuth';
+import { saveUser } from '../redux/actions/auth';
+import { wrapper } from '../redux/store';
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithAuth;
 }
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
+  const dispatch = useDispatch();
+  const [shouldGetPlayer, setShouldGetPlayer] = useState(true);
+
+  useEffect(() => {
+    if (shouldGetPlayer) {
+      axios
+        .get('/api/user/me')
+        .then((res) => {
+          if (res.data.player) {
+            dispatch(saveUser(res.data.player, true));
+            setShouldGetPlayer(false);
+          }
+        })
+        .catch(() => {
+          setShouldGetPlayer(false);
+        });
+    }
+  });
+
   return (
     <ApolloProvider client={client}>
       <ChakraProvider>
