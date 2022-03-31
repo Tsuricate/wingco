@@ -9,7 +9,7 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
       const { email, password, rememberMe } = store.getState().signIn;
 
       axios
-        .post('/api/sign-in', { email, password })
+        .post('/api/sign-in', { email, password, rememberMe })
         .then((res) => {
           store.dispatch(updateErrorSignIn(false));
           store.dispatch(saveUser(res.data.player, rememberMe));
