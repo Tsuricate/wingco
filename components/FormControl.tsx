@@ -42,7 +42,7 @@ const FormControl: React.FC<FormControlProps> = ({
       <FormLabel htmlFor={id}>{label}</FormLabel>
       <Stack direction="row" align="center">
         {leftSlot}
-        <Input id={id} name={name} value={value} onChange={manageChange} />
+        <Input id={id} name={name} value={value} onChange={manageChange} required />
         {rightSlot}
       </Stack>
       {!isInvalid ? (

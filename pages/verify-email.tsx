@@ -1,9 +1,9 @@
-import { Alert, AlertIcon } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import * as yup from 'yup';
+import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
@@ -52,16 +52,10 @@ const VerifyEmail: React.FC = () => {
   return (
     <PageLayout title={t('signUp:emailValidation')}>
       {validatedEmail === 'false' && !emailSent && (
-        <Alert status="error">
-          <AlertIcon />
-          {t('signUp:emailAddressInvalid')}
-        </Alert>
+        <AlertMessage status="error">{t('signUp:emailAddressInvalid')}</AlertMessage>
       )}
       {emailSent && (
-        <Alert status="success">
-          <AlertIcon />
-          {t('signUp:successModal.children')}
-        </Alert>
+        <AlertMessage status="success">{t('signUp:successModal.children')}</AlertMessage>
       )}
       <Form onSubmit={handleSubmit}>
         <FormControl

@@ -2,36 +2,18 @@ import { Center, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import AccountPanel, { AccountPanelProps } from '../../components/AccountPanel';
+import { useSelector } from 'react-redux';
+import AccountPanel from '../../components/AccountPanel';
 import Button from '../../components/Button';
 import PageLayout from '../../components/layout/PageLayout';
 import PlayerAvatar from '../../components/PlayerAvatar';
+import { panels } from '../../data/account';
+import { NextPageWithAuth } from '../../models/pageWithAuth';
+import { RootState } from '../../redux/reducers';
 
-const Account: React.FC = () => {
+const Account: NextPageWithAuth = () => {
   const { t } = useTranslation(['account', 'common']);
-
-  const panels: Array<AccountPanelProps> = [
-    {
-      title: t('account:createGame'),
-      background: 'blackAlpha.50',
-      url: '/new-game',
-    },
-    {
-      title: t('account:statistics'),
-      background: 'blackAlpha.100',
-      url: '/account/statistics',
-    },
-    {
-      title: t('account:gamesHistory'),
-      background: 'blackAlpha.200',
-      url: '/account/games-history',
-    },
-    {
-      title: t('account:manageAccount'),
-      background: 'blackAlpha.300',
-      url: '/account/manage',
-    },
-  ];
+  const { name, avatar } = useSelector((state: RootState) => state.auth);
 
   const handleSignOut = () => {
     console.log('Sign out button was clicked!');
@@ -40,7 +22,7 @@ const Account: React.FC = () => {
     <PageLayout title={t('account:title')}>
       <Stack spacing={8}>
         <Stack as={Center}>
-          <PlayerAvatar playerName="Lorem Ipsum" direction="column" avatarSize="lg" />
+          <PlayerAvatar playerName={name} avatar={avatar} direction="column" avatarSize="lg" />
           <Button dataCy="signOut" onClick={handleSignOut}>
             {t('common:signOut')}
           </Button>
@@ -51,7 +33,7 @@ const Account: React.FC = () => {
             return (
               <AccountPanel
                 key={panel.title}
-                title={panel.title}
+                title={t(panel.title)}
                 background={panel.background}
                 url={panel.url}
               />
@@ -64,6 +46,8 @@ const Account: React.FC = () => {
 };
 
 export default Account;
+
+Account.requireAuth = true;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
