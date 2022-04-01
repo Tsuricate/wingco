@@ -2,6 +2,7 @@ export enum PLAYER_BADGE {
   Gold = 'GOLD',
   Silver = 'SILVER',
   Bronze = 'BRONZE',
+  Logged = 'LOGGED',
 }
 
 export default interface Player {

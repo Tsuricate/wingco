@@ -8,5 +8,7 @@ export const getBadgeColor = (playerBadge: PLAYER_BADGE) => {
       return 'lightGray';
     case PLAYER_BADGE.Bronze:
       return 'orange.700';
+    case PLAYER_BADGE.Logged:
+      return 'green';
   }
 };
