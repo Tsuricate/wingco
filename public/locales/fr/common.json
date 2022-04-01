@@ -30,5 +30,6 @@
   "save": "Enregistrer",
   "close": "Fermer",
   "gotIt": "Compris !",
-  "send": "Envoyer"
+  "send": "Envoyer",
+  "loading": "Chargement..."
 }

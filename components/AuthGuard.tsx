@@ -1,14 +1,18 @@
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { setRedirection } from '../utils/redirection';
+import PageLayout from './layout/PageLayout';
+import Loader from './Loader';
 
 interface AuthGuardProps {
   isLoading: boolean;
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
+  const { t } = useTranslation();
   const { id } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
 
@@ -25,7 +29,11 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
   }, [id, isLoading, router]);
 
   if (isLoading) {
-    return <h1>Application loading</h1>;
+    return (
+      <PageLayout title={t('common:loading')}>
+        <Loader />
+      </PageLayout>
+    );
   }
 
   if (id) {
