@@ -2,7 +2,9 @@
   "home": "Home",
   "signIn": "Sign in / Sign up",
   "newGameAsGuest": "New game as guest",
+  "newGame": "New game",
   "joinGame": "Join existing game",
+  "myAccount": "My account",
   "cancel": "Cancel",
   "continue": "Continue",
   "signOut": "Sign out",
@@ -30,5 +32,6 @@
   "save": "Save",
   "close": "Close",
   "gotIt": "Got it !",
-  "send": "Send"
+  "send": "Send",
+  "loading": "Loading..."
 }

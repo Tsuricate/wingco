@@ -4,17 +4,22 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from '../components/Link';
 import PageLayout from '../components/layout/PageLayout';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers';
 
 const Home: NextPage = () => {
+  const { isLogged } = useSelector((state: RootState) => state.auth);
   const { t } = useTranslation(['home', 'common']);
 
   return (
     <PageLayout title={t('home:title')}>
       <Stack spacing={{ base: 10 }}>
         <Text>{t('home:description')}</Text>
-        <Link href="/sign-in" asButton>
-          {t('common:signIn')}
-        </Link>
+        {!isLogged && (
+          <Link href="/sign-in" asButton>
+            {t('common:signIn')}
+          </Link>
+        )}
         <Link href="/new-game" asButton>
           {t('common:newGameAsGuest')}
         </Link>

@@ -7,5 +7,6 @@
   "signInButtonLabel": "Sign in",
   "signUp": "Sign up",
   "notRegisteredYet": "Not registered yet ?",
-  "errorSignIn": "An error as occured : your email address or password is incorrect."
+  "errorSignIn": "An error as occured : your email address or password is incorrect.",
+  "errorUnauthorized": "You must sign in before accessing the required page."
 }

@@ -14,6 +14,7 @@ import Link from '../components/Link';
 import { submitSignIn, updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
+import { getRedirection, removeRedirection } from '../utils/redirection';
 
 const emailValidationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -29,10 +30,18 @@ const SignIn: React.FC = () => {
   const [formErrors, setFormErrors] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { validatedEmail } = router.query;
+  const { validatedEmail, unauthorized } = router.query;
 
   useEffect(() => {
-    if (id) router.push('/account');
+    const redirect = getRedirection('sign_in_redirect');
+    if (id) {
+      if (redirect) {
+        router.push(redirect);
+        removeRedirection('sign_in_redirect');
+      } else {
+        router.push('/account');
+      }
+    }
   });
 
   const updateField = (value: string, name: string) => {
@@ -60,6 +69,7 @@ const SignIn: React.FC = () => {
         <AlertMessage status="success">{t('signUp:emailAddressValid')}</AlertMessage>
       )}
       {errorSignIn && <AlertMessage status="error">{t('signIn:errorSignIn')}</AlertMessage>}
+      {unauthorized && <AlertMessage status="error">{t('signIn:errorUnauthorized')}</AlertMessage>}
 
       <Form onSubmit={handleSubmit}>
         <FormControl

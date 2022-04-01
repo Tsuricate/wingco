@@ -4,11 +4,12 @@ import { PLAYER_BADGE } from '../models/players';
 import { getBadgeColor } from '../utils/badgeUtils';
 
 interface PlayerAvatar {
-  playerName: string;
+  playerName?: string;
   direction?: StackDirection;
   badge?: PLAYER_BADGE;
   avatarSize?: ThemingProps<'Avatar'>['size'];
   avatar?: string;
+  onClick?: () => void;
 }
 
 const PlayerAvatar: React.FC<PlayerAvatar> = ({
@@ -17,12 +18,19 @@ const PlayerAvatar: React.FC<PlayerAvatar> = ({
   badge,
   avatarSize = 'sm',
   avatar = undefined,
+  onClick,
 }) => {
   const badgeColor = badge ? getBadgeColor(badge) : undefined;
 
   return (
     <Stack direction={direction} align="center">
-      <Avatar name={playerName} size={avatarSize} src={avatar}>
+      <Avatar
+        name={playerName}
+        size={avatarSize}
+        src={avatar}
+        onClick={onClick}
+        cursor={onClick ? 'pointer' : 'none'}
+      >
         {badge && <AvatarBadge boxSize="1.25em" bg={badgeColor} />}
       </Avatar>
       <Text>{playerName}</Text>

@@ -7,8 +7,9 @@ import FormControl from '../../components/FormControl';
 import Form from '../../components/Form';
 import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
+import { NextPageWithAuth } from '../../models/pageWithAuth';
 
-const ManageAccount = () => {
+const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'common']);
 
   const updateField = () => {
@@ -56,6 +57,8 @@ const ManageAccount = () => {
 };
 
 export default ManageAccount;
+
+ManageAccount.requireAuth = true;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {

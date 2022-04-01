@@ -4,8 +4,9 @@ import { useTranslation } from 'next-i18next';
 import PageLayout from '../../components/layout/PageLayout';
 import GamesHistoryPanel from '../../components/GamesHistoryPanel';
 import gamesHistoryData from '../../mockData/gamesHistoryData';
+import { NextPageWithAuth } from '../../models/pageWithAuth';
 
-const GamesHistory: React.FC = () => {
+const GamesHistory: NextPageWithAuth = () => {
   const { t } = useTranslation(['gamesHistory', 'common']);
 
   return (
@@ -18,6 +19,8 @@ const GamesHistory: React.FC = () => {
 };
 
 export default GamesHistory;
+
+GamesHistory.requireAuth = true;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {

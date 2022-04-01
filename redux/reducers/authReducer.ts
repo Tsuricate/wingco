@@ -8,6 +8,7 @@ interface authReducerProps {
   email: string;
   password: string;
   rememberMe: boolean;
+  isLogged: boolean;
 }
 
 const initialState: authReducerProps = {
@@ -17,6 +18,7 @@ const initialState: authReducerProps = {
   email: '',
   password: '',
   rememberMe: false,
+  isLogged: false,
 };
 
 const authReducer = (state = initialState, action: AnyAction) => {
@@ -29,6 +31,7 @@ const authReducer = (state = initialState, action: AnyAction) => {
         avatar: action.avatar.url,
         email: action.email,
         rememberMe: action.rememberMe,
+        isLogged: true,
       };
     }
     default:

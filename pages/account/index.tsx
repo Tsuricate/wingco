@@ -8,9 +8,10 @@ import Button from '../../components/Button';
 import PageLayout from '../../components/layout/PageLayout';
 import PlayerAvatar from '../../components/PlayerAvatar';
 import { panels } from '../../data/account';
+import { NextPageWithAuth } from '../../models/pageWithAuth';
 import { RootState } from '../../redux/reducers';
 
-const Account: React.FC = () => {
+const Account: NextPageWithAuth = () => {
   const { t } = useTranslation(['account', 'common']);
   const { name, avatar } = useSelector((state: RootState) => state.auth);
 
@@ -45,6 +46,8 @@ const Account: React.FC = () => {
 };
 
 export default Account;
+
+Account.requireAuth = true;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
