@@ -4,19 +4,29 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { setRedirection } from '../utils/redirection';
 
-const AuthGuard: React.FC = ({ children }) => {
+interface AuthGuardProps {
+  isLoading: boolean;
+}
+
+const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
   const { id } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
 
   useEffect(() => {
     // If there is no user
-    if (!id) {
-      // remember the page that user tried to access
-      setRedirection('sign_in_redirect', router.route);
-      // and redirect
-      router.push('/sign-in?unauthorized=true');
+    if (!isLoading) {
+      if (!id) {
+        // remember the page that user tried to access
+        setRedirection('sign_in_redirect', router.route);
+        // and redirect
+        router.push('/sign-in?unauthorized=true');
+      }
     }
-  }, [router, id]);
+  }, [id, isLoading, router]);
+
+  if (isLoading) {
+    return <h1>Application loading</h1>;
+  }
 
   if (id) {
     return <>{children}</>;

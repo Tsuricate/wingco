@@ -17,6 +17,7 @@ interface MyAppProps extends AppProps {
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   const [shouldGetPlayer, setShouldGetPlayer] = useState(true);
 
   useEffect(() => {
@@ -31,15 +32,16 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         })
         .catch(() => {
           setShouldGetPlayer(false);
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
-  });
+  }, [shouldGetPlayer, dispatch]);
 
   return (
     <ApolloProvider client={client}>
       <ChakraProvider>
         {Component.requireAuth ? (
-          <AuthGuard>
+          <AuthGuard isLoading={isLoading}>
             <Component {...pageProps} />
           </AuthGuard>
         ) : (
