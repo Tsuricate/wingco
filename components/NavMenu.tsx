@@ -2,6 +2,9 @@ import { Box, List, ListItem, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import Link from './Link';
 import React from 'react';
+import { RootState } from '../redux/reducers';
+import { useSelector } from 'react-redux';
+import { loggedNavLinks, publicNavLinks } from '../data/navMenu';
 
 interface NavMenuProps {
   onClick?: () => void;
@@ -9,25 +12,10 @@ interface NavMenuProps {
 }
 
 const NavMenu: React.FC<NavMenuProps> = ({ onClick, direction }) => {
+  const { isLogged } = useSelector((state: RootState) => state.auth);
   const { t } = useTranslation('common');
-  const navLinks = [
-    {
-      label: 'home',
-      url: '/',
-    },
-    {
-      label: 'signIn',
-      url: '/sign-in',
-    },
-    {
-      label: 'newGameAsGuest',
-      url: '/new-game',
-    },
-    {
-      label: 'joinGame',
-      url: '/join-game',
-    },
-  ];
+
+  const navLinks = isLogged ? loggedNavLinks : publicNavLinks;
 
   return (
     <Box p={2} as="nav" data-cy="navMenu">
