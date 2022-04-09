@@ -13,20 +13,20 @@ interface AuthGuardProps {
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
   const { t } = useTranslation();
-  const { id } = useSelector((state: RootState) => state.auth);
+  const { isLogged } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
 
   useEffect(() => {
     // If there is no user
     if (!isLoading) {
-      if (!id) {
+      if (!isLogged) {
         // remember the page that user tried to access
         setRedirection('sign_in_redirect', router.route);
         // and redirect
         router.push('/sign-in?unauthorized=true');
       }
     }
-  }, [id, isLoading, router]);
+  }, [isLoading, isLogged, router]);
 
   if (isLoading) {
     return (
@@ -36,7 +36,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
     );
   }
 
-  if (id) {
+  if (isLogged) {
     return <>{children}</>;
   }
 
