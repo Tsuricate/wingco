@@ -14,6 +14,7 @@ interface LinkProps {
   asButton?: boolean;
   buttonVariant?: ButtonProps['variant'];
   asOverlay?: boolean;
+  isExternal?: boolean;
 }
 
 const Link: React.FC<LinkProps> = ({
@@ -23,8 +24,11 @@ const Link: React.FC<LinkProps> = ({
   asButton = false,
   buttonVariant = 'outline',
   asOverlay = false,
+  isExternal,
 }) => {
-  return (
+  return isExternal ? (
+    <ChakraLink href={href}>{children}</ChakraLink>
+  ) : (
     <NextLink href={href} passHref>
       {asButton ? (
         <ChakraButton
