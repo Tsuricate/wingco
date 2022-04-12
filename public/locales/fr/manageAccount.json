@@ -4,5 +4,7 @@
   "usernameHelperText": "Saisissez votre nouveau nom d'utilisateur",
   "emailHelperText": "Mettez à jour votre adresse email",
   "changePassword": "Changer votre mot de passe",
-  "delete": "Supprimer votre compte"
+  "keepAccount": "Conserver mon compte",
+  "delete": "Supprimer mon compte",
+  "deleteModalDescription": "Cette action est irréversible. Tous vos scores et records seront définitivement supprimés. Êtes vous sûr·e de vouloir supprimer votre compte ?"
 }

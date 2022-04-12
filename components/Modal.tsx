@@ -19,6 +19,7 @@ interface ModalProps {
   description?: string;
   saveMessage?: string;
   closeMessage: string;
+  onClick?: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -29,6 +30,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   saveMessage,
   closeMessage,
+  onClick,
 }) => {
   return (
     <>
@@ -42,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({
           <ModalFooter justifyContent="center">
             <Stack>
               {saveMessage && <Button onClick={onClose}>{saveMessage}</Button>}
-              <Button onClick={onClose}>{closeMessage}</Button>
+              <Button onClick={onClick}>{closeMessage}</Button>
             </Stack>
           </ModalFooter>
         </ModalContent>
