@@ -6,13 +6,20 @@ import Link from '../components/Link';
 import PageLayout from '../components/layout/PageLayout';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
+import { useRouter } from 'next/router';
+import AlertMessage from '../components/AlertMessage';
 
 const Home: NextPage = () => {
   const { isLogged } = useSelector((state: RootState) => state.auth);
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation(['home', 'common', 'manageAccount']);
+  const router = useRouter();
+  const { accountDeleted } = router.query;
 
   return (
     <PageLayout title={t('home:title')}>
+      {accountDeleted && (
+        <AlertMessage status="info">{t('manageAccount:accountDeleted')}</AlertMessage>
+      )}
       <Stack spacing={{ base: 10 }}>
         <Text>{t('home:description')}</Text>
         {!isLogged && (
@@ -35,6 +42,6 @@ export default Home;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['home', 'common'])),
+    ...(await serverSideTranslations(locale, ['home', 'common', 'manageAccount'])),
   },
 });
