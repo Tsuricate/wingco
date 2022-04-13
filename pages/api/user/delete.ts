@@ -29,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (player) {
           deleteAuthToken(res);
-          res.redirect('/');
+          res.redirect('/?accountDeleted=true');
         }
       }
     } catch (error) {
