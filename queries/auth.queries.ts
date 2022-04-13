@@ -12,3 +12,11 @@ export const FIND_PLAYER_BY_ID = gql`
     }
   }
 `;
+
+export const DELETE_PLAYER_BY_ID = gql`
+  mutation deletePlayerById($id: ID!) {
+    deletePlayer(where: { id: $id }) {
+      id
+    }
+  }
+`;
