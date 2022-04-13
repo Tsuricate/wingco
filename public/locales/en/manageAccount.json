@@ -4,5 +4,7 @@
   "usernameHelperText": "Choose your new username",
   "emailHelperText": "Update your email address",
   "changePassword": "Change password",
-  "delete": "Delete account"
+  "keepAccount": "Keep my account",
+  "delete": "Delete my account",
+  "deleteModalDescription": "This action can not be undone. All your scores and records will be lost forever. Are you sure you want to delete your account ?"
 }
