@@ -3,10 +3,10 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Button from '../../components/Button';
-import Link from '../../components/Link';
-import FormControl from '../../components/FormControl';
 import Form from '../../components/Form';
+import FormControl from '../../components/FormControl';
 import PageLayout from '../../components/layout/PageLayout';
+import Link from '../../components/Link';
 import Modal from '../../components/Modal';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
 
@@ -20,10 +20,6 @@ const ManageAccount: NextPageWithAuth = () => {
 
   const handleSave = () => {
     console.log('Informations has been changed !');
-  };
-
-  const handleDelete = () => {
-    console.log('Delete! ');
   };
 
   const email = 'tsuricate@gmail.com';
@@ -60,7 +56,7 @@ const ManageAccount: NextPageWithAuth = () => {
           closeMessage={t('manageAccount:delete')}
           isOpen={isOpen}
           onClose={onClose}
-          onClick={handleDelete}
+          href="/api/user/delete"
         >
           {t('manageAccount:deleteModalDescription')}
         </Modal>
