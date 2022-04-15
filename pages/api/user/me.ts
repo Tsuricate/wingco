@@ -11,7 +11,7 @@ interface JWTContent {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.headers.cookie) {
-    res.status(404).json({ message: 'Unauthenticated user' });
+    res.status(401).json({ message: 'Unauthenticated user' });
   } else {
     try {
       const { authToken } = cookie.parse(req.headers.cookie);
@@ -25,7 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (player) res.status(200).json({ player });
       }
     } catch (error) {
-      res.status(403).json(error);
+      res.status(401).json(error);
     }
   }
 };
