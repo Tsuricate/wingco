@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
-import { saveUser } from '../actions/auth';
+import { CHECK_TOKEN, saveUser, signOutUser } from '../actions/auth';
 import { SUBMIT_SIGN_IN, updateErrorSignIn } from '../actions/signIn';
 
 const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
@@ -21,6 +21,13 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
       next(action);
       break;
     }
+
+    case CHECK_TOKEN: {
+      axios.get('/api/user/me').catch(() => store.dispatch(signOutUser()));
+      next(action);
+      break;
+    }
+
     default:
       next(action);
   }
