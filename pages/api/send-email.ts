@@ -16,7 +16,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
 
   const message = userId
     ? await getSignUpMessage(userId, email, username)
-    : await getResetPasswordMessage(email, username);
+    : await getResetPasswordMessage(email);
 
   transporter.sendMail(message, (err, info) => {
     if (err) {
