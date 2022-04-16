@@ -4,14 +4,17 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import PasswordAssistStep1 from '../components/PasswordAssistStep1';
 import PasswordAssistStep2 from '../components/PasswordAssistStep2';
 import PasswordAssistStep3 from '../components/PasswordAssistStep3';
-import { updatePasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
+import {
+  sendResetPasswordEmail,
+  updatePasswordAssistanceInfos,
+} from '../redux/actions/passwordAssistance';
 import { RootState } from '../redux/reducers';
+import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 
 const emailValidationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -43,6 +46,7 @@ const PasswordAssistance = () => {
       validateFormData(emailValidationSchema, { email })
         .then(async () => {
           setFormErrors([]);
+          dispatch(sendResetPasswordEmail());
           handleSubmitStep1();
         })
         .catch((errorsArray) => {
