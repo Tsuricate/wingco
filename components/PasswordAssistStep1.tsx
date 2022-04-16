@@ -7,9 +7,10 @@ import FormControl from './FormControl';
 interface PasswordAssistanceProps {
   value?: string;
   updateField: (value: string, name: string) => void;
+  errors?: Array<string>;
 }
 
-const PasswordAssistStep1: React.FC<PasswordAssistanceProps> = ({ value, updateField }) => {
+const PasswordAssistStep1: React.FC<PasswordAssistanceProps> = ({ value, updateField, errors }) => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
 
   return (
@@ -22,6 +23,7 @@ const PasswordAssistStep1: React.FC<PasswordAssistanceProps> = ({ value, updateF
         label={t('common:emailLabel')}
         helperText={t('common:emailHelperText')}
         updateField={updateField}
+        errors={errors}
       />
       <FormActions cancelUrl="/sign-in" />
     </>

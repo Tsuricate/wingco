@@ -3,6 +3,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as yup from 'yup';
+import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import PasswordAssistStep1 from '../components/PasswordAssistStep1';
@@ -11,11 +13,16 @@ import PasswordAssistStep3 from '../components/PasswordAssistStep3';
 import { updatePasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
 import { RootState } from '../redux/reducers';
 
+const emailValidationSchema = yup.object().shape({
+  email: yup.string().email().required(),
+});
+
 const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
   const { query } = useRouter();
   const dispatch = useDispatch();
   const { email } = useSelector((state: RootState) => state.passwordAssistance);
+  const [formErrors, setFormErrors] = useState([]);
   const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
   const [hasCorrectResetCode, setHasCorrectResetCode] = useState(false);
   const isStep1 = !hasProvidedEmail;
@@ -32,7 +39,17 @@ const PasswordAssistance = () => {
   };
 
   const handleSubmit = () => {
-    if (isStep1) handleSubmitStep1();
+    if (isStep1) {
+      validateFormData(emailValidationSchema, { email })
+        .then(async () => {
+          setFormErrors([]);
+          handleSubmitStep1();
+        })
+        .catch((errorsArray) => {
+          setFormErrors(errorsArray);
+        });
+    }
+
     if (isStep2) handleSubmitStep2();
   };
 
@@ -47,7 +64,13 @@ const PasswordAssistance = () => {
   return (
     <PageLayout title={t('passwordAssistance:title')}>
       <Form onSubmit={handleSubmit}>
-        {isStep1 && <PasswordAssistStep1 updateField={updateField} value={email} />}
+        {isStep1 && (
+          <PasswordAssistStep1
+            updateField={updateField}
+            value={email}
+            errors={getErrorsMessages(formErrors, 'email')}
+          />
+        )}
         {isStep2 && <PasswordAssistStep2 />}
         {hasCorrectResetCode && <PasswordAssistStep3 />}
       </Form>
