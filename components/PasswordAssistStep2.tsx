@@ -4,12 +4,14 @@ import AlertMessage from './AlertMessage';
 import FormActions from './FormActions';
 import FormControl from './FormControl';
 
-const PasswordAssistStep2: React.FC = () => {
-  const { t } = useTranslation(['passwordAssistance', 'common']);
+interface PasswordAssistanceProps {
+  value?: string;
+  updateField: (value: string, name: string) => void;
+  errors?: Array<string>;
+}
 
-  const updateField = () => {
-    console.log('Update');
-  };
+const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({ value, updateField }) => {
+  const { t } = useTranslation(['passwordAssistance', 'common']);
 
   return (
     <>
@@ -17,9 +19,10 @@ const PasswordAssistStep2: React.FC = () => {
       <FormControl
         id="resetCode"
         name="resetCode"
+        value={value}
+        updateField={updateField}
         label={t('passwordAssistance:resetCodeLabel')}
         helperText={t('passwordAssistance:resetCodeHelperText')}
-        updateField={updateField}
       />
       <FormActions cancelUrl="/sign-in" />
     </>
