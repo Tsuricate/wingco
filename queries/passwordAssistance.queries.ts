@@ -8,3 +8,11 @@ export const SET_PASSWORD_RESET_CODE = gql`
     }
   }
 `;
+
+export const VERIFY_PASSWORD_RESET_CODE = gql`
+  query findPlayerByResetCode($passwordResetCode: String!) {
+    player(where: { passwordResetCode: $passwordResetCode }) {
+      id
+    }
+  }
+`;
