@@ -7,6 +7,7 @@ import {
 interface passwordAssistanceReducerProps {
   email: string;
   resetCode: string;
+  hasSubmitResetCode: boolean;
   hasCorrectResetCode: boolean;
   password: string;
   passwordValidation: string;
@@ -15,6 +16,7 @@ interface passwordAssistanceReducerProps {
 const initialState: passwordAssistanceReducerProps = {
   email: '',
   resetCode: '',
+  hasSubmitResetCode: false,
   hasCorrectResetCode: false,
   password: '',
   passwordValidation: '',
@@ -32,6 +34,7 @@ const passwordAssistanceReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         hasCorrectResetCode: action.value,
+        hasSubmitResetCode: true,
       };
     }
     default:
