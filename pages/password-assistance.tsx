@@ -12,6 +12,7 @@ import PasswordAssistStep3 from '../components/PasswordAssistStep3';
 import {
   sendResetPasswordEmail,
   updatePasswordAssistanceInfos,
+  verifyPasswordResetCode,
 } from '../redux/actions/passwordAssistance';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
@@ -28,10 +29,11 @@ const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const { email, resetCode } = useSelector((state: RootState) => state.passwordAssistance);
+  const { email, resetCode, hasCorrectResetCode } = useSelector(
+    (state: RootState) => state.passwordAssistance
+  );
   const [formErrors, setFormErrors] = useState([]);
   const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
-  const [hasCorrectResetCode, setHasCorrectResetCode] = useState(false);
 
   const isStep1 = !hasProvidedEmail;
   const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
@@ -63,8 +65,7 @@ const PasswordAssistance = () => {
       validateFormData(resetCodeValidationSchema, { resetCode })
         .then(async () => {
           setFormErrors([]);
-          // dispatch(verifyPasswordResetCode());
-          setHasCorrectResetCode(true);
+          dispatch(verifyPasswordResetCode());
         })
         .catch((errorsArray) => {
           setFormErrors(errorsArray);
