@@ -20,6 +20,10 @@ const emailValidationSchema = yup.object().shape({
   email: yup.string().email().required(),
 });
 
+const resetCodeValidationSchema = yup.object().shape({
+  resetCode: yup.string().length(8).required(),
+});
+
 const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
   const { query } = useRouter();
@@ -55,11 +59,17 @@ const PasswordAssistance = () => {
         });
     }
 
-    if (isStep2) handleSubmitStep2();
-  };
-
-  const handleSubmitStep2 = () => {
-    setHasCorrectResetCode(true);
+    if (isStep2) {
+      validateFormData(resetCodeValidationSchema, { resetCode })
+        .then(async () => {
+          setFormErrors([]);
+          // dispatch(verifyPasswordResetCode());
+          setHasCorrectResetCode(true);
+        })
+        .catch((errorsArray) => {
+          setFormErrors(errorsArray);
+        });
+    }
   };
 
   return (
