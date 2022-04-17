@@ -1,6 +1,6 @@
-import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import AlertMessage from './AlertMessage';
 import FormActions from './FormActions';
 import FormControl from './FormControl';
 
@@ -13,7 +13,7 @@ const PasswordAssistStep3: React.FC = () => {
 
   return (
     <>
-      <Text>{t('passwordAssistance:descriptionStep3')}</Text>
+      <AlertMessage status="success">{t('passwordAssistance:descriptionStep3')}</AlertMessage>
       <FormControl
         id="password"
         name="password"
