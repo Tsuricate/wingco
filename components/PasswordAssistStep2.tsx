@@ -10,7 +10,7 @@ interface PasswordAssistanceProps {
   errors?: Array<string>;
 }
 
-const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({ value, updateField }) => {
+const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({ value, updateField, errors }) => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
 
   return (
@@ -23,6 +23,7 @@ const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({ value, updateF
         updateField={updateField}
         label={t('passwordAssistance:resetCodeLabel')}
         helperText={t('passwordAssistance:resetCodeHelperText')}
+        errors={errors}
       />
       <FormActions cancelUrl="/sign-in" />
     </>
