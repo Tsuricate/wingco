@@ -8,9 +8,10 @@ interface FormError {
 
 interface formData {
   username?: string;
-  email: string;
+  email?: string;
   password?: string;
   passwordValidation?: string;
+  resetCode?: string;
 }
 
 export const getErrorsMessages = (errorsArray: Array<FormError>, inputName: string) => {

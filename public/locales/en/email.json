@@ -1,3 +1,6 @@
 {
-  "signUpEmail": "<h3> Hello {{username}} 👋</h3><p>Thank you for registering into our WingCo App. Much appreciated ! Just one last step is laying ahead of you...</p><p>To activate your account, please follow this link: <a target='_blank' href='{{domain}}/api/validate-email/{{validationToken}}'>Validate your email</a></p><p>Cheers !</p><p>Your Application Team 🦜</p>"
+  "signUpEmailSubject": "Validate your email",
+  "signUpEmail": "<h3> Hello {{username}} 👋</h3><p>Thank you for registering into our WingCo App. Much appreciated ! Just one last step is laying ahead of you...</p><p>To activate your account, please follow this link: <a target='_blank' href='{{domain}}/api/validate-email/{{validationToken}}'>Validate your email</a></p><p>Cheers !</p><p>Your Application Team 🦜</p>",
+  "resetPasswordEmailSubject": "Change your password",
+  "resetPasswordEmail": "<h3> Hello {{name}} 👋</h3><p>We've received a request to change your WingCo password. You can enter the following reset code : <b>{{passwordResetCode}}</b></p><p> If you didn't request this change, you can ignore this email. Your password will not be changed.</p><p>Cheers !</p><p>Your Application Team 🦜</p>"
 }

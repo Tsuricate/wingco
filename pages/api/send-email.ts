@@ -1,9 +1,6 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import client from '../../apollo-client';
 import nodemailer from 'nodemailer';
-import uniqid from 'uniqid';
-import { SET_VALIDATION_EMAIL_TOKEN } from '../../queries/signup.queries';
-import { i18n } from 'next-i18next';
+import { getResetPasswordMessage, getSignUpMessage } from '../../utils/api/getEmail';
 
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId, username, email } = req.body;
@@ -17,21 +14,9 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     },
   });
 
-  const validationEmailToken = uniqid();
-
-  const setValidationEmailToken = await client.mutate({
-    mutation: SET_VALIDATION_EMAIL_TOKEN,
-    variables: { id: userId, validationEmailToken: validationEmailToken },
-  });
-
-  const validationToken = setValidationEmailToken.data.updatePlayer.validationEmailToken;
-
-  const message = {
-    from: '"WingCo App" <wingspan.companion@gmail.com>',
-    to: email,
-    subject: 'Validate your email',
-    html: i18n?.t('email:signUpEmail', { username, domain: process.env.WEB_URI, validationToken }),
-  };
+  const message = userId
+    ? await getSignUpMessage(userId, email, username)
+    : await getResetPasswordMessage(email);
 
   transporter.sendMail(message, (err, info) => {
     if (err) {
