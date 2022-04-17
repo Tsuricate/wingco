@@ -28,6 +28,7 @@ const PasswordAssistance = () => {
   const [formErrors, setFormErrors] = useState([]);
   const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
   const [hasCorrectResetCode, setHasCorrectResetCode] = useState(false);
+
   const isStep1 = !hasProvidedEmail;
   const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
 
@@ -47,7 +48,7 @@ const PasswordAssistance = () => {
         .then(async () => {
           setFormErrors([]);
           dispatch(sendResetPasswordEmail());
-          handleSubmitStep1();
+          setHasProvidedEmail(true);
         })
         .catch((errorsArray) => {
           setFormErrors(errorsArray);
@@ -55,10 +56,6 @@ const PasswordAssistance = () => {
     }
 
     if (isStep2) handleSubmitStep2();
-  };
-
-  const handleSubmitStep1 = () => {
-    setHasProvidedEmail(true);
   };
 
   const handleSubmitStep2 = () => {
