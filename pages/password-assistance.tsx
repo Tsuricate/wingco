@@ -25,6 +25,22 @@ const resetCodeValidationSchema = yup.object().shape({
   resetCode: yup.string().length(8).required(),
 });
 
+export const passwordValidationSchema = yup.object().shape({
+  password: yup
+    .string()
+    .min(5)
+    .max(20)
+    .matches(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/,
+      'Password must contain at least one uppercase letter, one lowercase letter, one number and one special case character !'
+    )
+    .required('Password must be defined'),
+  passwordValidation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required(),
+});
+
 const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
   const { query } = useRouter();
@@ -37,6 +53,7 @@ const PasswordAssistance = () => {
 
   const isStep1 = !hasProvidedEmail;
   const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
+  const isStep3 = hasProvidedEmail && hasCorrectResetCode;
 
   useEffect(() => {
     if (query.email) {
@@ -71,6 +88,17 @@ const PasswordAssistance = () => {
           setFormErrors(errorsArray);
         });
     }
+
+    if (isStep3) {
+      validateFormData(passwordValidationSchema, { password, passwordValidation })
+        .then(async () => {
+          setFormErrors([]);
+          console.log('Submit step 3 !');
+        })
+        .catch((errorsArray) => {
+          setFormErrors(errorsArray);
+        });
+    }
   };
 
   return (
@@ -91,12 +119,12 @@ const PasswordAssistance = () => {
             errors={getErrorsMessages(formErrors, 'resetCode')}
           />
         )}
-        {hasCorrectResetCode && (
+        {isStep3 && (
           <PasswordAssistStep3
             updateField={updateField}
             password={password}
             passwordValidation={passwordValidation}
-            errors={getErrorsMessages(formErrors, 'email')}
+            errors={formErrors}
           />
         )}
       </Form>

@@ -1,7 +1,7 @@
 import { ObjectSchema, ValidationError } from 'yup';
 import { ObjectShape } from 'yup/lib/object';
 
-interface FormError {
+export interface FormError {
   name: string;
   message: string;
 }

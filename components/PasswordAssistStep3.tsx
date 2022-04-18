@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { FormError, getErrorsMessages } from '../utils/formUtils';
 import AlertMessage from './AlertMessage';
 import FormActions from './FormActions';
 import FormControl from './FormControl';
@@ -8,7 +9,7 @@ interface PasswordAssistanceProps {
   updateField: (value: string, name: string) => void;
   password: string;
   passwordValidation: string;
-  errors?: Array<string>;
+  errors: Array<FormError>;
 }
 
 const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
@@ -29,7 +30,7 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
         label={t('passwordAssistance:newPasswordLabel')}
         helperText={t('passwordAssistance:newPasswordHelperText')}
         updateField={updateField}
-        errors={errors}
+        errors={getErrorsMessages(errors, 'password')}
       />
       <FormControl
         id="passwordValidation"
@@ -38,7 +39,7 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
         label={t('passwordAssistance:newPasswordValidationLabel')}
         helperText={t('passwordAssistance:newPasswordValidationHelperText')}
         updateField={updateField}
-        errors={errors}
+        errors={getErrorsMessages(errors, 'passwordValidation')}
       />
       <FormActions cancelUrl="/sign-in" />
     </>
