@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import AlertMessage from './AlertMessage';
+import Button from './Button';
 import FormActions from './FormActions';
 import FormControl from './FormControl';
 
@@ -30,7 +31,10 @@ const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({
         <AlertMessage status="success">{t('passwordAssistance:descriptionStep2')}</AlertMessage>
       )}
       {hasSubmitResetCode && !hasCorrectResetCode && (
-        <AlertMessage status="error">{t('passwordAssistance:errorStep2', { email })}</AlertMessage>
+        <AlertMessage status="error">
+          {t('passwordAssistance:errorStep2', { email })}
+          <Button variant="outline">{t('passwordAssistance:sendNewResetCode')}</Button>
+        </AlertMessage>
       )}
       <FormControl
         id="resetCode"
