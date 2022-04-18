@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
 import {
+  CHANGE_USER_PASSWORD,
   SEND_RESET_PASSWORD_EMAIL,
   updateHasCorrectResetCode,
   updateHasSubmitResetCode,
@@ -37,6 +38,17 @@ const passwordAssistanceMiddleware: Middleware =
         next(action);
         break;
 
+      case CHANGE_USER_PASSWORD: {
+        const { password, passwordValidation } = store.getState().passwordAssistance;
+
+        axios
+          .post('/api/user/change-password', { password, passwordValidation })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+
+        next(action);
+        break;
+      }
       default:
         next(action);
     }
