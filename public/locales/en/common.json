@@ -33,5 +33,6 @@
   "close": "Close",
   "gotIt": "Got it !",
   "send": "Send",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "submitting": "Submitting..."
 }

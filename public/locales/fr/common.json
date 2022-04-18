@@ -33,5 +33,6 @@
   "close": "Fermer",
   "gotIt": "Compris !",
   "send": "Envoyer",
-  "loading": "Chargement..."
+  "loading": "Chargement...",
+  "submitting": "Envoi..."
 }
