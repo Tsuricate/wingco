@@ -29,7 +29,7 @@ const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const { email, resetCode, hasCorrectResetCode } = useSelector(
+  const { email, resetCode, hasCorrectResetCode, password, passwordValidation } = useSelector(
     (state: RootState) => state.passwordAssistance
   );
   const [formErrors, setFormErrors] = useState([]);
@@ -91,7 +91,14 @@ const PasswordAssistance = () => {
             errors={getErrorsMessages(formErrors, 'resetCode')}
           />
         )}
-        {hasCorrectResetCode && <PasswordAssistStep3 />}
+        {hasCorrectResetCode && (
+          <PasswordAssistStep3
+            updateField={updateField}
+            password={password}
+            passwordValidation={passwordValidation}
+            errors={getErrorsMessages(formErrors, 'email')}
+          />
+        )}
       </Form>
     </PageLayout>
   );
