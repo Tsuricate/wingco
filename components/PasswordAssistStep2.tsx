@@ -9,10 +9,16 @@ import FormControl from './FormControl';
 interface PasswordAssistanceProps {
   value?: string;
   updateField: (value: string, name: string) => void;
+  email: string;
   errors?: Array<string>;
 }
 
-const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({ value, updateField, errors }) => {
+const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({
+  value,
+  updateField,
+  email,
+  errors,
+}) => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
   const { hasSubmitResetCode, hasCorrectResetCode } = useSelector(
     (state: RootState) => state.passwordAssistance
@@ -24,7 +30,7 @@ const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({ value, updateF
         <AlertMessage status="success">{t('passwordAssistance:descriptionStep2')}</AlertMessage>
       )}
       {hasSubmitResetCode && !hasCorrectResetCode && (
-        <AlertMessage status="error">{t('passwordAssistance:errorStep2')}</AlertMessage>
+        <AlertMessage status="error">{t('passwordAssistance:errorStep2', { email })}</AlertMessage>
       )}
       <FormControl
         id="resetCode"

@@ -87,6 +87,7 @@ const PasswordAssistance = () => {
           <PasswordAssistStep2
             value={resetCode}
             updateField={updateField}
+            email={email}
             errors={getErrorsMessages(formErrors, 'resetCode')}
           />
         )}
