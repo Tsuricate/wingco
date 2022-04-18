@@ -10,6 +10,7 @@ import PasswordAssistStep1 from '../components/PasswordAssistStep1';
 import PasswordAssistStep2 from '../components/PasswordAssistStep2';
 import PasswordAssistStep3 from '../components/PasswordAssistStep3';
 import {
+  changeUserPassword,
   sendResetPasswordEmail,
   updatePasswordAssistanceInfos,
   verifyPasswordResetCode,
@@ -93,7 +94,7 @@ const PasswordAssistance = () => {
       validateFormData(passwordValidationSchema, { password, passwordValidation })
         .then(async () => {
           setFormErrors([]);
-          console.log('Submit step 3 !');
+          dispatch(changeUserPassword());
         })
         .catch((errorsArray) => {
           setFormErrors(errorsArray);

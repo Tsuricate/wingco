@@ -4,6 +4,7 @@ export const VERIFY_PASSWORD_RESET_CODE = 'VERIFY_PASSWORD_RESET_CODE';
 export const UPDATE_HAS_SUBMIT_RESET_CODE = 'UPDATE_HAS_SUBMIT_RESET_CODE';
 export const UPDATE_HAS_CORRECT_RESET_CODE = 'UPDATE_HAS_CORRECT_RESET_CODE';
 export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING';
+export const CHANGE_USER_PASSWORD = 'CHANGE_USER_PASSWORD';
 
 export const updatePasswordAssistanceInfos = (value: string, name: string) => ({
   type: UPDATE_PASSWORD_ASSISTANCE_INFOS,
@@ -32,4 +33,8 @@ export const updateHasCorrectResetCode = (value: boolean) => ({
 export const updateIsLoading = (value: boolean) => ({
   type: UPDATE_IS_LOADING,
   value,
+});
+
+export const changeUserPassword = () => ({
+  type: CHANGE_USER_PASSWORD,
 });
