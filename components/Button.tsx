@@ -7,6 +7,8 @@ type ButtonProps = {
   variant?: ChakraButtonProps['variant'];
   isDisabled?: boolean;
   onClick?: () => void;
+  isLoading?: boolean;
+  loadingText?: string;
 };
 
 export const buttonDefaultStyle: ChakraButtonProps = {
@@ -20,6 +22,8 @@ const Button: React.FC<ButtonProps> = ({
   variant,
   isDisabled,
   onClick,
+  isLoading,
+  loadingText,
 }) => {
   return (
     <ChakraButton
@@ -27,6 +31,8 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       variant={variant}
       isDisabled={isDisabled}
+      isLoading={isLoading}
+      loadingText={loadingText}
       onClick={onClick}
       {...buttonDefaultStyle}
     >
