@@ -39,10 +39,10 @@ const passwordAssistanceMiddleware: Middleware =
         break;
 
       case CHANGE_USER_PASSWORD: {
-        const { password, passwordValidation } = store.getState().passwordAssistance;
+        const { email, password } = store.getState().passwordAssistance;
 
         axios
-          .post('/api/user/change-password', { password, passwordValidation })
+          .post('/api/user/change-password', { email, password })
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
 
