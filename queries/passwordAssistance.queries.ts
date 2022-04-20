@@ -16,3 +16,11 @@ export const VERIFY_PASSWORD_RESET_CODE = gql`
     }
   }
 `;
+
+export const CHANGE_PLAYER_PASSWORD = gql`
+  mutation ChangePlayerPassword($email: String!, $password: String!) {
+    updatePlayer(data: { password: $password }, where: { email: $email }) {
+      id
+    }
+  }
+`;
