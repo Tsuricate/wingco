@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import {
+  UPDATE_HAS_CHANGED_PASSWORD,
   UPDATE_HAS_CORRECT_RESET_CODE,
   UPDATE_HAS_SUBMIT_RESET_CODE,
   UPDATE_IS_LOADING,
@@ -14,6 +15,7 @@ interface passwordAssistanceReducerProps {
   password: string;
   passwordValidation: string;
   isLoading: boolean;
+  hasChangedPassword: boolean;
 }
 
 const initialState: passwordAssistanceReducerProps = {
@@ -24,6 +26,7 @@ const initialState: passwordAssistanceReducerProps = {
   password: '',
   passwordValidation: '',
   isLoading: false,
+  hasChangedPassword: false,
 };
 
 const passwordAssistanceReducer = (state = initialState, action: AnyAction) => {
@@ -50,6 +53,12 @@ const passwordAssistanceReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         isLoading: action.value,
+      };
+    }
+    case UPDATE_HAS_CHANGED_PASSWORD: {
+      return {
+        ...state,
+        hasChangedPassword: true,
       };
     }
     default:

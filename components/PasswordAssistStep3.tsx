@@ -1,5 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers';
 import { FormError, getErrorsMessages } from '../utils/formUtils';
 import AlertMessage from './AlertMessage';
 import FormActions from './FormActions';
@@ -19,10 +21,20 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
   errors,
 }) => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
+  const { hasCorrectResetCode, hasChangedPassword } = useSelector(
+    (state: RootState) => state.passwordAssistance
+  );
 
   return (
     <>
-      <AlertMessage status="success">{t('passwordAssistance:descriptionStep3')}</AlertMessage>
+      {hasCorrectResetCode && !hasChangedPassword && (
+        <AlertMessage status="success">{t('passwordAssistance:descriptionStep3')}</AlertMessage>
+      )}
+      {hasChangedPassword && (
+        <AlertMessage status="success">
+          {t('passwordAssistance:successChangePassword')}
+        </AlertMessage>
+      )}
       <FormControl
         id="password"
         name="password"
