@@ -22,7 +22,6 @@ const ManageAccount: NextPageWithAuth = () => {
     console.log('Informations has been changed !');
   };
 
-  const email = 'tsuricate@gmail.com';
   return (
     <PageLayout title={t('manageAccount:title')}>
       <Form onSubmit={handleSave}>
@@ -45,9 +44,7 @@ const ManageAccount: NextPageWithAuth = () => {
         <Divider />
         <Button type="submit">{t('common:save')}</Button>
         <Divider />
-        <Link href={`/password-assistance?email=${email}`}>
-          {t('manageAccount:changePassword')}
-        </Link>
+        <Link href="/password-assistance">{t('manageAccount:changePassword')}</Link>
         <Divider />
         <Button onClick={onOpen}>{t('manageAccount:delete')}</Button>
         <Modal

@@ -43,7 +43,6 @@ export const passwordValidationSchema = yup.object().shape({
 
 const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
-  // const { query } = useRouter();
   const dispatch = useDispatch();
   const {
     email,
@@ -59,12 +58,6 @@ const PasswordAssistance = () => {
   const isStep1 = !hasProvidedEmail;
   const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
   const isStep3 = hasProvidedEmail && hasCorrectResetCode;
-
-  // useEffect(() => {
-  //   if (query.email) {
-  //     dispatch(updateHasProvidedEmail(true));
-  //   }
-  // }, [dispatch, query.email]);
 
   const updateField = (value: string, name: string) => {
     dispatch(updatePasswordAssistanceInfos(value, name));
