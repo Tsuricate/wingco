@@ -18,6 +18,7 @@ const passwordAssistanceMiddleware: Middleware =
         {
           const { email } = store.getState().passwordAssistance;
           store.dispatch(updateIsLoading(true));
+
           axios.post('/api/send-email', { email }).then(() => {
             store.dispatch(updateHasProvidedEmail(true));
             store.dispatch(updateIsLoading(false));
@@ -29,13 +30,18 @@ const passwordAssistanceMiddleware: Middleware =
       case VERIFY_PASSWORD_RESET_CODE:
         {
           const { resetCode } = store.getState().passwordAssistance;
+          store.dispatch(updateIsLoading(true));
+
           axios
             .post('/api/user/verify-reset-code', { resetCode })
             .then(() => {
               store.dispatch(updateHasCorrectResetCode(true));
             })
             .catch(() => store.dispatch(updateHasCorrectResetCode(false)))
-            .finally(() => store.dispatch(updateHasSubmitResetCode(true)));
+            .finally(() => {
+              store.dispatch(updateHasSubmitResetCode(true));
+              store.dispatch(updateIsLoading(false));
+            });
         }
         next(action);
         break;

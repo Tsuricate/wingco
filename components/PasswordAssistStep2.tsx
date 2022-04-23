@@ -58,7 +58,11 @@ const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({
         helperText={t('passwordAssistance:resetCodeHelperText')}
         errors={errors}
       />
-      <FormActions cancelUrl="/sign-in" />
+      <FormActions
+        cancelUrl="/sign-in"
+        isLoading={isLoading}
+        loadingText={t('common:submitting')}
+      />
     </>
   );
 };
