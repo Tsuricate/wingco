@@ -2,6 +2,7 @@ import { AnyAction } from 'redux';
 import {
   UPDATE_HAS_CHANGED_PASSWORD,
   UPDATE_HAS_CORRECT_RESET_CODE,
+  UPDATE_HAS_PROVIDED_EMAIL,
   UPDATE_HAS_SUBMIT_RESET_CODE,
   UPDATE_IS_LOADING,
   UPDATE_PASSWORD_ASSISTANCE_INFOS,
@@ -10,6 +11,7 @@ import {
 interface passwordAssistanceReducerProps {
   email: string;
   resetCode: string;
+  hasProvidedEmail: boolean;
   hasSubmitResetCode: boolean;
   hasCorrectResetCode: boolean;
   password: string;
@@ -20,12 +22,13 @@ interface passwordAssistanceReducerProps {
 
 const initialState: passwordAssistanceReducerProps = {
   email: '',
+  isLoading: false,
   resetCode: '',
+  hasProvidedEmail: false,
   hasSubmitResetCode: false,
   hasCorrectResetCode: false,
   password: '',
   passwordValidation: '',
-  isLoading: false,
   hasChangedPassword: false,
 };
 
@@ -35,6 +38,12 @@ const passwordAssistanceReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         [action.name]: action.value,
+      };
+    }
+    case UPDATE_HAS_PROVIDED_EMAIL: {
+      return {
+        ...state,
+        hasProvidedEmail: action.value,
       };
     }
     case UPDATE_HAS_SUBMIT_RESET_CODE: {

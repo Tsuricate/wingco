@@ -1,7 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import Form from '../components/Form';
@@ -44,23 +43,28 @@ export const passwordValidationSchema = yup.object().shape({
 
 const PasswordAssistance = () => {
   const { t } = useTranslation(['passwordAssistance', 'common']);
-  const { query } = useRouter();
+  // const { query } = useRouter();
   const dispatch = useDispatch();
-  const { email, resetCode, hasCorrectResetCode, password, passwordValidation } = useSelector(
-    (state: RootState) => state.passwordAssistance
-  );
+  const {
+    email,
+    isLoading,
+    resetCode,
+    hasProvidedEmail,
+    hasCorrectResetCode,
+    password,
+    passwordValidation,
+  } = useSelector((state: RootState) => state.passwordAssistance);
   const [formErrors, setFormErrors] = useState([]);
-  const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
 
   const isStep1 = !hasProvidedEmail;
   const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
   const isStep3 = hasProvidedEmail && hasCorrectResetCode;
 
-  useEffect(() => {
-    if (query.email) {
-      setHasProvidedEmail(true);
-    }
-  }, [query.email]);
+  // useEffect(() => {
+  //   if (query.email) {
+  //     dispatch(updateHasProvidedEmail(true));
+  //   }
+  // }, [dispatch, query.email]);
 
   const updateField = (value: string, name: string) => {
     dispatch(updatePasswordAssistanceInfos(value, name));
@@ -72,7 +76,6 @@ const PasswordAssistance = () => {
         .then(async () => {
           setFormErrors([]);
           dispatch(sendResetPasswordEmail());
-          setHasProvidedEmail(true);
         })
         .catch((errorsArray) => {
           setFormErrors(errorsArray);
@@ -107,12 +110,13 @@ const PasswordAssistance = () => {
       <Form onSubmit={handleSubmit}>
         {isStep1 && (
           <PasswordAssistStep1
+            isLoading={isLoading}
             updateField={updateField}
             value={email}
             errors={getErrorsMessages(formErrors, 'email')}
           />
         )}
-        {isStep2 && (
+        {!isLoading && isStep2 && (
           <PasswordAssistStep2
             value={resetCode}
             updateField={updateField}

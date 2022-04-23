@@ -5,6 +5,7 @@ import {
   SEND_RESET_PASSWORD_EMAIL,
   updateHasChangedPassword,
   updateHasCorrectResetCode,
+  updateHasProvidedEmail,
   updateHasSubmitResetCode,
   updateIsLoading,
   VERIFY_PASSWORD_RESET_CODE,
@@ -17,10 +18,10 @@ const passwordAssistanceMiddleware: Middleware =
         {
           const { email } = store.getState().passwordAssistance;
           store.dispatch(updateIsLoading(true));
-          axios
-            .post('/api/send-email', { email })
-            .then(() => store.dispatch(updateHasSubmitResetCode(false)))
-            .finally(() => store.dispatch(updateIsLoading(false)));
+          axios.post('/api/send-email', { email }).then(() => {
+            store.dispatch(updateHasProvidedEmail(true));
+            store.dispatch(updateIsLoading(false));
+          });
         }
         next(action);
         break;
