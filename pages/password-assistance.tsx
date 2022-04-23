@@ -71,38 +71,32 @@ const PasswordAssistance = () => {
   };
 
   const handleSubmit = () => {
-    if (isStep1) {
-      validateFormData(emailValidationSchema, { email })
-        .then(async () => {
-          setFormErrors([]);
-          dispatch(sendResetPasswordEmail());
-        })
-        .catch((errorsArray) => {
-          setFormErrors(errorsArray);
-        });
-    }
+    const step1 = {
+      schema: emailValidationSchema,
+      data: { email },
+      action: sendResetPasswordEmail,
+    };
+    const step2 = {
+      schema: resetCodeValidationSchema,
+      data: { resetCode },
+      action: verifyPasswordResetCode,
+    };
+    const step3 = {
+      schema: passwordValidationSchema,
+      data: { password, passwordValidation },
+      action: changeUserPassword,
+    };
 
-    if (isStep2) {
-      validateFormData(resetCodeValidationSchema, { resetCode })
-        .then(async () => {
-          setFormErrors([]);
-          dispatch(verifyPasswordResetCode());
-        })
-        .catch((errorsArray) => {
-          setFormErrors(errorsArray);
-        });
-    }
+    const step = isStep1 ? step1 : isStep2 ? step2 : step3;
 
-    if (isStep3) {
-      validateFormData(passwordValidationSchema, { password, passwordValidation })
-        .then(async () => {
-          setFormErrors([]);
-          dispatch(changeUserPassword());
-        })
-        .catch((errorsArray) => {
-          setFormErrors(errorsArray);
-        });
-    }
+    validateFormData(step.schema, step.data)
+      .then(async () => {
+        setFormErrors([]);
+        dispatch(step.action());
+      })
+      .catch((errorsArray) => {
+        setFormErrors(errorsArray);
+      });
   };
 
   return (
