@@ -34,5 +34,7 @@
   "gotIt": "Got it !",
   "send": "Send",
   "loading": "Loading...",
-  "submitting": "Submitting..."
+  "submitting": "Submitting...",
+  "goToAccount": "Go to my account",
+  "goToSignIn": "Go to sign in"
 }

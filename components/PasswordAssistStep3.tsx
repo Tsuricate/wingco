@@ -6,6 +6,7 @@ import { FormError, getErrorsMessages } from '../utils/formUtils';
 import AlertMessage from './AlertMessage';
 import FormActions from './FormActions';
 import FormControl from './FormControl';
+import Link from './Link';
 
 interface PasswordAssistanceProps {
   updateField: (value: string, name: string) => void;
@@ -24,6 +25,7 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
   const { hasCorrectResetCode, hasChangedPassword } = useSelector(
     (state: RootState) => state.passwordAssistance
   );
+  const { isLogged } = useSelector((state: RootState) => state.auth);
 
   return (
     <>
@@ -33,27 +35,40 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
       {hasChangedPassword && (
         <AlertMessage status="success">
           {t('passwordAssistance:successChangePassword')}
+          {isLogged ? (
+            <Link asButton href="/account">
+              {t('common:goToAccount')}
+            </Link>
+          ) : (
+            <Link asButton href="/sign-in">
+              {t('common:goToSignIn')}
+            </Link>
+          )}
         </AlertMessage>
       )}
-      <FormControl
-        id="password"
-        name="password"
-        value={password}
-        label={t('passwordAssistance:newPasswordLabel')}
-        helperText={t('passwordAssistance:newPasswordHelperText')}
-        updateField={updateField}
-        errors={getErrorsMessages(errors, 'password')}
-      />
-      <FormControl
-        id="passwordValidation"
-        name="passwordValidation"
-        value={passwordValidation}
-        label={t('passwordAssistance:newPasswordValidationLabel')}
-        helperText={t('passwordAssistance:newPasswordValidationHelperText')}
-        updateField={updateField}
-        errors={getErrorsMessages(errors, 'passwordValidation')}
-      />
-      <FormActions cancelUrl="/sign-in" />
+      {!hasChangedPassword && (
+        <>
+          <FormControl
+            id="password"
+            name="password"
+            value={password}
+            label={t('passwordAssistance:newPasswordLabel')}
+            helperText={t('passwordAssistance:newPasswordHelperText')}
+            updateField={updateField}
+            errors={getErrorsMessages(errors, 'password')}
+          />
+          <FormControl
+            id="passwordValidation"
+            name="passwordValidation"
+            value={passwordValidation}
+            label={t('passwordAssistance:newPasswordValidationLabel')}
+            helperText={t('passwordAssistance:newPasswordValidationHelperText')}
+            updateField={updateField}
+            errors={getErrorsMessages(errors, 'passwordValidation')}
+          />
+          <FormActions cancelUrl="/sign-in" />
+        </>
+      )}
     </>
   );
 };

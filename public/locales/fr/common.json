@@ -34,5 +34,7 @@
   "gotIt": "Compris !",
   "send": "Envoyer",
   "loading": "Chargement...",
-  "submitting": "Envoi..."
+  "submitting": "Envoi...",
+  "goToAccount": "Aller sur mon compte",
+  "goToSignIn": "Se connecter"
 }
