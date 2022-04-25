@@ -1,23 +1,31 @@
 import * as yup from 'yup';
 
-const email = yup.string().email().required();
+const email = yup.string().email('validations:emailFormat').required('validations:fieldRequired');
+const username = yup
+  .string()
+  .min(2, 'validations:usernameLength')
+  .required('validations:fieldRequired');
+
 const password = yup
   .string()
-  .min(5)
-  .max(20)
+  .min(5, 'validations:passwordMin')
+  .max(20, 'validations:passwordMax')
   .matches(
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/,
-    'Password must contain at least one uppercase letter, one lowercase letter, one number and one special case character !'
+    'validations:passwordSecurity'
   )
-  .required('Password must be defined');
+  .required('validations:fieldRequired');
 
 const passwordValidation = yup
   .string()
-  .oneOf([yup.ref('password'), null], 'Passwords must match')
-  .required();
+  .oneOf([yup.ref('password'), null], 'validations:passwordValidation')
+  .required('validations:fieldRequired');
 
 export const resetCodeValidationSchema = yup.object().shape({
-  resetCode: yup.string().length(8).required(),
+  resetCode: yup
+    .string()
+    .length(8, 'validations:resetCodeLength')
+    .required('validations:fieldRequired'),
 });
 
 export const emailValidationSchema = yup.object().shape({
@@ -30,7 +38,7 @@ export const passwordValidationSchema = yup.object().shape({
 });
 
 export const signUpSchema = yup.object().shape({
-  username: yup.string().min(2).required(),
+  username,
   email,
   password,
   passwordValidation,

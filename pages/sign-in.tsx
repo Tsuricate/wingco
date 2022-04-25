@@ -17,7 +17,7 @@ import { getRedirection, removeRedirection } from '../utils/redirection';
 import { emailValidationSchema } from '../validations';
 
 const SignIn: React.FC = () => {
-  const { t } = useTranslation(['signIn', 'signUp', 'common']);
+  const { t } = useTranslation(['signIn', 'signUp', 'validations', 'common']);
   const { email, password, rememberMe, errorSignIn } = useSelector(
     (state: RootState) => state.signIn
   );
@@ -103,6 +103,6 @@ export default SignIn;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['signIn', 'signUp', 'common'])),
+    ...(await serverSideTranslations(locale, ['signIn', 'signUp', 'validations', 'common'])),
   },
 });

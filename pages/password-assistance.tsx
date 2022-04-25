@@ -22,7 +22,7 @@ import {
 } from '../validations';
 
 const PasswordAssistance = () => {
-  const { t } = useTranslation(['passwordAssistance', 'common']);
+  const { t } = useTranslation(['passwordAssistance', 'validations', 'common']);
   const dispatch = useDispatch();
   const {
     email,
@@ -108,6 +108,6 @@ export default PasswordAssistance;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['passwordAssistance', 'common'])),
+    ...(await serverSideTranslations(locale, ['passwordAssistance', 'validations', 'common'])),
   },
 });
