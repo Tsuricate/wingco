@@ -19,10 +19,16 @@ const passwordAssistanceMiddleware: Middleware =
           const { email } = store.getState().passwordAssistance;
           store.dispatch(updateIsLoading(true));
 
-          axios.post('/api/send-email', { email }).then(() => {
-            store.dispatch(updateHasProvidedEmail(true));
-            store.dispatch(updateIsLoading(false));
-          });
+          axios
+            .post('/api/send-email', { email })
+            .then(() => {
+              store.dispatch(updateHasProvidedEmail(true));
+              store.dispatch(updateIsLoading(false));
+            })
+            .catch(() => {
+              store.dispatch(updateHasProvidedEmail(true));
+              store.dispatch(updateIsLoading(false));
+            });
         }
         next(action);
         break;

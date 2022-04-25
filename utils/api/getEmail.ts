@@ -33,14 +33,18 @@ export const getResetPasswordMessage = async (email: string) => {
     variables: { email: email, passwordResetCode: resetCode },
   });
 
-  const { name, passwordResetCode } = setPasswordResetCode.data.updatePlayer;
+  if (setPasswordResetCode.data.updatePlayer) {
+    const { name, passwordResetCode } = setPasswordResetCode.data.updatePlayer;
 
-  const resetPasswordMessage = {
-    from: '"WingCo App" <wingspan.companion@gmail.com>',
-    to: email,
-    subject: i18n?.t('email:resetPasswordEmailSubject'),
-    html: i18n?.t('email:resetPasswordEmail', { name, passwordResetCode }),
-  };
+    const resetPasswordMessage = {
+      from: '"WingCo App" <wingspan.companion@gmail.com>',
+      to: email,
+      subject: i18n?.t('email:resetPasswordEmailSubject'),
+      html: i18n?.t('email:resetPasswordEmail', { name, passwordResetCode }),
+    };
 
-  return resetPasswordMessage;
+    return resetPasswordMessage;
+  } else {
+    return null;
+  }
 };
