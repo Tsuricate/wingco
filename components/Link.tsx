@@ -36,6 +36,7 @@ const Link: React.FC<LinkProps> = ({
         <ChakraButton
           as={ChakraLink}
           data-cy={dataCy}
+          onClick={onClick}
           css={{
             ':hover': {
               textDecoration: 'none',

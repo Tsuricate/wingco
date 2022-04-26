@@ -8,9 +8,15 @@ interface FormActionsProps {
   cancelUrl: string;
   isLoading?: boolean;
   loadingText?: string;
+  onClick?: () => void;
 }
 
-const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, isLoading, loadingText }) => {
+const FormActions: React.FC<FormActionsProps> = ({
+  cancelUrl,
+  isLoading,
+  loadingText,
+  onClick,
+}) => {
   const { t } = useTranslation('common');
 
   return (
@@ -18,7 +24,7 @@ const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, isLoading, loading
       <Button type="submit" dataCy="submitButton" isLoading={isLoading} loadingText={loadingText}>
         {t('common:continue')}
       </Button>
-      <Link href={cancelUrl} dataCy="cancelAction" asButton>
+      <Link href={cancelUrl} dataCy="cancelAction" asButton onClick={onClick}>
         {t('common:cancel')}
       </Link>
     </Stack>

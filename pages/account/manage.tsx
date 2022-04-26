@@ -2,6 +2,7 @@ import { Divider, Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormControl from '../../components/FormControl';
@@ -9,10 +10,12 @@ import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 import Modal from '../../components/Modal';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
+import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
 
   const updateField = () => {
     console.log('Update');
@@ -44,7 +47,9 @@ const ManageAccount: NextPageWithAuth = () => {
         <Divider />
         <Button type="submit">{t('common:save')}</Button>
         <Divider />
-        <Link href="/password-assistance">{t('manageAccount:changePassword')}</Link>
+        <Link href="/password-assistance" onClick={() => dispatch(resetPasswordAssistanceInfos())}>
+          {t('manageAccount:changePassword')}
+        </Link>
         <Divider />
         <Button onClick={onOpen}>{t('manageAccount:delete')}</Button>
         <Modal

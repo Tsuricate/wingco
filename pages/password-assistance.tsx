@@ -10,6 +10,7 @@ import PasswordAssistStep2 from '../components/PasswordAssistStep2';
 import PasswordAssistStep3 from '../components/PasswordAssistStep3';
 import {
   changeUserPassword,
+  resetPasswordAssistanceInfos,
   sendResetPasswordEmail,
   updatePasswordAssistanceInfos,
   verifyPasswordResetCode,
@@ -103,6 +104,7 @@ const PasswordAssistance = () => {
           cancelUrl="/sign-in"
           isLoading={isLoading}
           loadingText={t('common:submitting')}
+          onClick={() => dispatch(resetPasswordAssistanceInfos())}
         />
       </Form>
     </PageLayout>
