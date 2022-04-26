@@ -2,7 +2,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import * as yup from 'yup';
 import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
@@ -12,10 +11,7 @@ import Link from '../components/Link';
 import { findPlayerByEmail } from '../utils/api/playerUtils';
 import { sendEmail } from '../utils/api/sendEmail';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
-
-const emailValidationSchema = yup.object().shape({
-  email: yup.string().email().required(),
-});
+import { emailValidationSchema } from '../validations';
 
 const VerifyEmail: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);

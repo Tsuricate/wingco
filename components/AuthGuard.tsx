@@ -1,7 +1,8 @@
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkToken } from '../redux/actions/auth';
 import { RootState } from '../redux/reducers';
 import { setRedirection } from '../utils/redirection';
 import PageLayout from './layout/PageLayout';
@@ -13,20 +14,23 @@ interface AuthGuardProps {
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
   const { t } = useTranslation();
-  const { id } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
   const router = useRouter();
+  const { isLogged } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
+    // check token validity
+    dispatch(checkToken());
     // If there is no user
     if (!isLoading) {
-      if (!id) {
+      if (!isLogged) {
         // remember the page that user tried to access
         setRedirection('sign_in_redirect', router.route);
         // and redirect
         router.push('/sign-in?unauthorized=true');
       }
     }
-  }, [id, isLoading, router]);
+  }, [dispatch, isLoading, isLogged, router]);
 
   if (isLoading) {
     return (
@@ -36,7 +40,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
     );
   }
 
-  if (id) {
+  if (isLogged) {
     return <>{children}</>;
   }
 

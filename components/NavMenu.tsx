@@ -1,4 +1,4 @@
-import { Box, Divider, List, ListItem, Stack, Text } from '@chakra-ui/react';
+import { Box, Divider, Link as ChakraLink, List, ListItem, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -27,7 +27,11 @@ const NavMenu: React.FC<NavMenuProps> = ({ onClick, direction }) => {
         )}
         {navLinks.map((link) => (
           <ListItem key={link.label} onClick={onClick}>
-            <Link href={link.url}>{t(link.label)}</Link>
+            {link.label === 'signOut' ? (
+              <ChakraLink href={link.url}>{t(link.label)}</ChakraLink>
+            ) : (
+              <Link href={link.url}>{t(link.label)}</Link>
+            )}
           </ListItem>
         ))}
       </Stack>

@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import Button from './Button';
+import Link from './Link';
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,6 +20,8 @@ interface ModalProps {
   description?: string;
   saveMessage?: string;
   closeMessage: string;
+  onClick?: () => void;
+  href?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -29,6 +32,8 @@ const Modal: React.FC<ModalProps> = ({
   children,
   saveMessage,
   closeMessage,
+  onClick,
+  href,
 }) => {
   return (
     <>
@@ -42,7 +47,13 @@ const Modal: React.FC<ModalProps> = ({
           <ModalFooter justifyContent="center">
             <Stack>
               {saveMessage && <Button onClick={onClose}>{saveMessage}</Button>}
-              <Button onClick={onClose}>{closeMessage}</Button>
+              {onClick && <Button onClick={onClick}>{closeMessage}</Button>}
+              {href && (
+                <Link href={href} isExternal>
+                  {closeMessage}
+                </Link>
+              )}
+              )
             </Stack>
           </ModalFooter>
         </ModalContent>

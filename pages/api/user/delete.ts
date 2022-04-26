@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
-import { findPlayerById } from '../../../utils/api/playerUtils';
+import { DELETE_PLAYER_BY_ID } from '../../../queries/auth.queries';
+import client from '../../../apollo-client';
+import { deleteAuthToken } from '../../../utils/api/auth';
 
 interface JWTContent {
   id: string;
@@ -11,7 +13,7 @@ interface JWTContent {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.headers.cookie) {
-    res.status(401).json({ message: 'Unauthenticated user' });
+    res.status(404).json({ message: 'Unauthenticated user' });
   } else {
     try {
       const { authToken } = cookie.parse(req.headers.cookie);
@@ -20,12 +22,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const payload = jwt.verify(authToken, jwtSecret) as JWTContent;
 
       if (payload.id) {
-        const player = await findPlayerById(payload.id);
+        const player = await client.mutate({
+          mutation: DELETE_PLAYER_BY_ID,
+          variables: { id: payload.id },
+        });
 
-        if (player) res.status(200).json({ player });
+        if (player) {
+          deleteAuthToken(res);
+          res.redirect('/?accountDeleted=true');
+        }
       }
     } catch (error) {
-      res.status(401).json(error);
+      res.status(403).json(error);
     }
   }
 };

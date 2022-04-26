@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { SAVE_USER } from '../actions/auth';
+import { SAVE_USER, SIGN_OUT_USER } from '../actions/auth';
 
 interface authReducerProps {
   id: string;
@@ -28,10 +28,17 @@ const authReducer = (state = initialState, action: AnyAction) => {
         ...state,
         id: action.id,
         name: action.name,
-        avatar: action.avatar.url,
+        avatar: action.avatar?.url,
         email: action.email,
         rememberMe: action.rememberMe,
         isLogged: true,
+      };
+    }
+
+    case SIGN_OUT_USER: {
+      return {
+        ...state,
+        ...initialState,
       };
     }
     default:

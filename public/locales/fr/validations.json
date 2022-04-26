@@ -1,0 +1,10 @@
+{
+  "fieldRequired": "Ce champ est obligatoire.",
+  "emailFormat": "L'adresse email doit être une adresse valide.",
+  "usernameLength": "Le pseudo doit avoir au moins deux lettres.",
+  "passwordMin": "Le mot de passe doit faire cinq caractères minimum.",
+  "passwordMax": "Le mot de passe doit faire vingt caractères maximum.",
+  "passwordSecurity": "Le mot passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial !",
+  "passwordValidation": "Les mots de passes doivent être identiques.",
+  "resetCodeLength": "Format incorrect."
+}

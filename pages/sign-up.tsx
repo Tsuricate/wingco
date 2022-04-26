@@ -13,10 +13,10 @@ import { signUpForm } from '../data/form/signUpForm';
 import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
-import { signUpSchema } from '../validations/signUpValidation';
+import { signUpSchema } from '../validations';
 
 const SignUp: React.FC = () => {
-  const { t } = useTranslation(['signUp', 'common']);
+  const { t } = useTranslation(['signUp', 'validations', 'common']);
   const dispatch = useDispatch();
 
   const [formErrors, setFormErrors] = useState([]);
@@ -68,7 +68,7 @@ export default SignUp;
 export const getStaticProps = async ({ locale }: { locale: string }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['signUp', 'common'])),
+      ...(await serverSideTranslations(locale, ['signUp', 'validations', 'common'])),
     },
   };
 };

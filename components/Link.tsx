@@ -14,6 +14,8 @@ interface LinkProps {
   asButton?: boolean;
   buttonVariant?: ButtonProps['variant'];
   asOverlay?: boolean;
+  isExternal?: boolean;
+  onClick?: () => void;
 }
 
 const Link: React.FC<LinkProps> = ({
@@ -23,13 +25,18 @@ const Link: React.FC<LinkProps> = ({
   asButton = false,
   buttonVariant = 'outline',
   asOverlay = false,
+  isExternal,
+  onClick,
 }) => {
-  return (
+  return isExternal ? (
+    <ChakraLink href={href}>{children}</ChakraLink>
+  ) : (
     <NextLink href={href} passHref>
       {asButton ? (
         <ChakraButton
           as={ChakraLink}
           data-cy={dataCy}
+          onClick={onClick}
           css={{
             ':hover': {
               textDecoration: 'none',
@@ -41,7 +48,11 @@ const Link: React.FC<LinkProps> = ({
           {children}
         </ChakraButton>
       ) : (
-        <ChakraLink as={asOverlay ? ChakraLinkOverlay : ChakraLink} data-cy={dataCy}>
+        <ChakraLink
+          as={asOverlay ? ChakraLinkOverlay : ChakraLink}
+          data-cy={dataCy}
+          onClick={onClick}
+        >
           {children}
         </ChakraLink>
       )}

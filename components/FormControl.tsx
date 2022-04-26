@@ -32,7 +32,7 @@ const FormControl: React.FC<FormControlProps> = ({
   errors = [],
 }) => {
   const manageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateField(event.target.value, name);
+    updateField(event.target.value.trim(), name);
   };
 
   const isInvalid: boolean = errors.length ? true : false;

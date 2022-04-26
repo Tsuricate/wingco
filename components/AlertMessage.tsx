@@ -7,7 +7,7 @@ interface AlertMessageProps {
 
 const AlertMessage: React.FC<AlertMessageProps> = ({ status, children }) => {
   return (
-    <Alert status={status} my={5}>
+    <Alert status={status} my={5} flexDirection="column" alignItems="center" textAlign="center">
       <AlertIcon />
       {children}
     </Alert>

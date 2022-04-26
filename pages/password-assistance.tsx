@@ -1,46 +1,111 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/Form';
+import FormActions from '../components/FormActions';
 import PageLayout from '../components/layout/PageLayout';
 import PasswordAssistStep1 from '../components/PasswordAssistStep1';
 import PasswordAssistStep2 from '../components/PasswordAssistStep2';
 import PasswordAssistStep3 from '../components/PasswordAssistStep3';
+import {
+  changeUserPassword,
+  resetPasswordAssistanceInfos,
+  sendResetPasswordEmail,
+  updatePasswordAssistanceInfos,
+  verifyPasswordResetCode,
+} from '../redux/actions/passwordAssistance';
+import { RootState } from '../redux/reducers';
+import { getErrorsMessages, validateFormData } from '../utils/formUtils';
+import {
+  emailValidationSchema,
+  passwordValidationSchema,
+  resetCodeValidationSchema,
+} from '../validations';
 
 const PasswordAssistance = () => {
-  const { t } = useTranslation(['passwordAssistance', 'common']);
-  const { query } = useRouter();
+  const { t } = useTranslation(['passwordAssistance', 'validations', 'common']);
+  const dispatch = useDispatch();
+  const {
+    email,
+    isLoading,
+    resetCode,
+    hasProvidedEmail,
+    hasCorrectResetCode,
+    password,
+    passwordValidation,
+  } = useSelector((state: RootState) => state.passwordAssistance);
+  const [formErrors, setFormErrors] = useState([]);
 
-  const [hasProvidedEmail, setHasProvidedEmail] = useState(false);
-  const [hasCorrectResetCode, setHasCorrectResetCode] = useState(false);
   const isStep1 = !hasProvidedEmail;
   const isStep2 = hasProvidedEmail && !hasCorrectResetCode;
+  const isStep3 = hasProvidedEmail && hasCorrectResetCode;
+
+  const updateField = (value: string, name: string) => {
+    dispatch(updatePasswordAssistanceInfos(value, name));
+  };
+
   const handleSubmit = () => {
-    if (isStep1) handleSubmitStep1();
-    if (isStep2) handleSubmitStep2();
-  };
+    const step1 = {
+      schema: emailValidationSchema,
+      data: { email },
+      action: sendResetPasswordEmail,
+    };
+    const step2 = {
+      schema: resetCodeValidationSchema,
+      data: { resetCode },
+      action: verifyPasswordResetCode,
+    };
+    const step3 = {
+      schema: passwordValidationSchema,
+      data: { password, passwordValidation },
+      action: changeUserPassword,
+    };
 
-  useEffect(() => {
-    if (query.email) {
-      setHasProvidedEmail(true);
-    }
-  }, [query.email]);
+    const step = isStep1 ? step1 : isStep2 ? step2 : step3;
 
-  const handleSubmitStep1 = () => {
-    setHasProvidedEmail(true);
-  };
-
-  const handleSubmitStep2 = () => {
-    setHasCorrectResetCode(true);
+    validateFormData(step.schema, step.data)
+      .then(async () => {
+        setFormErrors([]);
+        dispatch(step.action());
+      })
+      .catch((errorsArray) => {
+        setFormErrors(errorsArray);
+      });
   };
 
   return (
     <PageLayout title={t('passwordAssistance:title')}>
       <Form onSubmit={handleSubmit}>
-        {isStep1 && <PasswordAssistStep1 />}
-        {isStep2 && <PasswordAssistStep2 />}
-        {hasCorrectResetCode && <PasswordAssistStep3 />}
+        {isStep1 && (
+          <PasswordAssistStep1
+            updateField={updateField}
+            value={email}
+            errors={getErrorsMessages(formErrors, 'email')}
+          />
+        )}
+        {isStep2 && (
+          <PasswordAssistStep2
+            value={resetCode}
+            updateField={updateField}
+            email={email}
+            errors={getErrorsMessages(formErrors, 'resetCode')}
+          />
+        )}
+        {isStep3 && (
+          <PasswordAssistStep3
+            updateField={updateField}
+            password={password}
+            passwordValidation={passwordValidation}
+            errors={formErrors}
+          />
+        )}
+        <FormActions
+          cancelUrl="/sign-in"
+          isLoading={isLoading}
+          loadingText={t('common:submitting')}
+          onClick={() => dispatch(resetPasswordAssistanceInfos())}
+        />
       </Form>
     </PageLayout>
   );
@@ -50,6 +115,6 @@ export default PasswordAssistance;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['passwordAssistance', 'common'])),
+    ...(await serverSideTranslations(locale, ['passwordAssistance', 'validations', 'common'])),
   },
 });

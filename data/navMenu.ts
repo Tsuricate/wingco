@@ -39,6 +39,6 @@ export const loggedNavLinks: Array<NavLink> = [
   joinGameLink,
   {
     label: 'signOut',
-    url: '/',
+    url: '/api/sign-out',
   },
 ];
