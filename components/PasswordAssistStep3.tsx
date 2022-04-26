@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { FormError, getErrorsMessages } from '../utils/formUtils';
 import AlertMessage from './AlertMessage';
-import FormActions from './FormActions';
 import FormControl from './FormControl';
 import Link from './Link';
 
@@ -66,7 +65,6 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
             updateField={updateField}
             errors={getErrorsMessages(errors, 'passwordValidation')}
           />
-          <FormActions cancelUrl="/sign-in" />
         </>
       )}
     </>

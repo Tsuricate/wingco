@@ -5,7 +5,6 @@ import { sendResetPasswordEmail } from '../redux/actions/passwordAssistance';
 import { RootState } from '../redux/reducers';
 import AlertMessage from './AlertMessage';
 import Button from './Button';
-import FormActions from './FormActions';
 import FormControl from './FormControl';
 
 interface PasswordAssistanceProps {
@@ -57,11 +56,6 @@ const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({
         label={t('passwordAssistance:resetCodeLabel')}
         helperText={t('passwordAssistance:resetCodeHelperText')}
         errors={errors}
-      />
-      <FormActions
-        cancelUrl="/sign-in"
-        isLoading={isLoading}
-        loadingText={t('common:submitting')}
       />
     </>
   );

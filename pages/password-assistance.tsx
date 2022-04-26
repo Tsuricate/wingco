@@ -3,6 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/Form';
+import FormActions from '../components/FormActions';
 import PageLayout from '../components/layout/PageLayout';
 import PasswordAssistStep1 from '../components/PasswordAssistStep1';
 import PasswordAssistStep2 from '../components/PasswordAssistStep2';
@@ -77,7 +78,6 @@ const PasswordAssistance = () => {
       <Form onSubmit={handleSubmit}>
         {isStep1 && (
           <PasswordAssistStep1
-            isLoading={isLoading}
             updateField={updateField}
             value={email}
             errors={getErrorsMessages(formErrors, 'email')}
@@ -99,6 +99,11 @@ const PasswordAssistance = () => {
             errors={formErrors}
           />
         )}
+        <FormActions
+          cancelUrl="/sign-in"
+          isLoading={isLoading}
+          loadingText={t('common:submitting')}
+        />
       </Form>
     </PageLayout>
   );
