@@ -10,6 +10,7 @@ import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import { resetPasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
 import { submitSignIn, updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
@@ -39,6 +40,10 @@ const SignIn: React.FC = () => {
       }
     }
   });
+
+  const handleClick = () => {
+    dispatch(resetPasswordAssistanceInfos());
+  };
 
   const updateField = (value: string, name: string) => {
     dispatch(updateSignInInfos(value, name));
@@ -85,7 +90,9 @@ const SignIn: React.FC = () => {
           value={password}
           updateField={updateField}
         />
-        <Link href="/password-assistance">{t('signIn:forgotPassword')}</Link>
+        <Link href="/password-assistance" onClick={handleClick}>
+          {t('signIn:forgotPassword')}
+        </Link>
         <Checkbox name="rememberMe" isChecked={rememberMe} onChange={handleCheckbox}>
           {t('signIn:rememberMe')}
         </Checkbox>

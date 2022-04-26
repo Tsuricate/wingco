@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import {
+  RESET_PASSWORD_ASSISTANCE_INFOS,
   UPDATE_HAS_CHANGED_PASSWORD,
   UPDATE_HAS_CORRECT_RESET_CODE,
   UPDATE_HAS_PROVIDED_EMAIL,
@@ -68,6 +69,12 @@ const passwordAssistanceReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         hasChangedPassword: true,
+      };
+    }
+    case RESET_PASSWORD_ASSISTANCE_INFOS: {
+      return {
+        ...state,
+        ...initialState,
       };
     }
     default:
