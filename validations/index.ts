@@ -43,3 +43,8 @@ export const signUpSchema = yup.object().shape({
   password,
   passwordValidation,
 });
+
+export const changeAccountInfosSchema = yup.object().shape({
+  username,
+  email,
+});
