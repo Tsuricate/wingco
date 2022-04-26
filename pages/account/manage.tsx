@@ -1,7 +1,7 @@
 import { Divider, Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
@@ -10,7 +10,11 @@ import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 import Modal from '../../components/Modal';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
-import { updateUserInfos } from '../../redux/actions/manageAccount';
+import {
+  changeUserInfos,
+  initManageAccount,
+  updateUserInfos,
+} from '../../redux/actions/manageAccount';
 import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
@@ -19,9 +23,14 @@ import { changeAccountInfosSchema } from '../../validations';
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { name, email: currentEmail } = useSelector((state: RootState) => state.auth);
   const { username, email } = useSelector((state: RootState) => state.manageAccount);
   const dispatch = useDispatch();
   const [formErrors, setFormErrors] = useState([]);
+
+  useEffect(() => {
+    dispatch(initManageAccount(name, currentEmail));
+  }, [currentEmail, dispatch, name]);
 
   const updateField = (value: string, name: string) => {
     dispatch(updateUserInfos(value, name));
@@ -31,7 +40,7 @@ const ManageAccount: NextPageWithAuth = () => {
     validateFormData(changeAccountInfosSchema, { username, email })
       .then(async () => {
         setFormErrors([]);
-        // dispatch(updateUserInfos(username, email));
+        dispatch(changeUserInfos());
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);

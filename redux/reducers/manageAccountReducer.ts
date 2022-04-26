@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { UPDATE_USER_INFOS } from '../actions/manageAccount';
+import { INIT_MANAGE_ACCOUNT, UPDATE_USER_INFOS } from '../actions/manageAccount';
 
 interface manageAccountReducer {
   username: string;
@@ -13,6 +13,13 @@ const initialState = {
 
 const manageAccountReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case INIT_MANAGE_ACCOUNT: {
+      return {
+        ...state,
+        username: action.username,
+        email: action.email,
+      };
+    }
     case UPDATE_USER_INFOS: {
       return {
         ...state,
