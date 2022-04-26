@@ -1,7 +1,8 @@
 import { ObjectSchema, ValidationError } from 'yup';
 import { ObjectShape } from 'yup/lib/object';
+import { i18n } from 'next-i18next';
 
-interface FormError {
+export interface FormError {
   name: string;
   message: string;
 }
@@ -28,7 +29,7 @@ export const validateFormData = (schema: ObjectSchema<ObjectShape>, formData: fo
       .catch((errors) => {
         const errorsArray = errors.inner.map((error: ValidationError) => ({
           name: error.path,
-          message: error.message,
+          message: i18n?.t(error.message),
         }));
         reject(errorsArray);
       });

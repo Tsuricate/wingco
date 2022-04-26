@@ -1,7 +1,6 @@
 import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import FormActions from './FormActions';
 import FormControl from './FormControl';
 
 interface PasswordAssistanceProps {
@@ -25,7 +24,6 @@ const PasswordAssistStep1: React.FC<PasswordAssistanceProps> = ({ value, updateF
         updateField={updateField}
         errors={errors}
       />
-      <FormActions cancelUrl="/sign-in" />
     </>
   );
 };

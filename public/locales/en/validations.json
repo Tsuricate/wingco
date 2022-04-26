@@ -1,0 +1,10 @@
+{
+  "fieldRequired": "This field is required.",
+  "emailFormat": "Email must be a valid email address.",
+  "usernameLength": "Username should have at least two characters.",
+  "passwordMin": "Password should have at least five characters.",
+  "passwordMax": "Password should not exceed twenty characters.",
+  "passwordSecurity": "Password must contain at least one uppercase letter, one lowercase letter, one number and one special case character !",
+  "passwordValidation": "Passwords must match.",
+  "resetCodeLength": "Invalid format."
+}

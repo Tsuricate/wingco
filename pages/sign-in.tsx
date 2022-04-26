@@ -4,24 +4,21 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
 import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import { resetPasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
 import { submitSignIn, updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { getRedirection, removeRedirection } from '../utils/redirection';
-
-const emailValidationSchema = yup.object().shape({
-  email: yup.string().email().required(),
-});
+import { emailValidationSchema } from '../validations';
 
 const SignIn: React.FC = () => {
-  const { t } = useTranslation(['signIn', 'signUp', 'common']);
+  const { t } = useTranslation(['signIn', 'signUp', 'validations', 'common']);
   const { email, password, rememberMe, errorSignIn } = useSelector(
     (state: RootState) => state.signIn
   );
@@ -43,6 +40,10 @@ const SignIn: React.FC = () => {
       }
     }
   });
+
+  const handleClick = () => {
+    dispatch(resetPasswordAssistanceInfos());
+  };
 
   const updateField = (value: string, name: string) => {
     dispatch(updateSignInInfos(value, name));
@@ -89,7 +90,9 @@ const SignIn: React.FC = () => {
           value={password}
           updateField={updateField}
         />
-        <Link href="/password-assistance">{t('signIn:forgotPassword')}</Link>
+        <Link href="/password-assistance" onClick={handleClick}>
+          {t('signIn:forgotPassword')}
+        </Link>
         <Checkbox name="rememberMe" isChecked={rememberMe} onChange={handleCheckbox}>
           {t('signIn:rememberMe')}
         </Checkbox>
@@ -107,6 +110,6 @@ export default SignIn;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['signIn', 'signUp', 'common'])),
+    ...(await serverSideTranslations(locale, ['signIn', 'signUp', 'validations', 'common'])),
   },
 });
