@@ -32,6 +32,10 @@ export const emailValidationSchema = yup.object().shape({
   email,
 });
 
+export const usernameValidationSchema = yup.object().shape({
+  username,
+});
+
 export const passwordValidationSchema = yup.object().shape({
   password,
   passwordValidation,
@@ -42,9 +46,4 @@ export const signUpSchema = yup.object().shape({
   email,
   password,
   passwordValidation,
-});
-
-export const changeAccountInfosSchema = yup.object().shape({
-  username,
-  email,
 });
