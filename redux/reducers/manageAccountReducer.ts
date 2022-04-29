@@ -7,6 +7,7 @@ interface manageAccountReducer {
 }
 
 const initialState = {
+  id: '',
   username: '',
   email: '',
 };
@@ -16,6 +17,7 @@ const manageAccountReducer = (state = initialState, action: AnyAction) => {
     case INIT_MANAGE_ACCOUNT: {
       return {
         ...state,
+        id: action.id,
         username: action.username,
         email: action.email,
       };
