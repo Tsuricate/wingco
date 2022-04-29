@@ -11,47 +11,55 @@ import Link from '../../components/Link';
 import Modal from '../../components/Modal';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
 import {
-  changeUserInfos,
+  changeUserUsername,
   initManageAccount,
   updateUserInfos,
 } from '../../redux/actions/manageAccount';
 import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
-import { changeAccountInfosSchema } from '../../validations';
+import { usernameValidationSchema } from '../../validations';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { name, email: currentEmail } = useSelector((state: RootState) => state.auth);
+  const {
+    id,
+    name: currentName,
+    email: currentEmail,
+  } = useSelector((state: RootState) => state.auth);
   const { username, email } = useSelector((state: RootState) => state.manageAccount);
   const dispatch = useDispatch();
   const [formErrors, setFormErrors] = useState([]);
 
   useEffect(() => {
-    dispatch(initManageAccount(name, currentEmail));
-  }, [currentEmail, dispatch, name]);
+    dispatch(initManageAccount(id, currentName, currentEmail));
+  }, [currentEmail, dispatch, currentName, id]);
 
   const updateField = (value: string, name: string) => {
     dispatch(updateUserInfos(value, name));
   };
 
-  const handleSave = () => {
-    validateFormData(changeAccountInfosSchema, { username, email })
+  const handleChangeUsername = () => {
+    validateFormData(usernameValidationSchema, { username })
       .then(async () => {
         setFormErrors([]);
-        dispatch(changeUserInfos());
+        dispatch(changeUserUsername());
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
       });
   };
 
+  const handleChangeEmail = () => {
+    console.log('changed email !');
+  };
+
   return (
     <PageLayout title={t('manageAccount:title')}>
-      <Form onSubmit={handleSave}>
-        <Text>{t('manageAccount:description')}</Text>
-        <Divider />
+      <Text>{t('manageAccount:description')}</Text>
+      <Divider />
+      <Form onSubmit={handleChangeUsername}>
         <FormControl
           id="username"
           name="username"
@@ -61,6 +69,10 @@ const ManageAccount: NextPageWithAuth = () => {
           updateField={updateField}
           errors={getErrorsMessages(formErrors, 'username')}
         />
+        <Button type="submit">{t('common:save')}</Button>
+        <Divider />
+      </Form>
+      <Form onSubmit={handleChangeEmail}>
         <FormControl
           id="email"
           name="email"
