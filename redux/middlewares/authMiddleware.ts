@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
+import { CHANGE_USER_USERNAME } from '../actions/manageAccount';
 import { CHECK_TOKEN, saveUser, signOutUser } from '../actions/auth';
 import { SUBMIT_SIGN_IN, updateErrorSignIn } from '../actions/signIn';
 
@@ -17,6 +18,17 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
         .catch(() => {
           store.dispatch(updateErrorSignIn(true));
         });
+
+      next(action);
+      break;
+    }
+
+    case CHANGE_USER_USERNAME: {
+      const { id, username } = store.getState().manageAccount;
+      axios
+        .post('/api/user/manage-account', { id, username })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
 
       next(action);
       break;
