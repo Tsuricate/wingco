@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { HAS_CHANGED_USERNAME } from '../actions/auth';
+import { HAS_CHANGED_USERNAME } from '../actions/manageAccount';
 import { INIT_MANAGE_ACCOUNT, UPDATE_USER_INFOS } from '../actions/manageAccount';
 
 interface manageAccountReducerProps {

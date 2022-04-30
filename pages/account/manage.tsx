@@ -19,7 +19,7 @@ import {
 import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
-import { usernameValidationSchema } from '../../validations';
+import { emailValidationSchema, usernameValidationSchema } from '../../validations';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
@@ -55,7 +55,14 @@ const ManageAccount: NextPageWithAuth = () => {
   };
 
   const handleChangeEmail = () => {
-    console.log('changed email !');
+    validateFormData(emailValidationSchema, { email })
+      .then(async () => {
+        setFormErrors([]);
+        // dispatch(changeUserEmail());
+      })
+      .catch((errorsArray) => {
+        setFormErrors(errorsArray);
+      });
   };
 
   return (
