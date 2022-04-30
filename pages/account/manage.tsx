@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import AlertMessage from '../../components/AlertMessage';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormControl from '../../components/FormControl';
@@ -28,7 +29,9 @@ const ManageAccount: NextPageWithAuth = () => {
     name: currentName,
     email: currentEmail,
   } = useSelector((state: RootState) => state.auth);
-  const { username, email } = useSelector((state: RootState) => state.manageAccount);
+  const { username, email, hasChangedUsername } = useSelector(
+    (state: RootState) => state.manageAccount
+  );
   const dispatch = useDispatch();
   const [formErrors, setFormErrors] = useState([]);
 
@@ -58,6 +61,10 @@ const ManageAccount: NextPageWithAuth = () => {
   return (
     <PageLayout title={t('manageAccount:title')}>
       <Text>{t('manageAccount:description')}</Text>
+      {hasChangedUsername && (
+        <AlertMessage status="success">{t('manageAccount:usernameChanged')}</AlertMessage>
+      )}
+
       <Divider />
       <Form onSubmit={handleChangeUsername}>
         <FormControl

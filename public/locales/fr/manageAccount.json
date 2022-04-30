@@ -7,5 +7,6 @@
   "keepAccount": "Conserver mon compte",
   "delete": "Supprimer mon compte",
   "deleteModalDescription": "Cette action est irréversible. Tous vos scores et records seront définitivement supprimés. Êtes vous sûr·e de vouloir supprimer votre compte ?",
-  "accountDeleted": "Votre compte a bien été supprimé. Nous espérons vous revoir une prochaine fois !"
+  "accountDeleted": "Votre compte a bien été supprimé. Nous espérons vous revoir une prochaine fois !",
+  "usernameChanged": "Votre nom d'utilisateur à bien été modifié."
 }
