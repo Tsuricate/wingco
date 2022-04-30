@@ -32,8 +32,9 @@ export const emailValidationSchema = yup.object().shape({
   email,
 });
 
-export const usernameValidationSchema = yup.object().shape({
+export const manageAccountValidationSchema = yup.object().shape({
   username,
+  email,
 });
 
 export const passwordValidationSchema = yup.object().shape({
