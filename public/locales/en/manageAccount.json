@@ -8,5 +8,5 @@
   "delete": "Delete my account",
   "deleteModalDescription": "This action cannot be undone. All your scores and records will be lost forever. Are you sure you want to delete your account ?",
   "accountDeleted": "Your account has been deleted succesfully. Hope to see you again another time !",
-  "usernameChanged": "Your informations have been updated succesfully."
+  "infosChanged": "Your informations have been updated succesfully."
 }

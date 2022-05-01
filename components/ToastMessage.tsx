@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 interface ToastMessageProps {
   id: string;
-  title: string;
+  title?: string;
   description: string;
   status: UseToastOptions['status'];
   trigger: boolean;

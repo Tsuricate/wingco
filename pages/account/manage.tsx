@@ -89,8 +89,7 @@ const ManageAccount: NextPageWithAuth = () => {
         {hasUpdatedInfos && (
           <ToastMessage
             id={uniqid()}
-            title="test"
-            description="still a test"
+            description={t('manageAccount:infosChanged')}
             status="success"
             trigger={hasUpdatedInfos}
           ></ToastMessage>
