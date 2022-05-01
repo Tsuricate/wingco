@@ -1,10 +1,7 @@
 import * as yup from 'yup';
 
 const email = yup.string().email('validations:emailFormat').required('validations:fieldRequired');
-const username = yup
-  .string()
-  .min(2, 'validations:usernameLength')
-  .required('validations:fieldRequired');
+const username = yup.string().min(2, 'validations:usernameLength').required('validations:fieldRequired');
 
 const password = yup
   .string()
@@ -22,10 +19,7 @@ const passwordValidation = yup
   .required('validations:fieldRequired');
 
 export const resetCodeValidationSchema = yup.object().shape({
-  resetCode: yup
-    .string()
-    .length(8, 'validations:resetCodeLength')
-    .required('validations:fieldRequired'),
+  resetCode: yup.string().length(8, 'validations:resetCodeLength').required('validations:fieldRequired'),
 });
 
 export const emailValidationSchema = yup.object().shape({

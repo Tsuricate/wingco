@@ -19,9 +19,7 @@ import { emailValidationSchema } from '../validations';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'signUp', 'validations', 'common']);
-  const { email, password, rememberMe, errorSignIn } = useSelector(
-    (state: RootState) => state.signIn
-  );
+  const { email, password, rememberMe, errorSignIn } = useSelector((state: RootState) => state.signIn);
   const { id } = useSelector((state: RootState) => state.auth);
 
   const [formErrors, setFormErrors] = useState([]);

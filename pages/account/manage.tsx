@@ -11,11 +11,7 @@ import Link from '../../components/Link';
 import Modal from '../../components/Modal';
 import ToastMessage from '../../components/ToastMessage';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
-import {
-  initManageAccount,
-  saveUserNewInfos,
-  updateUserInfos,
-} from '../../redux/actions/manageAccount';
+import { initManageAccount, saveUserNewInfos, updateUserInfos } from '../../redux/actions/manageAccount';
 import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
@@ -25,14 +21,8 @@ import uniqid from 'uniqid';
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    id,
-    name: currentName,
-    email: currentEmail,
-  } = useSelector((state: RootState) => state.auth);
-  const { username, email, hasUpdatedInfos } = useSelector(
-    (state: RootState) => state.manageAccount
-  );
+  const { id, name: currentName, email: currentEmail } = useSelector((state: RootState) => state.auth);
+  const { username, email, hasUpdatedInfos } = useSelector((state: RootState) => state.manageAccount);
   const dispatch = useDispatch();
   const [formErrors, setFormErrors] = useState([]);
 

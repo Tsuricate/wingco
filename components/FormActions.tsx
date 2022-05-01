@@ -11,12 +11,7 @@ interface FormActionsProps {
   onClick?: () => void;
 }
 
-const FormActions: React.FC<FormActionsProps> = ({
-  cancelUrl,
-  isLoading,
-  loadingText,
-  onClick,
-}) => {
+const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, isLoading, loadingText, onClick }) => {
   const { t } = useTranslation('common');
 
   return (

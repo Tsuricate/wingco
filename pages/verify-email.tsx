@@ -50,9 +50,7 @@ const VerifyEmail: React.FC = () => {
       {validatedEmail === 'false' && !emailSent && (
         <AlertMessage status="error">{t('signUp:emailAddressInvalid')}</AlertMessage>
       )}
-      {emailSent && (
-        <AlertMessage status="success">{t('signUp:successModal.children')}</AlertMessage>
-      )}
+      {emailSent && <AlertMessage status="success">{t('signUp:successModal.children')}</AlertMessage>}
       <Form onSubmit={handleSubmit}>
         <FormControl
           id="email"

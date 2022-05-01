@@ -48,11 +48,7 @@ const Link: React.FC<LinkProps> = ({
           {children}
         </ChakraButton>
       ) : (
-        <ChakraLink
-          as={asOverlay ? ChakraLinkOverlay : ChakraLink}
-          data-cy={dataCy}
-          onClick={onClick}
-        >
+        <ChakraLink as={asOverlay ? ChakraLinkOverlay : ChakraLink} data-cy={dataCy} onClick={onClick}>
           {children}
         </ChakraLink>
       )}
