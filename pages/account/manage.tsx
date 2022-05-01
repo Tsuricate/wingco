@@ -12,14 +12,14 @@ import Link from '../../components/Link';
 import Modal from '../../components/Modal';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
 import {
-  changeUserUsername,
   initManageAccount,
+  saveUserNewInfos,
   updateUserInfos,
 } from '../../redux/actions/manageAccount';
 import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
-import { emailValidationSchema, usernameValidationSchema } from '../../validations';
+import { manageAccountValidationSchema } from '../../validations';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
@@ -29,7 +29,7 @@ const ManageAccount: NextPageWithAuth = () => {
     name: currentName,
     email: currentEmail,
   } = useSelector((state: RootState) => state.auth);
-  const { username, email, hasChangedUsername } = useSelector(
+  const { username, email, hasUpdatedInfos } = useSelector(
     (state: RootState) => state.manageAccount
   );
   const dispatch = useDispatch();
@@ -43,22 +43,11 @@ const ManageAccount: NextPageWithAuth = () => {
     dispatch(updateUserInfos(value, name));
   };
 
-  const handleChangeUsername = () => {
-    validateFormData(usernameValidationSchema, { username })
+  const handleSubmit = () => {
+    validateFormData(manageAccountValidationSchema, { username, email })
       .then(async () => {
         setFormErrors([]);
-        dispatch(changeUserUsername());
-      })
-      .catch((errorsArray) => {
-        setFormErrors(errorsArray);
-      });
-  };
-
-  const handleChangeEmail = () => {
-    validateFormData(emailValidationSchema, { email })
-      .then(async () => {
-        setFormErrors([]);
-        // dispatch(changeUserEmail());
+        dispatch(saveUserNewInfos());
       })
       .catch((errorsArray) => {
         setFormErrors(errorsArray);
@@ -68,12 +57,11 @@ const ManageAccount: NextPageWithAuth = () => {
   return (
     <PageLayout title={t('manageAccount:title')}>
       <Text>{t('manageAccount:description')}</Text>
-      {hasChangedUsername && (
-        <AlertMessage status="success">{t('manageAccount:usernameChanged')}</AlertMessage>
-      )}
-
-      <Divider />
-      <Form onSubmit={handleChangeUsername}>
+      <Form onSubmit={handleSubmit}>
+        <Divider />
+        {hasUpdatedInfos && (
+          <AlertMessage status="success">{t('manageAccount:usernameChanged')}</AlertMessage>
+        )}
         <FormControl
           id="username"
           name="username"
@@ -83,10 +71,7 @@ const ManageAccount: NextPageWithAuth = () => {
           updateField={updateField}
           errors={getErrorsMessages(formErrors, 'username')}
         />
-        <Button type="submit">{t('common:save')}</Button>
         <Divider />
-      </Form>
-      <Form onSubmit={handleChangeEmail}>
         <FormControl
           id="email"
           name="email"
@@ -96,7 +81,6 @@ const ManageAccount: NextPageWithAuth = () => {
           updateField={updateField}
           errors={getErrorsMessages(formErrors, 'email')}
         />
-        <Divider />
         <Button type="submit">{t('common:save')}</Button>
         <Divider />
         <Link href="/password-assistance" onClick={() => dispatch(resetPasswordAssistanceInfos())}>

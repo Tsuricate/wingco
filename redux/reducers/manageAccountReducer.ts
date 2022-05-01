@@ -1,19 +1,19 @@
 import { AnyAction } from 'redux';
-import { HAS_CHANGED_USERNAME } from '../actions/manageAccount';
+import { HAS_UPDATED_INFOS } from '../actions/manageAccount';
 import { INIT_MANAGE_ACCOUNT, UPDATE_USER_INFOS } from '../actions/manageAccount';
 
 interface manageAccountReducerProps {
   id: string;
   username: string;
   email: string;
-  hasChangedUsername: boolean;
+  hasUpdatedInfos: boolean;
 }
 
 const initialState: manageAccountReducerProps = {
   id: '',
   username: '',
   email: '',
-  hasChangedUsername: false,
+  hasUpdatedInfos: false,
 };
 
 const manageAccountReducer = (state = initialState, action: AnyAction) => {
@@ -33,10 +33,10 @@ const manageAccountReducer = (state = initialState, action: AnyAction) => {
       };
     }
 
-    case HAS_CHANGED_USERNAME: {
+    case HAS_UPDATED_INFOS: {
       return {
         ...state,
-        hasChangedUsername: action.value,
+        hasUpdatedInfos: action.value,
       };
     }
 
