@@ -3,13 +3,13 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AlertMessage from '../../components/AlertMessage';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormControl from '../../components/FormControl';
 import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 import Modal from '../../components/Modal';
+import ToastMessage from '../../components/ToastMessage';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
 import {
   initManageAccount,
@@ -20,6 +20,7 @@ import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssist
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
 import { manageAccountValidationSchema } from '../../validations';
+import uniqid from 'uniqid';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
@@ -59,9 +60,6 @@ const ManageAccount: NextPageWithAuth = () => {
       <Text>{t('manageAccount:description')}</Text>
       <Form onSubmit={handleSubmit}>
         <Divider />
-        {hasUpdatedInfos && (
-          <AlertMessage status="success">{t('manageAccount:usernameChanged')}</AlertMessage>
-        )}
         <FormControl
           id="username"
           name="username"
@@ -98,6 +96,15 @@ const ManageAccount: NextPageWithAuth = () => {
         >
           {t('manageAccount:deleteModalDescription')}
         </Modal>
+        {hasUpdatedInfos && (
+          <ToastMessage
+            id={uniqid()}
+            title="test"
+            description="still a test"
+            status="success"
+            trigger={hasUpdatedInfos}
+          ></ToastMessage>
+        )}
       </Form>
     </PageLayout>
   );
