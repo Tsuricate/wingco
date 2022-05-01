@@ -33,7 +33,8 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
             store.dispatch(hasUpdatedInfos(true));
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => store.dispatch(hasUpdatedInfos(false)));
 
       next(action);
       break;
