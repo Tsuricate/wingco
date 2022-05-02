@@ -4,12 +4,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import uniqid from 'uniqid';
 import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import ToastMessage from '../components/ToastMessage';
 import { resetPasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
 import { submitSignIn, updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
@@ -67,7 +69,14 @@ const SignIn: React.FC = () => {
       {validatedEmail === 'true' && (
         <AlertMessage status="success">{t('signUp:emailAddressValid')}</AlertMessage>
       )}
-      {errorSignIn && <AlertMessage status="error">{t('signIn:errorSignIn')}</AlertMessage>}
+      {errorSignIn && (
+        <ToastMessage
+          id={uniqid()}
+          description={t('signIn:errorSignIn')}
+          status="error"
+          trigger={errorSignIn}
+        />
+      )}
       {unauthorized && <AlertMessage status="error">{t('signIn:errorUnauthorized')}</AlertMessage>}
 
       <Form onSubmit={handleSubmit}>

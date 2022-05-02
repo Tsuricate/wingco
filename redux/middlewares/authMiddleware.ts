@@ -12,12 +12,12 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
       axios
         .post('/api/sign-in', { email, password, rememberMe })
         .then((res) => {
-          store.dispatch(updateErrorSignIn(false));
           store.dispatch(saveUser(res.data.player, rememberMe));
         })
         .catch(() => {
           store.dispatch(updateErrorSignIn(true));
-        });
+        })
+        .finally(() => store.dispatch(updateErrorSignIn(false)));
 
       next(action);
       break;
