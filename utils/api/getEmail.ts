@@ -18,7 +18,11 @@ export const getSignUpMessage = async (userId: string, email: string, username: 
     from: '"WingCo App" <wingspan.companion@gmail.com>',
     to: email,
     subject: i18n?.t('email:signUpEmailSubject'),
-    html: i18n?.t('email:signUpEmail', { username, domain: process.env.WEB_URI, validationToken }),
+    html: i18n?.t('email:signUpEmail', {
+      username,
+      domain: process.env.NEXT_PUBLIC_WEB_URI,
+      validationToken,
+    }),
   };
 
   return signUpMessage;
@@ -47,4 +51,28 @@ export const getResetPasswordMessage = async (email: string) => {
   } else {
     return null;
   }
+};
+
+export const getChangeEmailMessage = async (userId: string, email: string, username: string) => {
+  const validationEmailToken = uniqid();
+
+  const setValidationEmailToken = await client.mutate({
+    mutation: SET_VALIDATION_EMAIL_TOKEN,
+    variables: { id: userId, validationEmailToken: validationEmailToken },
+  });
+
+  const validationToken = setValidationEmailToken.data.updatePlayer.validationEmailToken;
+
+  const getChangeEmailMessage = {
+    from: '"WingCo App" <wingspan.companion@gmail.com>',
+    to: email,
+    subject: i18n?.t('email:changeEmailSubject'),
+    html: i18n?.t('email:changeEmail', {
+      username,
+      domain: process.env.NEXT_PUBLIC_WEB_URI,
+      validationToken,
+    }),
+  };
+
+  return getChangeEmailMessage;
 };
