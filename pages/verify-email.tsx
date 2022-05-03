@@ -8,6 +8,7 @@ import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import { getSignUpMessage } from '../utils/api/getEmail';
 import { findPlayerByEmail } from '../utils/api/playerUtils';
 import { sendEmail } from '../utils/api/sendEmail';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
@@ -30,10 +31,11 @@ const VerifyEmail: React.FC = () => {
       .then(() => {
         setFormErrors([]);
         findPlayerByEmail(email)
-          .then((response) => {
+          .then(async (response) => {
             if (response.data.player) {
               const { id, name } = response.data.player;
-              sendEmail(id, name, email);
+              const message = await getSignUpMessage(id, email, name);
+              sendEmail(message);
             }
           })
           .finally(() => {

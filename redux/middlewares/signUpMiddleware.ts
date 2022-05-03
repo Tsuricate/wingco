@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
+import { getSignUpMessage } from '../../utils/api/getEmail';
 import { sendEmail } from '../../utils/api/sendEmail';
 import {
   errorWhileCreatingUser,
@@ -21,10 +22,12 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
 
       axios
         .post('/api/sign-up', newPlayer)
-        .then((response) => {
+        .then(async (response) => {
           if (response.status === 201) {
             const userId = response.data.id;
-            sendEmail(userId, username, email)
+            const message = await getSignUpMessage(userId, email, username);
+
+            sendEmail(message)
               .catch(() => {
                 store.dispatch(errorWhileSendingEmail());
               })
