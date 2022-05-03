@@ -1,9 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-import { getResetPasswordMessage, getSignUpMessage } from '../../utils/api/getEmail';
 
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { userId, username, email } = req.body;
+  const { message } = req.body;
 
   return new Promise(async (resolve, reject) => {
     const transporter = nodemailer.createTransport({
@@ -14,10 +13,6 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
         pass: process.env.GMAIL_PASSWORD,
       },
     });
-
-    const message = userId
-      ? await getSignUpMessage(userId, email, username)
-      : await getResetPasswordMessage(email);
 
     if (message) {
       transporter.sendMail(message, (err, info) => {
