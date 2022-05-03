@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { HAS_UPDATED_INFOS } from '../actions/manageAccount';
+import { HAS_UPDATED_EMAIL, HAS_UPDATED_INFOS } from '../actions/manageAccount';
 import { INIT_MANAGE_ACCOUNT, UPDATE_USER_INFOS } from '../actions/manageAccount';
 
 interface manageAccountReducerProps {
@@ -7,6 +7,7 @@ interface manageAccountReducerProps {
   username: string;
   email: string;
   hasUpdatedInfos: boolean;
+  hasUpdatedEmail: boolean;
 }
 
 const initialState: manageAccountReducerProps = {
@@ -14,6 +15,7 @@ const initialState: manageAccountReducerProps = {
   username: '',
   email: '',
   hasUpdatedInfos: false,
+  hasUpdatedEmail: false,
 };
 
 const manageAccountReducer = (state = initialState, action: AnyAction) => {
@@ -37,6 +39,13 @@ const manageAccountReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         hasUpdatedInfos: action.value,
+      };
+    }
+
+    case HAS_UPDATED_EMAIL: {
+      return {
+        ...state,
+        hasUpdatedEmail: action.value,
       };
     }
 
