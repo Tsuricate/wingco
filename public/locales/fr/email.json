@@ -4,5 +4,5 @@
   "resetPasswordEmailSubject": "Changement de mot de passe",
   "resetPasswordEmail": "<h3> Bonjour {{name}} 👋</h3><p>Nous avons reçu une demande de changement de mot de passe. Merci de renseigner le code suivant : <b>{{passwordResetCode}}</b></p><p> Si vous vous n'êtes pas à l'origine de cette requête, vous pouvez ignorer cet email. Votre mot de passe ne sera pas modifié.</p><p>À bientôt !</p><p>L'équipe WingCo 🦜</p>",
   "changeEmailSubject": "Changement d'adresse email",
-  "changeEmail": "<h3> Bonjour {{username}} 👋</h3><p> Nous avons reçu une demande de changement d'adresse email pour votre compte WingCo. Une dernière étape vous attend...</p><p>Pour votre nouvelle adresse email, veuillez cliquer sur le lien suivant : <a target='_blank' href='{{domain}}/api/validate-email/{{validationToken}}'>Valider votre adresse email</a></p><p>À bientôt !</p><p>L'équipe WingCo 🦜</p>"
+  "changeEmail": "<h3> Bonjour {{username}} 👋</h3><p> Nous avons reçu une demande de changement d'adresse email pour votre compte WingCo. Une dernière étape vous attend...</p><p>Pour confirmer votre nouvelle adresse email, veuillez cliquer sur le lien suivant : <a target='_blank' href='{{domain}}/api/validate-email/{{validationToken}}'>Valider votre adresse email</a></p><p>À bientôt !</p><p>L'équipe WingCo 🦜</p>"
 }
