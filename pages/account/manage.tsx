@@ -105,6 +105,6 @@ ManageAccount.requireAuth = true;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['manageAccount', 'validations', 'common'])),
+    ...(await serverSideTranslations(locale, ['manageAccount', 'validations', 'email', 'common'])),
   },
 });

@@ -68,7 +68,7 @@ export default SignUp;
 export const getStaticProps = async ({ locale }: { locale: string }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['signUp', 'validations', 'common'])),
+      ...(await serverSideTranslations(locale, ['signUp', 'validations', 'email', 'common'])),
     },
   };
 };

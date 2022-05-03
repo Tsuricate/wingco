@@ -115,6 +115,6 @@ export default PasswordAssistance;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['passwordAssistance', 'validations', 'common'])),
+    ...(await serverSideTranslations(locale, ['passwordAssistance', 'validations', 'email', 'common'])),
   },
 });
