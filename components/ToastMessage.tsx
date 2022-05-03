@@ -6,10 +6,18 @@ interface ToastMessageProps {
   title?: string;
   description: string;
   status: UseToastOptions['status'];
+  duration: number | null;
   trigger: boolean;
 }
 
-const ToastMessage: React.FC<ToastMessageProps> = ({ id, title, description, status, trigger }) => {
+const ToastMessage: React.FC<ToastMessageProps> = ({
+  id,
+  title,
+  description,
+  status,
+  duration,
+  trigger,
+}) => {
   const toast = useToast();
 
   useEffect(() => {
@@ -19,10 +27,10 @@ const ToastMessage: React.FC<ToastMessageProps> = ({ id, title, description, sta
         title: title,
         description: description,
         status: status,
-        duration: 5000,
+        duration: duration,
         isClosable: true,
       });
-  }, [description, id, status, title, toast, trigger]);
+  }, [description, duration, id, status, title, toast, trigger]);
 
   return <></>;
 };
