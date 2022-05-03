@@ -3,7 +3,7 @@ import { Action, Dispatch, Middleware } from 'redux';
 import { getChangeEmailMessage } from '../../utils/api/getEmail';
 import { sendEmail } from '../../utils/api/sendEmail';
 import { CHECK_TOKEN, saveUser, signOutUser } from '../actions/auth';
-import { hasUpdatedInfos, SAVE_USER_NEW_INFOS } from '../actions/manageAccount';
+import { hasUpdatedEmail, hasUpdatedInfos, SAVE_USER_NEW_INFOS } from '../actions/manageAccount';
 import { SUBMIT_SIGN_IN, updateErrorSignIn } from '../actions/signIn';
 
 const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
@@ -33,7 +33,8 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
         .then(async (res) => {
           if (res.status === 200) {
             const message = await getChangeEmailMessage(id, email, username);
-            if (currentEmail !== res.data.email) sendEmail(message).then((res) => console.log(res));
+            if (currentEmail !== res.data.email)
+              sendEmail(message).then(() => store.dispatch(hasUpdatedEmail(true)));
 
             store.dispatch(hasUpdatedInfos(true));
           }

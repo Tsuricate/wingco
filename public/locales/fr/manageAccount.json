@@ -8,5 +8,7 @@
   "delete": "Supprimer mon compte",
   "deleteModalDescription": "Cette action est irréversible. Tous vos scores et records seront définitivement supprimés. Êtes vous sûr·e de vouloir supprimer votre compte ?",
   "accountDeleted": "Votre compte a bien été supprimé. Nous espérons vous revoir une prochaine fois !",
-  "infosChanged": "Vos informations ont bien été modifiées."
+  "infosChanged": "Vos informations ont bien été modifiées.",
+  "emailChangedTitle": "Adresse email modifiée",
+  "emailChanged": "Un nouvel email de confirmation à été envoyé. Veuillez suivre les instructions indiquées dans celui-ci afin de valider le changement de votre adresse email."
 }

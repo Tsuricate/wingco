@@ -22,7 +22,9 @@ const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { id, name: currentName, email: currentEmail } = useSelector((state: RootState) => state.auth);
-  const { username, email, hasUpdatedInfos } = useSelector((state: RootState) => state.manageAccount);
+  const { username, email, hasUpdatedInfos, hasUpdatedEmail } = useSelector(
+    (state: RootState) => state.manageAccount
+  );
   const dispatch = useDispatch();
   const [formErrors, setFormErrors] = useState([]);
 
@@ -91,8 +93,19 @@ const ManageAccount: NextPageWithAuth = () => {
             id={uniqid()}
             description={t('manageAccount:infosChanged')}
             status="success"
+            duration={5000}
             trigger={hasUpdatedInfos}
           ></ToastMessage>
+        )}
+        {hasUpdatedEmail && (
+          <ToastMessage
+            id={uniqid()}
+            title={t('manageAccount:emailChangedTitle')}
+            description={t('manageAccount:emailChanged')}
+            status="info"
+            duration={null}
+            trigger={hasUpdatedEmail}
+          />
         )}
       </Form>
     </PageLayout>
