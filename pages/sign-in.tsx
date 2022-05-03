@@ -74,6 +74,7 @@ const SignIn: React.FC = () => {
           id={uniqid()}
           description={t('signIn:errorSignIn')}
           status="error"
+          duration={5000}
           trigger={errorSignIn}
         />
       )}
