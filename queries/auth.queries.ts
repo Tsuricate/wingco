@@ -26,6 +26,7 @@ export const UPDATE_PLAYER_INFOS = gql`
     updatePlayer(data: { name: $name, email: $email }, where: { id: $id }) {
       id
       name
+      email
     }
   }
 `;

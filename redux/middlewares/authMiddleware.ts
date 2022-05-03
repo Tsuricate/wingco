@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
+import { getChangeEmailMessage } from '../../utils/api/getEmail';
+import { sendEmail } from '../../utils/api/sendEmail';
 import { CHECK_TOKEN, saveUser, signOutUser } from '../actions/auth';
 import { hasUpdatedInfos, SAVE_USER_NEW_INFOS } from '../actions/manageAccount';
 import { SUBMIT_SIGN_IN, updateErrorSignIn } from '../actions/signIn';
@@ -25,11 +27,14 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
 
     case SAVE_USER_NEW_INFOS: {
       const { id, username, email } = store.getState().manageAccount;
+      const { email: currentEmail } = store.getState().auth;
       axios
         .post('/api/user/manage-account', { id, username, email })
-        .then((res) => {
+        .then(async (res) => {
           if (res.status === 200) {
-            console.log(res);
+            const message = await getChangeEmailMessage(id, email, username);
+            if (currentEmail !== res.data.email) sendEmail(message).then((res) => console.log(res));
+
             store.dispatch(hasUpdatedInfos(true));
           }
         })
