@@ -36,5 +36,7 @@
   "loading": "Chargement...",
   "submitting": "Envoi...",
   "goToAccount": "Aller sur mon compte",
-  "goToSignIn": "Se connecter"
+  "goToSignIn": "Se connecter",
+  "show": "Voir",
+  "hide": "Cacher"
 }
