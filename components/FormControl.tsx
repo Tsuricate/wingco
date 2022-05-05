@@ -47,7 +47,7 @@ const FormControl: React.FC<FormControlProps> = ({
   return (
     <ChakraFormControl isInvalid={isInvalid}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
-      {name === 'password' ? (
+      {['password', 'passwordValidation'].includes(name) ? (
         <InputGroup size="md">
           <Input
             autoComplete="off"
