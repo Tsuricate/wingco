@@ -21,7 +21,7 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({ playerNumber, onDeletePla
     <FormControl
       id={`player${playerNumber}`}
       name={`player${playerNumber}`}
-      label={t('player', { number: playerNumber })}
+      label={t('newGame:player', { number: playerNumber })}
       updateField={updateField}
       leftSlot={<AvatarSelector />}
       rightSlot={
