@@ -50,6 +50,7 @@ const FormControl: React.FC<FormControlProps> = ({
       {name === 'password' ? (
         <InputGroup size="md">
           <Input
+            autoComplete="off"
             type={show ? 'text' : 'password'}
             id={id}
             name={name}
