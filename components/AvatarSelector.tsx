@@ -1,12 +1,27 @@
-import { Avatar, Image, SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import {
+  Avatar,
+  AvatarBadge,
+  Icon,
+  Image,
+  SimpleGrid,
+  ThemingProps,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
+import { EditIcon } from '@chakra-ui/icons';
 import { avatarImages } from '../mockData/avatarImages';
 import Modal from './Modal';
 
-const AvatarSelector: React.FC = () => {
+interface AvatarSelectorProps {
+  avatarSize?: ThemingProps<'Avatar'>['size'];
+  avatar?: string;
+}
+
+const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, avatar }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation(['newGame', 'common']);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenAvatar, setChosenAvatar] = useState('');
 
   const handleClick = () => {
@@ -19,7 +34,11 @@ const AvatarSelector: React.FC = () => {
 
   return (
     <>
-      <Avatar size="md" src={chosenAvatar} onClick={handleClick} />
+      <Avatar size={avatarSize} src={avatar} onClick={handleClick}>
+        <AvatarBadge boxSize="0.8em" borderWidth={2} borderColor="blackAlpha.500" bg="white">
+          <Icon as={EditIcon} w="3" />
+        </AvatarBadge>
+      </Avatar>
       <Modal
         onClose={onClose}
         isOpen={isOpen}
