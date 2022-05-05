@@ -6,6 +6,7 @@ import {
   RESET_FORM,
   UPDATE_SIGN_UP_INFOS,
   RESET_ERRORS,
+  UPDATE_IS_LOADING,
 } from '../actions/signUp';
 
 interface initialStateProps {
@@ -17,6 +18,7 @@ interface initialStateProps {
   errorWhileCreatingUser: boolean;
   errorWhileSendingEmail: boolean;
   isRegistered: boolean;
+  isLoading: boolean;
 }
 
 const initialState: initialStateProps = {
@@ -28,6 +30,7 @@ const initialState: initialStateProps = {
   errorWhileCreatingUser: false,
   errorWhileSendingEmail: false,
   isRegistered: false,
+  isLoading: false,
 };
 
 const signUpReducer = (state = initialState, action: AnyAction) => {
@@ -72,6 +75,13 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         errorWhileSendingEmail: true,
+      };
+    }
+
+    case UPDATE_IS_LOADING: {
+      return {
+        ...state,
+        isLoading: action.value,
       };
     }
 

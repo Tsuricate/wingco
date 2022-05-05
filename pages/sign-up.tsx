@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
             errors={getErrorsMessages(formErrors, `${form.name}`)}
           />
         ))}
-        <Button type="submit" dataCy="signUp">
+        <Button type="submit" dataCy="signUp" isLoading={userInfos['isLoading']}>
           {t('signUp:signUpButtonLabel')}
         </Button>
         <Text>{t('signUp:alreadyRegistered')}</Text>

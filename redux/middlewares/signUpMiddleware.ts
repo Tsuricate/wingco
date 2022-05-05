@@ -8,6 +8,7 @@ import {
   showSignUpModal,
   resetForm,
   SUBMIT_SIGN_UP,
+  updateIsLoading,
 } from '../actions/signUp';
 
 const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
@@ -19,6 +20,8 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
         email,
         password,
       };
+
+      store.dispatch(updateIsLoading(true));
 
       axios
         .post('/api/sign-up', newPlayer)
@@ -40,6 +43,7 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
           store.dispatch(errorWhileCreatingUser());
         })
         .finally(() => {
+          store.dispatch(updateIsLoading(false));
           store.dispatch(showSignUpModal());
         });
 
