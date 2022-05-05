@@ -20,3 +20,13 @@ export const DELETE_PLAYER_BY_ID = gql`
     }
   }
 `;
+
+export const UPDATE_PLAYER_INFOS = gql`
+  mutation ChangePlayerUsername($id: ID!, $name: String, $email: String) {
+    updatePlayer(data: { name: $name, email: $email }, where: { id: $id }) {
+      id
+      name
+      email
+    }
+  }
+`;

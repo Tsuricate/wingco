@@ -1,3 +1,4 @@
+import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
@@ -34,6 +35,7 @@ const PasswordAssistance = () => {
     hasCorrectResetCode,
     password,
     passwordValidation,
+    hasChangedPassword,
   } = useSelector((state: RootState) => state.passwordAssistance);
   const [formErrors, setFormErrors] = useState([]);
 
@@ -74,9 +76,12 @@ const PasswordAssistance = () => {
       });
   };
 
+  const stepNumber = isStep1 ? 1 : isStep2 ? 2 : 3;
+
   return (
     <PageLayout title={t('passwordAssistance:title')}>
       <Form onSubmit={handleSubmit}>
+        <Text>Step {stepNumber}/3</Text>
         {isStep1 && (
           <PasswordAssistStep1
             updateField={updateField}
@@ -100,12 +105,14 @@ const PasswordAssistance = () => {
             errors={formErrors}
           />
         )}
-        <FormActions
-          cancelUrl="/sign-in"
-          isLoading={isLoading}
-          loadingText={t('common:submitting')}
-          onClick={() => dispatch(resetPasswordAssistanceInfos())}
-        />
+        {!hasChangedPassword && (
+          <FormActions
+            cancelUrl="/sign-in"
+            isLoading={isLoading}
+            loadingText={t('common:submitting')}
+            onClick={() => dispatch(resetPasswordAssistanceInfos())}
+          />
+        )}
       </Form>
     </PageLayout>
   );
@@ -115,6 +122,6 @@ export default PasswordAssistance;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['passwordAssistance', 'validations', 'common'])),
+    ...(await serverSideTranslations(locale, ['passwordAssistance', 'validations', 'email', 'common'])),
   },
 });

@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
             errors={getErrorsMessages(formErrors, `${form.name}`)}
           />
         ))}
-        <Button type="submit" dataCy="signUp">
+        <Button type="submit" dataCy="signUp" isLoading={userInfos['isLoading']}>
           {t('signUp:signUpButtonLabel')}
         </Button>
         <Text>{t('signUp:alreadyRegistered')}</Text>
@@ -68,7 +68,7 @@ export default SignUp;
 export const getStaticProps = async ({ locale }: { locale: string }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['signUp', 'validations', 'common'])),
+      ...(await serverSideTranslations(locale, ['signUp', 'validations', 'email', 'common'])),
     },
   };
 };

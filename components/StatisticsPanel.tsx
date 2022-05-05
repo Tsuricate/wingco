@@ -8,12 +8,7 @@ interface StatisticsPanelProps {
   title: string;
   description: string;
 }
-const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
-  title,
-  description,
-  icon,
-  children,
-}) => {
+const StatisticsPanel: React.FC<StatisticsPanelProps> = ({ title, description, icon, children }) => {
   return (
     <Box>
       <Flex alignItems="center">

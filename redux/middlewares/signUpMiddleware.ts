@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
+import { getSignUpMessage } from '../../utils/api/getEmail';
 import { sendEmail } from '../../utils/api/sendEmail';
 import {
   errorWhileCreatingUser,
@@ -7,6 +8,7 @@ import {
   showSignUpModal,
   resetForm,
   SUBMIT_SIGN_UP,
+  updateIsLoading,
 } from '../actions/signUp';
 
 const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
@@ -19,12 +21,16 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
         password,
       };
 
+      store.dispatch(updateIsLoading(true));
+
       axios
         .post('/api/sign-up', newPlayer)
-        .then((response) => {
+        .then(async (response) => {
           if (response.status === 201) {
             const userId = response.data.id;
-            sendEmail(userId, username, email)
+            const message = await getSignUpMessage(userId, email, username);
+
+            sendEmail(message)
               .catch(() => {
                 store.dispatch(errorWhileSendingEmail());
               })
@@ -37,6 +43,7 @@ const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Act
           store.dispatch(errorWhileCreatingUser());
         })
         .finally(() => {
+          store.dispatch(updateIsLoading(false));
           store.dispatch(showSignUpModal());
         });
 
