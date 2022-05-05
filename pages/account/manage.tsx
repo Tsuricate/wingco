@@ -80,10 +80,11 @@ const ManageAccount: NextPageWithAuth = () => {
         <Button onClick={onOpen}>{t('manageAccount:delete')}</Button>
         <Modal
           title={t('manageAccount:delete')}
-          saveMessage={t('manageAccount:keepAccount')}
-          closeMessage={t('manageAccount:delete')}
+          firstActionButton={t('manageAccount:keepAccount')}
+          handleFirstAction={onClose}
+          secondActionButton={t('manageAccount:delete')}
           isOpen={isOpen}
-          onClose={onClose}
+          handleClose={onClose}
           href="/api/user/delete"
         >
           {t('manageAccount:deleteModalDescription')}

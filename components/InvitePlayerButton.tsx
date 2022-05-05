@@ -18,11 +18,12 @@ const InvitePlayerButton: React.FC = () => {
         {t('newGame:invitePlayer')}
       </Button>
       <Modal
-        onClose={onClose}
+        handleClose={onClose}
         isOpen={isOpen}
         title={t('newGame:howInvitePlayer')}
         description={t('newGame:howInviteDescription', { gameId: '#156D5E8' })}
-        closeMessage={t('common:gotIt')}
+        secondActionButton={t('common:gotIt')}
+        handleSecondAction={onClose}
       >
         <Stack>
           <Text>{t('newGame:howInviteIntro')}</Text>
