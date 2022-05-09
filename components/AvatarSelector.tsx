@@ -61,6 +61,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvat
               src={image.url}
               alt={image.url}
               objectFit="cover"
+              border={newAvatar === image.url ? '4px solid #7AA8B9' : undefined}
               onClick={() => setNewAvatar(image.url)}
             />
           ))}
