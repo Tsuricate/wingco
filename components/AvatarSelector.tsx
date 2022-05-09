@@ -1,3 +1,4 @@
+import { EditIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   AvatarBadge,
@@ -9,31 +10,37 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
-import { EditIcon } from '@chakra-ui/icons';
-import { avatarImages } from '../mockData/avatarImages';
+import { useDispatch, useSelector } from 'react-redux';
+import { AvatarImage } from '../models/players';
+import { getAvatarImages } from '../redux/actions/player';
+import { RootState } from '../redux/reducers';
 import Modal from './Modal';
-// import { useDispatch } from 'react-redux';
 
 interface AvatarSelectorProps {
   avatarSize?: ThemingProps<'Avatar'>['size'];
-  avatar?: string;
+  currentAvatar?: string | undefined;
 }
 
-const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, avatar }) => {
+const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvatar }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const dispatch = useDispatch();
+  const { avatarImages } = useSelector((state: RootState) => state.player);
+  const dispatch = useDispatch();
   const { t } = useTranslation(['newGame', 'common']);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [chosenAvatar, setChosenAvatar] = useState('');
+  const [newAvatar, setNewAvatar] = useState('');
 
-  const handleChosenAvatar = (avatar: string) => {
+  const handleClick = () => {
+    onOpen();
+    dispatch(getAvatarImages());
+  };
+
+  const handleChosenAvatar = () => {
+    console.log('avatar :', newAvatar);
     // dispatch(updatePlayerAvatar(avatar));
-    setChosenAvatar(avatar);
   };
 
   return (
     <>
-      <Avatar size={avatarSize} src={avatar} onClick={() => onOpen()}>
+      <Avatar size={avatarSize} src={currentAvatar} onClick={handleClick}>
         <AvatarBadge boxSize="0.8em" borderWidth={2} borderColor="blackAlpha.500" bg="white">
           <Icon as={EditIcon} w="3" />
         </AvatarBadge>
@@ -44,16 +51,17 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, avatar }) =
         title={t('newGame:chooseAvatar')}
         description={t('newGame:chooseAvatarDescription')}
         firstActionButton={t('common:save')}
+        handleFirstAction={handleChosenAvatar}
       >
-        <SimpleGrid columns={{ base: 2 }} spacing={10}>
-          {avatarImages.map((image) => (
+        <SimpleGrid columns={{ base: 3 }} spacing={10}>
+          {avatarImages.map((image: AvatarImage) => (
             <Image
-              key={image.src}
-              boxSize="100px"
-              src={image.src}
-              alt={image.alt}
+              key={image.url}
+              boxSize="96px"
+              src={image.url}
+              alt={image.url}
               objectFit="cover"
-              onClick={() => handleChosenAvatar(image.src)}
+              onClick={() => setNewAvatar(image.url)}
             />
           ))}
         </SimpleGrid>
