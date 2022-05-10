@@ -53,7 +53,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvat
         firstActionButton={t('common:save')}
         handleFirstAction={handleChosenAvatar}
       >
-        <SimpleGrid columns={{ base: 3 }} spacing={10}>
+        <SimpleGrid columns={{ base: 3 }} spacing={2}>
           {avatarImages.map((image: AvatarImage) => (
             <Image
               key={image.url}
