@@ -12,7 +12,7 @@ import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AvatarImage } from '../models/players';
-import { getAvatarImages } from '../redux/actions/player';
+import { getAvatarImages, updatePlayerAvatar } from '../redux/actions/player';
 import { RootState } from '../redux/reducers';
 import Modal from './Modal';
 
@@ -34,8 +34,8 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvat
   };
 
   const handleChosenAvatar = () => {
-    console.log('avatar :', newAvatar);
-    // dispatch(updatePlayerAvatar(avatar));
+    dispatch(updatePlayerAvatar(newAvatar));
+    onClose();
   };
 
   return (
@@ -56,13 +56,13 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvat
         <SimpleGrid columns={{ base: 3 }} spacing={2}>
           {avatarImages.map((image: AvatarImage) => (
             <Image
-              key={image.url}
+              key={image.id}
               boxSize="96px"
               src={image.url}
               alt={image.url}
               objectFit="cover"
-              border={newAvatar === image.url ? '4px solid #7AA8B9' : undefined}
-              onClick={() => setNewAvatar(image.url)}
+              border={newAvatar === image.id ? '4px solid #7AA8B9' : undefined}
+              onClick={() => setNewAvatar(image.id)}
             />
           ))}
         </SimpleGrid>
