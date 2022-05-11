@@ -19,3 +19,8 @@ export interface NewPlayer {
   email: string;
   password: string;
 }
+
+export interface AvatarImage {
+  id: string;
+  url: string;
+}

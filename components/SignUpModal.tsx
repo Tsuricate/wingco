@@ -60,10 +60,10 @@ const SignUpModal: React.FC = () => {
   return (
     <Modal
       isOpen={isOpen}
-      onClose={handleClose}
+      handleClose={handleClose}
       title={t(`${modalToShow.title}`)}
-      closeMessage={t(`${modalToShow.closeMessage}`)}
-      onClick={onClose}
+      secondActionButton={t(`${modalToShow.closeMessage}`)}
+      handleSecondAction={handleClose}
     >
       <Text>{t(`${modalToShow.children}`)}</Text>
     </Modal>

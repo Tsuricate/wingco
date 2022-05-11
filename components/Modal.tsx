@@ -15,29 +15,31 @@ import Link from './Link';
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  handleClose: () => void;
   title: string;
   description?: string;
-  saveMessage?: string;
-  closeMessage: string;
-  onClick?: () => void;
+  firstActionButton?: string;
+  secondActionButton?: string;
+  handleFirstAction?: () => void;
+  handleSecondAction?: () => void;
   href?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
   isOpen,
-  onClose,
+  handleClose,
   title,
   description,
   children,
-  saveMessage,
-  closeMessage,
-  onClick,
+  firstActionButton,
+  secondActionButton,
+  handleFirstAction,
+  handleSecondAction,
   href,
 }) => {
   return (
     <>
-      <ChakraModal isOpen={isOpen} onClose={onClose}>
+      <ChakraModal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{title}</ModalHeader>
@@ -46,11 +48,13 @@ const Modal: React.FC<ModalProps> = ({
           <ModalBody>{children}</ModalBody>
           <ModalFooter justifyContent="center">
             <Stack>
-              {saveMessage && <Button onClick={onClose}>{saveMessage}</Button>}
-              {onClick && <Button onClick={onClick}>{closeMessage}</Button>}
+              {firstActionButton && <Button onClick={handleFirstAction}>{firstActionButton}</Button>}
+              {!href && secondActionButton && (
+                <Button onClick={handleSecondAction}>{secondActionButton}</Button>
+              )}
               {href && (
                 <Link href={href} isExternal>
-                  {closeMessage}
+                  {secondActionButton}
                 </Link>
               )}
               )
