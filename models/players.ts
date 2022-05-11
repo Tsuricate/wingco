@@ -21,5 +21,6 @@ export interface NewPlayer {
 }
 
 export interface AvatarImage {
+  id: string;
   url: string;
 }
