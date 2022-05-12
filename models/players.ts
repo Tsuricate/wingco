@@ -24,3 +24,9 @@ export interface AvatarImage {
   id: string;
   url: string;
 }
+
+export interface NewGamePlayer {
+  id: string;
+  name: string;
+  avatar: string | undefined;
+}
