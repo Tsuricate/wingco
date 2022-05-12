@@ -1,6 +1,6 @@
 {
   "title": "Nouvelle partie",
-  "player": "Joueur",
+  "player": "Joueur {{number}}",
   "addPlayer": "Ajouter un joueur",
   "invitePlayer": "Inviter un joueur",
   "useNectar": "Inclure Nectar (Extension Océanie)",
