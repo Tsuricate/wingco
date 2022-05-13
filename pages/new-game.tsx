@@ -52,7 +52,8 @@ const NewGame: React.FC = () => {
               key={player.id}
               id={player.id}
               name={player.name}
-              avatar={player.avatar}
+              avatar={player?.avatar}
+              isRegistered={player.isRegistered}
               playerNumber={index + 1}
               onDeletePlayer={() => handleDeletePlayer(player.id)}
             />
