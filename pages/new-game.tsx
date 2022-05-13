@@ -20,7 +20,7 @@ const NewGame: React.FC = () => {
 
   useEffect(() => {
     if (isLogged && players.length < 1) {
-      dispatch(saveFirstPlayer({ id, name, avatar }));
+      dispatch(saveFirstPlayer({ id, name, avatar, isRegistered: isLogged }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
 

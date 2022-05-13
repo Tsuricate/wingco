@@ -1,4 +1,4 @@
-import Player from '../models/players';
+import { Player } from '../models/players';
 import uniqid from 'uniqid';
 
 const players: Array<Player> = [

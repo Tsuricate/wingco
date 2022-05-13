@@ -1,7 +1,7 @@
 import { Avatar, AvatarBadge, Heading, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import Player from '../models/players';
+import { Player } from '../models/players';
 import { getBadgeColor } from '../utils/badgeUtils';
 import Link from './Link';
 

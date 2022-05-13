@@ -1,5 +1,5 @@
 import uniqid from 'uniqid';
-import Player, { PLAYER_BADGE } from '../models/players';
+import { Player, PLAYER_BADGE } from '../models/players';
 import { categories } from './bestScoreByCategory';
 
 export const gameResults: Array<Player> = [

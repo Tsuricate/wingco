@@ -1,4 +1,4 @@
-import Player from '../../models/players';
+import { Player } from '../../models/players';
 
 export const SAVE_USER = 'SAVE_USER';
 export const CHECK_TOKEN = 'CHECK_TOKEN';

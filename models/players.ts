@@ -5,7 +5,7 @@ export enum PLAYER_BADGE {
   Logged = 'LOGGED',
 }
 
-export default interface Player {
+export interface Player {
   id: string;
   name: string;
   email?: string;
@@ -29,4 +29,5 @@ export interface NewGamePlayer {
   id: string;
   name: string;
   avatar: string | undefined;
+  isRegistered?: boolean;
 }

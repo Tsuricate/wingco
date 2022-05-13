@@ -1,6 +1,6 @@
 import { Heading, Stack } from '@chakra-ui/react';
 import React from 'react';
-import Player from '../models/players';
+import { Player } from '../models/players';
 import TwoColumnsLayout from './layout/TwoColumnsLayout';
 import PlayerAvatar from './PlayerAvatar';
 import ScoreInput from './ScoreInput';

@@ -2,7 +2,7 @@ import { Box, Heading, Icon, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { GiPartyPopper } from 'react-icons/gi';
-import Player from '../models/players';
+import { Player } from '../models/players';
 import PlayerAvatar from './PlayerAvatar';
 
 export interface VersusPanelProps {
