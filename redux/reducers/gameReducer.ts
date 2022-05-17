@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 import { InewGamePlayer } from '../../models/players';
 import { ADD_PLAYER, REMOVE_PLAYER, UPDATE_PLAYER_INFOS } from '../actions/newGame';
+import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
 interface gameReducerProps {
   players: Array<InewGamePlayer>;
@@ -31,6 +32,20 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       const newArray = state.players.map((player) => {
         if (player.id === action.playerId) {
           return { ...player, name: action.value };
+        }
+        return player;
+      });
+
+      return {
+        ...state,
+        players: newArray,
+      };
+    }
+
+    case UPDATE_NEW_PLAYER_AVATAR: {
+      const newArray = state.players.map((player) => {
+        if (player.id === action.playerId) {
+          return { ...player, avatar: action.newAvatarUrl };
         }
         return player;
       });
