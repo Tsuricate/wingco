@@ -39,7 +39,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
   };
 
   const handleChosenAvatar = () => {
-    dispatch(updatePlayerAvatar(newAvatar));
+    updatePlayerAvatar(newAvatar);
     onClose();
   };
 
