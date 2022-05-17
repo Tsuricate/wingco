@@ -9,6 +9,7 @@ import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 import { panels } from '../../data/account';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
+import { updatePlayerAvatar } from '../../redux/actions/player';
 import { RootState } from '../../redux/reducers';
 
 const Account: NextPageWithAuth = () => {
@@ -19,7 +20,11 @@ const Account: NextPageWithAuth = () => {
     <PageLayout title={t('account:title')}>
       <Stack spacing={8}>
         <Stack as={Center}>
-          <AvatarSelector avatarSize="xl" currentAvatar={avatar} />
+          <AvatarSelector
+            avatarSize="xl"
+            currentAvatar={avatar}
+            updatePlayerAvatar={updatePlayerAvatar}
+          />
           <Text fontWeight="bold" fontSize="xl">
             {name}
           </Text>
