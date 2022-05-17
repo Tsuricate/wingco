@@ -2,14 +2,15 @@ import { DeleteIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { NewGamePlayer } from '../models/players';
+import { InewGamePlayer } from '../models/players';
 import AvatarSelector from './AvatarSelector';
 import FormControl from './FormControl';
 import PlayerAvatar from './PlayerAvatar';
 
-interface NewGamePlayerProps extends NewGamePlayer {
+interface NewGamePlayerProps extends InewGamePlayer {
   playerNumber: number;
   onDeletePlayer: () => void;
+  updateField: (name: string, value: string) => void;
 }
 
 const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
@@ -19,12 +20,9 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
   isRegistered,
   playerNumber,
   onDeletePlayer,
+  updateField,
 }) => {
   const { t } = useTranslation('newGame');
-
-  const updateField = () => {
-    console.log('Update');
-  };
 
   return (
     <FormControl

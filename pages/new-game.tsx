@@ -3,12 +3,13 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import uniqid from 'uniqid';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
 import NewGamePlayer from '../components/NewGamePlayer';
-import { saveFirstPlayer } from '../redux/actions/newGame';
+import { addPlayer, removePlayer, updatePlayerInfos } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
 
 const NewGame: React.FC = () => {
@@ -17,25 +18,27 @@ const NewGame: React.FC = () => {
   const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
   const { players } = useSelector((state: RootState) => state.game);
   const gameId = '#156D5E8';
+  const hasReachedMaxPlayers = players.length === 5;
 
   useEffect(() => {
     if (isLogged && players.length < 1) {
-      dispatch(saveFirstPlayer({ id, name, avatar, isRegistered: isLogged }));
+      dispatch(addPlayer({ id, name, avatar, isRegistered: isLogged }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
 
   const handleAddPlayer = () => {
-    console.log('Add player');
-    // if (players.length < 5) {
-    //   setPlayers([...players, { id: uniqid() }]);
-    // }
+    if (!hasReachedMaxPlayers) {
+      dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
+    }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleUpdatePlayerInfos = (value: string, playerId: string) => {
+    dispatch(updatePlayerInfos(value, playerId));
+  };
+
   const handleDeletePlayer = (playerId: string) => {
-    console.log('Remove player');
-    // const newPlayersList = players.filter((player) => player.id !== playerId);
-    // setPlayers([...newPlayersList]);
+    const newPlayersList = players.filter((player) => player.id !== playerId);
+    dispatch(removePlayer(newPlayersList));
   };
 
   const handleSubmit = () => {
@@ -56,10 +59,13 @@ const NewGame: React.FC = () => {
               isRegistered={player.isRegistered}
               playerNumber={index + 1}
               onDeletePlayer={() => handleDeletePlayer(player.id)}
+              updateField={(value) => handleUpdatePlayerInfos(value, player.id)}
             />
           ))}
         </Stack>
-        <Button onClick={handleAddPlayer}>{t('newGame:addPlayer')}</Button>
+        <Button isDisabled={hasReachedMaxPlayers} onClick={handleAddPlayer}>
+          {t('newGame:addPlayer')}
+        </Button>
         <InvitePlayerButton />
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="useNectar">{t('newGame:useNectar')}</FormLabel>

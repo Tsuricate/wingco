@@ -1,9 +1,9 @@
 import { AnyAction } from 'redux';
-import { NewGamePlayer } from '../../models/players';
-import { SAVE_FIRST_PLAYER } from '../actions/newGame';
+import { InewGamePlayer } from '../../models/players';
+import { ADD_PLAYER, REMOVE_PLAYER, UPDATE_PLAYER_INFOS } from '../actions/newGame';
 
 interface gameReducerProps {
-  players: Array<NewGamePlayer>;
+  players: Array<InewGamePlayer>;
 }
 
 const initialState: gameReducerProps = {
@@ -12,10 +12,32 @@ const initialState: gameReducerProps = {
 
 const gameReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case SAVE_FIRST_PLAYER: {
+    case ADD_PLAYER: {
       return {
         ...state,
         players: [...state.players, action.newPlayer],
+      };
+    }
+
+    case REMOVE_PLAYER: {
+      const newPlayersList: Array<InewGamePlayer> = action.newPlayersList;
+      return {
+        ...state,
+        players: newPlayersList,
+      };
+    }
+
+    case UPDATE_PLAYER_INFOS: {
+      const newArray = state.players.map((player) => {
+        if (player.id === action.playerId) {
+          return { ...player, name: action.value };
+        }
+        return player;
+      });
+
+      return {
+        ...state,
+        players: newArray,
       };
     }
 
