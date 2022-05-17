@@ -4,7 +4,7 @@
   "addPlayer": "Ajouter un joueur",
   "invitePlayer": "Inviter un joueur",
   "useNectar": "Inclure Nectar (Extension Océanie)",
-  "estimatedTime": "Durée estimée de la partie : {{duration}} minutes",
+  "estimatedTime": "Durée estimée de la partie : {{duration}}",
   "startGame": "Démarrer la partie",
   "howInvitePlayer": "Comment inviter un joueur",
   "howInviteDescription": "L'id de votre partie est {{gameId}}",

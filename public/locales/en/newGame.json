@@ -4,7 +4,7 @@
   "addPlayer": "Add player",
   "invitePlayer": "Invite player",
   "useNectar": "Use Nectar (Oceania Expansion)",
-  "estimatedTime": "Estimated game time : {{duration}} minutes",
+  "estimatedTime": "Estimated game time : {{duration}}",
   "startGame": "Start game",
   "howInvitePlayer": "How to invite a player",
   "howInviteDescription": "Your game ID is : {{gameId}}",
