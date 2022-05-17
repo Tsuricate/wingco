@@ -11,6 +11,7 @@ import PageLayout from '../components/layout/PageLayout';
 import NewGamePlayer from '../components/NewGamePlayer';
 import { addPlayer, removePlayer, updatePlayerInfos } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
+import { getEstimatedTime } from '../utils/game';
 
 const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
@@ -19,6 +20,7 @@ const NewGame: React.FC = () => {
   const { players } = useSelector((state: RootState) => state.game);
   const gameId = '#156D5E8';
   const hasReachedMaxPlayers = players.length === 5;
+  const estimatedTime = getEstimatedTime(players.length * 35);
 
   useEffect(() => {
     if (isLogged && players.length < 1) {
@@ -71,7 +73,7 @@ const NewGame: React.FC = () => {
           <FormLabel htmlFor="useNectar">{t('newGame:useNectar')}</FormLabel>
           <Switch id="useNectar" />
         </FormControl>
-        <Text>{t('newGame:estimatedTime', { duration: 45 })}</Text>
+        <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
         <Button type="submit">{t('newGame:startGame')}</Button>
       </Form>
     </PageLayout>
