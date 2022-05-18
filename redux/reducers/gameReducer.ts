@@ -1,14 +1,22 @@
 import { AnyAction } from 'redux';
 import { InewGamePlayer } from '../../models/players';
-import { ADD_PLAYER, REMOVE_PLAYER, RESET_GAME_INFOS, UPDATE_PLAYER_INFOS } from '../actions/newGame';
+import {
+  ADD_PLAYER,
+  REMOVE_PLAYER,
+  RESET_GAME_INFOS,
+  UPDATE_GAME_WITH_NECTAR,
+  UPDATE_PLAYER_INFOS,
+} from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
 interface gameReducerProps {
   players: Array<InewGamePlayer>;
+  gameWithNectar: boolean;
 }
 
 const initialState: gameReducerProps = {
   players: [],
+  gameWithNectar: false,
 };
 
 const gameReducer = (state = initialState, action: AnyAction) => {
@@ -60,6 +68,13 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         ...initialState,
+      };
+    }
+
+    case UPDATE_GAME_WITH_NECTAR: {
+      return {
+        ...state,
+        gameWithNectar: action.value,
       };
     }
 

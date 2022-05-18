@@ -9,7 +9,13 @@ import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
 import NewGamePlayer from '../components/NewGamePlayer';
-import { addPlayer, removePlayer, resetGameInfos, updatePlayerInfos } from '../redux/actions/newGame';
+import {
+  addPlayer,
+  removePlayer,
+  resetGameInfos,
+  updateGameWithNectar,
+  updatePlayerInfos,
+} from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
 import { getEstimatedTime } from '../utils/game';
 
@@ -17,7 +23,7 @@ const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
   const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
-  const { players } = useSelector((state: RootState) => state.game);
+  const { players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const gameId = '#156D5E8';
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
@@ -33,6 +39,10 @@ const NewGame: React.FC = () => {
         : dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
+
+  const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateGameWithNectar(event.target.checked));
+  };
 
   const handleAddPlayer = () => {
     if (!hasReachedMaxPlayers) {
@@ -77,7 +87,7 @@ const NewGame: React.FC = () => {
         <InvitePlayerButton />
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="useNectar">{t('newGame:useNectar')}</FormLabel>
-          <Switch id="useNectar" />
+          <Switch id="useNectar" isChecked={gameWithNectar} onChange={handleSwitch} />
         </FormControl>
         <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
         <Button type="submit">{t('newGame:startGame')}</Button>
