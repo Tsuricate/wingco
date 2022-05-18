@@ -9,7 +9,7 @@ import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
 import NewGamePlayer from '../components/NewGamePlayer';
-import { addPlayer, removePlayer, updatePlayerInfos } from '../redux/actions/newGame';
+import { addPlayer, removePlayer, resetGameInfos, updatePlayerInfos } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
 import { getEstimatedTime } from '../utils/game';
 
@@ -21,6 +21,10 @@ const NewGame: React.FC = () => {
   const gameId = '#156D5E8';
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
+
+  useEffect(() => {
+    dispatch(resetGameInfos());
+  }, [dispatch]);
 
   useEffect(() => {
     if (players.length < 1) {

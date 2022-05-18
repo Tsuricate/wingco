@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { InewGamePlayer } from '../../models/players';
-import { ADD_PLAYER, REMOVE_PLAYER, UPDATE_PLAYER_INFOS } from '../actions/newGame';
+import { ADD_PLAYER, REMOVE_PLAYER, RESET_GAME_INFOS, UPDATE_PLAYER_INFOS } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
 interface gameReducerProps {
@@ -53,6 +53,13 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         players: newArray,
+      };
+    }
+
+    case RESET_GAME_INFOS: {
+      return {
+        ...state,
+        ...initialState,
       };
     }
 
