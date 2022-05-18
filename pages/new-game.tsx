@@ -23,8 +23,10 @@ const NewGame: React.FC = () => {
   const estimatedTime = getEstimatedTime(players.length * 35);
 
   useEffect(() => {
-    if (isLogged && players.length < 1) {
-      dispatch(addPlayer({ id, name, avatar, isRegistered: isLogged }));
+    if (players.length < 1) {
+      isLogged
+        ? dispatch(addPlayer({ id, name, avatar, isRegistered: isLogged }))
+        : dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
 
