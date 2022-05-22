@@ -8,6 +8,8 @@ export const UPDATE_GAME_WITH_NECTAR = 'UPDATE_GAME_WITH_NECTAR';
 export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 export const SAVE_NEW_GAME = 'SAVE_NEW_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
+export const UPDATE_HAS_STARTED_GAME = ' UPDATE_HAS_STARTED_GAME';
+export const UPDATE_GAME_INFOS = 'UPDATE_GAME_INFOS';
 
 export const addPlayer = (newPlayer: InewGamePlayer) => ({
   type: ADD_PLAYER,
@@ -46,4 +48,13 @@ export const saveNewGame = (id: string, slug: string) => ({
 
 export const deleteGame = () => ({
   type: DELETE_GAME,
+});
+
+export const updateHasStartedGame = (value: boolean) => ({
+  type: UPDATE_HAS_STARTED_GAME,
+  value,
+});
+
+export const updateGameInfos = () => ({
+  type: UPDATE_GAME_INFOS,
 });

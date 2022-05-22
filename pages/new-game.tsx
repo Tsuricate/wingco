@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Stack, Switch, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
 import Button from '../components/Button';
@@ -15,7 +15,9 @@ import {
   deleteGame,
   removePlayer,
   resetGameInfos,
+  updateGameInfos,
   updateGameWithNectar,
+  updateHasStartedGame,
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
@@ -25,8 +27,9 @@ const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
   const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
-  const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
-  const [hasStartedGame, setHasStartedGame] = useState(false);
+  const { gameSlug, players, gameWithNectar, hasStartedGame } = useSelector(
+    (state: RootState) => state.game
+  );
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
 
@@ -71,7 +74,8 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    setHasStartedGame(true);
+    dispatch(updateHasStartedGame(true));
+    dispatch(updateGameInfos());
   };
 
   return (
