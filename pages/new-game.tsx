@@ -11,6 +11,7 @@ import PageLayout from '../components/layout/PageLayout';
 import NewGamePlayer from '../components/NewGamePlayer';
 import {
   addPlayer,
+  createNewGame,
   removePlayer,
   resetGameInfos,
   updateGameWithNectar,
@@ -23,14 +24,9 @@ const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
   const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
-  const { players, gameWithNectar } = useSelector((state: RootState) => state.game);
-  const gameId = '#156D5E8';
+  const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
-
-  useEffect(() => {
-    dispatch(resetGameInfos());
-  }, [dispatch]);
 
   useEffect(() => {
     if (players.length < 1) {
@@ -39,6 +35,16 @@ const NewGame: React.FC = () => {
         : dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
+
+  useEffect(() => {
+    dispatch(createNewGame());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetGameInfos());
+    };
+  }, [dispatch]);
 
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
@@ -65,7 +71,7 @@ const NewGame: React.FC = () => {
 
   return (
     <PageLayout title={t('newGame:title')}>
-      <Text>ID {gameId}</Text>
+      <Text>ID {gameSlug}</Text>
       <Form onSubmit={handleSubmit}>
         <Stack>
           {players.map((player, index) => (
