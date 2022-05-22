@@ -4,17 +4,22 @@ import {
   ADD_PLAYER,
   REMOVE_PLAYER,
   RESET_GAME_INFOS,
+  SAVE_NEW_GAME,
   UPDATE_GAME_WITH_NECTAR,
   UPDATE_PLAYER_INFOS,
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
 interface gameReducerProps {
+  gameId: string;
+  gameSlug: string;
   players: Array<InewGamePlayer>;
   gameWithNectar: boolean;
 }
 
 const initialState: gameReducerProps = {
+  gameId: '',
+  gameSlug: '',
   players: [],
   gameWithNectar: false,
 };
@@ -75,6 +80,14 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         gameWithNectar: action.value,
+      };
+    }
+
+    case SAVE_NEW_GAME: {
+      return {
+        ...state,
+        gameId: action.id,
+        gameSlug: action.slug,
       };
     }
 
