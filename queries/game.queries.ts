@@ -8,3 +8,11 @@ export const CREATE_GAME = gql`
     }
   }
 `;
+
+export const DELETE_GAME = gql`
+  mutation DeleteGame($id: ID!) {
+    deleteGame(where: { id: $id }) {
+      id
+    }
+  }
+`;
