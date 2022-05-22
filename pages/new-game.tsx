@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Stack, Switch, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
 import Button from '../components/Button';
@@ -12,6 +12,7 @@ import NewGamePlayer from '../components/NewGamePlayer';
 import {
   addPlayer,
   createNewGame,
+  deleteGame,
   removePlayer,
   resetGameInfos,
   updateGameWithNectar,
@@ -25,6 +26,7 @@ const NewGame: React.FC = () => {
   const dispatch = useDispatch();
   const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
+  const [hasStartedGame, setHasStartedGame] = useState(false);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
 
@@ -42,9 +44,12 @@ const NewGame: React.FC = () => {
 
   useEffect(() => {
     return () => {
+      if (!hasStartedGame) {
+        dispatch(deleteGame());
+      }
       dispatch(resetGameInfos());
     };
-  }, [dispatch]);
+  }, [dispatch, hasStartedGame]);
 
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
@@ -66,7 +71,7 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Submit !');
+    setHasStartedGame(true);
   };
 
   return (
