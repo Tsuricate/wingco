@@ -12,12 +12,9 @@ import NewGamePlayer from '../components/NewGamePlayer';
 import {
   addPlayer,
   createNewGame,
-  deleteGame,
   removePlayer,
-  resetGameInfos,
-  updateGameInfos,
+  saveGameSlug,
   updateGameWithNectar,
-  updateHasStartedGame,
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
@@ -27,11 +24,14 @@ const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
   const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
-  const { gameSlug, players, gameWithNectar, hasStartedGame } = useSelector(
-    (state: RootState) => state.game
-  );
+  const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
+
+  useEffect(() => {
+    const gameSlug = Math.random().toString(36).substring(2, 8).toUpperCase();
+    dispatch(saveGameSlug(gameSlug));
+  }, [dispatch]);
 
   useEffect(() => {
     if (players.length < 1) {
@@ -40,19 +40,6 @@ const NewGame: React.FC = () => {
         : dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
-
-  useEffect(() => {
-    dispatch(createNewGame());
-  }, [dispatch]);
-
-  useEffect(() => {
-    return () => {
-      if (!hasStartedGame) {
-        dispatch(deleteGame());
-      }
-      dispatch(resetGameInfos());
-    };
-  }, [dispatch, hasStartedGame]);
 
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
@@ -74,8 +61,7 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(updateHasStartedGame(true));
-    dispatch(updateGameInfos());
+    dispatch(createNewGame());
   };
 
   return (
