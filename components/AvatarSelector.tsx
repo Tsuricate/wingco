@@ -18,7 +18,7 @@ import Modal from './Modal';
 
 interface AvatarSelectorProps {
   avatarSize?: ThemingProps<'Avatar'>['size'];
-  currentAvatar?: string | undefined;
+  currentAvatar: string;
   updatePlayerAvatar: (newAvatar: string) => void;
 }
 

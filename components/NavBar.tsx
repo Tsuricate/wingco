@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
         <Stack direction="row" display={{ base: 'flex', md: 'none' }}>
           <ColorModeToggle />
           {isLogged ? (
-            <PlayerAvatar badge={PLAYER_BADGE.Logged} avatar={avatar} onClick={onToggle} />
+            <PlayerAvatar badge={PLAYER_BADGE.Logged} avatar={avatar.url} onClick={onToggle} />
           ) : (
             <IconButton
               data-cy="burgerButton"

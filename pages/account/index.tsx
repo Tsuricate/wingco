@@ -27,7 +27,7 @@ const Account: NextPageWithAuth = () => {
         <Stack as={Center}>
           <AvatarSelector
             avatarSize="xl"
-            currentAvatar={avatar}
+            currentAvatar={avatar.url}
             updatePlayerAvatar={handleUpdatePlayerAvatar}
           />
           <Text fontWeight="bold" fontSize="xl">
