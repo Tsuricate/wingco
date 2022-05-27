@@ -18,7 +18,7 @@ import {
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
-import { getEstimatedTime } from '../utils/game';
+import { defaultAvatar, getEstimatedTime } from '../utils/game';
 
 const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
@@ -37,7 +37,7 @@ const NewGame: React.FC = () => {
     if (players.length < 1) {
       isLogged
         ? dispatch(addPlayer({ id, name, avatar, isRegistered: isLogged }))
-        : dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
+        : dispatch(addPlayer({ id: uniqid(), name: '', avatar: defaultAvatar, isRegistered: false }));
     }
   }, [avatar, dispatch, id, isLogged, name, players.length]);
 
@@ -47,7 +47,7 @@ const NewGame: React.FC = () => {
 
   const handleAddPlayer = () => {
     if (!hasReachedMaxPlayers) {
-      dispatch(addPlayer({ id: uniqid(), name: '', avatar: '', isRegistered: false }));
+      dispatch(addPlayer({ id: uniqid(), name: '', avatar: defaultAvatar, isRegistered: false }));
     }
   };
 

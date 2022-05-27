@@ -26,8 +26,14 @@ export const getParticipantsFromPlayers = (players: Array<InewGamePlayer>) => {
               name: player.name,
               hasVerifiedEmail: false,
               isRegistered: false,
+              avatar: { connect: { id: player.avatar.id } },
             },
           },
         };
   });
+};
+
+export const defaultAvatar = {
+  id: 'cl3lozvfa7k690euj8n7af00q',
+  url: 'https://media.graphassets.com/resize=fit:crop,height:96,width:96/kIFwuLNGRZi0DKWGZ5Ae',
 };

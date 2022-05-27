@@ -21,13 +21,13 @@ export interface NewPlayer {
 }
 
 export interface AvatarImage {
-  id: string;
-  url: string;
+  id: string | undefined;
+  url: string | undefined;
 }
 
 export interface InewGamePlayer {
   id: string;
   name: string;
-  avatar: string | undefined;
+  avatar: AvatarImage;
   isRegistered?: boolean;
 }
