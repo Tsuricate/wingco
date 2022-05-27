@@ -59,7 +59,7 @@ const gameReducer = (state = initialState, action: AnyAction) => {
     case UPDATE_NEW_PLAYER_AVATAR: {
       const newArray = state.players.map((player) => {
         if (player.id === action.playerId) {
-          return { ...player, avatar: action.newAvatarUrl };
+          return { ...player, avatar: { id: action.newAvatarId, url: action.newAvatarUrl } };
         }
         return player;
       });

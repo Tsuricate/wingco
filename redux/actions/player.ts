@@ -19,8 +19,9 @@ export const updatePlayerAvatar = (newAvatarId: string) => ({
   newAvatarId,
 });
 
-export const updateNewPlayerAvatar = (playerId: string, newAvatarUrl: string) => ({
+export const updateNewPlayerAvatar = (playerId: string, newAvatarId: string, newAvatarUrl: string) => ({
   type: UPDATE_NEW_PLAYER_AVATAR,
   playerId,
+  newAvatarId,
   newAvatarUrl,
 });

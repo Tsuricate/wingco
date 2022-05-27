@@ -30,8 +30,8 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
   const { avatarImages } = useSelector((state: RootState) => state.player);
 
   const handleNewPlayerAvatar = async (avatarId: string) => {
-    const newAvatarUrl = await avatarImages.find((image: AvatarImage) => image.id === avatarId);
-    dispatch(updateNewPlayerAvatar(id, newAvatarUrl.url));
+    const newAvatar = await avatarImages.find((image: AvatarImage) => image.id === avatarId);
+    dispatch(updateNewPlayerAvatar(id, newAvatar.id, newAvatar.url));
   };
 
   return (
@@ -43,9 +43,9 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
       updateField={updateField}
       leftSlot={
         isRegistered ? (
-          <PlayerAvatar avatar={avatar} avatarSize="md" />
+          <PlayerAvatar avatar={avatar.url} avatarSize="md" />
         ) : (
-          <AvatarSelector currentAvatar={avatar} updatePlayerAvatar={handleNewPlayerAvatar} />
+          <AvatarSelector currentAvatar={avatar.url} updatePlayerAvatar={handleNewPlayerAvatar} />
         )
       }
       rightSlot={
