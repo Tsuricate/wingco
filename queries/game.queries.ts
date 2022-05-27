@@ -1,10 +1,33 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_GAME = gql`
-  mutation createNewGame($slug: String!) {
-    createGame(data: { slug: $slug }) {
-      id
+export const CREATE_GAME_WITH_PLAYERS = gql`
+  mutation CreateGameWithPlayers(
+    $participants: [ParticipationCreateInput!]
+    $gameSlug: String!
+    $hostId: ID
+    $withOceaniaExpansion: Boolean
+  ) {
+    upsertGame(
+      where: { slug: $gameSlug }
+      upsert: {
+        create: {
+          slug: $gameSlug
+          withOceaniaExpansion: $withOceaniaExpansion
+          hostedBy: { connect: { id: $hostId } }
+          participants: { create: $participants }
+        }
+        update: {}
+      }
+    ) {
       slug
+      id
+      participants {
+        player {
+          name
+          isRegistered
+          hasVerifiedEmail
+        }
+      }
     }
   }
 `;
