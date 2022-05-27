@@ -4,9 +4,9 @@ import {
   ADD_PLAYER,
   REMOVE_PLAYER,
   RESET_GAME_INFOS,
+  SAVE_GAME_SLUG,
   SAVE_NEW_GAME,
   UPDATE_GAME_WITH_NECTAR,
-  UPDATE_HAS_STARTED_GAME,
   UPDATE_PLAYER_INFOS,
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
@@ -16,7 +16,6 @@ interface gameReducerProps {
   gameSlug: string;
   players: Array<InewGamePlayer>;
   gameWithNectar: boolean;
-  hasStartedGame: boolean;
 }
 
 const initialState: gameReducerProps = {
@@ -24,7 +23,6 @@ const initialState: gameReducerProps = {
   gameSlug: '',
   players: [],
   gameWithNectar: false,
-  hasStartedGame: false,
 };
 
 const gameReducer = (state = initialState, action: AnyAction) => {
@@ -90,17 +88,15 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         gameId: action.id,
+      };
+    }
+
+    case SAVE_GAME_SLUG: {
+      return {
+        ...state,
         gameSlug: action.slug,
       };
     }
-
-    case UPDATE_HAS_STARTED_GAME: {
-      return {
-        ...state,
-        hasStartedGame: action.value,
-      };
-    }
-
     default:
       return state;
   }
