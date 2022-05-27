@@ -10,7 +10,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       variables: { playerId: id, avatarId: newAvatarId },
     });
     if (player.data.updatePlayer.avatar) {
-      res.status(200).json(player.data.updatePlayer.avatar.url);
+      res.status(200).json(player.data.updatePlayer.avatar);
     }
   } catch (err) {
     res.status(400).end();
