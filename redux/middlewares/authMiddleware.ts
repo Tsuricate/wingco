@@ -4,6 +4,7 @@ import { getChangeEmailMessage } from '../../utils/api/getEmail';
 import { sendEmail } from '../../utils/api/sendEmail';
 import { CHECK_TOKEN, saveUser, signOutUser } from '../actions/auth';
 import { hasUpdatedEmail, hasUpdatedInfos, SAVE_USER_NEW_INFOS } from '../actions/manageAccount';
+import { setFirstPlayer } from '../actions/newGame';
 import { SUBMIT_SIGN_IN, updateErrorSignIn } from '../actions/signIn';
 
 const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
@@ -15,6 +16,8 @@ const authMiddleware: Middleware = (store) => (next: Dispatch) => (action: Actio
         .post('/api/sign-in', { email, password, rememberMe })
         .then((res) => {
           store.dispatch(saveUser(res.data.player, rememberMe));
+          const { id, name, avatar } = res.data.player;
+          store.dispatch(setFirstPlayer({ id, name, avatar, isRegistered: true }));
         })
         .catch(() => {
           store.dispatch(updateErrorSignIn(true));

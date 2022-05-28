@@ -1,5 +1,6 @@
 import { InewGamePlayer } from '../../models/players';
 
+export const SET_FIRST_PLAYER = 'SET_FIRST_PLAYER';
 export const ADD_PLAYER = 'ADD_PLAYER';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const UPDATE_PLAYER_INFOS = 'UPDATE_PLAYER_INFOS';
@@ -9,6 +10,11 @@ export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 export const SAVE_NEW_GAME = 'SAVE_NEW_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const SAVE_GAME_SLUG = 'SAVE_GAME_SLUG';
+
+export const setFirstPlayer = (player: InewGamePlayer) => ({
+  type: SET_FIRST_PLAYER,
+  player,
+});
 
 export const addPlayer = (newPlayer: InewGamePlayer) => ({
   type: ADD_PLAYER,
