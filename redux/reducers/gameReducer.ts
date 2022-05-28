@@ -6,10 +6,13 @@ import {
   RESET_GAME_INFOS,
   SAVE_GAME_SLUG,
   SAVE_NEW_GAME,
+  SET_FIRST_PLAYER,
   UPDATE_GAME_WITH_NECTAR,
   UPDATE_PLAYER_INFOS,
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
+import uniqid from 'uniqid';
+import { defaultAvatar } from '../../utils/game';
 
 interface gameReducerProps {
   gameId: string;
@@ -21,12 +24,19 @@ interface gameReducerProps {
 const initialState: gameReducerProps = {
   gameId: '',
   gameSlug: '',
-  players: [],
+  players: [{ id: uniqid(), name: '', avatar: defaultAvatar, isRegistered: false }],
   gameWithNectar: false,
 };
 
 const gameReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case SET_FIRST_PLAYER: {
+      return {
+        ...state,
+        players: [action.player],
+      };
+    }
+
     case ADD_PLAYER: {
       return {
         ...state,
