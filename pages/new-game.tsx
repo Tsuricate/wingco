@@ -23,7 +23,6 @@ import { defaultAvatar, getEstimatedTime } from '../utils/game';
 const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
-  const { isLogged, id, name, avatar } = useSelector((state: RootState) => state.auth);
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
@@ -32,14 +31,6 @@ const NewGame: React.FC = () => {
     const gameSlug = Math.random().toString(36).substring(2, 8).toUpperCase();
     dispatch(saveGameSlug(gameSlug));
   }, [dispatch]);
-
-  useEffect(() => {
-    if (players.length < 1) {
-      isLogged
-        ? dispatch(addPlayer({ id, name, avatar, isRegistered: isLogged }))
-        : dispatch(addPlayer({ id: uniqid(), name: '', avatar: defaultAvatar, isRegistered: false }));
-    }
-  }, [avatar, dispatch, id, isLogged, name, players.length]);
 
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
