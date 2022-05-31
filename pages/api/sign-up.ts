@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../apollo-client';
 import { NewPlayer } from '../../models/players';
 import { CREATE_PLAYER } from '../../queries/signup.queries';
+import { defaultAvatar } from '../../utils/game';
 import { getHashedPassword } from '../../utils/password';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -18,6 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         password: hashedPassword,
         isRegistered: true,
         hasVerifiedEmail: false,
+        avatarId: defaultAvatar.id,
       },
     });
 
