@@ -57,8 +57,7 @@ const NewGame: React.FC = () => {
   };
 
   const handleDeletePlayer = (playerId: string) => {
-    const newPlayersList = players.filter((player) => player.id !== playerId);
-    dispatch(removePlayer(newPlayersList));
+    dispatch(removePlayer(playerId));
   };
 
   const handleSubmit = () => {

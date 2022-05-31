@@ -1,4 +1,4 @@
-import { IGamePlayer, InewGamePlayer } from '../../models/players';
+import { IGamePlayer } from '../../models/players';
 
 export const SET_FIRST_PLAYER = 'SET_FIRST_PLAYER';
 export const ADD_PLAYER = 'ADD_PLAYER';
@@ -23,9 +23,9 @@ export const addPlayer = (newPlayer: IGamePlayer) => ({
   newPlayer,
 });
 
-export const removePlayer = (newPlayersList: Array<InewGamePlayer>) => ({
+export const removePlayer = (playerId: string) => ({
   type: REMOVE_PLAYER,
-  newPlayersList,
+  playerId,
 });
 
 export const updatePlayerInfos = (value: string, playerId: string) => ({

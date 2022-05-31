@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
-import { IGamePlayer, InewGamePlayer } from '../../models/players';
+import { IGamePlayer } from '../../models/players';
 import { defaultAvatar, defaultScores } from '../../utils/game';
 import {
   ADD_PLAYER,
@@ -57,7 +57,7 @@ const gameReducer = (state = initialState, action: AnyAction) => {
     }
 
     case REMOVE_PLAYER: {
-      const newPlayersList: Array<InewGamePlayer> = action.newPlayersList;
+      const newPlayersList = state.players.filter((player) => player.id !== action.playerId);
       return {
         ...state,
         players: newPlayersList,
