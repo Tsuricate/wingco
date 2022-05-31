@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
-import { CREATE_NEW_GAME, DELETE_GAME, isCreatingNewGame } from '../actions/newGame';
+import { CREATE_NEW_GAME, DELETE_GAME, isCreatingNewGame, saveGameId } from '../actions/newGame';
 
 const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
   switch (action.type) {
@@ -11,6 +11,7 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
 
       axios.post('/api/game/create-game', { players, gameWithNectar, gameSlug, hostId }).then((res) => {
         if (res.status === 201) {
+          store.dispatch(saveGameId(res.data.gameId));
           store.dispatch(isCreatingNewGame(false));
         }
       });

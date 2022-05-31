@@ -10,6 +10,7 @@ export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 export const SAVE_NEW_GAME = 'SAVE_NEW_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const SAVE_GAME_SLUG = 'SAVE_GAME_SLUG';
+export const SAVE_GAME_ID = 'SAVE_GAME_ID';
 export const IS_CREATING_NEW_GAME = 'IS_CREATING_NEW_GAME';
 
 export const setFirstPlayer = (player: InewGamePlayer) => ({
@@ -45,6 +46,11 @@ export const updateGameWithNectar = (value: boolean) => ({
 export const saveGameSlug = (slug: string) => ({
   type: SAVE_GAME_SLUG,
   slug,
+});
+
+export const saveGameId = (gameId: string) => ({
+  type: SAVE_GAME_ID,
+  gameId,
 });
 
 export const createNewGame = () => ({

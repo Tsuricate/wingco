@@ -5,6 +5,7 @@ import {
   IS_CREATING_NEW_GAME,
   REMOVE_PLAYER,
   RESET_GAME_INFOS,
+  SAVE_GAME_ID,
   SAVE_GAME_SLUG,
   SAVE_NEW_GAME,
   SET_FIRST_PLAYER,
@@ -108,6 +109,13 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         gameSlug: action.slug,
+      };
+    }
+
+    case SAVE_GAME_ID: {
+      return {
+        ...state,
+        gameId: action.gameId,
       };
     }
 
