@@ -1,5 +1,7 @@
 import { AnyAction } from 'redux';
-import { InewGamePlayer } from '../../models/players';
+import uniqid from 'uniqid';
+import { IGamePlayer, InewGamePlayer } from '../../models/players';
+import { defaultAvatar, defaultScores } from '../../utils/game';
 import {
   ADD_PLAYER,
   IS_CREATING_NEW_GAME,
@@ -13,13 +15,11 @@ import {
   UPDATE_PLAYER_INFOS,
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
-import uniqid from 'uniqid';
-import { defaultAvatar } from '../../utils/game';
 
 interface gameReducerProps {
   gameId: string;
   gameSlug: string;
-  players: Array<InewGamePlayer>;
+  players: Array<IGamePlayer>;
   gameWithNectar: boolean;
   isCreatingNewGame: boolean;
 }
@@ -27,7 +27,15 @@ interface gameReducerProps {
 const initialState: gameReducerProps = {
   gameId: '',
   gameSlug: '',
-  players: [{ id: uniqid(), name: '', avatar: defaultAvatar, isRegistered: false }],
+  players: [
+    {
+      id: uniqid(),
+      name: '',
+      avatar: defaultAvatar,
+      isRegistered: false,
+      scores: defaultScores,
+    },
+  ],
   gameWithNectar: false,
   isCreatingNewGame: false,
 };
