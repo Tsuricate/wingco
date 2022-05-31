@@ -2,6 +2,7 @@ import { AnyAction } from 'redux';
 import { InewGamePlayer } from '../../models/players';
 import {
   ADD_PLAYER,
+  IS_CREATING_NEW_GAME,
   REMOVE_PLAYER,
   RESET_GAME_INFOS,
   SAVE_GAME_SLUG,
@@ -19,6 +20,7 @@ interface gameReducerProps {
   gameSlug: string;
   players: Array<InewGamePlayer>;
   gameWithNectar: boolean;
+  isCreatingNewGame: boolean;
 }
 
 const initialState: gameReducerProps = {
@@ -26,6 +28,7 @@ const initialState: gameReducerProps = {
   gameSlug: '',
   players: [{ id: uniqid(), name: '', avatar: defaultAvatar, isRegistered: false }],
   gameWithNectar: false,
+  isCreatingNewGame: false,
 };
 
 const gameReducer = (state = initialState, action: AnyAction) => {
@@ -107,6 +110,14 @@ const gameReducer = (state = initialState, action: AnyAction) => {
         gameSlug: action.slug,
       };
     }
+
+    case IS_CREATING_NEW_GAME: {
+      return {
+        ...state,
+        isCreatingNewGame: action.value,
+      };
+    }
+
     default:
       return state;
   }

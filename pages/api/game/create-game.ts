@@ -14,7 +14,9 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       variables: { participants, gameSlug, hostId, withOceaniaExpansion: gameWithNectar },
     });
 
-    console.log('NewGame : ', newGame);
+    if (newGame.data.upsertGame.participants) {
+      res.status(201).end();
+    }
   } catch (err) {
     res.status(400).end();
   }

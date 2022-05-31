@@ -10,6 +10,7 @@ export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 export const SAVE_NEW_GAME = 'SAVE_NEW_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const SAVE_GAME_SLUG = 'SAVE_GAME_SLUG';
+export const IS_CREATING_NEW_GAME = 'IS_CREATING_NEW_GAME';
 
 export const setFirstPlayer = (player: InewGamePlayer) => ({
   type: SET_FIRST_PLAYER,
@@ -57,4 +58,9 @@ export const saveNewGame = (id: string) => ({
 
 export const deleteGame = () => ({
   type: DELETE_GAME,
+});
+
+export const isCreatingNewGame = (value: boolean) => ({
+  type: IS_CREATING_NEW_GAME,
+  value,
 });

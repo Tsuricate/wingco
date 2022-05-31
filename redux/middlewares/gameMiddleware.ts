@@ -1,15 +1,18 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
-import { CREATE_NEW_GAME, DELETE_GAME } from '../actions/newGame';
+import { CREATE_NEW_GAME, DELETE_GAME, isCreatingNewGame } from '../actions/newGame';
 
 const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
   switch (action.type) {
     case CREATE_NEW_GAME: {
       const { players, gameWithNectar, gameSlug } = store.getState().game;
       const { id: hostId } = store.getState().auth;
+      store.dispatch(isCreatingNewGame(true));
 
       axios.post('/api/game/create-game', { players, gameWithNectar, gameSlug, hostId }).then((res) => {
-        console.log(res);
+        if (res.status === 201) {
+          store.dispatch(isCreatingNewGame(false));
+        }
       });
 
       next(action);
