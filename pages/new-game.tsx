@@ -54,8 +54,8 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(createNewGame());
     router.push('/game-scores');
+    dispatch(createNewGame());
   };
 
   return (
