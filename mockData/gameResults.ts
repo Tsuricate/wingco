@@ -1,23 +1,26 @@
 import uniqid from 'uniqid';
-import { Player, PLAYER_BADGE } from '../models/players';
+import { PlayerWithBadgeAndScore, PLAYER_BADGE } from '../models/players';
 import { categories } from './bestScoreByCategory';
 
-export const gameResults: Array<Player> = [
+export const gameResults: Array<PlayerWithBadgeAndScore> = [
   {
     id: uniqid(),
     name: 'Chäémelon',
+    avatar: { id: '', url: '' },
     badge: PLAYER_BADGE.Gold,
     score: 92,
   },
   {
     id: uniqid(),
     name: 'Alex',
+    avatar: { id: '', url: '' },
     badge: PLAYER_BADGE.Silver,
     score: 86,
   },
   {
     id: uniqid(),
     name: 'Tsuricate',
+    avatar: { id: '', url: '' },
     badge: PLAYER_BADGE.Bronze,
     score: 85,
   },
@@ -44,17 +47,17 @@ export const playerResultsByCategory = categories.map((category) => ({
     {
       id: uniqid(),
       name: 'Chäémelon',
-      score: Math.floor(Math.random() * 100),
+      avatar: { id: '', url: '' },
     },
     {
       id: uniqid(),
       name: 'Alex',
-      score: Math.floor(Math.random() * 100),
+      avatar: { id: '', url: '' },
     },
     {
       id: uniqid(),
       name: 'Tsuricate',
-      score: Math.floor(Math.random() * 100),
+      avatar: { id: '', url: '' },
     },
   ],
 }));

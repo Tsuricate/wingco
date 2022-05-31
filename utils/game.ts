@@ -1,4 +1,4 @@
-import { InewGamePlayer, Score } from '../models/players';
+import { PlayerWithRegisteredInfos, Score } from '../models/players';
 
 export const getEstimatedTime = (totalMinutes: number) => {
   const hours = totalMinutes / 60;
@@ -10,7 +10,7 @@ export const getEstimatedTime = (totalMinutes: number) => {
   return hDisplay + mDisplay;
 };
 
-export const getParticipantsFromPlayers = (players: Array<InewGamePlayer>) => {
+export const getParticipantsFromPlayers = (players: Array<PlayerWithRegisteredInfos>) => {
   return players.map((player) => {
     return player.isRegistered
       ? {

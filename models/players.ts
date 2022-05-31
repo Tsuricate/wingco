@@ -8,13 +8,26 @@ export enum PLAYER_BADGE {
 export interface Player {
   id: string;
   name: string;
-  email?: string;
-  avatar?: AvatarImage;
-  badge?: PLAYER_BADGE | undefined;
-  score?: number;
+  avatar: AvatarImage;
 }
 
-export interface IGamePlayer extends InewGamePlayer {
+export interface PlayerWithEmail extends Player {
+  email: string;
+}
+
+export interface PlayerWithBadge extends Player {
+  badge: PLAYER_BADGE | undefined;
+}
+
+export interface PlayerWithBadgeAndScore extends PlayerWithBadge {
+  score: number;
+}
+
+export interface PlayerWithRegisteredInfos extends Player {
+  isRegistered: boolean;
+}
+
+export interface IGamePlayer extends PlayerWithRegisteredInfos {
   scores: Array<Score>;
 }
 
@@ -22,7 +35,6 @@ export interface InewGamePlayer {
   id: string;
   name: string;
   avatar: AvatarImage;
-  isRegistered: boolean;
 }
 
 export interface AvatarImage {

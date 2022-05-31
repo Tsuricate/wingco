@@ -3,14 +3,14 @@ import { IconButton } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AvatarImage, InewGamePlayer } from '../models/players';
+import { AvatarImage, PlayerWithRegisteredInfos } from '../models/players';
 import { updateNewPlayerAvatar } from '../redux/actions/player';
 import { RootState } from '../redux/reducers';
 import AvatarSelector from './AvatarSelector';
 import FormControl from './FormControl';
 import PlayerAvatar from './PlayerAvatar';
 
-interface NewGamePlayerProps extends InewGamePlayer {
+interface NewGamePlayerProps extends PlayerWithRegisteredInfos {
   playerNumber: number;
   onDeletePlayer: () => void;
   updateField: (name: string, value: string) => void;
