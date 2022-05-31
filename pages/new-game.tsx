@@ -1,6 +1,7 @@
 import { FormControl, FormLabel, Stack, Switch, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
@@ -23,6 +24,7 @@ import { defaultAvatar, getEstimatedTime } from '../utils/game';
 const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
+  const router = useRouter();
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
@@ -53,6 +55,7 @@ const NewGame: React.FC = () => {
 
   const handleSubmit = () => {
     dispatch(createNewGame());
+    router.push('/game-scores');
   };
 
   return (
