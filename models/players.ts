@@ -31,3 +31,11 @@ export interface InewGamePlayer {
   avatar: AvatarImage;
   isRegistered?: boolean;
 }
+
+export interface Score {
+  [category: string]: number;
+}
+
+export interface IGamePlayer extends InewGamePlayer {
+  scores: Array<Score>;
+}
