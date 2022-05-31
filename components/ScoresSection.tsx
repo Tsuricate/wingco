@@ -18,8 +18,8 @@ const ScoresSection: React.FC<ScoresSectionProps> = ({ title, players }) => {
       </Heading>
       {players.map((player) => (
         <TwoColumnsLayout key={player.id}>
-          <PlayerAvatar playerName={player.name} />
-          {player.score === undefined ? <ScoreInput /> : player.score}
+          <PlayerAvatar playerName={player.name} avatar={player.avatar?.url} />
+          <ScoreInput />
         </TwoColumnsLayout>
       ))}
     </Stack>
