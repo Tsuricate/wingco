@@ -9,7 +9,7 @@ export interface Player {
   id: string;
   name: string;
   email?: string;
-  avatar?: string;
+  avatar?: AvatarImage;
   badge?: PLAYER_BADGE | undefined;
   score?: number;
 }

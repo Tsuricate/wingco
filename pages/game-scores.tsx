@@ -9,12 +9,11 @@ import Link from '../components/Link';
 import ScoresSection from '../components/ScoresSection';
 import Modal from '../components/Modal';
 import { categories } from '../mockData/bestScoreByCategory';
-import players from '../mockData/fakePlayers';
 import { RootState } from '../redux/reducers';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);
-  const { gameSlug, isCreatingNewGame } = useSelector((state: RootState) => state.game);
+  const { gameSlug, players, isCreatingNewGame } = useSelector((state: RootState) => state.game);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -42,9 +41,8 @@ const GameScores: React.FC = () => {
         description={t('newGame:gameCreatedDescription')}
         handleClose={onClose}
         isOpen={isOpen}
-        firstActionButton={t('gameScores:computeScores')}
+        firstActionButton={t('gameScores:enterScores')}
         handleFirstAction={onClose}
-        secondActionButton={t('common:cancel')}
       ></Modal>
     </PageLayout>
   );
