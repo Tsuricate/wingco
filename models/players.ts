@@ -14,15 +14,8 @@ export interface Player {
   score?: number;
 }
 
-export interface NewPlayer {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export interface AvatarImage {
-  id: string;
-  url: string;
+export interface IGamePlayer extends InewGamePlayer {
+  scores: Array<Score>;
 }
 
 export interface InewGamePlayer {
@@ -32,10 +25,11 @@ export interface InewGamePlayer {
   isRegistered?: boolean;
 }
 
-export interface Score {
-  [category: string]: number;
+export interface AvatarImage {
+  id: string;
+  url: string;
 }
 
-export interface IGamePlayer extends InewGamePlayer {
-  scores: Array<Score>;
+export interface Score {
+  [category: string]: number;
 }
