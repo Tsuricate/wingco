@@ -22,7 +22,7 @@ export interface InewGamePlayer {
   id: string;
   name: string;
   avatar: AvatarImage;
-  isRegistered?: boolean;
+  isRegistered: boolean;
 }
 
 export interface AvatarImage {
