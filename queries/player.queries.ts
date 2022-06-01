@@ -13,6 +13,7 @@ export const CHANGE_PLAYER_AVATAR = gql`
   mutation UpdatePlayerAvatar($playerId: ID!, $avatarId: ID!) {
     updatePlayer(data: { avatar: { connect: { id: $avatarId } } }, where: { id: $playerId }) {
       avatar {
+        id
         url
       }
     }

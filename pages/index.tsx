@@ -26,7 +26,7 @@ const Home: NextPage = () => {
           </Link>
         )}
         <Link href="/new-game" asButton>
-          {t('common:newGameAsGuest')}
+          {!isLogged ? t('common:newGameAsGuest') : t('common:newGame')}
         </Link>
         <Link href="/join-game" asButton>
           {t('common:joinGame')}

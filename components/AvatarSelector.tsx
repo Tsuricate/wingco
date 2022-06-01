@@ -12,16 +12,21 @@ import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AvatarImage } from '../models/players';
-import { getAvatarImages, updatePlayerAvatar } from '../redux/actions/player';
+import { getAvatarImages } from '../redux/actions/player';
 import { RootState } from '../redux/reducers';
 import Modal from './Modal';
 
 interface AvatarSelectorProps {
   avatarSize?: ThemingProps<'Avatar'>['size'];
-  currentAvatar?: string | undefined;
+  currentAvatar: string;
+  updatePlayerAvatar: (newAvatar: string) => void;
 }
 
-const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvatar }) => {
+const AvatarSelector: React.FC<AvatarSelectorProps> = ({
+  avatarSize,
+  currentAvatar,
+  updatePlayerAvatar,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { avatarImages } = useSelector((state: RootState) => state.player);
   const dispatch = useDispatch();
@@ -34,7 +39,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({ avatarSize, currentAvat
   };
 
   const handleChosenAvatar = () => {
-    dispatch(updatePlayerAvatar(newAvatar));
+    updatePlayerAvatar(newAvatar);
     onClose();
   };
 

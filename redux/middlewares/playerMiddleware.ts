@@ -18,7 +18,7 @@ const playerMiddleware: Middleware = (store) => (next: Dispatch) => async (actio
 
     case UPDATE_PLAYER_AVATAR: {
       const { id } = store.getState().auth;
-      const newAvatarId = action.payload.newAvatarId;
+      const newAvatarId = action.newAvatarId;
       axios.post('/api/user/change-avatar', { id, newAvatarId }).then((res) => {
         store.dispatch(savePlayerAvatar(res.data));
       });

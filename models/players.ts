@@ -5,22 +5,43 @@ export enum PLAYER_BADGE {
   Logged = 'LOGGED',
 }
 
-export default interface Player {
+export interface Player {
   id: string;
   name: string;
-  email?: string;
-  avatar?: string;
-  badge?: PLAYER_BADGE | undefined;
-  score?: number;
+  avatar: AvatarImage;
 }
 
-export interface NewPlayer {
-  name: string;
+export interface PlayerWithEmail extends Player {
   email: string;
-  password: string;
+}
+
+export interface PlayerWithBadge extends Player {
+  badge: PLAYER_BADGE | undefined;
+}
+
+export interface PlayerWithBadgeAndScore extends PlayerWithBadge {
+  score: number;
+}
+
+export interface PlayerWithRegisteredInfos extends Player {
+  isRegistered: boolean;
+}
+
+export interface IGamePlayer extends PlayerWithRegisteredInfos {
+  scores: Array<Score>;
+}
+
+export interface InewGamePlayer {
+  id: string;
+  name: string;
+  avatar: AvatarImage;
 }
 
 export interface AvatarImage {
   id: string;
   url: string;
+}
+
+export interface Score {
+  [category: string]: number;
 }

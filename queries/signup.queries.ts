@@ -7,6 +7,7 @@ export const CREATE_PLAYER = gql`
     $password: String!
     $isRegistered: Boolean!
     $hasVerifiedEmail: Boolean!
+    $avatarId: ID!
   ) {
     createPlayer(
       data: {
@@ -15,6 +16,7 @@ export const CREATE_PLAYER = gql`
         password: $password
         isRegistered: $isRegistered
         hasVerifiedEmail: $hasVerifiedEmail
+        avatar: { connect: { id: $avatarId } }
       }
     ) {
       id

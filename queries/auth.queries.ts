@@ -7,6 +7,7 @@ export const FIND_PLAYER_BY_ID = gql`
       name
       email
       avatar {
+        id
         url
       }
     }
