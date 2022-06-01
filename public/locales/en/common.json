@@ -36,5 +36,7 @@
   "loading": "Loading...",
   "submitting": "Submitting...",
   "goToAccount": "Go to my account",
-  "goToSignIn": "Go to sign in"
+  "goToSignIn": "Go to sign in",
+  "show": "Show",
+  "hide": "Hide"
 }

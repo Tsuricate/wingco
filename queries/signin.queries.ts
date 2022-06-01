@@ -8,6 +8,7 @@ export const FIND_VERIFIED_PLAYER = gql`
       email
       password
       avatar {
+        id
         url
       }
     }

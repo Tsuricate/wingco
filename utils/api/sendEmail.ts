@@ -1,5 +1,12 @@
 import axios from 'axios';
 
-export const sendEmail = (userId: string, username: string, email: string) => {
-  return axios.post('/api/send-email', { userId, username, email });
+interface MessageProps {
+  from: string;
+  to: string;
+  subject: string | undefined;
+  html: string | undefined;
+}
+
+export const sendEmail = (message: MessageProps) => {
+  return axios.post('/api/send-email', { message });
 };

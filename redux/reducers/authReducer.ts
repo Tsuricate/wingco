@@ -1,10 +1,12 @@
 import { AnyAction } from 'redux';
-import { SAVE_USER, SIGN_OUT_USER } from '../actions/auth';
+import { AvatarImage } from '../../models/players';
+import { defaultAvatar } from '../../utils/game';
+import { SAVE_PLAYER_AVATAR, SAVE_USER, SIGN_OUT_USER } from '../actions/auth';
 
 interface authReducerProps {
   id: string;
   name: string;
-  avatar: string;
+  avatar: AvatarImage;
   email: string;
   password: string;
   rememberMe: boolean;
@@ -14,7 +16,7 @@ interface authReducerProps {
 const initialState: authReducerProps = {
   id: '',
   name: '',
-  avatar: '',
+  avatar: defaultAvatar,
   email: '',
   password: '',
   rememberMe: false,
@@ -28,7 +30,7 @@ const authReducer = (state = initialState, action: AnyAction) => {
         ...state,
         id: action.id,
         name: action.name,
-        avatar: action.avatar?.url,
+        avatar: { id: action.avatar.id, url: action.avatar.url },
         email: action.email,
         rememberMe: action.rememberMe,
         isLogged: true,
@@ -39,6 +41,13 @@ const authReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         ...initialState,
+      };
+    }
+
+    case SAVE_PLAYER_AVATAR: {
+      return {
+        ...state,
+        avatar: action.newAvatar,
       };
     }
     default:

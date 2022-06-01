@@ -5,8 +5,16 @@ import rootReducer from './reducers';
 import signUpMiddleware from './middlewares/signUpMiddleware';
 import authMiddleware from './middlewares/authMiddleware';
 import passwordAssistanceMiddleware from './middlewares/passwordAssistanceMiddleware';
+import playerMiddleware from './middlewares/playerMiddleware';
+import gameMiddleware from './middlewares/gameMiddleware';
 
-const middlewares = [signUpMiddleware, authMiddleware, passwordAssistanceMiddleware];
+const middlewares = [
+  signUpMiddleware,
+  authMiddleware,
+  passwordAssistanceMiddleware,
+  playerMiddleware,
+  gameMiddleware,
+];
 
 const bindMiddlewares = (middlewares: Array<Middleware>) => {
   if (process.env.NODE_ENV !== 'production') {

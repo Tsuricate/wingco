@@ -9,6 +9,7 @@ export const statisticsVersusData: Array<VersusPanelProps> = [
     player: {
       id: uniqid(),
       name: 'Tsuricate',
+      avatar: { id: '', url: '' },
     },
   },
   {
@@ -18,6 +19,7 @@ export const statisticsVersusData: Array<VersusPanelProps> = [
     player: {
       id: uniqid(),
       name: 'Trololo',
+      avatar: { id: '', url: '' },
     },
   },
 ];

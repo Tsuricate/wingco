@@ -9,12 +9,7 @@ interface NewRecordProps {
   previousRecord: number;
 }
 
-const NewRecord: React.FC<NewRecordProps> = ({
-  newRecord,
-  category,
-  playerName,
-  previousRecord,
-}) => {
+const NewRecord: React.FC<NewRecordProps> = ({ newRecord, category, playerName, previousRecord }) => {
   const { t } = useTranslation('gameResults');
   return (
     <Stack direction="row" align="center" spacing={5}>

@@ -9,7 +9,9 @@ import client from '../apollo-client';
 import AuthGuard from '../components/AuthGuard';
 import { NextPageWithAuth } from '../models/pageWithAuth';
 import { saveUser } from '../redux/actions/auth';
+import { setFirstPlayer } from '../redux/actions/newGame';
 import { wrapper } from '../redux/store';
+import { defaultScores } from '../utils/game';
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithAuth;
@@ -27,6 +29,9 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         .then((res) => {
           if (res.data.player) {
             dispatch(saveUser(res.data.player, true));
+            const { id, name, avatar } = res.data.player;
+            dispatch(setFirstPlayer({ id, name, avatar, isRegistered: true, scores: defaultScores }));
+
             setShouldGetPlayer(false);
           }
         })

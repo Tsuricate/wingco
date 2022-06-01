@@ -7,5 +7,8 @@
   "keepAccount": "Keep my account",
   "delete": "Delete my account",
   "deleteModalDescription": "This action cannot be undone. All your scores and records will be lost forever. Are you sure you want to delete your account ?",
-  "accountDeleted": "Your account has been deleted succesfully. Hope to see you again another time !"
+  "accountDeleted": "Your account has been deleted succesfully. Hope to see you again another time !",
+  "infosChanged": "Your informations have been updated succesfully.",
+  "emailChangedTitle": "Email address changed",
+  "emailChanged": "A new confirmation email has been sent. Please follow instructions in order to validate your new email address."
 }

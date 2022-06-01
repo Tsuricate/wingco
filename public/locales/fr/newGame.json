@@ -1,10 +1,10 @@
 {
   "title": "Nouvelle partie",
-  "player": "Joueur",
+  "player": "Joueur {{number}}",
   "addPlayer": "Ajouter un joueur",
   "invitePlayer": "Inviter un joueur",
   "useNectar": "Inclure Nectar (Extension Océanie)",
-  "estimatedTime": "Durée estimée de la partie : {{duration}} minutes",
+  "estimatedTime": "Durée estimée de la partie : {{duration}}",
   "startGame": "Démarrer la partie",
   "howInvitePlayer": "Comment inviter un joueur",
   "howInviteDescription": "L'id de votre partie est {{gameId}}",
@@ -14,5 +14,8 @@
   "howInviteStep3": "S'inscrire, se connecter ou rejoindre la partie en tant que joueur anonyme",
   "howInviteStep4": "Renseigner l'ID de votre partie",
   "chooseAvatar": "Choix de l'avatar",
-  "chooseAvatarDescription": "Sélectionnez un avatar parmi la liste suivante en cliquant dessus."
+  "chooseAvatarDescription": "Sélectionnez un avatar parmi la liste suivante en cliquant dessus.",
+  "creatingGame": "Votre partie est en train d'être créée...",
+  "gameCreated": "Partie créée !",
+  "gameCreatedDescription": "Votre partie a bien été créée. Amusez-vous bien et dites nous quand vous êtes prêts à renseigner vos scores."
 }

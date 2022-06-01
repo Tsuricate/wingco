@@ -1,14 +1,43 @@
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
-import { IconButton, Input, Stack } from '@chakra-ui/react';
+import {
+  Button,
+  HStack,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  useBreakpointValue,
+  useNumberInput,
+} from '@chakra-ui/react';
 import React from 'react';
 
 const ScoreInput: React.FC = () => {
-  return (
-    <Stack direction="row" align="center">
-      <IconButton aria-label="Decrease score" icon={<MinusIcon />} size="sm" />
-      <Input size="sm" type="number" min="0" />
-      <IconButton aria-label="Increase score" icon={<AddIcon />} size="sm" />
-    </Stack>
+  const onSmallDevices = useBreakpointValue({ base: true, lg: false });
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
+    step: 1,
+    defaultValue: 0,
+    min: 0,
+  });
+
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
+
+  return onSmallDevices ? (
+    <HStack maxW="320px">
+      <Button {...dec}>-</Button>
+      <Input {...input} />
+      <Button {...inc}>+</Button>
+    </HStack>
+  ) : (
+    <NumberInput defaultValue={0} min={0}>
+      <NumberInputField />
+      <NumberInputStepper>
+        <NumberIncrementStepper />
+        <NumberDecrementStepper />
+      </NumberInputStepper>
+    </NumberInput>
   );
 };
 

@@ -1,42 +1,73 @@
-import { Avatar, Image, SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
+import {
+  Avatar,
+  AvatarBadge,
+  Icon,
+  Image,
+  SimpleGrid,
+  ThemingProps,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
-import { avatarImages } from '../mockData/avatarImages';
+import { useDispatch, useSelector } from 'react-redux';
+import { AvatarImage } from '../models/players';
+import { getAvatarImages } from '../redux/actions/player';
+import { RootState } from '../redux/reducers';
 import Modal from './Modal';
 
-const AvatarSelector: React.FC = () => {
+interface AvatarSelectorProps {
+  avatarSize?: ThemingProps<'Avatar'>['size'];
+  currentAvatar: string;
+  updatePlayerAvatar: (newAvatar: string) => void;
+}
+
+const AvatarSelector: React.FC<AvatarSelectorProps> = ({
+  avatarSize,
+  currentAvatar,
+  updatePlayerAvatar,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { avatarImages } = useSelector((state: RootState) => state.player);
+  const dispatch = useDispatch();
   const { t } = useTranslation(['newGame', 'common']);
-  const [chosenAvatar, setChosenAvatar] = useState('');
+  const [newAvatar, setNewAvatar] = useState('');
 
   const handleClick = () => {
     onOpen();
+    dispatch(getAvatarImages());
   };
 
-  const handleChosenAvatar = (avatar: string) => {
-    setChosenAvatar(avatar);
+  const handleChosenAvatar = () => {
+    updatePlayerAvatar(newAvatar);
+    onClose();
   };
 
   return (
     <>
-      <Avatar size="md" src={chosenAvatar} onClick={handleClick} />
+      <Avatar size={avatarSize} src={currentAvatar} onClick={handleClick}>
+        <AvatarBadge boxSize="0.8em" borderWidth={2} borderColor="blackAlpha.500" bg="white">
+          <Icon as={EditIcon} w="3" />
+        </AvatarBadge>
+      </Avatar>
       <Modal
-        onClose={onClose}
+        handleClose={onClose}
         isOpen={isOpen}
         title={t('newGame:chooseAvatar')}
         description={t('newGame:chooseAvatarDescription')}
-        closeMessage={t('common:cancel')}
-        saveMessage={t('common:save')}
+        firstActionButton={t('common:save')}
+        handleFirstAction={handleChosenAvatar}
       >
-        <SimpleGrid columns={{ base: 2 }} spacing={10}>
-          {avatarImages.map((image) => (
+        <SimpleGrid columns={{ base: 3 }} spacing={2}>
+          {avatarImages.map((image: AvatarImage) => (
             <Image
-              key={image.src}
-              boxSize="100px"
-              src={image.src}
-              alt={image.alt}
+              key={image.id}
+              boxSize="96px"
+              src={image.url}
+              alt={image.url}
               objectFit="cover"
-              onClick={() => handleChosenAvatar(image.src)}
+              border={newAvatar === image.id ? '4px solid #7AA8B9' : undefined}
+              onClick={() => setNewAvatar(image.id)}
             />
           ))}
         </SimpleGrid>
