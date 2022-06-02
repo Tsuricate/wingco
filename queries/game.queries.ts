@@ -39,3 +39,14 @@ export const DELETE_GAME = gql`
     }
   }
 `;
+
+export const GET_CATEGORIES = gql`
+  query GetCategories {
+    categories {
+      id
+      name
+      isComputed
+      isFromOceaniaExpansion
+    }
+  }
+`;
