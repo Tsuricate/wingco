@@ -2,6 +2,7 @@ import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
 import { IGamePlayer } from '../../models/players';
 import { defaultAvatar, defaultScores } from '../../utils/game';
+import { UPDATE_PLAYER_SCORE } from '../actions/gameScores';
 import {
   ADD_PLAYER,
   IS_CREATING_NEW_GAME,
@@ -131,6 +132,19 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         isCreatingNewGame: action.value,
+      };
+    }
+
+    case UPDATE_PLAYER_SCORE: {
+      const playersWithUpdatedScores = state.players.map((player) => {
+        if (player.id === action.playerId) {
+          return { ...player, scores: { ...player.scores, [action.category]: action.value } };
+        }
+        return player;
+      });
+      return {
+        ...state,
+        players: playersWithUpdatedScores,
       };
     }
 
