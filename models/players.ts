@@ -28,7 +28,7 @@ export interface PlayerWithRegisteredInfos extends Player {
 }
 
 export interface IGamePlayer extends PlayerWithRegisteredInfos {
-  scores: Scores;
+  scores: Score;
 }
 
 export interface InewGamePlayer {
@@ -42,13 +42,6 @@ export interface AvatarImage {
   url: string;
 }
 
-export interface Scores {
-  totalScore: number;
-  birds: number;
-  bonusCards: number;
-  endOfRoundGoals: number;
-  eggs: number;
-  foodOnCards: number;
-  tuckedCards: number;
-  nectar: number;
+export interface Score {
+  [category: string]: number;
 }

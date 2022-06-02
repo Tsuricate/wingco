@@ -1,4 +1,4 @@
-import { PlayerWithRegisteredInfos, Scores } from '../models/players';
+import { PlayerWithRegisteredInfos, Score } from '../models/players';
 
 export const getEstimatedTime = (totalMinutes: number) => {
   const hours = totalMinutes / 60;
@@ -38,7 +38,7 @@ export const defaultAvatar = {
   url: 'https://media.graphassets.com/resize=fit:crop,height:96,width:96/kIFwuLNGRZi0DKWGZ5Ae',
 };
 
-export const defaultScores: Scores = {
+export const defaultScores: Score = {
   totalScore: 0,
   birds: 0,
   bonusCards: 0,

@@ -49,7 +49,7 @@ const GameResults: React.FC = () => {
           playerResultsByCategory.map((result) => (
             <ScoresSection
               key={result.category}
-              title={t(`common:categories.${result.category}`)}
+              category={t(`common:categories.${result.category}`)}
               players={result.players}
             />
           ))

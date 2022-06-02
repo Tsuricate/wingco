@@ -29,7 +29,7 @@ const GameScores: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         <Stack spacing={5}>
           {categories.map((category) => (
-            <ScoresSection key={category} title={t(`common:categories.${category}`)} players={players} />
+            <ScoresSection key={category} category={category} players={players} />
           ))}
         </Stack>
         <Link asButton href={`/game-results?gameId=${gameSlug}`} buttonVariant="solid">
