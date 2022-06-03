@@ -1,6 +1,8 @@
+import { Category } from '../../models/game';
 import { IGamePlayer } from '../../models/players';
 
 export const SET_FIRST_PLAYER = 'SET_FIRST_PLAYER';
+export const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
 export const ADD_PLAYER = 'ADD_PLAYER';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const UPDATE_PLAYER_INFOS = 'UPDATE_PLAYER_INFOS';
@@ -16,6 +18,11 @@ export const IS_CREATING_NEW_GAME = 'IS_CREATING_NEW_GAME';
 export const setFirstPlayer = (player: IGamePlayer) => ({
   type: SET_FIRST_PLAYER,
   player,
+});
+
+export const saveCategories = (categories: Array<Category>) => ({
+  type: SAVE_CATEGORIES,
+  categories,
 });
 
 export const addPlayer = (newPlayer: IGamePlayer) => ({
