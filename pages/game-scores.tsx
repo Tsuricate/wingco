@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
-import ScoresSection from '../components/ScoresSection';
 import Modal from '../components/Modal';
+import ScoresSection from '../components/ScoresSection';
 import { categories } from '../mockData/bestScoreByCategory';
 import { RootState } from '../redux/reducers';
+import { wrapper } from '../redux/store';
+import { getCategories } from '../utils/game';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);
@@ -50,8 +52,16 @@ const GameScores: React.FC = () => {
 
 export default GameScores;
 
-export const getStaticProps = async ({ locale }: { locale: string }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['gameScores', 'newGame', 'common'])),
-  },
+export const getStaticProps = wrapper.getStaticProps((store) => async ({ locale }) => {
+  const categories = await getCategories();
+  store.dispatch({
+    type: 'SAVE_CATEGORIES',
+    categories,
+  });
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'en', ['gameScores', 'newGame', 'common'])),
+    },
+  };
 });

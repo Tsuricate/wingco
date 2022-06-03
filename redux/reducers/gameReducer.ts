@@ -1,3 +1,4 @@
+import { HYDRATE } from 'next-redux-wrapper';
 import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
 import { Category } from '../../models/game';
@@ -9,6 +10,7 @@ import {
   IS_CREATING_NEW_GAME,
   REMOVE_PLAYER,
   RESET_GAME_INFOS,
+  SAVE_CATEGORIES,
   SAVE_GAME_ID,
   SAVE_GAME_SLUG,
   SAVE_NEW_GAME,
@@ -46,10 +48,24 @@ const initialState: gameReducerProps = {
 
 const gameReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case HYDRATE: {
+      return {
+        ...state,
+        categories: action.payload.game.categories,
+      };
+    }
+
     case SET_FIRST_PLAYER: {
       return {
         ...state,
         players: [action.player],
+      };
+    }
+
+    case SAVE_CATEGORIES: {
+      return {
+        ...state,
+        categories: action.categories,
       };
     }
 
