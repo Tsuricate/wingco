@@ -8,14 +8,16 @@ import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import Modal from '../components/Modal';
 import ScoresSection from '../components/ScoresSection';
-import { categories } from '../mockData/bestScoreByCategory';
+import { Category } from '../models/game';
 import { RootState } from '../redux/reducers';
 import { wrapper } from '../redux/store';
 import { getCategories } from '../utils/game';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);
-  const { gameSlug, players, isCreatingNewGame } = useSelector((state: RootState) => state.game);
+  const { categories, gameSlug, players, isCreatingNewGame } = useSelector(
+    (state: RootState) => state.game
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -30,8 +32,8 @@ const GameScores: React.FC = () => {
     <PageLayout title={t('gameScores:title')}>
       <Form onSubmit={handleSubmit}>
         <Stack spacing={5}>
-          {categories.map((category) => (
-            <ScoresSection key={category} category={category} players={players} />
+          {categories.map((category: Category) => (
+            <ScoresSection key={category.id} category={category.name} players={players} />
           ))}
         </Stack>
         <Link asButton href={`/game-results?gameId=${gameSlug}`} buttonVariant="solid">
