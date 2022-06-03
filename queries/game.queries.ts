@@ -50,3 +50,14 @@ export const GET_CATEGORIES = gql`
     }
   }
 `;
+
+export const SEND_GAME_SCORES = gql`
+  mutation SendGameScores($gameId: ID!, $results: [ResultCreateInput!]) {
+    upsertGame(
+      upsert: { update: { results: { create: $results } }, create: {} }
+      where: { id: $gameId }
+    ) {
+      id
+    }
+  }
+`;
