@@ -1,4 +1,6 @@
+import client from '../apollo-client';
 import { PlayerWithRegisteredInfos, Score } from '../models/players';
+import { GET_CATEGORIES } from '../queries/game.queries';
 
 export const getEstimatedTime = (totalMinutes: number) => {
   const hours = totalMinutes / 60;
@@ -31,6 +33,19 @@ export const getParticipantsFromPlayers = (players: Array<PlayerWithRegisteredIn
           },
         };
   });
+};
+
+export const getCategories = async () => {
+  try {
+    const {
+      data: { categories },
+    } = await client.query({
+      query: GET_CATEGORIES,
+    });
+    return categories;
+  } catch (err) {
+    throw new Error('Cannot fetch categories');
+  }
 };
 
 export const defaultAvatar = {
