@@ -15,7 +15,7 @@ import { getCategories } from '../utils/game';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);
-  const { categories, gameSlug, players, isCreatingNewGame } = useSelector(
+  const { categories, gameWithNectar, gameSlug, players, isCreatingNewGame } = useSelector(
     (state: RootState) => state.game
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,11 +28,17 @@ const GameScores: React.FC = () => {
     console.log('Submit !');
   };
 
+  // Remove totalScore category (needs to be computed) && nectar category if game isn't with Oceania expansion
+  const categoriesToDisplay = categories.filter(
+    (category: Category) =>
+      !category.isComputed && (gameWithNectar ? category : !category.isFromOceaniaExpansion)
+  );
+
   return (
     <PageLayout title={t('gameScores:title')}>
       <Form onSubmit={handleSubmit}>
         <Stack spacing={5}>
-          {categories.map((category: Category) => (
+          {categoriesToDisplay.map((category: Category) => (
             <ScoresSection key={category.id} category={category.name} players={players} />
           ))}
         </Stack>
