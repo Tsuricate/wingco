@@ -1,5 +1,5 @@
 import client from '../apollo-client';
-import { PlayerWithRegisteredInfos, Score } from '../models/players';
+import { IGamePlayer, PlayerWithRegisteredInfos, Score } from '../models/players';
 import { GET_CATEGORIES } from '../queries/game.queries';
 
 export const getEstimatedTime = (totalMinutes: number) => {
@@ -32,6 +32,16 @@ export const getParticipantsFromPlayers = (players: Array<PlayerWithRegisteredIn
             },
           },
         };
+  });
+};
+
+export const getScoresFromPlayers = (players: Array<IGamePlayer>) => {
+  return players.map((player) => {
+    return Object.entries(player.scores).map(([category, value]) => ({
+      category: { connect: { name: category } },
+      player: { connect: { id: player.id } },
+      score: value,
+    }));
   });
 };
 
