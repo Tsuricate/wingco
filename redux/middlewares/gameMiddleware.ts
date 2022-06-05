@@ -2,7 +2,13 @@ import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
 import { getScoresFromPlayers } from '../../utils/game';
 import { SEND_GAME_SCORES } from '../actions/gameScores';
-import { CREATE_NEW_GAME, DELETE_GAME, isCreatingNewGame, saveGameId } from '../actions/newGame';
+import {
+  CREATE_NEW_GAME,
+  DELETE_GAME,
+  isCreatingNewGame,
+  saveGameId,
+  updateUnregisteredPlayersId,
+} from '../actions/newGame';
 
 const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
   switch (action.type) {
@@ -13,7 +19,8 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
 
       axios.post('/api/game/create-game', { players, gameWithNectar, gameSlug, hostId }).then((res) => {
         if (res.status === 201) {
-          store.dispatch(saveGameId(res.data.gameId));
+          store.dispatch(updateUnregisteredPlayersId(res.data.gameInfos.participants));
+          store.dispatch(saveGameId(res.data.gameInfos.id));
           store.dispatch(isCreatingNewGame(false));
         }
       });

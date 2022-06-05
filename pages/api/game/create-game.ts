@@ -15,7 +15,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (newGame.data.upsertGame.id) {
-      res.status(201).json({ gameId: newGame.data.upsertGame.id });
+      res.status(201).json({ gameInfos: newGame.data.upsertGame });
     }
   } catch (err) {
     res.status(400).end();
