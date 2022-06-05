@@ -1,5 +1,5 @@
 import { Category } from '../../models/game';
-import { IGamePlayer } from '../../models/players';
+import { IGamePlayer, PlayerWithRegisteredInfos } from '../../models/players';
 
 export const SET_FIRST_PLAYER = 'SET_FIRST_PLAYER';
 export const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
@@ -13,6 +13,7 @@ export const SAVE_NEW_GAME = 'SAVE_NEW_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const SAVE_GAME_SLUG = 'SAVE_GAME_SLUG';
 export const SAVE_GAME_ID = 'SAVE_GAME_ID';
+export const UPDATE_UNREGISTERED_PLAYERS_ID = 'UPDATE_UNREGISTERED_PLAYERS_ID';
 export const IS_CREATING_NEW_GAME = 'IS_CREATING_NEW_GAME';
 
 export const setFirstPlayer = (player: IGamePlayer) => ({
@@ -71,6 +72,11 @@ export const saveNewGame = (id: string) => ({
 
 export const deleteGame = () => ({
   type: DELETE_GAME,
+});
+
+export const updateUnregisteredPlayersId = (participants: Array<PlayerWithRegisteredInfos>) => ({
+  type: UPDATE_UNREGISTERED_PLAYERS_ID,
+  participants,
 });
 
 export const isCreatingNewGame = (value: boolean) => ({
