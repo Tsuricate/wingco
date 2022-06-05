@@ -4,3 +4,25 @@ export interface Category {
   isComputed: boolean;
   isFromOceaniaExpansion: boolean;
 }
+
+interface ConnectByName {
+  name: string;
+}
+
+interface ConnectById {
+  id: string;
+}
+
+interface PlayerConnectInput {
+  connect: ConnectById;
+}
+
+interface CategoryConnectInput {
+  connect: ConnectByName;
+}
+
+export interface ScoreCreateInput {
+  category: CategoryConnectInput;
+  player: PlayerConnectInput;
+  score: number;
+}

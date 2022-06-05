@@ -1,4 +1,5 @@
 import client from '../apollo-client';
+import { ScoreCreateInput } from '../models/game';
 import { IGamePlayer, PlayerWithRegisteredInfos, Score } from '../models/players';
 import { GET_CATEGORIES } from '../queries/game.queries';
 
@@ -36,13 +37,18 @@ export const getParticipantsFromPlayers = (players: Array<PlayerWithRegisteredIn
 };
 
 export const getScoresFromPlayers = (players: Array<IGamePlayer>) => {
-  return players.map((player) => {
-    return Object.entries(player.scores).map(([category, value]) => ({
-      category: { connect: { name: category } },
-      player: { connect: { id: player.id } },
-      score: value,
-    }));
+  const playersScores: Array<ScoreCreateInput> = [];
+  players.forEach((player) => {
+    Object.entries(player.scores).forEach(([category, value]) => {
+      playersScores.push({
+        category: { connect: { name: category } },
+        player: { connect: { id: player.id } },
+        score: value,
+      });
+    });
   });
+
+  return playersScores;
 };
 
 export const getCategories = async () => {
