@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
+import { getScoresFromPlayers } from '../../utils/game';
+import { SEND_GAME_SCORES } from '../actions/gameScores';
 import { CREATE_NEW_GAME, DELETE_GAME, isCreatingNewGame, saveGameId } from '../actions/newGame';
 
 const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
@@ -23,6 +25,15 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
     case DELETE_GAME: {
       const { gameId } = store.getState().game;
       axios.post('/api/game/delete-game', { gameId });
+
+      next(action);
+      break;
+    }
+
+    case SEND_GAME_SCORES: {
+      const { gameId, players } = store.getState().game;
+      const scores = await getScoresFromPlayers(players);
+      axios.post('/api/game/save-scores', { gameId, scores }).then((res) => console.log(res));
 
       next(action);
       break;
