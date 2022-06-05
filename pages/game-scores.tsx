@@ -2,20 +2,22 @@ import { Stack, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../components/Button';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
-import Link from '../components/Link';
 import Modal from '../components/Modal';
 import ScoresSection from '../components/ScoresSection';
 import { Category } from '../models/game';
+import { sendGameScores } from '../redux/actions/gameScores';
 import { RootState } from '../redux/reducers';
 import { wrapper } from '../redux/store';
 import { getCategories } from '../utils/game';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);
-  const { categories, gameWithNectar, gameSlug, players, isCreatingNewGame } = useSelector(
+  const dispatch = useDispatch();
+  const { categories, gameWithNectar, players, isCreatingNewGame } = useSelector(
     (state: RootState) => state.game
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,7 +27,8 @@ const GameScores: React.FC = () => {
   }, [onOpen]);
 
   const handleSubmit = () => {
-    console.log('Submit !');
+    dispatch(sendGameScores());
+    // `/game-results?gameId=${gameSlug}`
   };
 
   // Remove totalScore category (needs to be computed) && nectar category if game isn't with Oceania expansion
@@ -42,9 +45,9 @@ const GameScores: React.FC = () => {
             <ScoresSection key={category.id} category={category.name} players={players} />
           ))}
         </Stack>
-        <Link asButton href={`/game-results?gameId=${gameSlug}`} buttonVariant="solid">
+        <Button type="submit" variant="solid">
           {t('gameScores:computeScores')}
-        </Link>
+        </Button>
       </Form>
       <Modal
         title={isCreatingNewGame ? t('newGame:creatingGame') : t('newGame:gameCreated')}
