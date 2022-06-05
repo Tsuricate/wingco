@@ -23,9 +23,13 @@ export const CREATE_GAME_WITH_PLAYERS = gql`
       id
       participants {
         player {
+          id
           name
+          avatar {
+            id
+            url
+          }
           isRegistered
-          hasVerifiedEmail
         }
       }
     }
