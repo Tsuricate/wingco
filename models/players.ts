@@ -27,14 +27,12 @@ export interface PlayerWithRegisteredInfos extends Player {
   isRegistered: boolean;
 }
 
-export interface IGamePlayer extends PlayerWithRegisteredInfos {
-  scores: Score;
+export interface ParticipantInput extends PlayerWithRegisteredInfos {
+  player: PlayerWithRegisteredInfos;
 }
 
-export interface InewGamePlayer {
-  id: string;
-  name: string;
-  avatar: AvatarImage;
+export interface IGamePlayer extends PlayerWithRegisteredInfos {
+  scores: Score;
 }
 
 export interface AvatarImage {
