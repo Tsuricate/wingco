@@ -36,6 +36,10 @@ export const getParticipantsFromPlayers = (players: Array<PlayerWithRegisteredIn
   });
 };
 
+export const getTotalScore = (scoresArray: number[]): number => {
+  return scoresArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+};
+
 export const getScoresFromPlayers = (players: Array<IGamePlayer>) => {
   const playersScores: Array<ScoreCreateInput> = [];
   players.forEach((player) => {
