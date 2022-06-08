@@ -3,7 +3,7 @@ import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
 import { Category } from '../../models/game';
 import { IGamePlayer, ParticipantInput } from '../../models/players';
-import { defaultAvatar, defaultScores } from '../../utils/game';
+import { defaultAvatar, defaultScores, getTotalScore } from '../../utils/game';
 import { UPDATE_PLAYER_SCORE } from '../actions/gameScores';
 import {
   ADD_PLAYER,
@@ -172,7 +172,15 @@ const gameReducer = (state = initialState, action: AnyAction) => {
     case UPDATE_PLAYER_SCORE: {
       const playersWithUpdatedScores = state.players.map((player) => {
         if (player.id === action.playerId) {
-          return { ...player, scores: { ...player.scores, [action.category]: action.value } };
+          const totalScore = getTotalScore(Object.values({ ...player.scores, totalScore: 0 }));
+          return {
+            ...player,
+            scores: {
+              ...player.scores,
+              [action.category]: action.value,
+              totalScore,
+            },
+          };
         }
         return player;
       });
