@@ -74,9 +74,9 @@ export const deleteGame = () => ({
   type: DELETE_GAME,
 });
 
-export const updateUnregisteredPlayersId = (participants: Array<PlayerWithRegisteredInfos>) => ({
+export const updateUnregisteredPlayersId = (players: Array<PlayerWithRegisteredInfos>) => ({
   type: UPDATE_UNREGISTERED_PLAYERS_ID,
-  participants,
+  players,
 });
 
 export const isCreatingNewGame = (value: boolean) => ({

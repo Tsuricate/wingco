@@ -2,7 +2,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
 import { Category } from '../../models/game';
-import { IGamePlayer, ParticipantInput } from '../../models/players';
+import { IGamePlayer, PlayerWithRegisteredInfos } from '../../models/players';
 import { defaultAvatar, defaultScores, getTotalScore } from '../../utils/game';
 import { UPDATE_PLAYER_SCORE } from '../actions/gameScores';
 import {
@@ -149,11 +149,11 @@ const gameReducer = (state = initialState, action: AnyAction) => {
     }
 
     case UPDATE_UNREGISTERED_PLAYERS_ID: {
-      const players = action.participants.map((participant: ParticipantInput) => {
-        if (!participant.player.isRegistered) {
-          return { ...participant.player, id: participant.player.id, scores: defaultScores };
+      const players = action.players.map((player: PlayerWithRegisteredInfos) => {
+        if (player.isRegistered) {
+          return { ...player, scores: defaultScores };
         }
-        return { ...participant.player, scores: defaultScores };
+        return { ...player, id: player.id, scores: defaultScores };
       });
 
       return {

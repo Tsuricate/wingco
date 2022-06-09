@@ -11,7 +11,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const newGame = await client.mutate({
       mutation: CREATE_GAME_WITH_PLAYERS,
-      variables: { participants, gameSlug, hostId, withOceaniaExpansion: gameWithNectar },
+      variables: { players: participants, gameSlug, hostId, withOceaniaExpansion: gameWithNectar },
     });
 
     if (newGame.data.upsertGame.id) {

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const CREATE_GAME_WITH_PLAYERS = gql`
   mutation CreateGameWithPlayers(
-    $participants: [ParticipationCreateInput!]
+    $players: PlayerCreateManyInlineInput!
     $gameSlug: String!
     $hostId: ID
     $withOceaniaExpansion: Boolean
@@ -14,23 +14,21 @@ export const CREATE_GAME_WITH_PLAYERS = gql`
           slug: $gameSlug
           withOceaniaExpansion: $withOceaniaExpansion
           hostedBy: { connect: { id: $hostId } }
-          participants: { create: $participants }
+          players: $players
         }
         update: {}
       }
     ) {
       slug
       id
-      participants {
-        player {
+      players {
+        id
+        name
+        avatar {
           id
-          name
-          avatar {
-            id
-            url
-          }
-          isRegistered
+          url
         }
+        isRegistered
       }
     }
   }
@@ -56,9 +54,9 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const SAVE_RESULTS = gql`
-  mutation SaveResults($gameId: ID!, $results: [ResultCreateInput!]) {
+  mutation SaveResults($gameId: ID!, $gameScores: [GameScoreCreateInput!]) {
     upsertGame(
-      upsert: { update: { results: { create: $results } }, create: {} }
+      upsert: { update: { scores: { create: $gameScores } }, create: {} }
       where: { id: $gameId }
     ) {
       id

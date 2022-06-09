@@ -19,7 +19,7 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
 
       axios.post('/api/game/create-game', { players, gameWithNectar, gameSlug, hostId }).then((res) => {
         if (res.status === 201) {
-          store.dispatch(updateUnregisteredPlayersId(res.data.gameInfos.participants));
+          store.dispatch(updateUnregisteredPlayersId(res.data.gameInfos.players));
           store.dispatch(saveGameId(res.data.gameInfos.id));
           store.dispatch(isCreatingNewGame(false));
         }

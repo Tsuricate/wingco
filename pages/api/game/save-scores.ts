@@ -8,10 +8,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const saveResults = await client.mutate({
       mutation: SAVE_RESULTS,
-      variables: { gameId, results: scores },
+      variables: { gameId, gameScores: scores },
     });
 
-    console.log(saveResults, res);
+    console.log('saveResults : ', saveResults, res.status);
   } catch (err) {
     console.log(err);
   }
