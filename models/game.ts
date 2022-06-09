@@ -24,5 +24,5 @@ interface CategoryConnectInput {
 export interface ScoreCreateInput {
   category: CategoryConnectInput;
   player: PlayerConnectInput;
-  score: number;
+  value: number;
 }

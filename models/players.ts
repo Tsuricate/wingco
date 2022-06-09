@@ -27,10 +27,6 @@ export interface PlayerWithRegisteredInfos extends Player {
   isRegistered: boolean;
 }
 
-export interface ParticipantInput extends PlayerWithRegisteredInfos {
-  player: PlayerWithRegisteredInfos;
-}
-
 export interface IGamePlayer extends PlayerWithRegisteredInfos {
   scores: Score;
 }
