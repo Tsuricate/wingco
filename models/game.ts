@@ -1,3 +1,5 @@
+import { IGamePlayer } from './players';
+
 export interface Category {
   id: string;
   name: string;
@@ -13,7 +15,7 @@ interface ConnectById {
   id: string;
 }
 
-interface PlayerConnectInput {
+export interface PlayerConnectInput {
   connect: ConnectById;
 }
 
@@ -26,3 +28,5 @@ export interface ScoreCreateInput {
   player: PlayerConnectInput;
   value: number;
 }
+
+export type Leaderboard = IGamePlayer[][];
