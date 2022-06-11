@@ -54,9 +54,16 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const SAVE_RESULTS = gql`
-  mutation SaveResults($gameId: ID!, $gameScores: [GameScoreCreateInput!]) {
+  mutation SaveResults(
+    $gameId: ID!
+    $gameScores: [GameScoreCreateInput!]
+    $gameResults: [GameResultCreateInput!]
+  ) {
     upsertGame(
-      upsert: { update: { scores: { create: $gameScores } }, create: {} }
+      upsert: {
+        update: { scores: { create: $gameScores }, results: { create: $gameResults } }
+        create: {}
+      }
       where: { id: $gameId }
     ) {
       id
