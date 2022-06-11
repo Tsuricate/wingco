@@ -3,15 +3,17 @@ import client from '../../../apollo-client';
 import { SAVE_RESULTS } from '../../../queries/game.queries';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { gameId, scores } = req.body;
+  const { gameId, scores, gameResults } = req.body;
 
   try {
-    const saveResults = await client.mutate({
+    const { errors } = await client.mutate({
       mutation: SAVE_RESULTS,
-      variables: { gameId, gameScores: scores },
+      variables: { gameId, gameScores: scores, gameResults },
     });
 
-    console.log('saveResults : ', saveResults, res.status);
+    if (!errors) {
+      res.status(200).end();
+    }
   } catch (err) {
     console.log(err);
   }
