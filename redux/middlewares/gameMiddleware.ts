@@ -1,6 +1,15 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
-import { CREATE_NEW_GAME, DELETE_GAME, isCreatingNewGame, saveGameId } from '../actions/newGame';
+import Router from 'next/router';
+import { getResultsFromPlayers, getScoresFromPlayers } from '../../utils/game';
+import { SEND_GAME_SCORES } from '../actions/gameScores';
+import {
+  CREATE_NEW_GAME,
+  DELETE_GAME,
+  isCreatingNewGame,
+  saveGameId,
+  updateUnregisteredPlayersId,
+} from '../actions/newGame';
 
 const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
   switch (action.type) {
@@ -11,7 +20,8 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
 
       axios.post('/api/game/create-game', { players, gameWithNectar, gameSlug, hostId }).then((res) => {
         if (res.status === 201) {
-          store.dispatch(saveGameId(res.data.gameId));
+          store.dispatch(updateUnregisteredPlayersId(res.data.gameInfos.players));
+          store.dispatch(saveGameId(res.data.gameInfos.id));
           store.dispatch(isCreatingNewGame(false));
         }
       });
@@ -23,6 +33,18 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
     case DELETE_GAME: {
       const { gameId } = store.getState().game;
       axios.post('/api/game/delete-game', { gameId });
+
+      next(action);
+      break;
+    }
+
+    case SEND_GAME_SCORES: {
+      const { gameId, players } = store.getState().game;
+      const scores = await getScoresFromPlayers(players);
+      const gameResults = await getResultsFromPlayers(players);
+      axios.post('/api/game/save-scores', { gameId, scores, gameResults }).then((res) => {
+        if (res.status === 200) Router.push(`/game-results/${gameId}`);
+      });
 
       next(action);
       break;

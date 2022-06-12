@@ -1,3 +1,5 @@
+import { PlayerConnectInput } from './game';
+
 export enum PLAYER_BADGE {
   Gold = 'GOLD',
   Silver = 'SILVER',
@@ -28,13 +30,7 @@ export interface PlayerWithRegisteredInfos extends Player {
 }
 
 export interface IGamePlayer extends PlayerWithRegisteredInfos {
-  scores: Array<Score>;
-}
-
-export interface InewGamePlayer {
-  id: string;
-  name: string;
-  avatar: AvatarImage;
+  scores: Score;
 }
 
 export interface AvatarImage {
@@ -44,4 +40,11 @@ export interface AvatarImage {
 
 export interface Score {
   [category: string]: number;
+}
+
+export interface GameResult {
+  totalScore: number;
+  rank: number;
+  badge: PLAYER_BADGE | undefined;
+  player: PlayerConnectInput;
 }

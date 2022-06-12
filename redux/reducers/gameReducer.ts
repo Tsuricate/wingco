@@ -1,24 +1,30 @@
+import { HYDRATE } from 'next-redux-wrapper';
 import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
-import { IGamePlayer } from '../../models/players';
-import { defaultAvatar, defaultScores } from '../../utils/game';
+import { Category } from '../../models/game';
+import { IGamePlayer, PlayerWithRegisteredInfos } from '../../models/players';
+import { defaultAvatar, defaultScores, getTotalScore } from '../../utils/game';
+import { UPDATE_PLAYER_SCORE } from '../actions/gameScores';
 import {
   ADD_PLAYER,
   IS_CREATING_NEW_GAME,
   REMOVE_PLAYER,
   RESET_GAME_INFOS,
+  SAVE_CATEGORIES,
   SAVE_GAME_ID,
   SAVE_GAME_SLUG,
   SAVE_NEW_GAME,
   SET_FIRST_PLAYER,
   UPDATE_GAME_WITH_NECTAR,
   UPDATE_PLAYER_INFOS,
+  UPDATE_UNREGISTERED_PLAYERS_ID,
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
 interface gameReducerProps {
   gameId: string;
   gameSlug: string;
+  categories: Array<Category>;
   players: Array<IGamePlayer>;
   gameWithNectar: boolean;
   isCreatingNewGame: boolean;
@@ -27,6 +33,7 @@ interface gameReducerProps {
 const initialState: gameReducerProps = {
   gameId: '',
   gameSlug: '',
+  categories: [],
   players: [
     {
       id: uniqid(),
@@ -42,10 +49,24 @@ const initialState: gameReducerProps = {
 
 const gameReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case HYDRATE: {
+      return {
+        ...state,
+        categories: action.payload.game.categories,
+      };
+    }
+
     case SET_FIRST_PLAYER: {
       return {
         ...state,
         players: [action.player],
+      };
+    }
+
+    case SAVE_CATEGORIES: {
+      return {
+        ...state,
+        categories: action.categories,
       };
     }
 
@@ -127,10 +148,45 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       };
     }
 
+    case UPDATE_UNREGISTERED_PLAYERS_ID: {
+      const players = action.players.map((player: PlayerWithRegisteredInfos) => {
+        if (player.isRegistered) {
+          return { ...player, scores: defaultScores };
+        }
+        return { ...player, id: player.id, scores: defaultScores };
+      });
+
+      return {
+        ...state,
+        players: players,
+      };
+    }
+
     case IS_CREATING_NEW_GAME: {
       return {
         ...state,
         isCreatingNewGame: action.value,
+      };
+    }
+
+    case UPDATE_PLAYER_SCORE: {
+      const playersWithUpdatedScores = state.players.map((player) => {
+        if (player.id === action.playerId) {
+          const totalScore = getTotalScore(Object.values({ ...player.scores, totalScore: 0 }));
+          return {
+            ...player,
+            scores: {
+              ...player.scores,
+              [action.category]: action.value,
+              totalScore,
+            },
+          };
+        }
+        return player;
+      });
+      return {
+        ...state,
+        players: playersWithUpdatedScores,
       };
     }
 

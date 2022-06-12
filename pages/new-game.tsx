@@ -10,6 +10,7 @@ import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
 import NewGamePlayer from '../components/NewGamePlayer';
+import { IGamePlayer } from '../models/players';
 import {
   addPlayer,
   createNewGame,
@@ -70,7 +71,7 @@ const NewGame: React.FC = () => {
       <Text>ID {gameSlug}</Text>
       <Form onSubmit={handleSubmit}>
         <Stack>
-          {players.map((player, index) => (
+          {players.map((player: IGamePlayer, index: number) => (
             <NewGamePlayer
               key={player.id}
               id={player.id}
