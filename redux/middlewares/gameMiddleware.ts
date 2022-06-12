@@ -43,7 +43,7 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
       const scores = await getScoresFromPlayers(players);
       const gameResults = await getResultsFromPlayers(players);
       axios.post('/api/game/save-scores', { gameId, scores, gameResults }).then((res) => {
-        if (res.status === 200) Router.push(`/game-results?gameId=${gameId}`);
+        if (res.status === 200) Router.push(`/game-results/${gameId}`);
       });
 
       next(action);
