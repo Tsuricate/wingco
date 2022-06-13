@@ -12,13 +12,15 @@ import PlayerAvatar from '../../components/PlayerAvatar';
 import ScoresSection from '../../components/ScoresSection';
 import { newRecords, playerResultsByCategory } from '../../mockData/gameResults';
 import { LeaderboardResult } from '../../models/game';
-import { getAllGameIds, getGameResults } from '../../utils/game';
+import { Player } from '../../models/players';
+import { getAllGameIds, getGameResults, getPlayerInfosById } from '../../utils/game';
 
 interface GameResultsProps {
-  gameResults: Array<LeaderboardResult>;
+  players: Array<Player>;
+  results: Array<LeaderboardResult>;
 }
 
-const GameResults: NextPage<GameResultsProps> = ({ gameResults }) => {
+const GameResults: NextPage<GameResultsProps> = ({ players, results }) => {
   const { t } = useTranslation(['gameResults', 'common']);
 
   const [showDetails, setShowDetails] = useState(false);
@@ -27,24 +29,27 @@ const GameResults: NextPage<GameResultsProps> = ({ gameResults }) => {
     setShowDetails(true);
   };
 
-  if (!gameResults) return null;
+  if (!results) return null;
 
   return (
     <PageLayout title={t('gameResults:title')}>
       <Stack spacing={5}>
-        {gameResults.map((result) => (
-          <Stack key={result.player.id} direction="row" align="center">
-            <PlayerAvatar
-              playerName={result.player.name}
-              avatar={result.player.avatar.url}
-              badge={result.badge}
-              avatarSize="md"
-            />
-            <Text>
-              : {result.totalScore} {t('common:points')}
-            </Text>
-          </Stack>
-        ))}
+        {results.map((result) => {
+          const player = getPlayerInfosById(players, result.player.id);
+          return (
+            <Stack key={player.id} direction="row" align="center">
+              <PlayerAvatar
+                playerName={player.name}
+                avatar={player.avatar.url}
+                badge={result.badge}
+                avatarSize="md"
+              />
+              <Text>
+                : {result.totalScore} {t('common:points')}
+              </Text>
+            </Stack>
+          );
+        })}
 
         {newRecords.map((record) => (
           <NewRecord
@@ -95,12 +100,13 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     if (typeof gameId !== 'string') throw new Error('Game id is not a string');
     if (typeof locale !== 'string') throw new Error('Locale is not a string');
 
-    const gameResults: Array<LeaderboardResult> = await getGameResults(gameId);
+    const { players, results }: GameResultsProps = await getGameResults(gameId);
 
     return {
       props: {
         ...(await serverSideTranslations(locale, ['gameResults', 'common'])),
-        gameResults,
+        players,
+        results,
       },
     };
   } catch (err) {
