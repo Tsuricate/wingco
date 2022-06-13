@@ -1,4 +1,4 @@
-import { IGamePlayer, Player, PLAYER_BADGE } from './players';
+import { IGamePlayer, PLAYER_BADGE } from './players';
 
 export interface Category {
   id: string;
@@ -32,7 +32,7 @@ export interface ScoreCreateInput {
 export type Leaderboard = IGamePlayer[][];
 
 export interface LeaderboardResult {
-  player: Player;
+  player: { id: string };
   badge: PLAYER_BADGE | undefined;
   totalScore: number;
 }
