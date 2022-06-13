@@ -3,6 +3,7 @@ import { Leaderboard, ScoreCreateInput } from '../models/game';
 import {
   GameResult,
   IGamePlayer,
+  Player,
   PlayerWithRegisteredInfos,
   PLAYER_BADGE,
   Score,
@@ -126,14 +127,12 @@ export const getCategories = async () => {
 export const getGameResults = async (gameId: string) => {
   try {
     const {
-      data: {
-        game: { results },
-      },
+      data: { game },
     } = await client.query({
       query: GET_GAME_RESULTS,
       variables: { gameId },
     });
-    return results;
+    return game;
   } catch (err) {
     throw new Error('Cannot fetch game results');
   }
@@ -154,6 +153,14 @@ export const getAllGameIds = async () => {
   } catch (err) {
     throw new Error('Cannot fetch all games ids');
   }
+};
+
+export const getPlayerInfosById = (players: Array<Player>, playerId: string): Player => {
+  const playerInfos = players.find((player) => player.id === playerId);
+  if (playerInfos) {
+    return playerInfos;
+  }
+  throw new Error('Player not found');
 };
 
 export const defaultAvatar = {
