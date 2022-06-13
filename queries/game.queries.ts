@@ -74,13 +74,17 @@ export const SAVE_RESULTS = gql`
 export const GET_GAME_RESULTS = gql`
   query GetGameResults($gameId: ID!) {
     game(where: { id: $gameId }) {
+      players {
+        id
+        name
+        avatar {
+          id
+          url
+        }
+      }
       results(orderBy: rank_ASC) {
         player {
           id
-          avatar {
-            url
-          }
-          name
         }
         badge
         totalScore
