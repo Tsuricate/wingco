@@ -1,5 +1,5 @@
 import client from '../apollo-client';
-import { Leaderboard, ScoreCreateInput } from '../models/game';
+import { Category, Leaderboard, ScoreByCategory, ScoreCreateInput, ScoreResult } from '../models/game';
 import {
   GameResult,
   IGamePlayer,
@@ -161,6 +161,45 @@ export const getPlayerInfosById = (players: Array<Player>, playerId: string): Pl
     return playerInfos;
   }
   throw new Error('Player not found');
+};
+
+const getCategoriesFromScores = (scores: Array<ScoreResult>) => {
+  const initialAccumulator: Array<Category['name']> = [];
+
+  const categories: Array<Category['name']> = scores.reduce((accumulator, currentScore) => {
+    if (!accumulator.includes(currentScore.category.name)) {
+      accumulator = [...accumulator, currentScore.category.name];
+    }
+    return accumulator;
+  }, initialAccumulator);
+
+  return categories;
+};
+
+export const getPlayerScoresByCategory = (
+  players: Array<Player>,
+  scores: Array<ScoreResult>
+): Array<ScoreByCategory> => {
+  const categories = getCategoriesFromScores(scores);
+
+  const scoresByCategory = categories.map((categoryName) => {
+    const categoryScores = scores
+      .filter((score) => score.category.name === categoryName)
+      .map((score) => {
+        const player = getPlayerInfosById(players, score.player.id);
+        return {
+          player,
+          score: score.value,
+        };
+      });
+
+    return {
+      category: categoryName,
+      scores: categoryScores,
+    };
+  });
+
+  return scoresByCategory;
 };
 
 export const defaultAvatar = {
