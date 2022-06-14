@@ -28,7 +28,6 @@ const GameScores: React.FC = () => {
 
   const handleSubmit = () => {
     dispatch(sendGameScores());
-    // `/game-results?gameId=${gameSlug}`
   };
 
   // Remove totalScore category (needs to be computed) && nectar category if game isn't with Oceania expansion

@@ -9,27 +9,34 @@ import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 import NewRecord from '../../components/NewRecord';
 import PlayerAvatar from '../../components/PlayerAvatar';
-import ScoresSection from '../../components/ScoresSection';
-import { newRecords, playerResultsByCategory } from '../../mockData/gameResults';
-import { LeaderboardResult } from '../../models/game';
+import ScoreResults from '../../components/ScoreResults';
+import { newRecords } from '../../mockData/gameResults';
+import { LeaderboardResult, ScoreResult } from '../../models/game';
 import { Player } from '../../models/players';
-import { getAllGameIds, getGameResults, getPlayerInfosById } from '../../utils/game';
+import {
+  getAllGameIds,
+  getGameResults,
+  getPlayerInfosById,
+  getPlayerScoresByCategory,
+} from '../../utils/game';
 
 interface GameResultsProps {
   players: Array<Player>;
   results: Array<LeaderboardResult>;
+  scores: Array<ScoreResult>;
 }
 
-const GameResults: NextPage<GameResultsProps> = ({ players, results }) => {
+const GameResults: NextPage<GameResultsProps> = ({ players, results, scores }) => {
   const { t } = useTranslation(['gameResults', 'common']);
-
   const [showDetails, setShowDetails] = useState(false);
 
   const handleSeeDetails = () => {
     setShowDetails(true);
   };
 
-  if (!results) return null;
+  if (!results || !scores) return null;
+
+  const scoresByCategory = getPlayerScoresByCategory(players, scores);
 
   return (
     <PageLayout title={t('gameResults:title')}>
@@ -66,13 +73,17 @@ const GameResults: NextPage<GameResultsProps> = ({ players, results }) => {
             {t('gameResults:allDetails')}
           </Button>
         ) : (
-          playerResultsByCategory.map((result) => (
-            <ScoresSection
-              key={result.category}
-              category={t(`common:categories.${result.category}`)}
-              players={result.players}
-            />
-          ))
+          scoresByCategory.map((score) => {
+            if (score.category !== 'totalScore') {
+              return (
+                <ScoreResults
+                  key={score.category}
+                  category={t(`common:categories.${score.category}`)}
+                  playersScore={score.scores}
+                />
+              );
+            }
+          })
         )}
         <Link href="/" asButton buttonVariant="solid">
           {t('common:close')}
@@ -100,13 +111,14 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     if (typeof gameId !== 'string') throw new Error('Game id is not a string');
     if (typeof locale !== 'string') throw new Error('Locale is not a string');
 
-    const { players, results }: GameResultsProps = await getGameResults(gameId);
+    const { players, results, scores }: GameResultsProps = await getGameResults(gameId);
 
     return {
       props: {
         ...(await serverSideTranslations(locale, ['gameResults', 'common'])),
         players,
         results,
+        scores,
       },
     };
   } catch (err) {
