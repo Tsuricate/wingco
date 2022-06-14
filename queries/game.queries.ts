@@ -78,8 +78,8 @@ export const GET_GAME_RESULTS = gql`
         id
         name
         avatar {
-          id
           url
+          id
         }
       }
       results(orderBy: rank_ASC) {
@@ -88,6 +88,15 @@ export const GET_GAME_RESULTS = gql`
         }
         badge
         totalScore
+      }
+      scores {
+        player {
+          id
+        }
+        category {
+          name
+        }
+        value
       }
     }
   }
