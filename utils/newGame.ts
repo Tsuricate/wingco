@@ -1,14 +1,11 @@
-import client from '../apollo-client';
-import { Category, Leaderboard, ScoreByCategory, ScoreCreateInput, ScoreResult } from '../models/game';
+import { Leaderboard, ScoreCreateInput } from '../models/game';
 import {
   GameResult,
   IGamePlayer,
-  Player,
   PlayerWithRegisteredInfos,
   PLAYER_BADGE,
   Score,
 } from '../models/players';
-import { GET_ALL_GAME_IDS, GET_CATEGORIES, GET_GAME_RESULTS } from '../queries/game.queries';
 
 export const getEstimatedTime = (totalMinutes: number) => {
   const hours = totalMinutes / 60;
@@ -109,97 +106,6 @@ export const getResultsFromPlayers = (players: Array<IGamePlayer>) => {
   });
 
   return playersLeaderboard;
-};
-
-export const getCategories = async () => {
-  try {
-    const {
-      data: { categories },
-    } = await client.query({
-      query: GET_CATEGORIES,
-    });
-    return categories;
-  } catch (err) {
-    throw new Error('Cannot fetch categories');
-  }
-};
-
-export const getGameResults = async (gameId: string) => {
-  try {
-    const {
-      data: { game },
-    } = await client.query({
-      query: GET_GAME_RESULTS,
-      variables: { gameId },
-    });
-    return game;
-  } catch (err) {
-    throw new Error('Cannot fetch game results');
-  }
-};
-
-export const getAllGameIds = async () => {
-  try {
-    const {
-      data: { games },
-    } = await client.query({
-      query: GET_ALL_GAME_IDS,
-    });
-    return games.map((game: { id: string }) => ({
-      params: {
-        gameId: game.id,
-      },
-    }));
-  } catch (err) {
-    throw new Error('Cannot fetch all games ids');
-  }
-};
-
-export const getPlayerInfosById = (players: Array<Player>, playerId: string): Player => {
-  const playerInfos = players.find((player) => player.id === playerId);
-  if (playerInfos) {
-    return playerInfos;
-  }
-  throw new Error('Player not found');
-};
-
-const getCategoriesFromScores = (scores: Array<ScoreResult>) => {
-  const initialAccumulator: Array<Category['name']> = [];
-
-  const categories: Array<Category['name']> = scores.reduce((accumulator, currentScore) => {
-    if (!accumulator.includes(currentScore.category.name)) {
-      accumulator = [...accumulator, currentScore.category.name];
-    }
-    return accumulator;
-  }, initialAccumulator);
-
-  return categories;
-};
-
-export const getPlayerScoresByCategory = (
-  players: Array<Player>,
-  scores: Array<ScoreResult>
-): Array<ScoreByCategory> => {
-  const categories = getCategoriesFromScores(scores);
-
-  const scoresByCategory = categories.map((categoryName) => {
-    const categoryScores = scores
-      .filter((score) => score.category.name === categoryName)
-      .map((score) => {
-        const player = getPlayerInfosById(players, score.player.id);
-        return {
-          player,
-          score: score.value,
-        };
-      });
-
-    return {
-      category: categoryName,
-      scores: categoryScores,
-    };
-  });
-
-  return scoresByCategory;
 };
 
 export const defaultAvatar = {

@@ -20,7 +20,7 @@ import {
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
-import { defaultAvatar, defaultScores, getEstimatedTime } from '../utils/game';
+import { defaultAvatar, defaultScores, getEstimatedTime } from '../utils/newGame';
 
 const NewGame: React.FC = () => {
   const { t } = useTranslation('newGame');

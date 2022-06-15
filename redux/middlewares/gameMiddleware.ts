@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
 import Router from 'next/router';
-import { getResultsFromPlayers, getScoresFromPlayers } from '../../utils/game';
+import { getResultsFromPlayers, getScoresFromPlayers } from '../../utils/newGame';
 import { SEND_GAME_SCORES } from '../actions/gameScores';
 import {
   CREATE_NEW_GAME,

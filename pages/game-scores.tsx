@@ -12,7 +12,7 @@ import { Category } from '../models/game';
 import { sendGameScores } from '../redux/actions/gameScores';
 import { RootState } from '../redux/reducers';
 import { wrapper } from '../redux/store';
-import { getCategories } from '../utils/game';
+import { getCategories } from '../utils/api/gameUtils';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);

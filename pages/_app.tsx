@@ -11,7 +11,7 @@ import { NextPageWithAuth } from '../models/pageWithAuth';
 import { saveUser } from '../redux/actions/auth';
 import { setFirstPlayer } from '../redux/actions/newGame';
 import { wrapper } from '../redux/store';
-import { defaultScores } from '../utils/game';
+import { defaultScores } from '../utils/newGame';
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithAuth;
