@@ -10,23 +10,18 @@ import Link from '../../components/Link';
 import NewRecord from '../../components/NewRecord';
 import PlayerAvatar from '../../components/PlayerAvatar';
 import ScoreResults from '../../components/ScoreResults';
-import { newRecords } from '../../mockData/gameResults';
-import { LeaderboardResult, ScoreResult } from '../../models/game';
-import { Player } from '../../models/players';
-import {
-  getAllGameIds,
-  getGameResults,
-  getPlayerInfosById,
-  getPlayerScoresByCategory,
-} from '../../utils/game';
+import { GameResults, NewPlayerRecord, ScoreByCategory } from '../../models/game';
+import { getAllGameIds, getGameResults } from '../../utils/api/gameUtils';
+import { getNewRecords, getPlayerInfosById, getPlayerScoresByCategory } from '../../utils/gameResults';
 
 interface GameResultsProps {
-  players: Array<Player>;
-  results: Array<LeaderboardResult>;
-  scores: Array<ScoreResult>;
+  players: GameResults['players'];
+  results: GameResults['results'];
+  scoresByCategory: Array<ScoreByCategory>;
+  newRecords: Array<NewPlayerRecord>;
 }
 
-const GameResults: NextPage<GameResultsProps> = ({ players, results, scores }) => {
+const GameResults: NextPage<GameResultsProps> = ({ players, results, scoresByCategory, newRecords }) => {
   const { t } = useTranslation(['gameResults', 'common']);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -34,9 +29,7 @@ const GameResults: NextPage<GameResultsProps> = ({ players, results, scores }) =
     setShowDetails(true);
   };
 
-  if (!results || !scores) return null;
-
-  const scoresByCategory = getPlayerScoresByCategory(players, scores);
+  if (!results || !scoresByCategory || !newRecords) return null;
 
   return (
     <PageLayout title={t('gameResults:title')}>
@@ -58,15 +51,16 @@ const GameResults: NextPage<GameResultsProps> = ({ players, results, scores }) =
           );
         })}
 
-        {newRecords.map((record) => (
-          <NewRecord
-            key={uniqid()}
-            newRecord={record.newRecord}
-            category={record.category}
-            playerName={record.playerName}
-            previousRecord={record.previousRecord}
-          />
-        ))}
+        {newRecords &&
+          newRecords.map((record) => (
+            <NewRecord
+              key={uniqid()}
+              newRecord={record.newRecord}
+              category={t(`common:categories.${record.category}`)}
+              playerName={record.playerName}
+              previousRecord={record.previousRecord}
+            />
+          ))}
 
         {!showDetails ? (
           <Button variant="outline" onClick={handleSeeDetails}>
@@ -111,14 +105,20 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     if (typeof gameId !== 'string') throw new Error('Game id is not a string');
     if (typeof locale !== 'string') throw new Error('Locale is not a string');
 
-    const { players, results, scores }: GameResultsProps = await getGameResults(gameId);
+    const { players, results, scores, registeredPlayersScores }: GameResults = await getGameResults(
+      gameId
+    );
+
+    const scoresByCategory = await getPlayerScoresByCategory(players, scores);
+    const newRecords: Array<NewPlayerRecord> = getNewRecords(registeredPlayersScores);
 
     return {
       props: {
         ...(await serverSideTranslations(locale, ['gameResults', 'common'])),
         players,
         results,
-        scores,
+        scoresByCategory,
+        newRecords,
       },
     };
   } catch (err) {
