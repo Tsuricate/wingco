@@ -98,6 +98,22 @@ export const GET_GAME_RESULTS = gql`
         }
         value
       }
+      registeredPlayersScores: players(where: { isRegistered: true }) {
+        id
+        name
+        currentScores: gameScores(where: { game: { id: $gameId } }) {
+          category {
+            name
+          }
+          value
+        }
+        previousScores: gameScores(where: { game: { id_not: $gameId } }) {
+          category {
+            name
+          }
+          value
+        }
+      }
     }
   }
 `;
