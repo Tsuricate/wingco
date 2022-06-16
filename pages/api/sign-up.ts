@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../apollo-client';
 import { CREATE_PLAYER } from '../../queries/signup.queries';
-import { defaultAvatar } from '../../utils/game';
+import { defaultAvatar } from '../../utils/newGame';
 import { getHashedPassword } from '../../utils/password';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

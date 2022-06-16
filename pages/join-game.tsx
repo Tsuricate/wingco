@@ -3,8 +3,8 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import Button from '../components/Button';
-import FormControl from '../components/FormControl';
 import Form from '../components/Form';
+import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 

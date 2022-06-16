@@ -1,5 +1,6 @@
 import uniqid from 'uniqid';
 import { PlayerWithBadgeAndScore, PLAYER_BADGE } from '../models/players';
+import { defaultScores } from '../utils/newGame';
 import { categories } from './bestScoreByCategory';
 
 export const gameResults: Array<PlayerWithBadgeAndScore> = [
@@ -48,16 +49,22 @@ export const playerResultsByCategory = categories.map((category) => ({
       id: uniqid(),
       name: 'Chäémelon',
       avatar: { id: '', url: '' },
+      scores: defaultScores,
+      isRegistered: false,
     },
     {
       id: uniqid(),
       name: 'Alex',
       avatar: { id: '', url: '' },
+      scores: defaultScores,
+      isRegistered: false,
     },
     {
       id: uniqid(),
       name: 'Tsuricate',
       avatar: { id: '', url: '' },
+      scores: defaultScores,
+      isRegistered: false,
     },
   ],
 }));

@@ -2,18 +2,24 @@ import { Stack, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../components/Button';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
-import Link from '../components/Link';
-import ScoresSection from '../components/ScoresSection';
 import Modal from '../components/Modal';
-import { categories } from '../mockData/bestScoreByCategory';
+import ScoresSection from '../components/ScoresSection';
+import { Category } from '../models/game';
+import { sendGameScores } from '../redux/actions/gameScores';
 import { RootState } from '../redux/reducers';
+import { wrapper } from '../redux/store';
+import { getCategories } from '../utils/api/gameUtils';
 
 const GameScores: React.FC = () => {
   const { t } = useTranslation(['gameScores', 'newGame', 'common']);
-  const { gameSlug, players, isCreatingNewGame } = useSelector((state: RootState) => state.game);
+  const dispatch = useDispatch();
+  const { categories, gameWithNectar, players, isCreatingNewGame } = useSelector(
+    (state: RootState) => state.game
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -21,20 +27,26 @@ const GameScores: React.FC = () => {
   }, [onOpen]);
 
   const handleSubmit = () => {
-    console.log('Submit !');
+    dispatch(sendGameScores());
   };
+
+  // Remove totalScore category (needs to be computed) && nectar category if game isn't with Oceania expansion
+  const categoriesToDisplay = categories.filter(
+    (category: Category) =>
+      !category.isComputed && (gameWithNectar ? category : !category.isFromOceaniaExpansion)
+  );
 
   return (
     <PageLayout title={t('gameScores:title')}>
       <Form onSubmit={handleSubmit}>
         <Stack spacing={5}>
-          {categories.map((category) => (
-            <ScoresSection key={category} title={t(`common:categories.${category}`)} players={players} />
+          {categoriesToDisplay.map((category: Category) => (
+            <ScoresSection key={category.id} category={category.name} players={players} />
           ))}
         </Stack>
-        <Link asButton href={`/game-results?gameId=${gameSlug}`} buttonVariant="solid">
+        <Button type="submit" variant="solid">
           {t('gameScores:computeScores')}
-        </Link>
+        </Button>
       </Form>
       <Modal
         title={isCreatingNewGame ? t('newGame:creatingGame') : t('newGame:gameCreated')}
@@ -50,8 +62,16 @@ const GameScores: React.FC = () => {
 
 export default GameScores;
 
-export const getStaticProps = async ({ locale }: { locale: string }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['gameScores', 'newGame', 'common'])),
-  },
+export const getStaticProps = wrapper.getStaticProps((store) => async ({ locale }) => {
+  const categories = await getCategories();
+  store.dispatch({
+    type: 'SAVE_CATEGORIES',
+    categories,
+  });
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'en', ['gameScores', 'newGame', 'common'])),
+    },
+  };
 });
