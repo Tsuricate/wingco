@@ -6,19 +6,19 @@ import { GiCrossedSabres, GiTrophy } from 'react-icons/gi';
 import PageLayout from '../../components/layout/PageLayout';
 import StatisticsPanel from '../../components/StatisticsPanel';
 import VersusPanel from '../../components/VersusPanel';
-import { bestScoreByCategory } from '../../mockData/bestScoreByCategory';
 import { statisticsVersusData } from '../../mockData/statisticsVersusData';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
-import { Statistics } from '../../models/statistics';
+import { BestPersonalScores, Victories } from '../../models/statistics';
 import { getUserInfosFromCookie } from '../../utils/api/auth';
-import { getPlayerStatistics } from '../../utils/api/playerUtils';
+import { getBestScoresByCategory, getPlayerStatistics } from '../../utils/api/playerUtils';
 import { getPlayerVictories } from '../../utils/statistics';
 
 interface StatisticsProps {
-  playerStatistics: Statistics;
+  playerVictories: Victories;
+  bestScoresByCategory: Array<BestPersonalScores>;
 }
 
-const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerStatistics }) => {
+const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerVictories, bestScoresByCategory }) => {
   const { t } = useTranslation(['statistics', 'common']);
 
   return (
@@ -26,7 +26,7 @@ const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerStatistics }) => 
       <Stat>
         <StatLabel> {t('statistics:victories')}</StatLabel>
         <StatNumber>
-          {playerStatistics.victories} / {playerStatistics.allGames}
+          {playerVictories.victories} / {playerVictories.allGames}
         </StatNumber>
       </Stat>
       <StatisticsPanel
@@ -35,10 +35,10 @@ const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerStatistics }) => 
         icon={GiTrophy}
       >
         <List>
-          {bestScoreByCategory.map((category) => (
-            <ListItem key={category.name}>
+          {bestScoresByCategory.map((category) => (
+            <ListItem key={category.category}>
               <Text>
-                {category.score} {t(`common:categories.${category.name}`)}
+                {category.value} {t(`common:categories.${category.category}`)}
               </Text>
             </ListItem>
           ))}
@@ -64,13 +64,15 @@ Statistics.requireAuth = true;
 export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
   try {
     const { id } = getUserInfosFromCookie(req.headers.cookie);
-    const { resultsAtGames } = await getPlayerStatistics(id);
-    const playerStatistics: Statistics = await getPlayerVictories(resultsAtGames);
+    const { resultsAtGames, gameScores } = await getPlayerStatistics(id);
+    const playerVictories: Victories = getPlayerVictories(resultsAtGames);
+    const bestScoresByCategory: Array<BestPersonalScores> = getBestScoresByCategory(gameScores);
 
     return {
       props: {
         ...(await serverSideTranslations(locale || 'en', ['statistics', 'common'])),
-        playerStatistics,
+        playerVictories,
+        bestScoresByCategory,
       },
     };
   } catch (err) {
