@@ -26,6 +26,12 @@ export const GET_PLAYER_STATISTICS = gql`
       resultsAtGames {
         rank
       }
+      gameScores {
+        category {
+          name
+        }
+        value
+      }
     }
   }
 `;
