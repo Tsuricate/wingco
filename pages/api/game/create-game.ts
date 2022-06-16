@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../../apollo-client';
 import { CREATE_GAME_WITH_PLAYERS } from '../../../queries/game.queries';
-import { getParticipantsFromPlayers } from '../../../utils/game';
+import { getParticipantsFromPlayers } from '../../../utils/newGame';
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { players, gameWithNectar, gameSlug, hostId } = req.body;

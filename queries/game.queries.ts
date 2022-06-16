@@ -74,16 +74,45 @@ export const SAVE_RESULTS = gql`
 export const GET_GAME_RESULTS = gql`
   query GetGameResults($gameId: ID!) {
     game(where: { id: $gameId }) {
+      players {
+        id
+        name
+        avatar {
+          url
+          id
+        }
+      }
       results(orderBy: rank_ASC) {
         player {
           id
-          avatar {
-            url
-          }
-          name
         }
         badge
         totalScore
+      }
+      scores {
+        player {
+          id
+        }
+        category {
+          name
+        }
+        value
+      }
+      registeredPlayersScores: players(where: { isRegistered: true }) {
+        id
+        name
+        currentScores: gameScores(where: { game: { id: $gameId } }) {
+          category {
+            name
+          }
+          value
+        }
+        previousScores: gameScores(where: { game: { id_not: $gameId } }) {
+          category {
+            name
+          }
+          value
+        }
       }
     }
   }

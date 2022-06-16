@@ -1,6 +1,6 @@
 import uniqid from 'uniqid';
 import { PlayerWithBadgeAndScore, PLAYER_BADGE } from '../models/players';
-import { defaultScores } from '../utils/game';
+import { defaultScores } from '../utils/newGame';
 import { categories } from './bestScoreByCategory';
 
 export const gameResults: Array<PlayerWithBadgeAndScore> = [

@@ -3,7 +3,7 @@ import { AnyAction } from 'redux';
 import uniqid from 'uniqid';
 import { Category } from '../../models/game';
 import { IGamePlayer, PlayerWithRegisteredInfos } from '../../models/players';
-import { defaultAvatar, defaultScores, getTotalScore } from '../../utils/game';
+import { defaultAvatar, defaultScores, getTotalScore } from '../../utils/newGame';
 import { UPDATE_PLAYER_SCORE } from '../actions/gameScores';
 import {
   ADD_PLAYER,

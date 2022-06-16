@@ -32,7 +32,47 @@ export interface ScoreCreateInput {
 export type Leaderboard = IGamePlayer[][];
 
 export interface LeaderboardResult {
-  player: Player;
+  player: { id: Player['id'] };
   badge: PLAYER_BADGE | undefined;
   totalScore: number;
+}
+
+export interface ScoreResult {
+  player: { id: Player['id'] };
+  category: { name: Category['name'] };
+  value: number;
+}
+
+export interface ScoreByCategory {
+  category: Category['name'];
+  scores: Array<{ player: Player; score: number }>;
+}
+
+export interface ResultScore {
+  category: { name: Category['name'] };
+  value: number;
+}
+
+interface PlayersScores {
+  id: string;
+  name: Player['name'];
+  currentScores: Array<ResultScore>;
+  previousScores: Array<ResultScore>;
+}
+
+export interface GameResults {
+  players: Array<Player>;
+  results: Array<LeaderboardResult>;
+  scores: Array<ScoreResult>;
+  registeredPlayersScores: Array<PlayersScores>;
+}
+
+export interface NewPlayerRecord extends NewRecord {
+  playerName: Player['name'];
+}
+
+export interface NewRecord {
+  newRecord: number;
+  previousRecord: number;
+  category: Category['name'];
 }

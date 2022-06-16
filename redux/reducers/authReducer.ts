@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { AvatarImage } from '../../models/players';
-import { defaultAvatar } from '../../utils/game';
+import { defaultAvatar } from '../../utils/newGame';
 import { SAVE_PLAYER_AVATAR, SAVE_USER, SIGN_OUT_USER } from '../actions/auth';
 
 interface authReducerProps {
