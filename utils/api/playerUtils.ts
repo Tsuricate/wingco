@@ -1,6 +1,6 @@
 import client from '../../apollo-client';
 import { FIND_PLAYER_BY_ID } from '../../queries/auth.queries';
-import { GET_AVATAR_IMAGES } from '../../queries/player.queries';
+import { GET_AVATAR_IMAGES, GET_PLAYER_STATISTICS } from '../../queries/player.queries';
 import { FIND_VERIFIED_PLAYER } from '../../queries/signin.queries';
 import { FIND_PLAYER } from '../../queries/signup.queries';
 
@@ -50,5 +50,19 @@ export const getAvatarImages = async () => {
     return avatarImages;
   } else {
     throw new Error('Error getting avatar images');
+  }
+};
+
+export const getPlayerStatistics = async (playerId: string) => {
+  try {
+    const {
+      data: { player },
+    } = await client.query({
+      query: GET_PLAYER_STATISTICS,
+      variables: { playerId },
+    });
+    return player;
+  } catch (err) {
+    throw new Error('Cannont fetch player statistics');
   }
 };

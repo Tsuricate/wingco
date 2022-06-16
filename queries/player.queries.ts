@@ -19,3 +19,13 @@ export const CHANGE_PLAYER_AVATAR = gql`
     }
   }
 `;
+
+export const GET_PLAYER_STATISTICS = gql`
+  query GetPlayerStatistics($playerId: ID!) {
+    player(where: { id: $playerId }) {
+      resultsAtGames {
+        rank
+      }
+    }
+  }
+`;
