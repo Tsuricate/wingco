@@ -1,23 +1,33 @@
 import { List, ListItem, Stat, StatLabel, StatNumber, Text } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React from 'react';
+import { GiCrossedSabres, GiTrophy } from 'react-icons/gi';
 import PageLayout from '../../components/layout/PageLayout';
 import StatisticsPanel from '../../components/StatisticsPanel';
 import VersusPanel from '../../components/VersusPanel';
-import { statisticsVersusData } from '../../mockData/statisticsVersusData';
-import { GiCrossedSabres, GiTrophy } from 'react-icons/gi';
 import { bestScoreByCategory } from '../../mockData/bestScoreByCategory';
+import { statisticsVersusData } from '../../mockData/statisticsVersusData';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
+import { Statistics } from '../../models/statistics';
+import { getUserInfosFromCookie } from '../../utils/api/auth';
+import { getPlayerStatistics } from '../../utils/api/playerUtils';
+import { getPlayerVictories } from '../../utils/statistics';
 
-const Statistics: NextPageWithAuth = () => {
+interface StatisticsProps {
+  playerStatistics: Statistics;
+}
+
+const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerStatistics }) => {
   const { t } = useTranslation(['statistics', 'common']);
 
   return (
     <PageLayout title={t('statistics:title')}>
       <Stat>
         <StatLabel> {t('statistics:victories')}</StatLabel>
-        <StatNumber>45 / 156</StatNumber>
+        <StatNumber>
+          {playerStatistics.victories} / {playerStatistics.allGames}
+        </StatNumber>
       </Stat>
       <StatisticsPanel
         title={t('statistics:bestScores')}
@@ -51,8 +61,22 @@ export default Statistics;
 
 Statistics.requireAuth = true;
 
-export const getStaticProps = async ({ locale }: { locale: string }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['statistics', 'common'])),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
+  try {
+    const { id } = getUserInfosFromCookie(req.headers.cookie);
+    const { resultsAtGames } = await getPlayerStatistics(id);
+    const playerStatistics: Statistics = await getPlayerVictories(resultsAtGames);
+
+    return {
+      props: {
+        ...(await serverSideTranslations(locale || 'en', ['statistics', 'common'])),
+        playerStatistics,
+      },
+    };
+  } catch (err) {
+    if (process.env.NODE_ENV !== 'production') console.log(err);
+    return {
+      notFound: true,
+    };
+  }
+};
