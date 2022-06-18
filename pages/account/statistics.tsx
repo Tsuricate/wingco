@@ -1,4 +1,4 @@
-import { List, ListItem, Stat, StatLabel, StatNumber, Text } from '@chakra-ui/react';
+import { List, ListItem, Stat, StatLabel, Text } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -6,28 +6,40 @@ import { GiCrossedSabres, GiTrophy } from 'react-icons/gi';
 import PageLayout from '../../components/layout/PageLayout';
 import StatisticsPanel from '../../components/StatisticsPanel';
 import VersusPanel from '../../components/VersusPanel';
-import { statisticsVersusData } from '../../mockData/statisticsVersusData';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
-import { BestPersonalScores, Victories } from '../../models/statistics';
+import {
+  BestPersonalScores,
+  ResultScoreWithPlayer,
+  VersusResult,
+  Victories,
+} from '../../models/statistics';
 import { getUserInfosFromCookie } from '../../utils/api/auth';
 import { getBestScoresByCategory, getPlayerStatistics } from '../../utils/api/playerUtils';
-import { getPlayerVictories } from '../../utils/statistics';
+import { getOtherPlayersScores, getPlayerVictories, getVersusResults } from '../../utils/statistics';
 
 interface StatisticsProps {
   playerVictories: Victories;
   bestScoresByCategory: Array<BestPersonalScores>;
+  versusResults: Array<VersusResult>;
 }
 
-const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerVictories, bestScoresByCategory }) => {
+const Statistics: NextPageWithAuth<StatisticsProps> = ({
+  playerVictories,
+  bestScoresByCategory,
+  versusResults,
+}) => {
   const { t } = useTranslation(['statistics', 'common']);
 
   return (
     <PageLayout title={t('statistics:title')}>
       <Stat>
-        <StatLabel> {t('statistics:victories')}</StatLabel>
-        <StatNumber>
-          {playerVictories.victories} / {playerVictories.allGames}
-        </StatNumber>
+        <StatLabel>
+          {' '}
+          {t('statistics:victories', {
+            victories: playerVictories.victories,
+            allGames: playerVictories.allGames,
+          })}
+        </StatLabel>
       </Stat>
       <StatisticsPanel
         title={t('statistics:bestScores')}
@@ -49,8 +61,8 @@ const Statistics: NextPageWithAuth<StatisticsProps> = ({ playerVictories, bestSc
         description={t('statistics:versusDescription')}
         icon={GiCrossedSabres}
       >
-        {statisticsVersusData.map((stat) => (
-          <VersusPanel key={stat.title} {...stat} />
+        {versusResults.map((result) => (
+          <VersusPanel key={result.category} {...result} />
         ))}
       </StatisticsPanel>
     </PageLayout>
@@ -64,15 +76,18 @@ Statistics.requireAuth = true;
 export const getServerSideProps: GetServerSideProps = async ({ locale, req }) => {
   try {
     const { id } = getUserInfosFromCookie(req.headers.cookie);
-    const { resultsAtGames, gameScores } = await getPlayerStatistics(id);
+    const { resultsAtGames, gameScores, games } = await getPlayerStatistics(id);
     const playerVictories: Victories = getPlayerVictories(resultsAtGames);
     const bestScoresByCategory: Array<BestPersonalScores> = getBestScoresByCategory(gameScores);
+    const otherPlayersScores: Array<ResultScoreWithPlayer> = getOtherPlayersScores(games);
+    const versusResults: Array<VersusResult> = getVersusResults(gameScores, otherPlayersScores);
 
     return {
       props: {
         ...(await serverSideTranslations(locale || 'en', ['statistics', 'common'])),
         playerVictories,
         bestScoresByCategory,
+        versusResults,
       },
     };
   } catch (err) {
