@@ -32,6 +32,22 @@ export const GET_PLAYER_STATISTICS = gql`
         }
         value
       }
+      games {
+        scores(where: { player: { id_not: $playerId } }) {
+          category {
+            name
+          }
+          value
+          player {
+            id
+            name
+            avatar {
+              id
+              url
+            }
+          }
+        }
+      }
     }
   }
 `;
