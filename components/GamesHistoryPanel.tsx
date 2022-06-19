@@ -1,33 +1,48 @@
-import { Avatar, AvatarBadge, Heading, Stack } from '@chakra-ui/react';
+import { Heading, Stack } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import React from 'react';
-import { PlayerWithBadge } from '../models/players';
-import { getBadgeColor } from '../utils/badgeUtils';
+import { GameHistoryResults } from '../models/game';
 import Link from './Link';
+import PlayerAvatar from './PlayerAvatar';
 
 export interface GamesHistoryPanelProps {
-  id: number;
+  id: string;
   date: string;
-  players: Array<PlayerWithBadge>;
+  players: Array<GameHistoryResults>;
 }
 
 const GamesHistoryPanel: React.FC<GamesHistoryPanelProps> = ({ id, date, players }) => {
   const { t } = useTranslation('common');
+  const { locale } = useRouter();
+  const formattedDate = new Date(date).toLocaleDateString(locale, {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  const formattedTime = new Date(date).toLocaleTimeString(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  console.log('Date : ', formattedDate);
 
   return (
     <Stack>
-      <Heading>{date}</Heading>
+      <Heading size="md">{`${formattedDate} ${formattedTime}`}</Heading>
       <Stack direction="row">
-        {players.map((player: PlayerWithBadge) => {
-          const badgeColor = player.badge ? getBadgeColor(player.badge) : undefined;
+        {players.map((player) => {
           return (
-            <Avatar key={player.id} name={player.name}>
-              {player.badge && <AvatarBadge boxSize="1.25em" bg={badgeColor} />}
-            </Avatar>
+            <PlayerAvatar
+              key={player.player.id}
+              badge={player.badge}
+              avatar={player.player.avatar.url}
+              avatarSize="md"
+            />
           );
         })}
       </Stack>
-      <Link href={`/game-result/${id}`} asButton>
+      <Link href={`/game-results/${id}`} asButton>
         {t('common:viewDetail')}
       </Link>
     </Stack>
