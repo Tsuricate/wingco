@@ -1,5 +1,10 @@
 import client from '../../apollo-client';
-import { GET_ALL_GAME_IDS, GET_CATEGORIES, GET_GAME_RESULTS } from '../../queries/game.queries';
+import {
+  GET_ALL_GAME_IDS,
+  GET_CATEGORIES,
+  GET_GAMES_HISTORY,
+  GET_GAME_RESULTS,
+} from '../../queries/game.queries';
 
 export const getCategories = async () => {
   try {
@@ -42,5 +47,21 @@ export const getAllGameIds = async () => {
     }));
   } catch (err) {
     throw new Error('Cannot fetch all games ids');
+  }
+};
+
+export const getGamesHistory = async (playerId: string) => {
+  try {
+    const {
+      data: {
+        player: { games },
+      },
+    } = await client.query({
+      query: GET_GAMES_HISTORY,
+      variables: { playerId },
+    });
+    return games;
+  } catch (err) {
+    throw new Error('Cannot fetch games history');
   }
 };
