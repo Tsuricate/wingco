@@ -17,5 +17,6 @@
   "chooseAvatarDescription": "Sélectionnez un avatar parmi la liste suivante en cliquant dessus.",
   "creatingGame": "Votre partie est en train d'être créée...",
   "gameCreated": "Partie créée !",
-  "gameCreatedDescription": "Votre partie a bien été créée. Amusez-vous bien et dites nous quand vous êtes prêts à renseigner vos scores."
+  "gameCreatedDescription": "Votre partie a bien été créée. Amusez-vous bien et dites nous quand vous êtes prêts à renseigner vos scores.",
+  "joiningGame": "{{player}} souhaite rejoindre votre partie"
 }

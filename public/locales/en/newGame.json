@@ -17,5 +17,6 @@
   "chooseAvatarDescription": "Choose an avatar in the following list by clicking on it.",
   "creatingGame": "Creating game...",
   "gameCreated": "Game created !",
-  "gameCreatedDescription": "Your game has been created ! Have a nice play and let us know when you're ready to enter your scores."
+  "gameCreatedDescription": "Your game has been created ! Have a nice play and let us know when you're ready to enter your scores.",
+  "joiningGame": "{{player}} wants to join your game"
 }
