@@ -1,16 +1,18 @@
-import { FormControl, FormLabel, Stack, Switch, Text } from '@chakra-ui/react';
+import { FormControl, FormLabel, Stack, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import Pusher from 'pusher-js';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
+import Modal from '../components/Modal';
 import NewGamePlayer from '../components/NewGamePlayer';
-import { IGamePlayer } from '../models/players';
+import { IGamePlayer, Player } from '../models/players';
 import {
   addPlayer,
   createNewGame,
@@ -23,9 +25,11 @@ import { RootState } from '../redux/reducers';
 import { defaultAvatar, defaultScores, getEstimatedTime } from '../utils/newGame';
 
 const NewGame: React.FC = () => {
-  const { t } = useTranslation('newGame');
+  const { t } = useTranslation(['common', 'newGame']);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [playersInQueue, setPlayersInQueue] = useState<Array<Player>>([]);
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
@@ -35,21 +39,44 @@ const NewGame: React.FC = () => {
     dispatch(saveGameSlug(gameSlug));
   }, [dispatch]);
 
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY || '', {
+      cluster: 'eu',
+    });
+
+    const channel = pusher.subscribe(`game-${gameSlug}`);
+
+    channel.bind('join-game-request', (data: { player: Player }) => {
+      setPlayersInQueue([...playersInQueue, data.player]);
+      onOpen();
+    });
+
+    return () => {
+      pusher.unsubscribe('join-game-request');
+    };
+  }, [gameSlug, onOpen, playersInQueue]);
+
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
   };
 
-  const handleAddPlayer = () => {
+  const handleAddPlayer = (invitedPlayer: Player | undefined) => {
     if (!hasReachedMaxPlayers) {
-      dispatch(
-        addPlayer({
-          id: uniqid(),
-          name: '',
-          avatar: defaultAvatar,
-          isRegistered: false,
-          scores: defaultScores,
-        })
-      );
+      const player = invitedPlayer
+        ? {
+            ...invitedPlayer,
+            isRegistered: true,
+            scores: defaultScores,
+          }
+        : {
+            id: uniqid(),
+            name: '',
+            avatar: defaultAvatar,
+            isRegistered: false,
+            scores: defaultScores,
+          };
+      dispatch(addPlayer(player));
+      onClose();
     }
   };
 
@@ -84,7 +111,7 @@ const NewGame: React.FC = () => {
             />
           ))}
         </Stack>
-        <Button isDisabled={hasReachedMaxPlayers} onClick={handleAddPlayer}>
+        <Button isDisabled={hasReachedMaxPlayers} onClick={() => handleAddPlayer(undefined)}>
           {t('newGame:addPlayer')}
         </Button>
         <InvitePlayerButton />
@@ -95,6 +122,17 @@ const NewGame: React.FC = () => {
         <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
         <Button type="submit">{t('newGame:startGame')}</Button>
       </Form>
+      {playersInQueue.map((player) => (
+        <Modal
+          key={player.id}
+          isOpen={isOpen}
+          handleClose={() => onClose()}
+          title={t('newGame:joiningGame', { player: player.name })}
+          firstActionButton={t('common:accept')}
+          handleFirstAction={() => handleAddPlayer(player)}
+          secondActionButton={t('common:decline')}
+        ></Modal>
+      ))}
     </PageLayout>
   );
 };

@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
       };
 
       await pusher.trigger(`game-${gameSlug}`, 'join-game-request', {
-        registeredPlayer,
+        player: registeredPlayer,
       });
 
       res.json({ message: 'Request sent !' });
