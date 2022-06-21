@@ -6,6 +6,7 @@ import passwordAssistanceReducer from './passwordAssistanceReducer';
 import manageAccountReducer from './manageAccountReducer';
 import playerReducer from './playerReducer';
 import gameReducer from './gameReducer';
+import joinGameReducer from './joinGameReducer';
 
 const rootReducer = combineReducers({
   signUp: signUpReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   manageAccount: manageAccountReducer,
   player: playerReducer,
   game: gameReducer,
+  joinGame: joinGameReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
