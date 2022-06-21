@@ -10,6 +10,7 @@ import {
   saveGameId,
   updateUnregisteredPlayersId,
 } from '../actions/newGame';
+import { JOIN_GAME_REQUEST } from '../actions/joinGame';
 
 const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
   switch (action.type) {
@@ -48,6 +49,12 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
 
       next(action);
       break;
+    }
+
+    case JOIN_GAME_REQUEST: {
+      const { gameSlug } = store.getState().joinGame;
+
+      axios.post('/api/pusher/join-game', { gameSlug });
     }
 
     default:

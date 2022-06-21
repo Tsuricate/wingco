@@ -8,7 +8,7 @@ import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
-import { updateJoinGameSlug } from '../redux/actions/joinGame';
+import { joinGameRequest, updateJoinGameSlug } from '../redux/actions/joinGame';
 import { RootState } from '../redux/reducers';
 
 const JoinGame: React.FC = () => {
@@ -22,7 +22,7 @@ const JoinGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Join game!');
+    dispatch(joinGameRequest());
   };
 
   return (
