@@ -2,20 +2,23 @@ import { Avatar, Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
+import { updateJoinGameSlug } from '../redux/actions/joinGame';
 import { RootState } from '../redux/reducers';
 
 const JoinGame: React.FC = () => {
   const { t } = useTranslation(['joinGame', 'common']);
+  const dispatch = useDispatch();
   const { isLogged } = useSelector((state: RootState) => state.auth);
+  const { gameSlug } = useSelector((state: RootState) => state.joinGame);
 
-  const updateField = () => {
-    console.log('Update');
+  const updateField = (value: string, name: string) => {
+    dispatch(updateJoinGameSlug(value, name));
   };
 
   const handleSubmit = () => {
@@ -44,10 +47,11 @@ const JoinGame: React.FC = () => {
           </>
         )}
         <FormControl
-          id="gameId"
-          name="gameId"
+          id="gameSlug"
+          name="gameSlug"
           label={t('joinGame:gameIdLabel')}
           helperText={t('joinGame:gameIdHelperText')}
+          value={gameSlug}
           updateField={updateField}
         />
         <Button type="submit" dataCy="submitButton">
