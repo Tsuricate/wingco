@@ -5,14 +5,15 @@ import { useRouter } from 'next/router';
 import Pusher from 'pusher-js';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import uniqid from 'uniqid';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
 import Modal from '../components/Modal';
 import NewGamePlayer from '../components/NewGamePlayer';
+import { defaultPlayer, defaultScores } from '../constants/game';
 import { IGamePlayer, Player } from '../models/players';
+import { answerJoinRequest } from '../redux/actions/joinGame';
 import {
   addPlayer,
   createNewGame,
@@ -22,7 +23,7 @@ import {
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
-import { defaultAvatar, defaultScores, getEstimatedTime } from '../utils/newGame';
+import { getEstimatedTime } from '../utils/newGame';
 
 const NewGame: React.FC = () => {
   const { t } = useTranslation(['common', 'newGame']);
@@ -68,13 +69,7 @@ const NewGame: React.FC = () => {
             isRegistered: true,
             scores: defaultScores,
           }
-        : {
-            id: uniqid(),
-            name: '',
-            avatar: defaultAvatar,
-            isRegistered: false,
-            scores: defaultScores,
-          };
+        : defaultPlayer;
       dispatch(addPlayer(player));
       onClose();
     }
@@ -93,6 +88,12 @@ const NewGame: React.FC = () => {
     dispatch(createNewGame());
   };
 
+  const handleAnswerJoinRequest = (player: Player, isAccepted: boolean) => {
+    dispatch(answerJoinRequest(player.id, isAccepted, gameSlug));
+    if (isAccepted) handleAddPlayer(player);
+    onClose();
+  };
+
   return (
     <PageLayout title={t('newGame:title')}>
       <Text>ID {gameSlug}</Text>
@@ -103,7 +104,7 @@ const NewGame: React.FC = () => {
               key={player.id}
               id={player.id}
               name={player.name}
-              avatar={player?.avatar}
+              avatar={player.avatar}
               isRegistered={player.isRegistered}
               playerNumber={index + 1}
               onDeletePlayer={() => handleDeletePlayer(player.id)}
@@ -129,8 +130,9 @@ const NewGame: React.FC = () => {
           handleClose={() => onClose()}
           title={t('newGame:joiningGame', { player: player.name })}
           firstActionButton={t('common:accept')}
-          handleFirstAction={() => handleAddPlayer(player)}
+          handleFirstAction={() => handleAnswerJoinRequest(player, true)}
           secondActionButton={t('common:decline')}
+          handleSecondAction={() => handleAnswerJoinRequest(player, false)}
         ></Modal>
       ))}
     </PageLayout>

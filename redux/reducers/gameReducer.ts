@@ -1,9 +1,9 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { AnyAction } from 'redux';
-import uniqid from 'uniqid';
+import { defaultPlayer, defaultScores } from '../../constants/game';
 import { Category } from '../../models/game';
 import { IGamePlayer, PlayerWithRegisteredInfos } from '../../models/players';
-import { defaultAvatar, defaultScores, getTotalScore } from '../../utils/newGame';
+import { getTotalScore } from '../../utils/newGame';
 import { UPDATE_PLAYER_SCORE } from '../actions/gameScores';
 import {
   ADD_PLAYER,
@@ -34,15 +34,7 @@ const initialState: gameReducerProps = {
   gameId: '',
   gameSlug: '',
   categories: [],
-  players: [
-    {
-      id: uniqid(),
-      name: '',
-      avatar: defaultAvatar,
-      isRegistered: false,
-      scores: defaultScores,
-    },
-  ],
+  players: [defaultPlayer],
   gameWithNectar: false,
   isCreatingNewGame: false,
 };

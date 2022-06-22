@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import client from '../apollo-client';
 import AuthGuard from '../components/AuthGuard';
+import { defaultScores } from '../constants/game';
 import { NextPageWithAuth } from '../models/pageWithAuth';
 import { saveUser } from '../redux/actions/auth';
 import { setFirstPlayer } from '../redux/actions/newGame';
 import { wrapper } from '../redux/store';
-import { defaultScores } from '../utils/newGame';
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithAuth;
