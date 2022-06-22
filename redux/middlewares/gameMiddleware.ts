@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { Action, Dispatch, Middleware } from 'redux';
 import Router from 'next/router';
+import { AnyAction, Dispatch, Middleware } from 'redux';
 import { getResultsFromPlayers, getScoresFromPlayers } from '../../utils/newGame';
 import { SEND_GAME_SCORES } from '../actions/gameScores';
+import { ANSWER_JOIN_REQUEST, JOIN_GAME_REQUEST } from '../actions/joinGame';
 import {
   CREATE_NEW_GAME,
   DELETE_GAME,
@@ -10,9 +11,8 @@ import {
   saveGameId,
   updateUnregisteredPlayersId,
 } from '../actions/newGame';
-import { JOIN_GAME_REQUEST } from '../actions/joinGame';
 
-const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: Action) => {
+const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action: AnyAction) => {
   switch (action.type) {
     case CREATE_NEW_GAME: {
       const { players, gameWithNectar, gameSlug } = store.getState().game;
@@ -55,6 +55,20 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
       const { gameSlug } = store.getState().joinGame;
 
       axios.post('/api/pusher/join-game', { gameSlug });
+
+      next(action);
+      break;
+    }
+
+    case ANSWER_JOIN_REQUEST: {
+      const { playerId, isAccepted, gameSlug } = action;
+
+      console.log('Answer : ', isAccepted);
+
+      axios.post('/api/pusher/answer-join-request', { playerId, isAccepted, gameSlug });
+
+      next(action);
+      break;
     }
 
     default:
