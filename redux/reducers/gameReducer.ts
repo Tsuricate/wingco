@@ -21,7 +21,7 @@ import {
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
-interface gameReducerProps {
+export interface gameReducerProps {
   gameId: string;
   gameSlug: string;
   categories: Array<Category>;
