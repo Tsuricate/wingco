@@ -5,5 +5,7 @@
   "usernameHelperText": "Saisissez votre nom d'utilisateur",
   "gameIdLabel": "Identifiant de la partie",
   "gameIdHelperText": "Saisissez l'identifiant de la partie à rejoindre",
-  "join": "Rejoindre"
+  "join": "Rejoindre",
+  "requestAccepted": "Vous avez bien rejoint la partie de {{hostName}}. Bon jeu !",
+  "requestDeclined": "{{hostName}} n'a pas accepté votre demande."
 }

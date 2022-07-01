@@ -19,6 +19,7 @@ const JoinGame: React.FC = () => {
   const { id, isLogged } = useSelector((state: RootState) => state.auth);
   const { gameSlug } = useSelector((state: RootState) => state.joinGame);
   const [requestAnswer, setRequestAnswer] = useState<boolean | undefined>(undefined);
+  const [hostName, setHostName] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY || '', {
@@ -27,10 +28,14 @@ const JoinGame: React.FC = () => {
 
     const channel = pusher.subscribe(`game-${gameSlug}`);
 
-    channel.bind(`answer-join-request-player${id}`, (data: { answerToRequest: boolean }) => {
-      const isRequestAccepted = data.answerToRequest;
-      setRequestAnswer(isRequestAccepted);
-    });
+    channel.bind(
+      `answer-join-request-player${id}`,
+      (data: { answerToRequest: boolean; hostName: string }) => {
+        const { answerToRequest: isRequestAccepted, hostName } = data;
+        setRequestAnswer(isRequestAccepted);
+        setHostName(hostName);
+      }
+    );
 
     return () => {
       pusher.unsubscribe(`answer-join-request-player${id}`);
@@ -47,7 +52,9 @@ const JoinGame: React.FC = () => {
 
   const hasReceivedAnswer = requestAnswer !== undefined;
   const answerStatus = requestAnswer ? 'success' : 'error';
-  const answerMessage = requestAnswer ? 'Request accepted' : 'Request declined';
+  const answerMessage = requestAnswer
+    ? t('joinGame:requestAccepted', { hostName })
+    : t('joinGame:requestDeclined', { hostName });
 
   return (
     <PageLayout title={t('joinGame:title')}>

@@ -3,10 +3,11 @@ import pusher from '../../../pusher-client';
 
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const { playerId, isAccepted, gameSlug } = req.body;
+    const { playerId, isAccepted, gameSlug, hostName } = req.body;
 
     await pusher.trigger(`game-${gameSlug}`, `answer-join-request-player${playerId}`, {
       answerToRequest: isAccepted,
+      hostName,
     });
 
     res.json({ message: 'Answer to invitation request sent !' });
