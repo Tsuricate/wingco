@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Pusher from 'pusher-js';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import uniqid from 'uniqid';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
@@ -81,7 +82,7 @@ const NewGame: React.FC = () => {
             isRegistered: true,
             scores: defaultScores,
           }
-        : defaultPlayer;
+        : { ...defaultPlayer, id: uniqid() };
       dispatch(addPlayer(player));
     }
   };
