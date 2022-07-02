@@ -54,15 +54,20 @@ const NewGame: React.FC = () => {
   }, [dispatch, gameSlug]);
 
   useEffect(() => {
-    const playerAlreadyInGame = players.some((player: Player) => player.id === playersInQueue[0]?.id);
-    if (!playerAlreadyInGame) {
-      onOpen();
-    } else {
-      onClose();
-      dispatch(deletePlayerInQueue(playersInQueue[0]?.id));
-      dispatch(answerJoinRequest(playersInQueue[0]?.id, false, gameSlug, 'joinGame:alreadyInGame'));
+    if (playersInQueue.length > 0) {
+      const playerAlreadyInGame = players.some((player: Player) => player.id === playersInQueue[0].id);
+      if (!playerAlreadyInGame && !hasReachedMaxPlayers) {
+        onOpen();
+      } else {
+        onClose();
+        dispatch(deletePlayerInQueue(playersInQueue[0].id));
+        const declinedReason = playerAlreadyInGame
+          ? 'joinGame:alreadyInGame'
+          : 'joinGame:tooManyPlayers';
+        dispatch(answerJoinRequest(playersInQueue[0].id, false, gameSlug, declinedReason));
+      }
     }
-  }, [dispatch, gameSlug, onClose, onOpen, players, playersInQueue]);
+  }, [dispatch, gameSlug, hasReachedMaxPlayers, onClose, onOpen, players, playersInQueue]);
 
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
