@@ -20,6 +20,7 @@ const JoinGame: React.FC = () => {
   const { gameSlug } = useSelector((state: RootState) => state.joinGame);
   const [requestAnswer, setRequestAnswer] = useState<boolean | undefined>(undefined);
   const [hostName, setHostName] = useState<string | undefined>(undefined);
+  const [declinedReason, setDeclinedReason] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY || '', {
@@ -30,10 +31,11 @@ const JoinGame: React.FC = () => {
 
     channel.bind(
       `answer-join-request-player${id}`,
-      (data: { answerToRequest: boolean; hostName: string }) => {
-        const { answerToRequest: isRequestAccepted, hostName } = data;
+      (data: { answerToRequest: boolean; hostName: string; declinedReason: string }) => {
+        const { answerToRequest: isRequestAccepted, hostName, declinedReason } = data;
         setRequestAnswer(isRequestAccepted);
         setHostName(hostName);
+        setDeclinedReason(declinedReason);
       }
     );
 
@@ -52,13 +54,16 @@ const JoinGame: React.FC = () => {
 
   const hasReceivedAnswer = requestAnswer !== undefined;
   const answerStatus = requestAnswer ? 'success' : 'error';
-  const answerMessage = requestAnswer
-    ? t('joinGame:requestAccepted', { hostName })
-    : t('joinGame:requestDeclined', { hostName });
+
+  const getAnswerMessage = () => {
+    if (declinedReason) return t(declinedReason);
+    if (requestAnswer) return t('joinGame:requestAccepted', { hostName });
+    if (!requestAnswer) return t('joinGame:requestDeclined', { hostName });
+  };
 
   return (
     <PageLayout title={t('joinGame:title')}>
-      {hasReceivedAnswer && <AlertMessage status={answerStatus}>{answerMessage}</AlertMessage>}
+      {hasReceivedAnswer && <AlertMessage status={answerStatus}>{getAnswerMessage()}</AlertMessage>}
       <Form onSubmit={handleSubmit}>
         <Text>{t('joinGame:description')}</Text>
         {!isLogged && (

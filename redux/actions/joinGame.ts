@@ -16,11 +16,17 @@ export const joinGameRequest = () => ({
   type: JOIN_GAME_REQUEST,
 });
 
-export const answerJoinRequest = (playerId: string, isAccepted: boolean, gameSlug: string) => ({
+export const answerJoinRequest = (
+  playerId: string,
+  isAccepted: boolean,
+  gameSlug: string,
+  declinedReason?: string
+) => ({
   type: ANSWER_JOIN_REQUEST,
   playerId,
   isAccepted,
   gameSlug,
+  declinedReason,
 });
 
 export const addPlayerInQueue = (player: Player) => ({

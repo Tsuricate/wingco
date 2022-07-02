@@ -61,10 +61,16 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
     }
 
     case ANSWER_JOIN_REQUEST: {
-      const { playerId, isAccepted, gameSlug } = action;
+      const { playerId, isAccepted, gameSlug, declinedReason } = action;
       const { name } = store.getState().auth;
 
-      axios.post('/api/pusher/answer-join-request', { playerId, isAccepted, gameSlug, hostName: name });
+      axios.post('/api/pusher/answer-join-request', {
+        playerId,
+        isAccepted,
+        gameSlug,
+        hostName: name,
+        declinedReason,
+      });
 
       next(action);
       break;
