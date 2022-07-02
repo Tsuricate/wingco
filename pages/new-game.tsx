@@ -47,12 +47,22 @@ const NewGame: React.FC = () => {
     const channel = pusher.subscribe(`game-${gameSlug}`);
     channel.bind('join-game-request', async (data: { player: Player }) => {
       dispatch(addPlayerInQueue(data.player));
-      onOpen();
     });
     return () => {
       pusher.unsubscribe('join-game-request');
     };
-  }, [dispatch, gameSlug, onOpen]);
+  }, [dispatch, gameSlug]);
+
+  useEffect(() => {
+    const playerAlreadyInGame = players.some((player: Player) => player.id === playersInQueue[0]?.id);
+    if (!playerAlreadyInGame) {
+      onOpen();
+    } else {
+      onClose();
+      dispatch(deletePlayerInQueue(playersInQueue[0]?.id));
+      dispatch(answerJoinRequest(playersInQueue[0]?.id, false, gameSlug, 'joinGame:alreadyInGame'));
+    }
+  }, [dispatch, gameSlug, onClose, onOpen, players, playersInQueue]);
 
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
@@ -86,10 +96,9 @@ const NewGame: React.FC = () => {
 
   const handleAnswerJoinRequest = (player: Player, isAccepted: boolean) => {
     dispatch(answerJoinRequest(player.id, isAccepted, gameSlug));
+    onClose();
     if (isAccepted) handleAddPlayer(player);
     dispatch(deletePlayerInQueue(player.id));
-    onClose();
-    if (playersInQueue.length > 0) onOpen();
   };
 
   return (
