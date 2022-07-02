@@ -7,5 +7,7 @@
   "gameIdHelperText": "Saisissez l'identifiant de la partie à rejoindre",
   "join": "Rejoindre",
   "requestAccepted": "Vous avez bien rejoint la partie de {{hostName}}. Bon jeu !",
-  "requestDeclined": "{{hostName}} n'a pas accepté votre demande."
+  "requestDeclined": "{{hostName}} n'a pas accepté votre demande.",
+  "tooManyPlayers": "Votre demande a été refusée car la partie est déjà complète.",
+  "alreadyInGame": "Votre demande a été refusée car vous participez déjà à cette partie."
 }
