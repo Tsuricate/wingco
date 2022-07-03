@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { AnyAction, Dispatch, Middleware } from 'redux';
 import { getResultsFromPlayers, getScoresFromPlayers } from '../../utils/newGame';
 import { SEND_GAME_SCORES } from '../actions/gameScores';
-import { ANSWER_JOIN_REQUEST, JOIN_GAME_REQUEST } from '../actions/joinGame';
+import { ANSWER_JOIN_REQUEST, JOIN_GAME_REQUEST, updateIsLoading } from '../actions/joinGame';
 import {
   CREATE_NEW_GAME,
   DELETE_GAME,
@@ -56,6 +56,7 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
       const { gameSlug, guestPlayer } = store.getState().joinGame;
       const player = isLogged ? undefined : guestPlayer;
 
+      store.dispatch(updateIsLoading(true));
       axios.post('/api/pusher/join-game', { gameSlug, guestPlayer: player });
 
       next(action);

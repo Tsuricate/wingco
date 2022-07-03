@@ -8,17 +8,20 @@ import {
   UPDATE_GUEST_PLAYER_INFOS,
   UPDATE_JOIN_GAME_SLUG,
 } from '../actions/joinGame';
+import { UPDATE_IS_LOADING } from '../actions/signUp';
 
 interface joinGameReducerProps {
   gameSlug: string;
   playersInQueue: Array<Player>;
   guestPlayer: Player;
+  isLoading: boolean;
 }
 
 const initialState: joinGameReducerProps = {
   gameSlug: '',
   playersInQueue: [],
   guestPlayer: { id: uniqid(), name: '', avatar: defaultAvatar },
+  isLoading: false,
 };
 
 const joinGameReducer = (state = initialState, action: AnyAction) => {
@@ -49,6 +52,13 @@ const joinGameReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         guestPlayer: { ...state.guestPlayer, [action.name]: action.value },
+      };
+    }
+
+    case UPDATE_IS_LOADING: {
+      return {
+        ...state,
+        isLoading: action.value,
       };
     }
 

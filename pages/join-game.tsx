@@ -13,13 +13,14 @@ import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import { AvatarImage } from '../models/players';
 import { joinGameRequest, updateGuestPlayerInfos, updateJoinGameSlug } from '../redux/actions/joinGame';
+import { updateIsLoading } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 
 const JoinGame: React.FC = () => {
   const { t } = useTranslation(['joinGame', 'newGame', 'common']);
   const dispatch = useDispatch();
   const { id, isLogged } = useSelector((state: RootState) => state.auth);
-  const { gameSlug, guestPlayer } = useSelector((state: RootState) => state.joinGame);
+  const { gameSlug, guestPlayer, isLoading } = useSelector((state: RootState) => state.joinGame);
   const { avatarImages } = useSelector((state: RootState) => state.player);
   const [requestAnswer, setRequestAnswer] = useState<boolean | undefined>(undefined);
   const [hostName, setHostName] = useState<string | undefined>(undefined);
@@ -38,6 +39,7 @@ const JoinGame: React.FC = () => {
       `answer-join-request-player${playerId}`,
       (data: { answerToRequest: boolean; hostName: string; declinedReason: string }) => {
         const { answerToRequest: isRequestAccepted, hostName, declinedReason } = data;
+        dispatch(updateIsLoading(false));
         setRequestAnswer(isRequestAccepted);
         setHostName(hostName);
         setDeclinedReason(declinedReason);
@@ -109,7 +111,12 @@ const JoinGame: React.FC = () => {
           value={gameSlug}
           updateField={updateGameSlug}
         />
-        <Button type="submit" dataCy="submitButton">
+        <Button
+          type="submit"
+          dataCy="submitButton"
+          isLoading={isLoading}
+          loadingText={t('joinGame:waitingForHostAnswer')}
+        >
           {t('joinGame:join')}
         </Button>
       </Form>
