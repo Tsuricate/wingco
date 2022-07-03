@@ -32,8 +32,10 @@ const JoinGame: React.FC = () => {
 
     const channel = pusher.subscribe(`game-${gameSlug}`);
 
+    const playerId = isLogged ? id : guestPlayer.id;
+
     channel.bind(
-      `answer-join-request-player${id}`,
+      `answer-join-request-player${playerId}`,
       (data: { answerToRequest: boolean; hostName: string; declinedReason: string }) => {
         const { answerToRequest: isRequestAccepted, hostName, declinedReason } = data;
         setRequestAnswer(isRequestAccepted);
@@ -43,7 +45,7 @@ const JoinGame: React.FC = () => {
     );
 
     return () => {
-      pusher.unsubscribe(`answer-join-request-player${id}`);
+      pusher.unsubscribe(`answer-join-request-player${playerId}`);
     };
   });
 

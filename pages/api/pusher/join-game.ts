@@ -5,9 +5,10 @@ import { findPlayerById } from '../../../utils/api/playerUtils';
 
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const { gameSlug, player } = req.body;
+    const { gameSlug, guestPlayer } = req.body;
+    let player = guestPlayer;
 
-    if (!player) {
+    if (!guestPlayer) {
       const { id } = getUserInfosFromCookie(req.headers.cookie);
       const { name, avatar } = await findPlayerById(id);
       const registeredPlayer = {
@@ -16,12 +17,14 @@ const handler: NextApiHandler = async (req, res) => {
         avatar,
       };
 
-      await pusher.trigger(`game-${gameSlug}`, 'join-game-request', {
-        player: registeredPlayer,
-      });
-
-      res.json({ message: 'Request sent !' });
+      player = registeredPlayer;
     }
+
+    await pusher.trigger(`game-${gameSlug}`, 'join-game-request', {
+      player,
+    });
+
+    res.json({ message: 'Request sent !' });
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') console.log('Error : ', err);
     res.status(400).end();

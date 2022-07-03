@@ -52,9 +52,11 @@ const gameMiddleware: Middleware = (store) => (next: Dispatch) => async (action:
     }
 
     case JOIN_GAME_REQUEST: {
-      const { gameSlug } = store.getState().joinGame;
+      const { isLogged } = store.getState().auth;
+      const { gameSlug, guestPlayer } = store.getState().joinGame;
+      const player = isLogged ? undefined : guestPlayer;
 
-      axios.post('/api/pusher/join-game', { gameSlug });
+      axios.post('/api/pusher/join-game', { gameSlug, guestPlayer: player });
 
       next(action);
       break;
