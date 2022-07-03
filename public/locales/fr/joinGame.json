@@ -9,5 +9,6 @@
   "requestAccepted": "Vous avez bien rejoint la partie de {{hostName}}. Bon jeu !",
   "requestDeclined": "{{hostName}} n'a pas accepté votre demande.",
   "tooManyPlayers": "Votre demande a été refusée car la partie est déjà complète.",
-  "alreadyInGame": "Votre demande a été refusée car vous participez déjà à cette partie."
+  "alreadyInGame": "Votre demande a été refusée car vous participez déjà à cette partie.",
+  "waitingForHostAnswer": "En attente d'une réponse de l'hôte..."
 }
