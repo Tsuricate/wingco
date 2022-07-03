@@ -1,15 +1,24 @@
 import { AnyAction } from 'redux';
+import uniqid from 'uniqid';
+import { defaultAvatar } from '../../constants/game';
 import { Player } from '../../models/players';
-import { ADD_PLAYER_IN_QUEUE, DELETE_PLAYER_IN_QUEUE, UPDATE_JOIN_GAME_SLUG } from '../actions/joinGame';
+import {
+  ADD_PLAYER_IN_QUEUE,
+  DELETE_PLAYER_IN_QUEUE,
+  UPDATE_GUEST_PLAYER_INFOS,
+  UPDATE_JOIN_GAME_SLUG,
+} from '../actions/joinGame';
 
 interface joinGameReducerProps {
   gameSlug: string;
   playersInQueue: Array<Player>;
+  guestPlayer: Player;
 }
 
 const initialState: joinGameReducerProps = {
   gameSlug: '',
   playersInQueue: [],
+  guestPlayer: { id: uniqid(), name: '', avatar: defaultAvatar },
 };
 
 const joinGameReducer = (state = initialState, action: AnyAction) => {
@@ -35,6 +44,14 @@ const joinGameReducer = (state = initialState, action: AnyAction) => {
         playersInQueue: newPlayerList,
       };
     }
+
+    case UPDATE_GUEST_PLAYER_INFOS: {
+      return {
+        ...state,
+        guestPlayer: { ...state.guestPlayer, [action.name]: action.value },
+      };
+    }
+
     default:
       return state;
   }

@@ -1,23 +1,26 @@
-import { Avatar, Stack, Text } from '@chakra-ui/react';
+import { Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Pusher from 'pusher-js';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertMessage from '../components/AlertMessage';
+import AvatarSelector from '../components/AvatarSelector';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
-import { joinGameRequest, updateJoinGameSlug } from '../redux/actions/joinGame';
+import { AvatarImage } from '../models/players';
+import { joinGameRequest, updateGuestPlayerInfos, updateJoinGameSlug } from '../redux/actions/joinGame';
 import { RootState } from '../redux/reducers';
 
 const JoinGame: React.FC = () => {
-  const { t } = useTranslation(['joinGame', 'common']);
+  const { t } = useTranslation(['joinGame', 'newGame', 'common']);
   const dispatch = useDispatch();
   const { id, isLogged } = useSelector((state: RootState) => state.auth);
-  const { gameSlug } = useSelector((state: RootState) => state.joinGame);
+  const { gameSlug, guestPlayer } = useSelector((state: RootState) => state.joinGame);
+  const { avatarImages } = useSelector((state: RootState) => state.player);
   const [requestAnswer, setRequestAnswer] = useState<boolean | undefined>(undefined);
   const [hostName, setHostName] = useState<string | undefined>(undefined);
   const [declinedReason, setDeclinedReason] = useState<string | undefined>(undefined);
@@ -44,12 +47,21 @@ const JoinGame: React.FC = () => {
     };
   });
 
-  const updateField = (value: string, name: string) => {
+  const updateGameSlug = (value: string, name: string) => {
     dispatch(updateJoinGameSlug(value, name));
+  };
+
+  const updateField = (value: string, name: string) => {
+    dispatch(updateGuestPlayerInfos(value, name));
   };
 
   const handleSubmit = () => {
     dispatch(joinGameRequest());
+  };
+
+  const handleUpdatePlayerAvatar = async (avatarId: string) => {
+    const newAvatar = await avatarImages.find((image: AvatarImage) => image.id === avatarId);
+    dispatch(updateGuestPlayerInfos(newAvatar, 'avatar'));
   };
 
   const hasReceivedAnswer = requestAnswer !== undefined;
@@ -72,12 +84,16 @@ const JoinGame: React.FC = () => {
               {t('common:signIn')}
             </Link>
             <Stack direction="row" align="center">
-              <Avatar name="Lorem Ipsum" data-cy="avatarSelector" />
+              <AvatarSelector
+                currentAvatar={guestPlayer.avatar.url}
+                updatePlayerAvatar={handleUpdatePlayerAvatar}
+              />
               <FormControl
-                id="username"
-                name="username"
+                id="name"
+                name="name"
                 label={t('common:usernameLabel')}
                 helperText={t('common:usernameHelperText')}
+                value={guestPlayer.name}
                 updateField={updateField}
               />
             </Stack>
@@ -89,7 +105,7 @@ const JoinGame: React.FC = () => {
           label={t('joinGame:gameIdLabel')}
           helperText={t('joinGame:gameIdHelperText')}
           value={gameSlug}
-          updateField={updateField}
+          updateField={updateGameSlug}
         />
         <Button type="submit" dataCy="submitButton">
           {t('joinGame:join')}
@@ -103,6 +119,6 @@ export default JoinGame;
 
 export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['joinGame', 'common'])),
+    ...(await serverSideTranslations(locale, ['joinGame', 'newGame', 'common'])),
   },
 });
