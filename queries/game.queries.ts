@@ -125,3 +125,25 @@ export const GET_ALL_GAME_IDS = gql`
     }
   }
 `;
+
+export const GET_GAMES_HISTORY = gql`
+  query GetGamesHistory($playerId: ID!) {
+    player(where: { id: $playerId }) {
+      games {
+        id
+        createdAt
+        results {
+          badge
+          player {
+            id
+            name
+            avatar {
+              id
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`;

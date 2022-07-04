@@ -1,9 +1,10 @@
 {
   "title": "Statistiques",
-  "victories": "Victoires / Parties jouées",
+  "victories": "{{victories}} victoires / {{allGames}} parties jouées",
   "bestScores": "Meilleurs scores",
   "bestScoresDescription": "Découvrez vos meilleurs scores !",
   "versus": "Versus",
   "versusDescription": "Découvrez qui détient les meilleurs scores !",
-  "detainedBestScore": "Yay ! Vous détenez le meilleur score avec {{score}} points"
+  "detainedBestScore": "Yay ! Vous détenez le meilleur score avec {{score}} points",
+  "versusDraw": "Vous et {{players}} partagez le record avec {{bestScore}} points"
 }

@@ -5,5 +5,10 @@
   "usernameHelperText": "Enter your username",
   "gameIdLabel": "Game ID",
   "gameIdHelperText": "Enter the Game ID to join",
-  "join": "Join"
+  "join": "Join",
+  "requestAccepted": "You have successfully join {{hostName}}'s game. Have a great time !",
+  "requestDeclined": "{{hostName}} has declined your request.",
+  "tooManyPlayers": "Your request has been declined because there's already too many players.",
+  "alreadyInGame": "Your request has been declined because you're already registered for this game.",
+  "waitingForHostAnswer": "Waiting for host answer..."
 }

@@ -76,3 +76,14 @@ export interface NewRecord {
   previousRecord: number;
   category: Category['name'];
 }
+
+export interface GameHistoryResults extends GameHistory {
+  player: Player;
+  badge: PLAYER_BADGE | undefined;
+}
+
+export interface GameHistory {
+  id: string;
+  createdAt: string;
+  results: Array<GameHistoryResults>;
+}

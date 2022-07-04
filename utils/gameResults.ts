@@ -17,7 +17,7 @@ export const getPlayerInfosById = (players: Array<Player>, playerId: string): Pl
   throw new Error('Player not found');
 };
 
-const getCategoriesFromScores = (scores: Array<ScoreResult>) => {
+export const getCategoriesFromScores = (scores: Array<ResultScore>) => {
   const initialAccumulator: Array<Category['name']> = [];
 
   const categories: Array<Category['name']> = scores.reduce((accumulator, currentScore) => {
