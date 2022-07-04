@@ -1,7 +1,8 @@
-import { FormControl, FormLabel, Stack, Switch, Text } from '@chakra-ui/react';
+import { FormControl, FormLabel, Stack, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
+import Pusher from 'pusher-js';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
@@ -9,8 +10,11 @@ import Button from '../components/Button';
 import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
+import Modal from '../components/Modal';
 import NewGamePlayer from '../components/NewGamePlayer';
-import { IGamePlayer } from '../models/players';
+import { defaultPlayer, defaultScores } from '../constants/game';
+import { IGamePlayer, Player } from '../models/players';
+import { addPlayerInQueue, answerJoinRequest, deletePlayerInQueue } from '../redux/actions/joinGame';
 import {
   addPlayer,
   createNewGame,
@@ -20,13 +24,15 @@ import {
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
-import { defaultAvatar, defaultScores, getEstimatedTime } from '../utils/newGame';
+import { getEstimatedTime } from '../utils/newGame';
 
 const NewGame: React.FC = () => {
-  const { t } = useTranslation('newGame');
+  const { t } = useTranslation(['common', 'newGame']);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
+  const { playersInQueue } = useSelector((state: RootState) => state.joinGame);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
 
@@ -35,21 +41,49 @@ const NewGame: React.FC = () => {
     dispatch(saveGameSlug(gameSlug));
   }, [dispatch]);
 
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY || '', {
+      cluster: 'eu',
+    });
+    const channel = pusher.subscribe(`game-${gameSlug}`);
+    channel.bind('join-game-request', async (data: { player: Player }) => {
+      dispatch(addPlayerInQueue(data.player));
+    });
+    return () => {
+      pusher.unsubscribe('join-game-request');
+    };
+  }, [dispatch, gameSlug]);
+
+  useEffect(() => {
+    if (playersInQueue.length > 0) {
+      const playerAlreadyInGame = players.some((player: Player) => player.id === playersInQueue[0].id);
+      if (!playerAlreadyInGame && !hasReachedMaxPlayers) {
+        onOpen();
+      } else {
+        onClose();
+        dispatch(deletePlayerInQueue(playersInQueue[0].id));
+        const declinedReason = playerAlreadyInGame
+          ? 'joinGame:alreadyInGame'
+          : 'joinGame:tooManyPlayers';
+        dispatch(answerJoinRequest(playersInQueue[0].id, false, gameSlug, declinedReason));
+      }
+    }
+  }, [dispatch, gameSlug, hasReachedMaxPlayers, onClose, onOpen, players, playersInQueue]);
+
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateGameWithNectar(event.target.checked));
   };
 
-  const handleAddPlayer = () => {
+  const handleAddPlayer = (invitedPlayer: Player | undefined) => {
     if (!hasReachedMaxPlayers) {
-      dispatch(
-        addPlayer({
-          id: uniqid(),
-          name: '',
-          avatar: defaultAvatar,
-          isRegistered: false,
-          scores: defaultScores,
-        })
-      );
+      const player = invitedPlayer
+        ? {
+            ...invitedPlayer,
+            isRegistered: true,
+            scores: defaultScores,
+          }
+        : { ...defaultPlayer, id: uniqid() };
+      dispatch(addPlayer(player));
     }
   };
 
@@ -66,6 +100,13 @@ const NewGame: React.FC = () => {
     dispatch(createNewGame());
   };
 
+  const handleAnswerJoinRequest = (player: Player, isAccepted: boolean) => {
+    dispatch(answerJoinRequest(player.id, isAccepted, gameSlug));
+    onClose();
+    if (isAccepted) handleAddPlayer(player);
+    dispatch(deletePlayerInQueue(player.id));
+  };
+
   return (
     <PageLayout title={t('newGame:title')}>
       <Text>ID {gameSlug}</Text>
@@ -76,7 +117,7 @@ const NewGame: React.FC = () => {
               key={player.id}
               id={player.id}
               name={player.name}
-              avatar={player?.avatar}
+              avatar={player.avatar}
               isRegistered={player.isRegistered}
               playerNumber={index + 1}
               onDeletePlayer={() => handleDeletePlayer(player.id)}
@@ -84,7 +125,7 @@ const NewGame: React.FC = () => {
             />
           ))}
         </Stack>
-        <Button isDisabled={hasReachedMaxPlayers} onClick={handleAddPlayer}>
+        <Button isDisabled={hasReachedMaxPlayers} onClick={() => handleAddPlayer(undefined)}>
           {t('newGame:addPlayer')}
         </Button>
         <InvitePlayerButton />
@@ -95,6 +136,18 @@ const NewGame: React.FC = () => {
         <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
         <Button type="submit">{t('newGame:startGame')}</Button>
       </Form>
+      {playersInQueue.length > 0 && (
+        <Modal
+          key={playersInQueue[0].id}
+          isOpen={isOpen}
+          handleClose={() => onClose()}
+          title={t('newGame:joiningGame', { player: playersInQueue[0].name })}
+          firstActionButton={t('common:accept')}
+          handleFirstAction={() => handleAnswerJoinRequest(playersInQueue[0], true)}
+          secondActionButton={t('common:decline')}
+          handleSecondAction={() => handleAnswerJoinRequest(playersInQueue[0], false)}
+        ></Modal>
+      )}
     </PageLayout>
   );
 };

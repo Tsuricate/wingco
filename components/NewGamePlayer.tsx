@@ -41,6 +41,7 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
       value={name}
       label={t('newGame:player', { number: playerNumber })}
       updateField={updateField}
+      isReadOnly={isRegistered}
       leftSlot={
         isRegistered ? (
           <PlayerAvatar avatar={avatar.url} avatarSize="md" />

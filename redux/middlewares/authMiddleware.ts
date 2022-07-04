@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Action, Dispatch, Middleware } from 'redux';
+import { defaultScores } from '../../constants/game';
 import { getChangeEmailMessage } from '../../utils/api/getEmail';
 import { sendEmail } from '../../utils/api/sendEmail';
-import { defaultScores } from '../../utils/newGame';
 import { CHECK_TOKEN, saveUser, signOutUser } from '../actions/auth';
 import { hasUpdatedEmail, hasUpdatedInfos, SAVE_USER_NEW_INFOS } from '../actions/manageAccount';
 import { setFirstPlayer } from '../actions/newGame';

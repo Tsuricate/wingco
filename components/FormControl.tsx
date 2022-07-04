@@ -22,6 +22,7 @@ interface FormControlProps {
   leftSlot?: ReactElement;
   rightSlot?: ReactElement;
   errors?: Array<string>;
+  isReadOnly?: boolean;
 }
 
 const FormControl: React.FC<FormControlProps> = ({
@@ -34,6 +35,7 @@ const FormControl: React.FC<FormControlProps> = ({
   leftSlot,
   rightSlot,
   errors = [],
+  isReadOnly = false,
 }) => {
   const manageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateField(event.target.value.trim(), name);
@@ -45,7 +47,7 @@ const FormControl: React.FC<FormControlProps> = ({
   const isInvalid: boolean = errors.length ? true : false;
 
   return (
-    <ChakraFormControl isInvalid={isInvalid}>
+    <ChakraFormControl isInvalid={isInvalid} isReadOnly={isReadOnly}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       {['password', 'passwordValidation'].includes(name) ? (
         <InputGroup size="md">
