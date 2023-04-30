@@ -55,7 +55,7 @@ const GameScores: React.FC = () => {
         isOpen={isOpen}
         firstActionButton={t('gameScores:enterScores')}
         handleFirstAction={onClose}
-      ></Modal>
+      />
     </PageLayout>
   );
 };

@@ -7,6 +7,7 @@ interface StatisticsPanelProps {
   icon: IconType;
   title: string;
   description: string;
+  children: React.ReactNode;
 }
 const StatisticsPanel: React.FC<StatisticsPanelProps> = ({ title, description, icon, children }) => {
   return (

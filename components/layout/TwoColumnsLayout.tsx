@@ -3,6 +3,7 @@ import React from 'react';
 
 interface TwoColumnsLayoutProps {
   noSpacing?: boolean;
+  children: React.ReactNode;
 }
 
 const TwoColumnsLayout: React.FC<TwoColumnsLayoutProps> = ({ children, noSpacing }) => {

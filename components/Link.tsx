@@ -16,6 +16,7 @@ interface LinkProps {
   asOverlay?: boolean;
   isExternal?: boolean;
   onClick?: () => void;
+  children: React.ReactNode;
 }
 
 const Link: React.FC<LinkProps> = ({

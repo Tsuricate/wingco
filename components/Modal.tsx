@@ -23,6 +23,7 @@ interface ModalProps {
   handleFirstAction?: () => void;
   handleSecondAction?: () => void;
   href?: string;
+  children?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -45,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({
           <ModalHeader>{title}</ModalHeader>
           <Text textAlign="center">{description}</Text>
           <ModalCloseButton />
-          <ModalBody>{children}</ModalBody>
+          {children && <ModalBody>{children}</ModalBody>}
           <ModalFooter justifyContent="center">
             <Stack>
               {firstActionButton && <Button onClick={handleFirstAction}>{firstActionButton}</Button>}

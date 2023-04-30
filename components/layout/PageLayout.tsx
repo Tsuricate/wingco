@@ -5,6 +5,7 @@ import NavBar from '../NavBar';
 
 interface PageLayoutProps {
   title: string;
+  children: React.ReactNode;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ title, children }) => (

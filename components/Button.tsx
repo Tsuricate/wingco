@@ -9,6 +9,7 @@ type ButtonProps = {
   onClick?: () => void;
   isLoading?: boolean;
   loadingText?: string;
+  children: React.ReactNode;
 };
 
 export const buttonDefaultStyle: ChakraButtonProps = {
