@@ -811,6 +811,16 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fontsource/bad-script@^4.5.8":
+  version "4.5.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/bad-script/-/bad-script-4.5.8.tgz#6b6b0752de68ea26b8fcbf8cb849371eef8d1a71"
+  integrity sha512-Jt/bzOz7nP7yq7ldN2ZlnSjfZDiy5mXLJcEYWJ/i9ZmykRpyY+zhM9cwe/DkEMKoYb5YRqBKq1wYQQJ3X3FjMg==
+
+"@fontsource/old-standard-tt@^4.5.9":
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/old-standard-tt/-/old-standard-tt-4.5.9.tgz#712c843b153b1785fada746320625beeec0b6305"
+  integrity sha512-IAnDs2t3+bQWZXJ03nELHkRsWl4RArvTgfAn3IX0WbcZWMqAoVMu9sBBdMOvOiEnti/pG0zV6mEGP1TMkfOZbg==
+
 "@graphql-typed-document-node/core@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"

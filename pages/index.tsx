@@ -1,9 +1,9 @@
-import { Stack, Text } from '@chakra-ui/react';
+import { Box, Heading, Stack, Button } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from '../components/Link';
-import PageLayout from '../components/layout/PageLayout';
+// import PageLayout from '../components/layout/PageLayout';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { useRouter } from 'next/router';
@@ -16,14 +16,19 @@ const Home: NextPage = () => {
   const { accountDeleted } = router.query;
 
   return (
-    <PageLayout title={t('home:title')}>
+    <Box padding={10}>
       {accountDeleted && <AlertMessage status="info">{t('manageAccount:accountDeleted')}</AlertMessage>}
       <Stack spacing={{ base: 10 }}>
-        <Text>{t('home:description')}</Text>
+        <Heading textAlign="center" fontWeight={400} fontSize={55}>
+          {t('home:description')}
+        </Heading>
         {!isLogged && (
-          <Link href="/sign-in" asButton>
-            {t('common:signIn')}
-          </Link>
+          <>
+            <Button variant="test">Lalalala</Button>
+            <Link href="/sign-in" asButton buttonVariant="variantTest">
+              {t('common:signIn')}
+            </Link>
+          </>
         )}
         <Link href="/new-game" asButton>
           {!isLogged ? t('common:newGameAsGuest') : t('common:newGame')}
@@ -32,7 +37,7 @@ const Home: NextPage = () => {
           {t('common:joinGame')}
         </Link>
       </Stack>
-    </PageLayout>
+    </Box>
   );
 };
 
