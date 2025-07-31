@@ -1,4 +1,4 @@
-import { Divider, Text, useDisclosure } from '@chakra-ui/react';
+import { Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import Form from '../../components/Form';
 import FormControl from '../../components/FormControl';
 import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
-import Modal from '../../components/Modal';
+import Dialog from '../../components/Dialog';
 import ToastMessage from '../../components/ToastMessage';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
 import { initManageAccount, saveUserNewInfos, updateUserInfos } from '../../redux/actions/manageAccount';
@@ -20,7 +20,7 @@ import uniqid from 'uniqid';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const { id, name: currentName, email: currentEmail } = useSelector((state: RootState) => state.auth);
   const { username, email, hasUpdatedInfos, hasUpdatedEmail } = useSelector(
     (state: RootState) => state.manageAccount
@@ -51,7 +51,6 @@ const ManageAccount: NextPageWithAuth = () => {
     <PageLayout title={t('manageAccount:title')}>
       <Text>{t('manageAccount:description')}</Text>
       <Form onSubmit={handleSubmit}>
-        <Divider />
         <FormControl
           id="username"
           name="username"
@@ -61,7 +60,6 @@ const ManageAccount: NextPageWithAuth = () => {
           updateField={updateField}
           errors={getErrorsMessages(formErrors, 'username')}
         />
-        <Divider />
         <FormControl
           id="email"
           name="email"
@@ -72,23 +70,21 @@ const ManageAccount: NextPageWithAuth = () => {
           errors={getErrorsMessages(formErrors, 'email')}
         />
         <Button type="submit">{t('common:save')}</Button>
-        <Divider />
         <Link href="/password-assistance" onClick={() => dispatch(resetPasswordAssistanceInfos())}>
           {t('manageAccount:changePassword')}
         </Link>
-        <Divider />
         <Button onClick={onOpen}>{t('manageAccount:delete')}</Button>
-        <Modal
+        <Dialog
           title={t('manageAccount:delete')}
           firstActionButton={t('manageAccount:keepAccount')}
           handleFirstAction={onClose}
           secondActionButton={t('manageAccount:delete')}
-          isOpen={isOpen}
+          isOpen={open}
           handleClose={onClose}
           href="/api/user/delete"
         >
           {t('manageAccount:deleteModalDescription')}
-        </Modal>
+        </Dialog>
         {hasUpdatedInfos && (
           <ToastMessage
             id={uniqid()}

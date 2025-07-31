@@ -10,6 +10,7 @@ import Loader from './Loader';
 
 interface AuthGuardProps {
   isLoading: boolean;
+  children?: React.ReactNode
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {

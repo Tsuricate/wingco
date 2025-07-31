@@ -3,6 +3,7 @@ import React from 'react';
 
 interface FormProps {
   onSubmit: () => void;
+  children: React.ReactNode;
 }
 
 const Form: React.FC<FormProps> = ({ children, onSubmit }) => {
@@ -13,7 +14,7 @@ const Form: React.FC<FormProps> = ({ children, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Stack spacing={5}>{children}</Stack>
+      <Stack>{children}</Stack>
     </form>
   );
 };

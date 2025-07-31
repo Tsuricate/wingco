@@ -1,6 +1,6 @@
-import { DeleteIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import { MdOutlineDeleteForever } from 'react-icons/md';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AvatarImage, PlayerWithRegisteredInfos } from '../models/players';
@@ -51,12 +51,9 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
       }
       rightSlot={
         playerNumber > 1 ? (
-          <IconButton
-            aria-label="Remove player from game"
-            colorScheme="red"
-            icon={<DeleteIcon />}
-            onClick={onDeletePlayer}
-          />
+          <IconButton aria-label="Remove player from game" colorScheme="red" onClick={onDeletePlayer}>
+            <MdOutlineDeleteForever />
+          </IconButton>
         ) : undefined
       }
     />

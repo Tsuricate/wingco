@@ -23,7 +23,7 @@ const Account: NextPageWithAuth = () => {
 
   return (
     <PageLayout title={t('account:title')}>
-      <Stack spacing={8}>
+      <Stack gap={8}>
         <Stack as={Center}>
           <AvatarSelector
             avatarSize="xl"

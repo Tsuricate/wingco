@@ -3,6 +3,7 @@ import React from 'react';
 
 interface AlertMessageProps {
   status: AlertProps['status'];
+  children: React.ReactNode
 }
 
 const AlertMessage: React.FC<AlertMessageProps> = ({ status, children }) => {

@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   return (
     <PageLayout title={t('home:title')}>
       {accountDeleted && <AlertMessage status="info">{t('manageAccount:accountDeleted')}</AlertMessage>}
-      <Stack spacing={{ base: 10 }}>
+      <Stack>
         <Text>{t('home:description')}</Text>
         {!isLogged && (
           <Link href="/sign-in" asButton>

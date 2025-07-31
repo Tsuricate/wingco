@@ -1,16 +1,7 @@
-import {
-  Button,
-  FormControl as ChakraFormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Stack,
-} from '@chakra-ui/react';
+import { Field, Button, Stack, Input, InputGroup } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React, { ReactElement, useState } from 'react';
+import { SafeFieldErrorText, SafeFieldHelperText, SafeFieldLabel } from './ui/chakraFixes';
 
 interface FormControlProps {
   id: string;
@@ -47,27 +38,30 @@ const FormControl: React.FC<FormControlProps> = ({
   const isInvalid: boolean = errors.length ? true : false;
 
   return (
-    <ChakraFormControl isInvalid={isInvalid} isReadOnly={isReadOnly}>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
+    <Field.Root invalid={isInvalid} readOnly={isReadOnly} id={id}>
+      <SafeFieldLabel htmlFor={id}>{label}</SafeFieldLabel>
       {['password', 'passwordValidation'].includes(name) ? (
-        <InputGroup size="md">
-          <Input
-            autoComplete="off"
-            type={show ? 'text' : 'password'}
-            id={id}
-            name={name}
-            value={value}
-            onChange={manageChange}
-            required
-          />
-          <InputRightElement width="4.5rem">
-            <Button h={7} size="sm" onClick={handleClick}>
-              {show ? t('common:hide') : t('common:show')}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        <Stack>
+          <InputGroup
+            endElement={
+              <Button h={7} size="sm" onClick={handleClick}>
+                {show ? t('common:hide') : t('common:show')}
+              </Button>
+            }
+          >
+            <Input
+              autoComplete="off"
+              type={show ? 'text' : 'password'}
+              id={id}
+              name={name}
+              value={value}
+              onChange={manageChange}
+              required
+            />
+          </InputGroup>
+        </Stack>
       ) : (
-        <Stack direction="row" align="center">
+        <Stack direction="row" align="center" gap={5}>
           {leftSlot}
           <Input id={id} name={name} value={value} onChange={manageChange} required />
           {rightSlot}
@@ -75,11 +69,11 @@ const FormControl: React.FC<FormControlProps> = ({
       )}
 
       {!isInvalid ? (
-        <FormHelperText>{helperText}</FormHelperText>
+        <SafeFieldHelperText>{helperText}</SafeFieldHelperText>
       ) : (
-        errors.map((error) => <FormErrorMessage key={error}>{error}</FormErrorMessage>)
+        errors.map((error) => <SafeFieldErrorText key={error}>{error}</SafeFieldErrorText>)
       )}
-    </ChakraFormControl>
+    </Field.Root>
   );
 };
 

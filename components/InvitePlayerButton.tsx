@@ -1,17 +1,18 @@
-import { ListItem, Stack, Text, UnorderedList, useDisclosure } from '@chakra-ui/react';
+import { List, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import Button from './Button';
-import Modal from './Modal';
+import Dialog from './Dialog';
 
 const InvitePlayerButton: React.FC = () => {
   const { t } = useTranslation(['newGame', 'common']);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const { gameSlug } = useSelector((state: RootState) => state.game);
 
   const handleInvitePlayer = () => {
+    console.log('passing in HANDLE INVITE PLAYER', open);
     onOpen();
   };
 
@@ -20,9 +21,9 @@ const InvitePlayerButton: React.FC = () => {
       <Button variant="outline" onClick={handleInvitePlayer}>
         {t('newGame:invitePlayer')}
       </Button>
-      <Modal
+      <Dialog
         handleClose={onClose}
-        isOpen={isOpen}
+        open={open}
         title={t('newGame:howInvitePlayer')}
         description={t('newGame:howInviteDescription', { gameId: gameSlug })}
         secondActionButton={t('common:gotIt')}
@@ -30,14 +31,14 @@ const InvitePlayerButton: React.FC = () => {
       >
         <Stack>
           <Text>{t('newGame:howInviteIntro')}</Text>
-          <UnorderedList>
-            <ListItem>{t('newGame:howInviteStep1')}</ListItem>
-            <ListItem>{t('newGame:howInviteStep2')}</ListItem>
-            <ListItem>{t('newGame:howInviteStep3')}</ListItem>
-            <ListItem>{t('newGame:howInviteStep4')}</ListItem>
-          </UnorderedList>
+          <List.Root>
+            <List.Item>{t('newGame:howInviteStep1')}</List.Item>
+            <List.Item>{t('newGame:howInviteStep2')}</List.Item>
+            <List.Item>{t('newGame:howInviteStep3')}</List.Item>
+            <List.Item>{t('newGame:howInviteStep4')}</List.Item>
+          </List.Root>
         </Stack>
-      </Modal>
+      </Dialog>
     </>
   );
 };

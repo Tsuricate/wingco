@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import PageLayout from '../components/layout/PageLayout';
-import Modal from '../components/Modal';
+import Dialog from '../components/Dialog';
 import ScoresSection from '../components/ScoresSection';
 import { Category } from '../models/game';
 import { sendGameScores } from '../redux/actions/gameScores';
@@ -20,7 +20,7 @@ const GameScores: React.FC = () => {
   const { categories, gameWithNectar, players, isCreatingNewGame } = useSelector(
     (state: RootState) => state.game
   );
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     onOpen();
@@ -39,7 +39,7 @@ const GameScores: React.FC = () => {
   return (
     <PageLayout title={t('gameScores:title')}>
       <Form onSubmit={handleSubmit}>
-        <Stack spacing={5}>
+        <Stack gap={5}>
           {categoriesToDisplay.map((category: Category) => (
             <ScoresSection key={category.id} category={category.name} players={players} />
           ))}
@@ -48,14 +48,16 @@ const GameScores: React.FC = () => {
           {t('gameScores:computeScores')}
         </Button>
       </Form>
-      <Modal
+      <Dialog
         title={isCreatingNewGame ? t('newGame:creatingGame') : t('newGame:gameCreated')}
         description={t('newGame:gameCreatedDescription')}
         handleClose={onClose}
-        isOpen={isOpen}
+        isOpen={open}
         firstActionButton={t('gameScores:enterScores')}
         handleFirstAction={onClose}
-      ></Modal>
+      >
+        La
+      </Dialog>
     </PageLayout>
   );
 };

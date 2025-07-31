@@ -1,23 +1,15 @@
-import { EditIcon } from '@chakra-ui/icons';
-import {
-  Avatar,
-  AvatarBadge,
-  Icon,
-  Image,
-  SimpleGrid,
-  ThemingProps,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Avatar, Float, IconButton, Image, SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import { CiEdit } from 'react-icons/ci';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AvatarImage } from '../models/players';
 import { getAvatarImages } from '../redux/actions/player';
 import { RootState } from '../redux/reducers';
-import Modal from './Modal';
+import Dialog from './Dialog';
 
 interface AvatarSelectorProps {
-  avatarSize?: ThemingProps<'Avatar'>['size'];
+  avatarSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   currentAvatar: string;
   updatePlayerAvatar: (newAvatar: string) => void;
 }
@@ -27,7 +19,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
   currentAvatar,
   updatePlayerAvatar,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const { avatarImages } = useSelector((state: RootState) => state.player);
   const dispatch = useDispatch();
   const { t } = useTranslation(['newGame', 'common']);
@@ -45,20 +37,22 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
 
   return (
     <>
-      <Avatar size={avatarSize} src={currentAvatar} onClick={handleClick}>
-        <AvatarBadge boxSize="0.8em" borderWidth={2} borderColor="blackAlpha.500" bg="white">
-          <Icon as={EditIcon} w="3" />
-        </AvatarBadge>
-      </Avatar>
-      <Modal
+      <Avatar.Root size={avatarSize} src={currentAvatar} onClick={handleClick}>
+        <Float placement="bottom-end" offsetX="1" offsetY="1">
+          <IconButton aria-label="Modify avatar icon" rounded="full" size="2xs">
+            <CiEdit />
+          </IconButton>
+        </Float>
+      </Avatar.Root>
+      <Dialog
         handleClose={onClose}
-        isOpen={isOpen}
+        isOpen={open}
         title={t('newGame:chooseAvatar')}
         description={t('newGame:chooseAvatarDescription')}
         firstActionButton={t('common:save')}
         handleFirstAction={handleChosenAvatar}
       >
-        <SimpleGrid columns={{ base: 3 }} spacing={2}>
+        <SimpleGrid columns={{ base: 3 }} gap={2}>
           {avatarImages.map((image: AvatarImage) => (
             <Image
               key={image.id}
@@ -71,7 +65,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
             />
           ))}
         </SimpleGrid>
-      </Modal>
+      </Dialog>
     </>
   );
 };

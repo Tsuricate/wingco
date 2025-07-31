@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetErrors } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
-import Modal from './Modal';
+import Dialog from './Dialog';
 
 interface ModalProps {
   title: string;
@@ -33,7 +33,7 @@ const errorSendingEmailModal: ModalProps = {
 const SignUpModal: React.FC = () => {
   const { t } = useTranslation(['signUp', 'common']);
   const dispatch = useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const { showSignUpModal, errorWhileCreatingUser, errorWhileSendingEmail } = useSelector(
     (state: RootState) => state.signUp
   );
@@ -58,15 +58,15 @@ const SignUpModal: React.FC = () => {
   }, [onOpen, showSignUpModal]);
 
   return (
-    <Modal
-      isOpen={isOpen}
+    <Dialog
+      isOpen={open}
       handleClose={handleClose}
       title={t(`${modalToShow.title}`)}
       secondActionButton={t(`${modalToShow.closeMessage}`)}
       handleSecondAction={handleClose}
     >
       <Text>{t(`${modalToShow.children}`)}</Text>
-    </Modal>
+    </Dialog>
   );
 };
 

@@ -15,28 +15,28 @@ const password = yup
 
 const passwordValidation = yup
   .string()
-  .oneOf([yup.ref('password'), null], 'validations:passwordValidation')
+  .oneOf([yup.ref('password')], 'validations:passwordValidation')
   .required('validations:fieldRequired');
 
-export const resetCodeValidationSchema = yup.object().shape({
+export const resetCodeValidationSchema = yup.object({
   resetCode: yup.string().length(8, 'validations:resetCodeLength').required('validations:fieldRequired'),
 });
 
-export const emailValidationSchema = yup.object().shape({
+export const emailValidationSchema = yup.object({
   email,
 });
 
-export const manageAccountValidationSchema = yup.object().shape({
+export const manageAccountValidationSchema = yup.object({
   username,
   email,
 });
 
-export const passwordValidationSchema = yup.object().shape({
+export const passwordValidationSchema = yup.object({
   password,
   passwordValidation,
 });
 
-export const signUpSchema = yup.object().shape({
+export const signUpSchema = yup.object({
   username,
   email,
   password,

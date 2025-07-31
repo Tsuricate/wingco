@@ -101,9 +101,9 @@ const SignIn: React.FC = () => {
         <Link href="/password-assistance" onClick={handleClick}>
           {t('signIn:forgotPassword')}
         </Link>
-        <Checkbox name="rememberMe" isChecked={rememberMe} onChange={handleCheckbox}>
+        <Checkbox.Root name="rememberMe" checked={rememberMe} onChange={handleCheckbox}>
           {t('signIn:rememberMe')}
-        </Checkbox>
+        </Checkbox.Root>
         <Button type="submit" dataCy="signIn" variant="solid">
           {t('signIn:signInButtonLabel')}
         </Button>

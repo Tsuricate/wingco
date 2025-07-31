@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from '../components/ui/Provider';
 import axios from 'axios';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
@@ -44,7 +44,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
 
   return (
     <ApolloProvider client={client}>
-      <ChakraProvider>
+      <Provider>
         {Component.requireAuth ? (
           <AuthGuard isLoading={isLoading}>
             <Component {...pageProps} />
@@ -52,7 +52,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         ) : (
           <Component {...pageProps} />
         )}
-      </ChakraProvider>
+      </Provider>
     </ApolloProvider>
   );
 };

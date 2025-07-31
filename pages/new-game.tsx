@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Stack, Switch, Text, useDisclosure } from '@chakra-ui/react';
+import { Stack, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import Button from '../components/Button';
 import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
-import Modal from '../components/Modal';
+import Dialog from '../components/Dialog';
 import NewGamePlayer from '../components/NewGamePlayer';
 import { defaultPlayer, defaultScores } from '../constants/game';
 import { IGamePlayer, Player } from '../models/players';
@@ -25,12 +25,13 @@ import {
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
 import { getEstimatedTime } from '../utils/newGame';
+import { SafeSwitchLabel } from '../components/ui/chakraFixes';
 
 const NewGame: React.FC = () => {
   const { t } = useTranslation(['common', 'newGame']);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const { playersInQueue } = useSelector((state: RootState) => state.joinGame);
   const hasReachedMaxPlayers = players.length === 5;
@@ -70,8 +71,8 @@ const NewGame: React.FC = () => {
     }
   }, [dispatch, gameSlug, hasReachedMaxPlayers, onClose, onOpen, players, playersInQueue]);
 
-  const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateGameWithNectar(event.target.checked));
+  const handleSwitch = (event: { checked: boolean }) => {
+    dispatch(updateGameWithNectar(event.checked));
   };
 
   const handleAddPlayer = (invitedPlayer: Player | undefined) => {
@@ -96,6 +97,7 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    console.log('Passing in handle SuMBITTT');
     router.push('/game-scores');
     dispatch(createNewGame());
   };
@@ -121,7 +123,7 @@ const NewGame: React.FC = () => {
               isRegistered={player.isRegistered}
               playerNumber={index + 1}
               onDeletePlayer={() => handleDeletePlayer(player.id)}
-              updateField={(value) => handleUpdatePlayerInfos(value, player.id)}
+              updateField={(value: any) => handleUpdatePlayerInfos(value, player.id)}
             />
           ))}
         </Stack>
@@ -129,24 +131,29 @@ const NewGame: React.FC = () => {
           {t('newGame:addPlayer')}
         </Button>
         <InvitePlayerButton />
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="useNectar">{t('newGame:useNectar')}</FormLabel>
-          <Switch id="useNectar" isChecked={gameWithNectar} onChange={handleSwitch} />
-        </FormControl>
+        <Switch.Root id="useNectar" checked={gameWithNectar} onCheckedChange={handleSwitch}>
+          <Switch.HiddenInput />
+          <Stack direction="row" align="center">
+            <SafeSwitchLabel htmlFor="useNectar">{t('newGame:useNectar')}</SafeSwitchLabel>
+            <Switch.Control />
+          </Stack>
+        </Switch.Root>
         <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
         <Button type="submit">{t('newGame:startGame')}</Button>
       </Form>
       {playersInQueue.length > 0 && (
-        <Modal
+        <Dialog
           key={playersInQueue[0].id}
-          isOpen={isOpen}
+          open={open}
           handleClose={() => onClose()}
           title={t('newGame:joiningGame', { player: playersInQueue[0].name })}
           firstActionButton={t('common:accept')}
           handleFirstAction={() => handleAnswerJoinRequest(playersInQueue[0], true)}
           secondActionButton={t('common:decline')}
           handleSecondAction={() => handleAnswerJoinRequest(playersInQueue[0], false)}
-        ></Modal>
+        >
+          Lalalala
+        </Dialog>
       )}
     </PageLayout>
   );

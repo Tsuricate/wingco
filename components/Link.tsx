@@ -1,58 +1,57 @@
-import {
-  Button as ChakraButton,
-  ButtonProps,
-  Link as ChakraLink,
-  LinkOverlay as ChakraLinkOverlay,
-} from '@chakra-ui/react';
+import { Button as ChakraButton, ButtonProps, Link as ChakraLink } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
-import { buttonDefaultStyle } from './Button';
 
 interface LinkProps {
   href: string;
   dataCy?: string;
+  isExternal?: boolean;
   asButton?: boolean;
   buttonVariant?: ButtonProps['variant'];
-  asOverlay?: boolean;
-  isExternal?: boolean;
   onClick?: () => void;
+  children: React.ReactNode;
 }
 
 const Link: React.FC<LinkProps> = ({
   href,
   children,
   dataCy,
+  isExternal,
   asButton = false,
   buttonVariant = 'outline',
-  asOverlay = false,
-  isExternal,
   onClick,
 }) => {
-  return isExternal ? (
-    <ChakraLink href={href}>{children}</ChakraLink>
-  ) : (
-    <NextLink href={href} passHref>
-      {asButton ? (
-        <ChakraButton
-          as={ChakraLink}
-          data-cy={dataCy}
-          onClick={onClick}
-          css={{
-            ':hover': {
-              textDecoration: 'none',
-            },
-          }}
-          variant={buttonVariant}
-          {...buttonDefaultStyle}
-        >
-          {children}
-        </ChakraButton>
-      ) : (
-        <ChakraLink as={asOverlay ? ChakraLinkOverlay : ChakraLink} data-cy={dataCy} onClick={onClick}>
-          {children}
-        </ChakraLink>
-      )}
-    </NextLink>
+  if (isExternal) {
+    return (
+      <ChakraLink
+        href={href}
+        data-cy={dataCy}
+        rel="noopener noreferrer"
+        _hover={{ textDecoration: 'none' }}
+      >
+        {children}
+      </ChakraLink>
+    );
+  }
+
+  if (asButton) {
+    return (
+      <ChakraButton
+        asChild
+        variant={buttonVariant}
+        data-cy={dataCy}
+        onClick={onClick}
+        _hover={{ textDecoration: 'none' }}
+      >
+        <NextLink href={href}>{children}</NextLink>
+      </ChakraButton>
+    );
+  }
+
+  return (
+    <ChakraLink as={NextLink} href={href} data-cy={dataCy} _hover={{ textDecoration: 'none' }}>
+      {children}
+    </ChakraLink>
   );
 };
 
