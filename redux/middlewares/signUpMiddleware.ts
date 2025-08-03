@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { Action, Dispatch, Middleware } from 'redux';
-import { getSignUpMessage } from '../../utils/api/getEmail';
+import { Dispatch, Middleware } from 'redux';
 import { sendEmail } from '../../utils/api/sendEmail';
 import {
   errorWhileCreatingUser,
@@ -9,49 +8,51 @@ import {
   resetForm,
   SUBMIT_SIGN_UP,
   updateIsLoading,
+  SignUpAction,
 } from '../actions/signUp';
+import { RootState } from '../reducers';
+import { getSignUpMessage } from '../../utils/api/getEmail';
 
-const signUpMiddleware: Middleware = (store) => (next: Dispatch) => (action: Action) => {
-  switch (action.type) {
-    case SUBMIT_SIGN_UP: {
-      const { username, email, password } = store.getState().signUp;
-      const newPlayer = {
-        name: username,
-        email,
-        password,
-      };
+const signUpMiddleware: Middleware<{}, RootState, Dispatch<SignUpAction>> =
+  (store) => (next) => (action) => {
+    const typedAction = action as SignUpAction;
+    switch (typedAction.type) {
+      case SUBMIT_SIGN_UP: {
+        const { username, email, password } = store.getState().signUp;
+        const newPlayer = { name: username, email, password };
 
-      store.dispatch(updateIsLoading(true));
+        store.dispatch(updateIsLoading(true));
 
-      axios
-        .post('/api/sign-up', newPlayer)
-        .then(async (response) => {
-          if (response.status === 201) {
-            const userId = response.data.id;
-            const message = await getSignUpMessage(userId, email, username);
+        axios
+          .post('/api/sign-up', newPlayer)
+          .then(async (response) => {
+            if (response.status === 201) {
+              const player = response.data;
 
-            sendEmail(message)
-              .catch(() => {
-                store.dispatch(errorWhileSendingEmail());
-              })
-              .finally(() => {
+              const message = getSignUpMessage(player.email, player.name, player.validationEmailToken);
+
+              try {
+                await sendEmail(message);
                 store.dispatch(resetForm());
-              });
-          }
-        })
-        .catch(() => {
-          store.dispatch(errorWhileCreatingUser());
-        })
-        .finally(() => {
-          store.dispatch(updateIsLoading(false));
-          store.dispatch(showSignUpModal());
-        });
+              } catch {
+                store.dispatch(errorWhileSendingEmail());
+              }
+            }
+          })
+          .catch(() => {
+            store.dispatch(errorWhileCreatingUser());
+          })
+          .finally(() => {
+            store.dispatch(updateIsLoading(false));
+            store.dispatch(showSignUpModal());
+          });
 
-      next(action);
-      break;
+        next(action);
+        break;
+      }
+      default:
+        next(action);
     }
-    default:
-      next(action);
-  }
-};
+  };
+
 export default signUpMiddleware;

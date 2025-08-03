@@ -4,28 +4,17 @@ import { i18n } from 'next-i18next';
 import { SET_VALIDATION_EMAIL_TOKEN } from '../../queries/signup.queries';
 import { SET_PASSWORD_RESET_CODE } from '../../queries/passwordAssistance.queries';
 
-export const getSignUpMessage = async (userId: string, email: string, username: string) => {
-  const validationEmailToken = uniqid();
-
-  const setValidationEmailToken = await client.mutate({
-    mutation: SET_VALIDATION_EMAIL_TOKEN,
-    variables: { id: userId, validationEmailToken: validationEmailToken },
-  });
-
-  const validationToken = setValidationEmailToken.data.updatePlayer.validationEmailToken;
-
-  const signUpMessage = {
+export const getSignUpMessage = (email: string, username: string, validationEmailToken: string) => {
+  return {
     from: '"WingCo App" <wingspan.companion@gmail.com>',
     to: email,
     subject: i18n?.t('email:signUpEmailSubject'),
     html: i18n?.t('email:signUpEmail', {
       username,
       domain: process.env.NEXT_PUBLIC_WEB_URI,
-      validationToken,
+      validationToken: validationEmailToken,
     }),
   };
-
-  return signUpMessage;
 };
 
 export const getResetPasswordMessage = async (email: string) => {

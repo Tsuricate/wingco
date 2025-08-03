@@ -7,6 +7,16 @@ export const ERROR_WHILE_SENDING_EMAIL = 'ERROR_WHILE_SENDING_EMAIL';
 export const SHOW_SIGN_UP_MODAL = 'SHOW_SIGN_UP_MODAL';
 export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING';
 
+export type SignUpAction =
+  | ReturnType<typeof updateSignUpInfos>
+  | ReturnType<typeof submitSignUp>
+  | ReturnType<typeof resetForm>
+  | ReturnType<typeof resetErrors>
+  | ReturnType<typeof errorWhileCreatingUser>
+  | ReturnType<typeof errorWhileSendingEmail>
+  | ReturnType<typeof showSignUpModal>
+  | ReturnType<typeof updateIsLoading>;
+
 export const updateSignUpInfos = (value: string, name: string) => ({
   type: UPDATE_SIGN_UP_INFOS,
   value,
