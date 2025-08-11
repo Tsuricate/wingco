@@ -1,34 +1,28 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { NextApiHandler } from 'next';
 import nodemailer from 'nodemailer';
 
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler: NextApiHandler = async (req, res) => {
   const { message } = req.body;
 
-  return new Promise(async (resolve, reject) => {
+  if (!message) {
+    return res.status(400).json({ error: 'Message is missing.' });
+  }
+
+  try {
     const transporter = nodemailer.createTransport({
-      port: 465,
-      host: 'smtp.gmail.com',
+      service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASSWORD,
       },
     });
 
-    if (message) {
-      transporter.sendMail(message, (err, info) => {
-        if (err) {
-          res.status(400).json(err);
-          reject();
-        } else {
-          res.status(200).json(info);
-          resolve();
-        }
-      });
-    } else {
-      res.status(200).json({});
-      resolve();
-    }
-  });
+    const info = await transporter.sendMail(message);
+    return res.status(200).json(info);
+  } catch (err) {
+    console.error('Email sending failed:', err);
+    return res.status(500).json({ error: 'Failed to send email.' });
+  }
 };
 
 export default handler;

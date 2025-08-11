@@ -28,9 +28,7 @@ const signUpMiddleware: Middleware<{}, RootState, Dispatch<SignUpAction>> =
           .then(async (response) => {
             if (response.status === 201) {
               const player = response.data;
-
-              const message = getSignUpMessage(player.email, player.name, player.validationEmailToken);
-
+              const message = getSignUpMessage(email, username, player.validationEmailToken);
               try {
                 await sendEmail(message);
                 store.dispatch(resetForm());

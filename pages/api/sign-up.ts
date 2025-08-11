@@ -43,13 +43,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const updatedPlayer = updateTokenResponse.data?.updatePlayer;
 
     if (!updatedPlayer || !updatedPlayer.validationEmailToken) {
-      console.error('❌ Échec de l’ajout du token de validation.');
       return res.status(500).json({ error: 'Validation token update failed.' });
     }
 
     return res.status(201).json(updatedPlayer);
   } catch (err) {
-    console.error('❌ Erreur serveur :', err);
+    console.error('❌ Servor error :', err);
     return res.status(400).json({ error: 'Something went wrong during signup.' });
   }
 };
