@@ -52,3 +52,12 @@ export const VERIFY_VALIDATION_EMAIL_TOKEN = gql`
     }
   }
 `;
+
+export const PUBLISH_PLAYER = gql`
+  mutation PublishPlayer($id: ID!) {
+    publishPlayer(where: { id: $id }, to: PUBLISHED) {
+      id
+      hasVerifiedEmail
+    }
+  }
+`;

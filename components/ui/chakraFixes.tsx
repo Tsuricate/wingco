@@ -1,5 +1,5 @@
-import { Dialog, Field, Switch } from '@chakra-ui/react';
-import React, { ComponentProps } from 'react';
+import { Checkbox, Dialog, Field, Switch, Toast, Toaster } from '@chakra-ui/react';
+import React from 'react';
 
 export const SafeFieldLabel: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (props) => {
   return <Field.Label {...props} />;
@@ -23,4 +23,24 @@ export const SafeDialogContent = ({ children, ...props }: any) => {
 
 export const SafeDialogPositioner = ({ children, ...props }: any) => {
   return <Dialog.Positioner {...props}>{children}</Dialog.Positioner>;
+};
+
+export const SafeChakraToaster = ({ children, ...props }: any) => {
+  return <Toaster {...props}>{children}</Toaster>;
+};
+
+export const SafeToasterTitle = ({ children, ...props }: any) => {
+  return <Toast.Title {...props}>{children}</Toast.Title>;
+};
+
+export const SafeToasterDescription = ({ children, ...props }: any) => {
+  return <Toast.Description {...props}>{children}</Toast.Description>;
+};
+
+export const SafeToasterActionTrigger = ({ children, ...props }: any) => {
+  return <Toast.ActionTrigger {...props}>{children}</Toast.ActionTrigger>;
+};
+
+export const SafeCheckboxLabel = ({ children, ...props }: any) => {
+  return <Checkbox.Label {...props}>{children}</Checkbox.Label>;
 };

@@ -60,7 +60,7 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
     case SHOW_SIGN_UP_MODAL: {
       return {
         ...state,
-        showSignUpModal: true,
+        showSignUpModal: action.value,
       };
     }
 

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
+import * as cookie from 'cookie';
 import { findVerifiedPlayerByEmail } from '../../utils/api/playerUtils';
 import { comparePassword } from '../../utils/password';
 

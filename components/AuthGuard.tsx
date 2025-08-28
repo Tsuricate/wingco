@@ -6,11 +6,11 @@ import { checkToken } from '../redux/actions/auth';
 import { RootState } from '../redux/reducers';
 import { setRedirection } from '../utils/redirection';
 import PageLayout from './layout/PageLayout';
-import Loader from './Loader';
+import { Spinner } from '@chakra-ui/react';
 
 interface AuthGuardProps {
   isLoading: boolean;
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
@@ -36,7 +36,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children, isLoading }) => {
   if (isLoading) {
     return (
       <PageLayout title={t('common:loading')}>
-        <Loader />
+        <Spinner size="sm" />
       </PageLayout>
     );
   }

@@ -4,20 +4,25 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import uniqid from 'uniqid';
 import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
 import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
-import ToastMessage from '../components/ToastMessage';
+import { Toaster, toaster } from '../components/ui/toaster';
 import { resetPasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
-import { submitSignIn, updateRememberMe, updateSignInInfos } from '../redux/actions/signIn';
+import {
+  submitSignIn,
+  updateErrorSignIn,
+  updateRememberMe,
+  updateSignInInfos,
+} from '../redux/actions/signIn';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { getRedirection, removeRedirection } from '../utils/redirection';
 import { emailValidationSchema } from '../validations';
+import { SafeCheckboxLabel } from '../components/ui/chakraFixes';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'signUp', 'validations', 'common']);
@@ -64,21 +69,27 @@ const SignIn: React.FC = () => {
       });
   };
 
+  useEffect(() => {
+    if (errorSignIn) {
+      setTimeout(() => {
+        toaster.create({
+          description: t('signIn:errorSignIn'),
+          type: 'error',
+          closable: true,
+          duration: 5000,
+        });
+        dispatch(updateErrorSignIn(false));
+      }, 0);
+    }
+  }, [errorSignIn]);
+
   return (
     <PageLayout title={t('signIn:title')}>
+      <Toaster />
       {validatedEmail === 'true' && (
-        <AlertMessage status="success">{t('signUp:emailAddressValid')}</AlertMessage>
+        <AlertMessage status="success" description={t('signUp:emailAddressValid')} />
       )}
-      {errorSignIn && (
-        <ToastMessage
-          id={uniqid()}
-          description={t('signIn:errorSignIn')}
-          status="error"
-          duration={5000}
-          trigger={errorSignIn}
-        />
-      )}
-      {unauthorized && <AlertMessage status="error">{t('signIn:errorUnauthorized')}</AlertMessage>}
+      {unauthorized && <AlertMessage status="error" description={t('signIn:errorUnauthorized')} />}
 
       <Form onSubmit={handleSubmit}>
         <FormControl
@@ -102,7 +113,9 @@ const SignIn: React.FC = () => {
           {t('signIn:forgotPassword')}
         </Link>
         <Checkbox.Root name="rememberMe" checked={rememberMe} onChange={handleCheckbox}>
-          {t('signIn:rememberMe')}
+          <Checkbox.HiddenInput />
+          <Checkbox.Control />
+          <SafeCheckboxLabel>{t('signIn:rememberMe')}</SafeCheckboxLabel>
         </Checkbox.Root>
         <Button type="submit" dataCy="signIn" variant="solid">
           {t('signIn:signInButtonLabel')}

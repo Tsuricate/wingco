@@ -14,6 +14,7 @@ import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { signUpSchema } from '../validations';
+import AlertMessage from '../components/AlertMessage';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'validations', 'common']);
@@ -37,8 +38,39 @@ const SignUp: React.FC = () => {
       });
   };
 
+  let alert: { status: 'success' | 'error'; title: string; description: string } | null = null;
+
+  switch (true) {
+    case userInfos.showSignUpModal:
+      alert = {
+        status: 'success',
+        title: t('signUp:successModal:title'),
+        description: t('signUp:successModal.children'),
+      };
+      break;
+
+    case userInfos.errorWhileCreatingUser:
+      alert = {
+        status: 'error',
+        title: t('signUp:errorCreatingUserModal:title'),
+        description: t('signUp:errorCreatingUserModal.children'),
+      };
+      break;
+
+    case userInfos.errorWhileSendingEmail:
+      alert = {
+        status: 'error',
+        title: t('signUp:errorSendingEmailModal:title'),
+        description: t('signUp:errorSendingEmailModal.children'),
+      };
+      break;
+  }
+
   return (
     <PageLayout title={t('signUp:title')}>
+      {alert && (
+        <AlertMessage status={alert.status} title={alert.title} description={alert.description} />
+      )}
       <Form onSubmit={handleSubmit}>
         {signUpForm.map((form) => (
           <FormControl

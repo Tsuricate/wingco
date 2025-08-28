@@ -1,5 +1,4 @@
-import cookie from 'cookie';
-import { IncomingHttpHeaders } from 'http2';
+import * as cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import { NextApiResponse } from 'next';
 
@@ -22,10 +21,10 @@ interface JWTContent {
   exp: number;
 }
 
-export const getUserInfosFromCookie = (reqCookie: IncomingHttpHeaders['cookie']) => {
-  if (!reqCookie) throw new Error('Unauthenticated user');
+export const getUserInfosFromCookie = (reqCookie: string | undefined) => {
+  const { authToken } = reqCookie ? cookie.parse(reqCookie) : {};
+  if (!authToken) throw new Error('Unauthenticated user');
 
-  const { authToken } = cookie.parse(reqCookie);
   const jwtSecret: jwt.Secret = process.env.JWT_SECRET_KEY || '';
   const payload = jwt.verify(authToken, jwtSecret) as JWTContent;
 

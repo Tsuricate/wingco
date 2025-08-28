@@ -43,8 +43,9 @@ export const errorWhileSendingEmail = () => ({
   type: ERROR_WHILE_SENDING_EMAIL,
 });
 
-export const showSignUpModal = () => ({
+export const showSignUpModal = (value: boolean) => ({
   type: SHOW_SIGN_UP_MODAL,
+  value,
 });
 
 export const updateIsLoading = (value: boolean) => ({

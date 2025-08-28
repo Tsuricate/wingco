@@ -3,6 +3,12 @@ export const UPDATE_ERROR_SIGN_IN = 'UPDATE_ERROR_SIGN_IN';
 export const UPDATE_SIGN_IN_INFOS = 'UPDATE_SIGN_IN_INFOS';
 export const UPDATE_REMEMBER_ME = 'UPDATE_REMEMBER_ME';
 
+export type SignInAction =
+  | ReturnType<typeof submitSignIn>
+  | ReturnType<typeof updateErrorSignIn>
+  | ReturnType<typeof updateSignInInfos>
+  | ReturnType<typeof updateRememberMe>;
+
 export const submitSignIn = () => ({
   type: SUBMIT_SIGN_IN,
 });

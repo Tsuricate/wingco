@@ -32,17 +32,19 @@ const signUpMiddleware: Middleware<{}, RootState, Dispatch<SignUpAction>> =
               try {
                 await sendEmail(message);
                 store.dispatch(resetForm());
+                store.dispatch(showSignUpModal(true));
               } catch {
+                store.dispatch(showSignUpModal(false));
                 store.dispatch(errorWhileSendingEmail());
               }
             }
           })
           .catch(() => {
+            store.dispatch(showSignUpModal(false));
             store.dispatch(errorWhileCreatingUser());
           })
           .finally(() => {
             store.dispatch(updateIsLoading(false));
-            store.dispatch(showSignUpModal());
           });
 
         next(action);
