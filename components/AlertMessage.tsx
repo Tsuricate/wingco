@@ -5,9 +5,10 @@ interface AlertMessageProps {
   status: 'info' | 'warning' | 'success' | 'error' | 'neutral';
   title?: React.ReactNode;
   description: React.ReactNode;
+  addEl?: React.ReactNode;
 }
 
-const AlertMessage: React.FC<AlertMessageProps> = ({ status, title, description }) => {
+const AlertMessage: React.FC<AlertMessageProps> = ({ status, title, description, addEl }) => {
   return (
     <Alert.Root status={status} my={5}>
       <Alert.Indicator />
@@ -15,6 +16,7 @@ const AlertMessage: React.FC<AlertMessageProps> = ({ status, title, description 
         {title && <Alert.Title>{title}</Alert.Title>}
         <Alert.Description>{description}</Alert.Description>
       </Alert.Content>
+      {addEl && addEl}
     </Alert.Root>
   );
 };

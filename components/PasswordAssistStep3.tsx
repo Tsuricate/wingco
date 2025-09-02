@@ -29,11 +29,12 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
   return (
     <>
       {hasCorrectResetCode && !hasChangedPassword && (
-        <AlertMessage status="success">{t('passwordAssistance:descriptionStep3')}</AlertMessage>
+        <AlertMessage status="success" description={t('passwordAssistance:descriptionStep3')} />
       )}
       {hasChangedPassword && (
-        <AlertMessage status="success">
-          {t('passwordAssistance:successChangePassword')}
+        <>
+          <AlertMessage status="success" description={t('passwordAssistance:successChangePassword')} />
+
           {isLogged ? (
             <Link asButton href="/account">
               {t('common:goToAccount')}
@@ -43,7 +44,7 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
               {t('common:goToSignIn')}
             </Link>
           )}
-        </AlertMessage>
+        </>
       )}
       {!hasChangedPassword && (
         <>

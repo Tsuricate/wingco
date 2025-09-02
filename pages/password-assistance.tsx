@@ -22,6 +22,7 @@ import {
   emailValidationSchema,
   passwordValidationSchema,
   resetCodeValidationSchema,
+  Step,
 } from '../validations';
 
 const PasswordAssistance = () => {
@@ -48,26 +49,20 @@ const PasswordAssistance = () => {
   };
 
   const handleSubmit = () => {
-    const step1 = {
-      schema: emailValidationSchema,
-      data: { email },
-      action: sendResetPasswordEmail,
-    };
-    const step2 = {
-      schema: resetCodeValidationSchema,
-      data: { resetCode },
-      action: verifyPasswordResetCode,
-    };
-    const step3 = {
-      schema: passwordValidationSchema,
-      data: { password, passwordValidation },
-      action: changeUserPassword,
-    };
+    const steps: Step<any>[] = [
+      { schema: emailValidationSchema, data: { email }, action: sendResetPasswordEmail },
+      { schema: resetCodeValidationSchema, data: { resetCode }, action: verifyPasswordResetCode },
+      {
+        schema: passwordValidationSchema,
+        data: { password, passwordValidation },
+        action: changeUserPassword,
+      },
+    ];
 
-    const step = isStep1 ? step1 : isStep2 ? step2 : step3;
+    const step = isStep1 ? steps[0] : isStep2 ? steps[1] : steps[2];
 
     validateFormData(step.schema, step.data)
-      .then(async () => {
+      .then(() => {
         setFormErrors([]);
         dispatch(step.action());
       })

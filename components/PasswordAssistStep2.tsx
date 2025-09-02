@@ -33,20 +33,25 @@ const PasswordAssistStep2: React.FC<PasswordAssistanceProps> = ({
   return (
     <>
       {!hasSubmitResetCode && (
-        <AlertMessage status="success">{t('passwordAssistance:descriptionStep2')}</AlertMessage>
+        <AlertMessage status="success" description={t('passwordAssistance:descriptionStep2')} />
       )}
       {hasSubmitResetCode && !hasCorrectResetCode && (
-        <AlertMessage status="error">
-          {t('passwordAssistance:errorStep2', { email })}
-          <Button
-            variant="outline"
-            onClick={handleClick}
-            isLoading={isLoading}
-            loadingText={t('common:submitting')}
-          >
-            {t('passwordAssistance:sendNewResetCode')}
-          </Button>
-        </AlertMessage>
+        <>
+          <AlertMessage
+            status="error"
+            description={t('passwordAssistance:errorStep2', { email })}
+            addEl={
+              <Button
+                type="button"
+                onClick={handleClick}
+                isLoading={isLoading}
+                loadingText={t('common:submitting')}
+              >
+                {t('passwordAssistance:sendNewResetCode')}
+              </Button>
+            }
+          />
+        </>
       )}
       <FormControl
         id="resetCode"

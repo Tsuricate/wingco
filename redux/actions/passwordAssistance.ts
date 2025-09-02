@@ -9,6 +9,18 @@ export const CHANGE_USER_PASSWORD = 'CHANGE_USER_PASSWORD';
 export const UPDATE_HAS_CHANGED_PASSWORD = 'UPDATE_HAS_CHANGED_PASSWORD';
 export const RESET_PASSWORD_ASSISTANCE_INFOS = 'RESET_PASSWORD_ASSISTANCE_INFOS';
 
+export type passwordAssistanceAction =
+  | ReturnType<typeof updatePasswordAssistanceInfos>
+  | ReturnType<typeof sendResetPasswordEmail>
+  | ReturnType<typeof verifyPasswordResetCode>
+  | ReturnType<typeof updateHasProvidedEmail>
+  | ReturnType<typeof updateHasSubmitResetCode>
+  | ReturnType<typeof updateHasCorrectResetCode>
+  | ReturnType<typeof updateIsLoading>
+  | ReturnType<typeof changeUserPassword>
+  | ReturnType<typeof updateHasChangedPassword>
+  | ReturnType<typeof resetPasswordAssistanceInfos>;
+
 export const updatePasswordAssistanceInfos = (value: string, name: string) => ({
   type: UPDATE_PASSWORD_ASSISTANCE_INFOS,
   value,

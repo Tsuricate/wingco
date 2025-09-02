@@ -17,29 +17,15 @@ export const getSignUpMessage = (email: string, username: string, validationEmai
   };
 };
 
-export const getResetPasswordMessage = async (email: string) => {
-  // Generate a string of 8 random characters (letters and numbers)
-  const resetCode = Math.random().toString(36).substring(2, 10).toUpperCase();
+export const getResetPasswordMessage = async (email: string, name: string, resetCode: string) => {
+  const resetPasswordMessage = {
+    from: '"WingCo App" <wingspan.companion@gmail.com>',
+    to: email,
+    subject: i18n?.t('email:resetPasswordEmailSubject'),
+    html: i18n?.t('email:resetPasswordEmail', { name, passwordResetCode: resetCode }),
+  };
 
-  const setPasswordResetCode = await client.mutate({
-    mutation: SET_PASSWORD_RESET_CODE,
-    variables: { email: email, passwordResetCode: resetCode },
-  });
-
-  if (setPasswordResetCode.data.updatePlayer) {
-    const { name, passwordResetCode } = setPasswordResetCode.data.updatePlayer;
-
-    const resetPasswordMessage = {
-      from: '"WingCo App" <wingspan.companion@gmail.com>',
-      to: email,
-      subject: i18n?.t('email:resetPasswordEmailSubject'),
-      html: i18n?.t('email:resetPasswordEmail', { name, passwordResetCode }),
-    };
-
-    return resetPasswordMessage;
-  } else {
-    return null;
-  }
+  return resetPasswordMessage;
 };
 
 export const getChangeEmailMessage = async (userId: string, email: string, username: string) => {

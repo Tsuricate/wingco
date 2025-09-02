@@ -21,9 +21,10 @@ const passwordValidation = yup
 export const resetCodeValidationSchema = yup.object({
   resetCode: yup.string().length(8, 'validations:resetCodeLength').required('validations:fieldRequired'),
 });
+export type ResetCodeValidationData = yup.InferType<typeof resetCodeValidationSchema>;
 
 export const emailValidationSchema = yup.object({
-  email,
+  email: yup.string().email().required(),
 });
 
 export const manageAccountValidationSchema = yup.object({
@@ -42,3 +43,9 @@ export const signUpSchema = yup.object({
   password,
   passwordValidation,
 });
+
+export type Step<T extends yup.ObjectSchema<any>> = {
+  schema: T;
+  data: yup.InferType<T>;
+  action: () => any;
+};
