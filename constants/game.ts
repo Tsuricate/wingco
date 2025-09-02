@@ -2,8 +2,8 @@ import { Score } from '../models/players';
 import uniqid from 'uniqid';
 
 export const defaultAvatar = {
-  id: 'cl3lozvfa7k690euj8n7af00q',
-  url: 'https://media.graphassets.com/resize=fit:crop,height:96,width:96/kIFwuLNGRZi0DKWGZ5Ae',
+  id: 'cmevohaxtnzuf07rvhlwshn1c',
+  url: 'https://eu-central-1.graphassets.com/AITTlJAVWQCK7ncOJz5Drz/cmevohaxtnzug07rv6ih9smrg',
 };
 
 export const defaultScores: Score = {

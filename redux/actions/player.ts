@@ -1,9 +1,15 @@
 import { AvatarImage } from '../../models/players';
 
-export const GET_AVATAR_IMAGES = 'GET_AVATAR_IMAGES';
-export const SAVE_AVATAR_IMAGES = 'SAVE_AVATAR_IMAGES';
-export const UPDATE_PLAYER_AVATAR = 'UDPATE_PLAYER_AVATAR';
-export const UPDATE_NEW_PLAYER_AVATAR = 'UPDATE_NEW_PLAYER_AVATAR';
+export type PlayerAction =
+  | ReturnType<typeof getAvatarImages>
+  | ReturnType<typeof saveAvatarImages>
+  | ReturnType<typeof updatePlayerAvatar>
+  | ReturnType<typeof updateNewPlayerAvatar>;
+
+export const GET_AVATAR_IMAGES = 'GET_AVATAR_IMAGES' as const;
+export const SAVE_AVATAR_IMAGES = 'SAVE_AVATAR_IMAGES' as const;
+export const UPDATE_PLAYER_AVATAR = 'UPDATE_PLAYER_AVATAR' as const;
+export const UPDATE_NEW_PLAYER_AVATAR = 'UPDATE_NEW_PLAYER_AVATAR' as const;
 
 export const getAvatarImages = () => ({
   type: GET_AVATAR_IMAGES,

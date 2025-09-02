@@ -7,6 +7,7 @@ import { AvatarImage } from '../models/players';
 import { getAvatarImages } from '../redux/actions/player';
 import { RootState } from '../redux/reducers';
 import Dialog from './Dialog';
+import { SafeAvatarImage } from './ui/chakraFixes';
 
 interface AvatarSelectorProps {
   avatarSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -37,7 +38,8 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
 
   return (
     <>
-      <Avatar.Root size={avatarSize} src={currentAvatar} onClick={handleClick}>
+      <Avatar.Root size={avatarSize} onClick={handleClick}>
+        <SafeAvatarImage src={currentAvatar} />
         <Float placement="bottom-end" offsetX="1" offsetY="1">
           <IconButton aria-label="Modify avatar icon" rounded="full" size="2xs">
             <CiEdit />
@@ -46,7 +48,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
       </Avatar.Root>
       <Dialog
         handleClose={onClose}
-        isOpen={open}
+        open={open}
         title={t('newGame:chooseAvatar')}
         description={t('newGame:chooseAvatarDescription')}
         firstActionButton={t('common:save')}
