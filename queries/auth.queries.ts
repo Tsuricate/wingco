@@ -29,5 +29,8 @@ export const UPDATE_PLAYER_INFOS = gql`
       name
       email
     }
+    publishPlayer(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
   }
 `;

@@ -1,6 +1,22 @@
 import { Category } from '../../models/game';
 import { IGamePlayer, PlayerWithRegisteredInfos } from '../../models/players';
 
+export type newGameAction =
+  | ReturnType<typeof setFirstPlayer>
+  | ReturnType<typeof saveCategories>
+  | ReturnType<typeof addPlayer>
+  | ReturnType<typeof removePlayer>
+  | ReturnType<typeof updatePlayerInfos>
+  | ReturnType<typeof resetGameInfos>
+  | ReturnType<typeof updateGameWithNectar>
+  | ReturnType<typeof saveGameSlug>
+  | ReturnType<typeof saveGameId>
+  | ReturnType<typeof createNewGame>
+  | ReturnType<typeof saveNewGame>
+  | ReturnType<typeof deleteGame>
+  | ReturnType<typeof updateUnregisteredPlayersId>
+  | ReturnType<typeof isCreatingNewGame>;
+
 export const SET_FIRST_PLAYER = 'SET_FIRST_PLAYER';
 export const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
 export const ADD_PLAYER = 'ADD_PLAYER';

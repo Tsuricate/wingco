@@ -31,8 +31,8 @@ const Button: React.FC<ButtonProps> = ({
       data-cy={dataCy}
       type={type}
       variant={variant}
-      isDisabled={isDisabled}
-      isLoading={isLoading}
+      disabled={isDisabled}
+      loading={isLoading}
       loadingText={loadingText}
       onClick={onClick}
       {...buttonDefaultStyle}

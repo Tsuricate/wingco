@@ -69,7 +69,7 @@ const NewGame: React.FC = () => {
         dispatch(answerJoinRequest(playersInQueue[0].id, false, gameSlug, declinedReason));
       }
     }
-  }, [dispatch, gameSlug, hasReachedMaxPlayers, onClose, onOpen, players, playersInQueue]);
+  }, [hasReachedMaxPlayers, playersInQueue]);
 
   const handleSwitch = (event: { checked: boolean }) => {
     dispatch(updateGameWithNectar(event.checked));
@@ -97,7 +97,6 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Passing in handle SuMBITTT');
     router.push('/game-scores');
     dispatch(createNewGame());
   };
@@ -112,21 +111,20 @@ const NewGame: React.FC = () => {
   return (
     <PageLayout title={t('newGame:title')}>
       <Text>ID {gameSlug}</Text>
-      <Form onSubmit={handleSubmit}>
-        <Stack>
-          {players.map((player: IGamePlayer, index: number) => (
-            <NewGamePlayer
-              key={player.id}
-              id={player.id}
-              name={player.name}
-              avatar={player.avatar}
-              isRegistered={player.isRegistered}
-              playerNumber={index + 1}
-              onDeletePlayer={() => handleDeletePlayer(player.id)}
-              updateField={(value: any) => handleUpdatePlayerInfos(value, player.id)}
-            />
-          ))}
-        </Stack>
+      {/* <Form onSubmit={handleSubmit}> */}
+      <Stack>
+        {players.map((player: IGamePlayer, index: number) => (
+          <NewGamePlayer
+            key={player.id}
+            id={player.id}
+            name={player.name}
+            avatar={player.avatar}
+            isRegistered={player.isRegistered}
+            playerNumber={index + 1}
+            onDeletePlayer={() => handleDeletePlayer(player.id)}
+            updateField={(value: any) => handleUpdatePlayerInfos(value, player.id)}
+          />
+        ))}
         <Button isDisabled={hasReachedMaxPlayers} onClick={() => handleAddPlayer(undefined)}>
           {t('newGame:addPlayer')}
         </Button>
@@ -139,8 +137,11 @@ const NewGame: React.FC = () => {
           </Stack>
         </Switch.Root>
         <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
-        <Button type="submit">{t('newGame:startGame')}</Button>
-      </Form>
+        <Button type="submit" onClick={handleSubmit}>
+          {t('newGame:startGame')}
+        </Button>
+      </Stack>
+      {/* </Form> */}
       {playersInQueue.length > 0 && (
         <Dialog
           key={playersInQueue[0].id}

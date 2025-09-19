@@ -12,7 +12,6 @@ const InvitePlayerButton: React.FC = () => {
   const { gameSlug } = useSelector((state: RootState) => state.game);
 
   const handleInvitePlayer = () => {
-    console.log('passing in HANDLE INVITE PLAYER', open);
     onOpen();
   };
 

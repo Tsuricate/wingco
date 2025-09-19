@@ -79,7 +79,7 @@ const JoinGame: React.FC = () => {
 
   return (
     <PageLayout title={t('joinGame:title')}>
-      {hasReceivedAnswer && <AlertMessage status={answerStatus}>{getAnswerMessage()}</AlertMessage>}
+      {hasReceivedAnswer && <AlertMessage status={answerStatus} description={getAnswerMessage()} />}
       <Form onSubmit={handleSubmit}>
         <Text>{t('joinGame:description')}</Text>
         {!isLogged && (
@@ -114,6 +114,7 @@ const JoinGame: React.FC = () => {
         <Button
           type="submit"
           dataCy="submitButton"
+          isDisabled={requestAnswer}
           isLoading={isLoading}
           loadingText={t('joinGame:waitingForHostAnswer')}
         >

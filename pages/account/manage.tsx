@@ -9,14 +9,13 @@ import FormControl from '../../components/FormControl';
 import PageLayout from '../../components/layout/PageLayout';
 import Link from '../../components/Link';
 import Dialog from '../../components/Dialog';
-import ToastMessage from '../../components/ToastMessage';
+import AlertMessage from '../../components/AlertMessage';
 import { NextPageWithAuth } from '../../models/pageWithAuth';
 import { initManageAccount, saveUserNewInfos, updateUserInfos } from '../../redux/actions/manageAccount';
 import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssistance';
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
 import { manageAccountValidationSchema } from '../../validations';
-import uniqid from 'uniqid';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
@@ -79,29 +78,20 @@ const ManageAccount: NextPageWithAuth = () => {
           firstActionButton={t('manageAccount:keepAccount')}
           handleFirstAction={onClose}
           secondActionButton={t('manageAccount:delete')}
-          isOpen={open}
+          open={open}
           handleClose={onClose}
           href="/api/user/delete"
         >
           {t('manageAccount:deleteModalDescription')}
         </Dialog>
         {hasUpdatedInfos && (
-          <ToastMessage
-            id={uniqid()}
-            description={t('manageAccount:infosChanged')}
-            status="success"
-            duration={5000}
-            trigger={hasUpdatedInfos}
-          ></ToastMessage>
+          <AlertMessage description={t('manageAccount:infosChanged')} status="success" />
         )}
         {hasUpdatedEmail && (
-          <ToastMessage
-            id={uniqid()}
+          <AlertMessage
             title={t('manageAccount:emailChangedTitle')}
             description={t('manageAccount:emailChanged')}
             status="info"
-            duration={null}
-            trigger={hasUpdatedEmail}
           />
         )}
       </Form>

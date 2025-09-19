@@ -33,7 +33,12 @@ const Dialog: React.FC<DialogProps> = ({
 }) => {
   return (
     <>
-      <ChakraDialog.Root open={open} onClose={handleClose} placement={placement}>
+      <ChakraDialog.Root
+        open={open}
+        onClose={handleClose}
+        onOpenChange={handleClose}
+        placement={placement}
+      >
         <Portal>
           <ChakraDialog.Backdrop />
           <SafeDialogPositioner>
