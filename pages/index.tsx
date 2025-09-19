@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
   return (
     <PageLayout title={t('home:title')}>
-      {accountDeleted && <AlertMessage status="info">{t('manageAccount:accountDeleted')}</AlertMessage>}
+      {accountDeleted && <AlertMessage status="info" description={t('manageAccount:accountDeleted')} />}
       <Stack>
         <Text>{t('home:description')}</Text>
         {!isLogged && (
@@ -30,6 +30,9 @@ const Home: NextPage = () => {
         </Link>
         <Link href="/join-game" asButton>
           {t('common:joinGame')}
+        </Link>
+        <Link href="/account" asButton>
+          {t('common:myAccount')}
         </Link>
       </Stack>
     </PageLayout>

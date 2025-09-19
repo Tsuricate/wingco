@@ -32,7 +32,7 @@ const Statistics: NextPageWithAuth<StatisticsProps> = ({
 
   return (
     <PageLayout title={t('statistics:title')}>
-      <Stat>
+      <Stat.Root>
         <StatLabel>
           {' '}
           {t('statistics:victories', {
@@ -40,21 +40,21 @@ const Statistics: NextPageWithAuth<StatisticsProps> = ({
             allGames: playerVictories.allGames,
           })}
         </StatLabel>
-      </Stat>
+      </Stat.Root>
       <StatisticsPanel
         title={t('statistics:bestScores')}
         description={t('statistics:bestScoresDescription')}
         icon={GiTrophy}
       >
-        <List>
+        <List.Root>
           {bestScoresByCategory.map((category) => (
-            <ListItem key={category.category}>
+            <List.Item key={category.category}>
               <Text>
                 {category.value} {t(`common:categories.${category.category}`)}
               </Text>
-            </ListItem>
+            </List.Item>
           ))}
-        </List>
+        </List.Root>
       </StatisticsPanel>
       <StatisticsPanel
         title={t('statistics:versus')}
