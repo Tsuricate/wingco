@@ -25,7 +25,6 @@ const GamesHistoryPanel: React.FC<GamesHistoryPanelProps> = ({ id, date, players
     hour: '2-digit',
     minute: '2-digit',
   });
-  console.log('Date : ', formattedDate);
 
   return (
     <Stack>

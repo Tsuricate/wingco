@@ -26,13 +26,13 @@ const PlayerAvatar: React.FC<PlayerAvatar> = ({
   return (
     <Stack direction={direction} align="center">
       <Avatar.Root size={avatarSize} onClick={onClick}>
-        <SafeAvatarImage name={playerName} src={avatar}>
-          {badge && (
-            <Float placement="bottom-end" offsetX="1" offsetY="1">
-              <Circle bg={badgeColor} size="1.25em" outline="0.2em solid" outlineColor="bg" />
-            </Float>
-          )}
-        </SafeAvatarImage>
+        <Avatar.Fallback name={playerName} />
+        <SafeAvatarImage src={avatar} />
+        {badge && (
+          <Float placement="bottom-end" offsetX="1" offsetY="1">
+            <Circle bg={badgeColor} size="1.25em" outline="0.2em solid" outlineColor="bg" />
+          </Float>
+        )}
       </Avatar.Root>
       <Text>{playerName}</Text>
     </Stack>

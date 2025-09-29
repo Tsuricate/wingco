@@ -1,18 +1,9 @@
-import {
-  Button,
-  HStack,
-  Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  useBreakpointValue,
-  useNumberInput,
-} from '@chakra-ui/react';
 import React from 'react';
+import { HStack, IconButton, NumberInput } from '@chakra-ui/react';
+import { LuMinus, LuPlus } from 'react-icons/lu';
 import { useDispatch } from 'react-redux';
 import { updatePlayerScore } from '../redux/actions/gameScores';
+import { SafeDecrementTrigger, SafeIncrementTrigger } from './ui/chakraFixes';
 
 interface ScoreInputProps {
   playerId: string;
@@ -21,40 +12,35 @@ interface ScoreInputProps {
 }
 
 const ScoreInput: React.FC<ScoreInputProps> = ({ playerId, name, score }) => {
-  const onSmallDevices = useBreakpointValue({ base: true, lg: false });
   const dispatch = useDispatch();
 
-  const handleChange = (_valueAsString: string, valueAsNumber: number) => {
+  const handleChange = ({ value, valueAsNumber }: { value: string; valueAsNumber: number }) => {
     dispatch(updatePlayerScore(valueAsNumber, name, playerId));
   };
 
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
-    step: 1,
-    defaultValue: score,
-    min: 0,
-    name: name,
-    value: score,
-    onChange: handleChange,
-  });
-
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-  const input = getInputProps();
-
-  return onSmallDevices ? (
-    <HStack maxW="320px">
-      <Button {...dec}>-</Button>
-      <Input {...input} />
-      <Button {...inc}>+</Button>
-    </HStack>
-  ) : (
-    <NumberInput defaultValue={score} min={0} name={name} value={score} onChange={handleChange}>
-      <NumberInputField />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
-    </NumberInput>
+  return (
+    <NumberInput.Root
+      unstyled
+      min={0}
+      defaultValue="0"
+      name={name}
+      value={score}
+      onValueChange={handleChange}
+    >
+      <HStack gap="2">
+        <SafeDecrementTrigger asChild>
+          <IconButton variant="outline" size="sm">
+            <LuMinus />
+          </IconButton>
+        </SafeDecrementTrigger>
+        <NumberInput.ValueText />
+        <SafeIncrementTrigger asChild>
+          <IconButton variant="outline" size="sm">
+            <LuPlus />
+          </IconButton>
+        </SafeIncrementTrigger>
+      </HStack>
+    </NumberInput.Root>
   );
 };
 

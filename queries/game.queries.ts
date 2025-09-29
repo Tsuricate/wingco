@@ -4,7 +4,7 @@ export const CREATE_GAME_WITH_PLAYERS = gql`
   mutation CreateGameWithPlayers(
     $players: PlayerCreateManyInlineInput!
     $gameSlug: String!
-    $hostId: ID
+    $hostId: ID!
     $withOceaniaExpansion: Boolean
   ) {
     upsertGame(
@@ -24,12 +24,23 @@ export const CREATE_GAME_WITH_PLAYERS = gql`
       players {
         id
         name
-        avatar {
-          id
-          url
-        }
-        isRegistered
       }
+      hostedBy {
+        id
+        name
+      }
+    }
+
+    publishGame(where: { slug: $gameSlug }, to: PUBLISHED) {
+      id
+    }
+
+    publishManyPlayers(where: { games_some: { slug: $gameSlug } }, to: PUBLISHED) {
+      count
+    }
+
+    publishPlayer(where: { id: $hostId }, to: PUBLISHED) {
+      id
     }
   }
 `;
@@ -67,6 +78,21 @@ export const SAVE_RESULTS = gql`
       where: { id: $gameId }
     ) {
       id
+    }
+
+    publishGame(where: { id: $gameId }, to: PUBLISHED) {
+      id
+    }
+
+    publishManyPlayers(where: { games_some: { id: $gameId } }, to: PUBLISHED) {
+      count
+    }
+
+    publishManyGameScores(where: { game: { id: $gameId } }, to: PUBLISHED) {
+      count
+    }
+    publishManyGameResults(where: { game: { id: $gameId } }, to: PUBLISHED) {
+      count
     }
   }
 `;

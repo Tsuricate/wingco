@@ -2,11 +2,6 @@ import { AccountPanelProps } from '../components/AccountPanel';
 
 export const panels: Array<AccountPanelProps> = [
   {
-    title: 'account:createGame',
-    background: 'blackAlpha.50',
-    url: '/new-game',
-  },
-  {
     title: 'account:statistics',
     background: 'blackAlpha.100',
     url: '/account/statistics',

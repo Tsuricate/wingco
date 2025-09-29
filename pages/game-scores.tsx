@@ -52,7 +52,7 @@ const GameScores: React.FC = () => {
         title={isCreatingNewGame ? t('newGame:creatingGame') : t('newGame:gameCreated')}
         description={t('newGame:gameCreatedDescription')}
         handleClose={onClose}
-        isOpen={open}
+        open={open}
         firstActionButton={t('gameScores:enterScores')}
         handleFirstAction={onClose}
       >

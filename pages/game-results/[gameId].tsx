@@ -10,7 +10,7 @@ import Link from '../../components/Link';
 import NewRecord from '../../components/NewRecord';
 import PlayerAvatar from '../../components/PlayerAvatar';
 import ScoreResults from '../../components/ScoreResults';
-import { GameResults, NewPlayerRecord, ScoreByCategory } from '../../models/game';
+import type { GameResults, NewPlayerRecord, ScoreByCategory } from '../../models/game';
 import { getAllGameIds, getGameResults } from '../../utils/api/gameUtils';
 import { getNewRecords, getPlayerInfosById, getPlayerScoresByCategory } from '../../utils/gameResults';
 
@@ -33,7 +33,7 @@ const GameResults: NextPage<GameResultsProps> = ({ players, results, scoresByCat
 
   return (
     <PageLayout title={t('gameResults:title')}>
-      <Stack spacing={5}>
+      <Stack gap={5}>
         {results.map((result) => {
           const player = getPlayerInfosById(players, result.player.id);
           return (
@@ -105,9 +105,8 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     if (typeof gameId !== 'string') throw new Error('Game id is not a string');
     if (typeof locale !== 'string') throw new Error('Locale is not a string');
 
-    const { players, results, scores, registeredPlayersScores }: GameResults = await getGameResults(
-      gameId
-    );
+    const { players, results, scores, registeredPlayersScores }: GameResults =
+      await getGameResults(gameId);
 
     const scoresByCategory = await getPlayerScoresByCategory(players, scores);
     const newRecords: Array<NewPlayerRecord> = getNewRecords(registeredPlayersScores);

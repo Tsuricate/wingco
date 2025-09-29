@@ -17,7 +17,10 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (newGame.data.upsertGame.id) {
       res.status(201).json({ gameInfos: newGame.data.upsertGame });
     }
-  } catch (err) {
+  } catch (err: any) {
+    if (err.result?.errors) {
+      console.error('GRAPHQL ERRORS:', err.result.errors);
+    }
     res.status(400).end();
   }
 };

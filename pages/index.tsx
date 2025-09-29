@@ -31,9 +31,11 @@ const Home: NextPage = () => {
         <Link href="/join-game" asButton>
           {t('common:joinGame')}
         </Link>
-        <Link href="/account" asButton>
-          {t('common:myAccount')}
-        </Link>
+        {isLogged && (
+          <Link href="/account" asButton>
+            {t('common:myAccount')}
+          </Link>
+        )}
       </Stack>
     </PageLayout>
   );
