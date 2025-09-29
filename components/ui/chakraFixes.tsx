@@ -1,4 +1,15 @@
-import { Avatar, Checkbox, Dialog, Field, NumberInput, Switch, Toast, Toaster } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionItem,
+  Avatar,
+  Checkbox,
+  Dialog,
+  Field,
+  NumberInput,
+  Switch,
+  Toast,
+  Toaster,
+} from '@chakra-ui/react';
 import React from 'react';
 
 export const SafeFieldLabel: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (props) => {
@@ -55,4 +66,16 @@ export const SafeIncrementTrigger = ({ children, ...props }: any) => {
 
 export const SafeDecrementTrigger = ({ children, ...props }: any) => {
   return <NumberInput.DecrementTrigger {...props}>{children}</NumberInput.DecrementTrigger>;
+};
+
+export const SafeAccordionItem = ({ children, ...props }: any) => {
+  return <AccordionItem {...props}>{children}</AccordionItem>;
+};
+
+export const SafeAccordionItemTrigger = ({ children, ...props }: any) => {
+  return <Accordion.ItemTrigger {...props}>{children}</Accordion.ItemTrigger>;
+};
+
+export const SafeAccordionItemContent = ({ children, ...props }: any) => {
+  return <Accordion.ItemContent {...props}>{children}</Accordion.ItemContent>;
 };
