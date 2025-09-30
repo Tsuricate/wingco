@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import {
+  ERROR_UNIQUE_USERNAME,
   ERROR_WHILE_CREATING_USER,
   ERROR_WHILE_SENDING_EMAIL,
   SHOW_SIGN_UP_MODAL,
@@ -15,6 +16,7 @@ interface initialStateProps {
   password: string;
   passwordValidation: string;
   showSignUpModal: boolean;
+  errorUniqueUsername: boolean;
   errorWhileCreatingUser: boolean;
   errorWhileSendingEmail: boolean;
   isRegistered: boolean;
@@ -27,6 +29,7 @@ const initialState: initialStateProps = {
   password: '',
   passwordValidation: '',
   showSignUpModal: false,
+  errorUniqueUsername: false,
   errorWhileCreatingUser: false,
   errorWhileSendingEmail: false,
   isRegistered: false,
@@ -63,6 +66,12 @@ const signUpReducer = (state = initialState, action: AnyAction) => {
         showSignUpModal: action.value,
       };
     }
+
+    case ERROR_UNIQUE_USERNAME:
+      return {
+        ...state,
+        errorUniqueUsername: action.value,
+      };
 
     case ERROR_WHILE_CREATING_USER: {
       return {

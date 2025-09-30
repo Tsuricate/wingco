@@ -2,7 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../apollo-client';
 import uniqid from 'uniqid';
 import { defaultAvatar } from '../../constants/game';
-import { CREATE_PLAYER, SET_VALIDATION_EMAIL_TOKEN } from '../../queries/signup.queries';
+import {
+  CREATE_PLAYER,
+  FIND_PLAYER_BY_NAME,
+  SET_VALIDATION_EMAIL_TOKEN,
+} from '../../queries/signup.queries';
 import { getHashedPassword } from '../../utils/password';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,6 +14,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const hashedPassword = await getHashedPassword(password);
+
+    const { data } = await client.query({
+      query: FIND_PLAYER_BY_NAME,
+      variables: { name },
+    });
+
+    const isUsernameUnique = data.players.length === 0;
+
+    if (!isUsernameUnique) {
+      return res.status(409).json({ field: 'username', error: 'Username is already taken.' });
+    }
 
     const createPlayerResponse = await client.mutate({
       mutation: CREATE_PLAYER,
@@ -26,7 +41,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const createdPlayer = createPlayerResponse.data?.createPlayer;
 
     if (!createdPlayer || !createdPlayer.id) {
-      console.error('❌ Échec de la création du joueur.');
       return res.status(500).json({ error: 'Player creation failed.' });
     }
 
@@ -47,8 +61,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     return res.status(201).json(updatedPlayer);
-  } catch (err) {
-    console.error('❌ Servor error :', err);
+  } catch (err: any) {
+    if (err.networkError?.result?.errors) {
+      console.error('errors:', err.networkError.result.errors);
+    }
     return res.status(400).json({ error: 'Something went wrong during signup.' });
   }
 };

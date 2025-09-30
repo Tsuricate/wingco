@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Dispatch, Middleware } from 'redux';
 import { sendEmail } from '../../utils/api/sendEmail';
 import {
+  errorUniqueUsername,
   errorWhileCreatingUser,
   errorWhileSendingEmail,
   showSignUpModal,
@@ -39,9 +40,13 @@ const signUpMiddleware: Middleware<{}, RootState, Dispatch<SignUpAction>> =
               }
             }
           })
-          .catch(() => {
+          .catch((error) => {
             store.dispatch(showSignUpModal(false));
-            store.dispatch(errorWhileCreatingUser());
+            if (error.response?.status === 409 && error.response.data.field === 'username') {
+              store.dispatch(errorUniqueUsername(true));
+            } else {
+              store.dispatch(errorWhileCreatingUser());
+            }
           })
           .finally(() => {
             store.dispatch(updateIsLoading(false));

@@ -9,6 +9,7 @@
   "passwordValidationHelperText": "Confirm your password",
   "alreadyRegistered": "Already have an account ?",
   "signIn": "Connection",
+  "errorUniqueUsername": "Username must be unique",
   "successModal": {
     "title": "Your account has been created !",
     "children": "A confirmation email has been sent to the email address you provided. Please follow instructions in order to activate your account !"

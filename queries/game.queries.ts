@@ -24,23 +24,15 @@ export const CREATE_GAME_WITH_PLAYERS = gql`
       players {
         id
         name
+        avatar {
+          id
+          url
+        }
       }
       hostedBy {
         id
         name
       }
-    }
-
-    publishGame(where: { slug: $gameSlug }, to: PUBLISHED) {
-      id
-    }
-
-    publishManyPlayers(where: { games_some: { slug: $gameSlug } }, to: PUBLISHED) {
-      count
-    }
-
-    publishPlayer(where: { id: $hostId }, to: PUBLISHED) {
-      id
     }
   }
 `;

@@ -111,7 +111,6 @@ const NewGame: React.FC = () => {
   return (
     <PageLayout title={t('newGame:title')}>
       <Text>ID {gameSlug}</Text>
-      {/* <Form onSubmit={handleSubmit}> */}
       <Stack>
         {players.map((player: IGamePlayer, index: number) => (
           <NewGamePlayer
@@ -141,7 +140,6 @@ const NewGame: React.FC = () => {
           {t('newGame:startGame')}
         </Button>
       </Stack>
-      {/* </Form> */}
       {playersInQueue.length > 0 && (
         <Dialog
           key={playersInQueue[0].id}
@@ -153,7 +151,7 @@ const NewGame: React.FC = () => {
           secondActionButton={t('common:decline')}
           handleSecondAction={() => handleAnswerJoinRequest(playersInQueue[0], false)}
         >
-          Lalalala
+          <></>
         </Dialog>
       )}
     </PageLayout>

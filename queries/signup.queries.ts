@@ -33,6 +33,15 @@ export const FIND_PLAYER = gql`
   }
 `;
 
+export const FIND_PLAYER_BY_NAME = gql`
+  query FindPlayersByName($name: String!) {
+    players(where: { name: $name, isRegistered: true }) {
+      id
+      name
+    }
+  }
+`;
+
 export const SET_VALIDATION_EMAIL_TOKEN = gql`
   mutation UpdatePlayer($id: ID, $validationEmailToken: String!) {
     updatePlayer(data: { validationEmailToken: $validationEmailToken }, where: { id: $id }) {

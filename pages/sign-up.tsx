@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import Form from '../components/Form';
@@ -12,7 +12,7 @@ import SignUpModal from '../components/SignUpModal';
 import { signUpForm } from '../data/form/signUpForm';
 import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
-import { getErrorsMessages, validateFormData } from '../utils/formUtils';
+import { FormError, getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { signUpSchema } from '../validations';
 import AlertMessage from '../components/AlertMessage';
 
@@ -20,7 +20,7 @@ const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'validations', 'common']);
   const dispatch = useDispatch();
 
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState<FormError[]>([]);
   const userInfos = useSelector((state: RootState) => state.signUp);
 
   const updateField = (value: string, name: string) => {
@@ -65,6 +65,20 @@ const SignUp: React.FC = () => {
       };
       break;
   }
+  useEffect(() => {
+    if (userInfos.errorUniqueUsername) {
+      setFormErrors([
+        ...formErrors.filter((err) => err.name !== 'username'),
+        { name: 'username', message: t('signUp:errorUniqueUsername') },
+      ]);
+    }
+  }, [userInfos.errorUniqueUsername]);
+
+  useEffect(() => {
+    if (userInfos.errorUniqueUsername) {
+      dispatch({ type: 'ERROR_UNIQUE_USERNAME', value: false });
+    }
+  }, [userInfos.username]);
 
   return (
     <PageLayout title={t('signUp:title')}>

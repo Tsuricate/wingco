@@ -9,6 +9,7 @@
   "passwordValidationHelperText": "Confirmez votre mot de passe",
   "alreadyRegistered": "Vous êtes déjà inscrit·e ?",
   "signIn": "Connexion",
+  "errorUniqueUsername": "Votre pseudo doit être unique",
   "successModal": {
     "title": "Votre compte a bien été créé !",
     "children": "Un email de confirmation a été envoyé à l'adresse fournie. Veuillez suivre les instructions indiquées dans celui-ci afin d'activer votre compte ! "

@@ -1,4 +1,4 @@
-import { AnyObjectSchema, ObjectSchema, ValidationError } from 'yup';
+import { AnyObjectSchema, ValidationError } from 'yup';
 import { i18n } from 'next-i18next';
 
 export interface FormError {

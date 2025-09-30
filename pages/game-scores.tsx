@@ -50,13 +50,12 @@ const GameScores: React.FC = () => {
       </Form>
       <Dialog
         title={isCreatingNewGame ? t('newGame:creatingGame') : t('newGame:gameCreated')}
-        description={t('newGame:gameCreatedDescription')}
         handleClose={onClose}
         open={open}
         firstActionButton={t('gameScores:enterScores')}
         handleFirstAction={onClose}
       >
-        La
+        <p>{t('newGame:gameCreatedDescription')}</p>
       </Dialog>
     </PageLayout>
   );
