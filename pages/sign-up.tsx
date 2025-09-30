@@ -71,6 +71,8 @@ const SignUp: React.FC = () => {
         ...formErrors.filter((err) => err.name !== 'username'),
         { name: 'username', message: t('signUp:errorUniqueUsername') },
       ]);
+    } else {
+      setFormErrors(formErrors.filter((err) => err.name !== 'username'));
     }
   }, [userInfos.errorUniqueUsername]);
 
