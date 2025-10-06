@@ -40,5 +40,6 @@
   "goToAccount": "Go to my account",
   "goToSignIn": "Go to sign in",
   "show": "Show",
-  "hide": "Hide"
+  "hide": "Hide",
+  "resend": "Resend"
 }

@@ -40,5 +40,6 @@
   "goToAccount": "Aller sur mon compte",
   "goToSignIn": "Se connecter",
   "show": "Voir",
-  "hide": "Cacher"
+  "hide": "Cacher",
+  "resend": "Renvoyer"
 }

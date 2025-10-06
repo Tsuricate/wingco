@@ -1,4 +1,4 @@
-import { Alert } from '@chakra-ui/react';
+import { Alert, Box } from '@chakra-ui/react';
 import React from 'react';
 
 interface AlertMessageProps {
@@ -15,8 +15,8 @@ const AlertMessage: React.FC<AlertMessageProps> = ({ status, title, description,
       <Alert.Content>
         {title && <Alert.Title>{title}</Alert.Title>}
         <Alert.Description>{description}</Alert.Description>
+        <Box>{addEl && addEl}</Box>
       </Alert.Content>
-      {addEl && addEl}
     </Alert.Root>
   );
 };

@@ -33,6 +33,14 @@ export const FIND_PLAYER = gql`
   }
 `;
 
+export const FIND_PLAYER_BY_EMAIL = gql`
+  query FindPlayer($email: String!) {
+    player(where: { email: $email }, stage: DRAFT) {
+      id
+    }
+  }
+`;
+
 export const FIND_PLAYER_BY_NAME = gql`
   query FindPlayersByName($name: String!) {
     players(where: { name: $name, isRegistered: true }) {

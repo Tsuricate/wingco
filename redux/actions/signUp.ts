@@ -1,5 +1,6 @@
 export const UPDATE_SIGN_UP_INFOS = 'UPDATE_SIGN_UP_INFOS';
 export const SUBMIT_SIGN_UP = 'SUBMIT_SIGN_UP';
+export const RESEND_VALIDATION_TOKEN = 'RESEND_VALIDATION_TOKEN';
 export const RESET_FORM = 'RESET_FORM';
 export const RESET_ERRORS = 'RESET_ERRORS';
 export const ERROR_UNIQUE_USERNAME = 'ERROR_UNIQUE_USERNAME';
@@ -11,6 +12,7 @@ export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING';
 export type SignUpAction =
   | ReturnType<typeof updateSignUpInfos>
   | ReturnType<typeof submitSignUp>
+  | ReturnType<typeof resendValidationToken>
   | ReturnType<typeof resetForm>
   | ReturnType<typeof resetErrors>
   | ReturnType<typeof errorUniqueUsername>
@@ -27,6 +29,10 @@ export const updateSignUpInfos = (value: string, name: string) => ({
 
 export const submitSignUp = () => ({
   type: SUBMIT_SIGN_UP,
+});
+
+export const resendValidationToken = () => ({
+  type: RESEND_VALIDATION_TOKEN,
 });
 
 export const resetForm = () => ({

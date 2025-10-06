@@ -14,6 +14,7 @@ interface FormControlProps {
   rightSlot?: ReactElement;
   errors?: Array<string>;
   isReadOnly?: boolean;
+  isDisabled?: boolean;
 }
 
 const FormControl: React.FC<FormControlProps> = ({
@@ -27,15 +28,17 @@ const FormControl: React.FC<FormControlProps> = ({
   rightSlot,
   errors = [],
   isReadOnly = false,
+  isDisabled = false,
 }) => {
-  const manageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateField(event.target.value.trim(), name);
-  };
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
-  const isInvalid: boolean = errors.length ? true : false;
+  const isInvalid: boolean = errors.length > 0;
+
+  const manageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateField(event.target.value.trim(), name);
+  };
 
   return (
     <Field.Root invalid={isInvalid} readOnly={isReadOnly} id={id}>
@@ -44,7 +47,7 @@ const FormControl: React.FC<FormControlProps> = ({
         <Stack>
           <InputGroup
             endElement={
-              <Button h={7} size="sm" onClick={handleClick}>
+              <Button h={7} size="sm" onClick={handleClick} disabled={isDisabled}>
                 {show ? t('common:hide') : t('common:show')}
               </Button>
             }
@@ -56,6 +59,7 @@ const FormControl: React.FC<FormControlProps> = ({
               name={name}
               value={value}
               onChange={manageChange}
+              disabled={isDisabled}
               required
             />
           </InputGroup>
@@ -63,7 +67,14 @@ const FormControl: React.FC<FormControlProps> = ({
       ) : (
         <Stack direction="row" align="center" gap={5}>
           {leftSlot}
-          <Input id={id} name={name} value={value} onChange={manageChange} required />
+          <Input
+            id={id}
+            name={name}
+            value={value}
+            onChange={manageChange}
+            required
+            disabled={isDisabled}
+          />
           {rightSlot}
         </Stack>
       )}

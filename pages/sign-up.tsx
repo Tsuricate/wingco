@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Stack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useEffect, useState } from 'react';
@@ -10,17 +10,19 @@ import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import SignUpModal from '../components/SignUpModal';
 import { signUpForm } from '../data/form/signUpForm';
-import { submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
+import { resendValidationToken, submitSignUp, updateSignUpInfos } from '../redux/actions/signUp';
 import { RootState } from '../redux/reducers';
 import { FormError, getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { signUpSchema } from '../validations';
 import AlertMessage from '../components/AlertMessage';
+import Countdown from '../components/Countdown';
 
 const SignUp: React.FC = () => {
   const { t } = useTranslation(['signUp', 'validations', 'common']);
   const dispatch = useDispatch();
 
   const [formErrors, setFormErrors] = useState<FormError[]>([]);
+  const [isRetryDisabled, setIsRetryDisabled] = useState(false);
   const userInfos = useSelector((state: RootState) => state.signUp);
 
   const updateField = (value: string, name: string) => {
@@ -82,10 +84,39 @@ const SignUp: React.FC = () => {
     }
   }, [userInfos.username]);
 
+  const handleClick = () => {
+    setIsRetryDisabled(true);
+    dispatch(resendValidationToken());
+  };
+
   return (
     <PageLayout title={t('signUp:title')}>
       {alert && (
-        <AlertMessage status={alert.status} title={alert.title} description={alert.description} />
+        <AlertMessage
+          status={alert.status}
+          title={alert.title}
+          description={alert.description}
+          addEl={
+            alert.status === 'success' && (
+              <Stack direction="row" alignItems="center">
+                <Text>{t('signUp:emailNotReceived')}</Text>
+                <Button
+                  type="button"
+                  onClick={handleClick}
+                  isDisabled={isRetryDisabled}
+                  loadingText={t('common:resend')}
+                >
+                  <Stack direction="row">
+                    {t('common:resend')}
+                    {isRetryDisabled && (
+                      <Countdown duration={30} onFinish={() => setIsRetryDisabled(false)} />
+                    )}
+                  </Stack>
+                </Button>
+              </Stack>
+            )
+          }
+        />
       )}
       <Form onSubmit={handleSubmit}>
         {signUpForm.map((form) => (
@@ -96,11 +127,17 @@ const SignUp: React.FC = () => {
             label={t(`${form.label}`)}
             helperText={t(`${form.helperText}`)}
             value={userInfos[form.name]}
+            isDisabled={userInfos.showSignUpModal}
             updateField={updateField}
             errors={getErrorsMessages(formErrors, `${form.name}`)}
           />
         ))}
-        <Button type="submit" dataCy="signUp" isLoading={userInfos['isLoading']}>
+        <Button
+          type="submit"
+          dataCy="signUp"
+          isLoading={userInfos['isLoading']}
+          isDisabled={userInfos.showSignUpModal}
+        >
           {t('signUp:signUpButtonLabel')}
         </Button>
         <Text>{t('signUp:alreadyRegistered')}</Text>
