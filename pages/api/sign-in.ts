@@ -17,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           id: player.id,
         };
 
-        // expiration time set to 1 week if rememberMe was checked, 2 hours otherwise.
+        // expiration time set to 1 month if rememberMe was checked, 4 hours otherwise.
         const expirationTime = rememberMe ? 60 * 60 * 24 * 7 : 60 * 60 * 2;
         const jwtSecret: jwt.Secret = process.env.JWT_SECRET_KEY || '';
 

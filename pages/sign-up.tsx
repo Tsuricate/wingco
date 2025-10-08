@@ -109,7 +109,7 @@ const SignUp: React.FC = () => {
                   <Stack direction="row">
                     {t('common:resend')}
                     {isRetryDisabled && (
-                      <Countdown duration={30} onFinish={() => setIsRetryDisabled(false)} />
+                      <Countdown duration={60} onFinish={() => setIsRetryDisabled(false)} />
                     )}
                   </Stack>
                 </Button>

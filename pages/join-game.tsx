@@ -113,6 +113,7 @@ const JoinGame: React.FC = () => {
         />
         <Button
           type="submit"
+          variant="solid"
           dataCy="submitButton"
           isDisabled={requestAnswer}
           isLoading={isLoading}

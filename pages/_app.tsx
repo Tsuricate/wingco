@@ -12,6 +12,7 @@ import { NextPageWithAuth } from '../models/pageWithAuth';
 import { saveUser } from '../redux/actions/auth';
 import { setFirstPlayer } from '../redux/actions/newGame';
 import { wrapper } from '../redux/store';
+import { ColorModeProvider } from '../components/ui/color-mode';
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithAuth;
@@ -43,17 +44,19 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   }, [shouldGetPlayer, dispatch]);
 
   return (
-    <ApolloProvider client={client}>
-      <Provider>
-        {Component.requireAuth ? (
-          <AuthGuard isLoading={isLoading}>
+    <ColorModeProvider>
+      <ApolloProvider client={client}>
+        <Provider>
+          {Component.requireAuth ? (
+            <AuthGuard isLoading={isLoading}>
+              <Component {...pageProps} />
+            </AuthGuard>
+          ) : (
             <Component {...pageProps} />
-          </AuthGuard>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </Provider>
-    </ApolloProvider>
+          )}
+        </Provider>
+      </ApolloProvider>
+    </ColorModeProvider>
   );
 };
 

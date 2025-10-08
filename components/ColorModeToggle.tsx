@@ -1,39 +1,31 @@
-// import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-// import { ButtonProps, IconButton, useColorMode, useColorModeValue } from '@chakra-ui/react';
-// import { useTranslation } from 'next-i18next';
-// import React from 'react';
+import { Stack, IconButton, Text } from '@chakra-ui/react';
+import { LuMoon, LuSun } from 'react-icons/lu';
+import { useTranslation } from 'next-i18next';
+import React, { useEffect, useState } from 'react';
+import { useColorMode } from './ui/color-mode';
 
-// interface ColorModeToggleProps {
-//   rest?: ButtonProps[];
-// }
+const ColorModeToggle: React.FC = () => {
+  const { t } = useTranslation('common');
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [mounted, setMounted] = useState(false);
 
-// const ColorModeToggle: React.FC<ColorModeToggleProps> = ({ ...rest }) => {
-//   const { t } = useTranslation('common');
-//   const { toggleColorMode } = useColorMode();
-//   const ToggleIcon = useColorModeValue(MoonIcon, SunIcon);
-//   const targetColorMode = useColorModeValue(t('colorMode.dark'), t('colorMode.light'));
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-//   const label = t('colorMode.toggleMode', { mode: targetColorMode });
+  const targetColorMode = colorMode === 'light' ? t('colorMode.dark') : t('colorMode.light');
+  const label = t('colorMode.toggleMode', { mode: targetColorMode });
 
-//   return (
-//     <IconButton
-//       aria-label={label}
-//       icon={<ToggleIcon />}
-//       onClick={toggleColorMode}
-//       title={label}
-//       {...rest}
-//     >
-//       Toggle theme
-//     </IconButton>
-//   );
-// };
+  if (!mounted) return null;
 
-// export default ColorModeToggle;
-
-import React from 'react';
-
-const ColorModeToggle = () => {
-  return <div></div>;
+  return (
+    <Stack direction="row" alignItems="center">
+      <IconButton aria-label={label} onClick={toggleColorMode} title={label}>
+        {colorMode === 'light' ? <LuMoon /> : <LuSun />}
+      </IconButton>
+      <Text>Toggle theme</Text>
+    </Stack>
+  );
 };
 
 export default ColorModeToggle;

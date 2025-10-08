@@ -1,5 +1,6 @@
-import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
+import { chakra, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
 import React from 'react';
+import { buttonRecipe } from './ui/recipes/button.recipe';
 
 type ButtonProps = {
   type?: ChakraButtonProps['type'];
@@ -26,8 +27,9 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   loadingText,
 }) => {
+  const RecipeButton = chakra('button', buttonRecipe);
   return (
-    <ChakraButton
+    <RecipeButton
       data-cy={dataCy}
       type={type}
       variant={variant}
@@ -38,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
       {...buttonDefaultStyle}
     >
       {children}
-    </ChakraButton>
+    </RecipeButton>
   );
 };
 
