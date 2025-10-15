@@ -6,16 +6,15 @@ export const buttonRecipe = defineRecipe({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 'md',
-    fontWeight: 'bold',
     cursor: 'pointer',
   },
   variants: {
     variant: {
       solid: {
-        bg: 'primary',
-        color: 'onPrimary',
+        bg: 'solidButtonBg',
+        color: '#FFFFFF',
         _hover: {
-          bg: 'primaryHover',
+          bg: 'solidButtonHover',
         },
       },
       outline: {

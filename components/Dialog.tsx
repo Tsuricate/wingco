@@ -1,8 +1,15 @@
-import { Dialog as ChakraDialog, ConditionalValue, Portal, Stack, Text } from '@chakra-ui/react';
+import {
+  Dialog as ChakraDialog,
+  CloseButton,
+  ConditionalValue,
+  Portal,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import React from 'react';
 import Button from './Button';
 import Link from './Link';
-import { SafeDialogContent, SafeDialogPositioner } from './ui/chakraFixes';
+import { SafeDialogCloseTrigger, SafeDialogContent, SafeDialogPositioner } from './ui/chakraFixes';
 
 interface DialogProps {
   open: boolean;
@@ -59,6 +66,9 @@ const Dialog: React.FC<DialogProps> = ({
                   )}
                 </Stack>
               </ChakraDialog.Footer>
+              <SafeDialogCloseTrigger asChild>
+                <CloseButton size="sm" />
+              </SafeDialogCloseTrigger>
             </SafeDialogContent>
           </SafeDialogPositioner>
         </Portal>

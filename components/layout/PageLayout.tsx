@@ -1,4 +1,4 @@
-import { Container, Heading } from '@chakra-ui/react';
+import { Box, Container, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import React from 'react';
 import NavBar from '../NavBar';
@@ -9,7 +9,7 @@ interface PageLayoutProps {
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ title, children }) => (
-  <>
+  <Box bgColor="pageBg" minH="100vh">
     <Head>
       <title>{title}</title>
       <meta name="description" content="Wingspan Companion App" />
@@ -21,7 +21,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ title, children }) => (
       <Heading as="h1">{title}</Heading>
       {children}
     </Container>
-  </>
+  </Box>
 );
 
 export default PageLayout;

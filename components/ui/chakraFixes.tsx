@@ -36,6 +36,10 @@ export const SafeDialogPositioner = ({ children, ...props }: any) => {
   return <Dialog.Positioner {...props}>{children}</Dialog.Positioner>;
 };
 
+export const SafeDialogCloseTrigger = ({ children, ...props }: any) => {
+  return <Dialog.CloseTrigger {...props}>{children}</Dialog.CloseTrigger>;
+};
+
 export const SafeChakraToaster = ({ children, ...props }: any) => {
   return <Toaster {...props}>{children}</Toaster>;
 };

@@ -5,22 +5,39 @@ const config = defineConfig({
     tokens: {
       colors: {
         blue: {
-          50: { value: '#ebf8ff' },
-          500: { value: '#A74482' },
-          700: { value: '#2b6cb0' },
+          50: { value: '#A3C7C2' },
+          300: { value: '#6C9CA6' },
+          500: { value: '#497D86' },
+          900: { value: '#0E2A47' },
         },
-        gray: {
-          300: { value: '#e2e8f0' },
-          600: { value: '#4a5568' },
-        },
-        white: { value: '#ffffff' },
         green: {
-          300: { value: '#68D391' },
-          400: { value: '#48BB78' },
+          50: { value: '#89B6A5' },
+          500: { value: '#6D6F4A' },
+          900: { value: '#233A28' },
+        },
+        yellow: {
+          500: { value: '#DA9E35' },
+          700: { value: '#C28A37' },
+        },
+        white: {
+          50: { value: '#FFFFFF' },
+          300: { value: '#FAF5D5' },
         },
         purple: {
-          500: { value: '#805AD5' },
-          600: { value: '#6B46C1' },
+          100: { value: '#C7B3D9' },
+        },
+        gray: {
+          50: { value: '#EAE6D9' },
+          300: { value: '#D1C9B8' },
+          500: { value: '#B6B0A3' },
+        },
+        orange: {
+          100: { value: '#E6A07C' },
+          300: { value: '#C7471C' },
+          800: { value: '#8C3F23' },
+        },
+        black: {
+          500: { value: '#2A2A2A' },
         },
       },
       spacing: {
@@ -29,7 +46,7 @@ const config = defineConfig({
         large: { value: '16px' },
       },
       fonts: {
-        body: { value: 'Inter, sans-serif' },
+        body: { value: 'Lato, sans-serif' },
       },
       fontSizes: {
         sm: { value: '12px' },
@@ -40,16 +57,22 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
-        primary: {
+        pageBg: {
           value: {
-            base: '{colors.purple.500}',
-            _dark: '{colors.green.300}',
+            base: '{colors.white.300}',
+            _dark: '{colors.green.900}',
           },
         },
-        primaryHover: {
+        solidButtonBg: {
           value: {
-            base: '{colors.purple.600}',
-            _dark: '{colors.green.400}',
+            base: '{colors.green.500}',
+            _dark: '{colors.yellow.700}',
+          },
+        },
+        solidButtonHover: {
+          value: {
+            base: '{colors.yellow.700}',
+            _dark: '{colors.yellow.500}',
           },
         },
       },
