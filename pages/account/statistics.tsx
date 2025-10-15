@@ -1,4 +1,4 @@
-import { List, ListItem, Stat, StatLabel, Text } from '@chakra-ui/react';
+import { List, Stack, Stat, StatLabel, Text } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -16,6 +16,8 @@ import {
 import { getUserInfosFromCookie } from '../../utils/api/auth';
 import { getBestScoresByCategory, getPlayerStatistics } from '../../utils/api/playerUtils';
 import { getOtherPlayersScores, getPlayerVictories, getVersusResults } from '../../utils/statistics';
+import Button from '../../components/Button';
+import router from 'next/router';
 
 interface StatisticsProps {
   playerVictories: Victories;
@@ -32,39 +34,45 @@ const Statistics: NextPageWithAuth<StatisticsProps> = ({
 
   return (
     <PageLayout title={t('statistics:title')}>
-      <Stat.Root>
-        <StatLabel>
-          {' '}
-          {t('statistics:victories', {
-            victories: playerVictories.victories,
-            allGames: playerVictories.allGames,
-          })}
-        </StatLabel>
-      </Stat.Root>
-      <StatisticsPanel
-        title={t('statistics:bestScores')}
-        description={t('statistics:bestScoresDescription')}
-        icon={GiTrophy}
-      >
-        <List.Root>
-          {bestScoresByCategory.map((category) => (
-            <List.Item key={category.category}>
-              <Text>
-                {category.value} {t(`common:categories.${category.category}`)}
-              </Text>
-            </List.Item>
+      <Stack>
+        <Stat.Root>
+          <StatLabel>
+            {' '}
+            {t('statistics:victories', {
+              victories: playerVictories.victories,
+              allGames: playerVictories.allGames,
+            })}
+          </StatLabel>
+        </Stat.Root>
+        <StatisticsPanel
+          title={t('statistics:bestScores')}
+          description={t('statistics:bestScoresDescription')}
+          icon={GiTrophy}
+        >
+          <List.Root>
+            {bestScoresByCategory.map((category) => (
+              <List.Item key={category.category}>
+                <Text>
+                  {category.value} {t(`common:categories.${category.category}`)}
+                </Text>
+              </List.Item>
+            ))}
+          </List.Root>
+        </StatisticsPanel>
+        <StatisticsPanel
+          title={t('statistics:versus')}
+          description={t('statistics:versusDescription')}
+          icon={GiCrossedSabres}
+        >
+          {versusResults.map((result) => (
+            <VersusPanel key={result.category} {...result} />
           ))}
-        </List.Root>
-      </StatisticsPanel>
-      <StatisticsPanel
-        title={t('statistics:versus')}
-        description={t('statistics:versusDescription')}
-        icon={GiCrossedSabres}
-      >
-        {versusResults.map((result) => (
-          <VersusPanel key={result.category} {...result} />
-        ))}
-      </StatisticsPanel>
+        </StatisticsPanel>
+
+        <Button variant="outline" onClick={() => router.push('/account')}>
+          {t('common:myAccount')}
+        </Button>
+      </Stack>
     </PageLayout>
   );
 };

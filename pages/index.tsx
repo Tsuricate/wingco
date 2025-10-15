@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { useRouter } from 'next/router';
 import AlertMessage from '../components/AlertMessage';
+import Button from '../components/Button';
 
 const Home: NextPage = () => {
   const { isLogged } = useSelector((state: RootState) => state.auth);
@@ -21,20 +22,22 @@ const Home: NextPage = () => {
       <Stack>
         <Text>{t('home:description')}</Text>
         {!isLogged && (
-          <Link href="/sign-in" asButton>
+          <Button variant="solid" onClick={() => router.push('/sign-in')}>
             {t('common:signIn')}
-          </Link>
+          </Button>
         )}
-        <Link href="/new-game" asButton>
-          {!isLogged ? t('common:newGameAsGuest') : t('common:newGame')}
-        </Link>
-        <Link href="/join-game" asButton>
+        <Button variant="solid" onClick={() => router.push('/join-game')}>
           {t('common:joinGame')}
-        </Link>
+        </Button>
         {isLogged && (
-          <Link href="/account" asButton>
-            {t('common:myAccount')}
-          </Link>
+          <>
+            <Button variant="solid" onClick={() => router.push('/new-game')}>
+              {t('common:newGame')}
+            </Button>
+            <Button variant="solid" onClick={() => router.push('/account')}>
+              {t('common:myAccount')}
+            </Button>
+          </>
         )}
       </Stack>
     </PageLayout>

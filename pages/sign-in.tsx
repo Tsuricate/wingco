@@ -41,7 +41,7 @@ const SignIn: React.FC = () => {
         router.push(redirect);
         removeRedirection('sign_in_redirect');
       } else {
-        router.push('/account');
+        router.push('/');
       }
     }
   });

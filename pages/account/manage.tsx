@@ -16,6 +16,7 @@ import { resetPasswordAssistanceInfos } from '../../redux/actions/passwordAssist
 import { RootState } from '../../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../../utils/formUtils';
 import { manageAccountValidationSchema } from '../../validations';
+import router from 'next/router';
 
 const ManageAccount: NextPageWithAuth = () => {
   const { t } = useTranslation(['manageAccount', 'validations', 'common']);
@@ -73,6 +74,9 @@ const ManageAccount: NextPageWithAuth = () => {
           {t('manageAccount:changePassword')}
         </Link>
         <Button onClick={onOpen}>{t('manageAccount:delete')}</Button>
+        <Button variant="outline" onClick={() => router.push('/account')}>
+          {t('common:myAccount')}
+        </Button>
         <Dialog
           title={t('manageAccount:delete')}
           firstActionButton={t('manageAccount:keepAccount')}

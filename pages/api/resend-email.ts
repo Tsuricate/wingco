@@ -28,8 +28,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const updatedPlayer = updateTokenResponse.data?.updatePlayer;
 
-    console.log('updatedPlayer : ', updatedPlayer);
-
     if (!updatedPlayer || !updatedPlayer.validationEmailToken) {
       return res.status(500).json({ error: 'Validation token update failed.' });
     }

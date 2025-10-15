@@ -139,6 +139,9 @@ const NewGame: React.FC = () => {
         <Button type="submit" onClick={handleSubmit}>
           {t('newGame:startGame')}
         </Button>
+        <Button variant="outline" onClick={() => router.push('/')}>
+          {t('common:home')}
+        </Button>
       </Stack>
       {playersInQueue.length > 0 && (
         <Dialog

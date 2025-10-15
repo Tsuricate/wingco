@@ -1,9 +1,11 @@
-import { Stack, Text } from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Pusher from 'pusher-js';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import router from 'next/router';
+import Pusher from 'pusher-js';
+import { RootState } from '../redux/reducers';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useDispatch, useSelector } from 'react-redux';
+import { Stack, Text } from '@chakra-ui/react';
 import AlertMessage from '../components/AlertMessage';
 import AvatarSelector from '../components/AvatarSelector';
 import Button from '../components/Button';
@@ -14,7 +16,6 @@ import Link from '../components/Link';
 import { AvatarImage } from '../models/players';
 import { joinGameRequest, updateGuestPlayerInfos, updateJoinGameSlug } from '../redux/actions/joinGame';
 import { updateIsLoading } from '../redux/actions/signUp';
-import { RootState } from '../redux/reducers';
 
 const JoinGame: React.FC = () => {
   const { t } = useTranslation(['joinGame', 'newGame', 'common']);
@@ -120,6 +121,9 @@ const JoinGame: React.FC = () => {
           loadingText={t('joinGame:waitingForHostAnswer')}
         >
           {t('joinGame:join')}
+        </Button>
+        <Button variant="outline" onClick={() => router.push('/')}>
+          {t('common:home')}
         </Button>
       </Form>
     </PageLayout>
