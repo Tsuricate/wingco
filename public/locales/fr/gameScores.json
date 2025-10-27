@@ -1,5 +1,6 @@
 {
   "title": "Scores",
   "computeScores": "Calculer les scores",
-  "enterScores": "Saisir les scores"
+  "enterScores": "Saisir les scores",
+  "modifyGame": "Modifier la partie"
 }

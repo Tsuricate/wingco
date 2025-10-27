@@ -6,6 +6,7 @@
   "useNectar": "Use Nectar (Oceania Expansion)",
   "estimatedTime": "Estimated game time : {{duration}}",
   "startGame": "Start game",
+  "saveAndContinue": "Save and continue",
   "howInvitePlayer": "How to invite a player",
   "howInviteDescription": "Your game ID is : {{gameId}}",
   "howInviteIntro": "In order to join your game, your friend has to :",

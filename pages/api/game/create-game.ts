@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../../apollo-client';
-import { CREATE_GAME_WITH_PLAYERS } from '../../../queries/game.queries';
-import { getParticipantsFromPlayers } from '../../../utils/newGame';
+import { CREATE_GAME_WITH_PLAYERS, GET_CATEGORIES } from '../../../queries/game.queries';
+import { getParticipantsFromPlayers, sortPlayersByHost } from '../../../utils/newGame';
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { players, gameWithNectar, gameSlug, hostId } = req.body;
@@ -15,7 +15,14 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (newGame.data.upsertGame.id) {
-      res.status(201).json({ gameInfos: newGame.data.upsertGame });
+      const orderedGame = sortPlayersByHost(newGame.data.upsertGame);
+
+      const categoriesResult = await client.query({
+        query: GET_CATEGORIES,
+      });
+      const categories = categoriesResult.data?.categories || [];
+
+      res.status(201).json({ gameInfos: orderedGame, categories });
     }
   } catch (err: any) {
     if (err.result?.errors) {

@@ -1,7 +1,12 @@
 import axios from 'axios';
 import Router from 'next/router';
-import { AnyAction, Dispatch, Middleware } from 'redux';
-import { getResultsFromPlayers, getScoresFromPlayers } from '../../utils/newGame';
+import { Dispatch, Middleware } from 'redux';
+import {
+  getResultsFromPlayers,
+  getScoresFromPlayers,
+  getUpdatedParticipants,
+  sortPlayersByHost,
+} from '../../utils/newGame';
 import { SEND_GAME_SCORES } from '../actions/gameScores';
 import { ANSWER_JOIN_REQUEST, JOIN_GAME_REQUEST, updateIsLoading } from '../actions/joinGame';
 import {
@@ -10,7 +15,10 @@ import {
   isCreatingNewGame,
   newGameAction,
   saveGameId,
-  updateUnregisteredPlayersId,
+  initializeGamePlayers,
+  UPDATE_GAME,
+  updateGame,
+  saveCategories,
 } from '../actions/newGame';
 import { RootState } from '../reducers';
 
@@ -27,12 +35,30 @@ const gameMiddleware: Middleware<{}, RootState, Dispatch<newGameAction>> =
           .post('/api/game/create-game', { players, gameWithNectar, gameSlug, hostId })
           .then((res) => {
             if (res.status === 201) {
-              store.dispatch(updateUnregisteredPlayersId(res.data.gameInfos.players));
+              store.dispatch(saveCategories(res.data.categories));
+              store.dispatch(initializeGamePlayers(res.data.gameInfos.players));
               store.dispatch(saveGameId(res.data.gameInfos.id));
               store.dispatch(isCreatingNewGame(false));
             }
           });
 
+        next(action);
+        break;
+      }
+
+      case UPDATE_GAME: {
+        const { initialPlayers, currentPlayers, activeSlug } = action as ReturnType<typeof updateGame>;
+        const { gameWithNectar } = store.getState().game;
+        const playerChanges = getUpdatedParticipants(initialPlayers, currentPlayers);
+
+        axios
+          .post('/api/game/update-game', { playerChanges, gameWithNectar, activeSlug })
+          .then((res) => {
+            if (res.status === 200) {
+              const orderedGame: any = sortPlayersByHost(res.data.gameInfos);
+              store.dispatch(initializeGamePlayers(orderedGame.players));
+            }
+          });
         next(action);
         break;
       }

@@ -1,4 +1,4 @@
-import { IGamePlayer, Player, PLAYER_BADGE } from './players';
+import { IGamePlayer, Player, PLAYER_BADGE, PlayerWithRegisteredInfos } from './players';
 
 export interface Category {
   id: string;
@@ -58,6 +58,13 @@ interface PlayersScores {
   name: Player['name'];
   currentScores: Array<ResultScore>;
   previousScores: Array<ResultScore>;
+}
+
+export interface GameWithPlayers {
+  slug: string;
+  id: string;
+  players: PlayerWithRegisteredInfos[];
+  hostedBy: { id: string; name: string };
 }
 
 export interface GameResults {

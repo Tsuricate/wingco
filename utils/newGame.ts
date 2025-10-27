@@ -1,4 +1,4 @@
-import { Leaderboard, ScoreCreateInput } from '../models/game';
+import { GameWithPlayers, Leaderboard, ScoreCreateInput } from '../models/game';
 import { GameResult, IGamePlayer, PlayerWithRegisteredInfos, PLAYER_BADGE } from '../models/players';
 
 export const getEstimatedTime = (totalMinutes: number) => {
@@ -27,6 +27,50 @@ export const getParticipantsFromPlayers = (players: Array<PlayerWithRegisteredIn
         avatar: { connect: { id: player.avatar.id } },
       };
     }),
+  };
+};
+
+export const getUpdatedParticipants = (
+  initialPlayers: PlayerWithRegisteredInfos[],
+  currentPlayers: PlayerWithRegisteredInfos[]
+) => {
+  const getPlayerChanges = (
+    source: PlayerWithRegisteredInfos[],
+    comparison: PlayerWithRegisteredInfos[]
+  ) => {
+    return source.filter((player) => !comparison.some((compPlayer) => compPlayer.id === player.id));
+  };
+
+  const newPlayers = getPlayerChanges(currentPlayers, initialPlayers);
+  const deletedPlayers = getPlayerChanges(initialPlayers, currentPlayers);
+  const registeredPlayers = newPlayers.filter((player) => player.isRegistered);
+  const unregisteredPlayers = newPlayers.filter((player) => !player.isRegistered);
+  const updatedPlayers = currentPlayers.filter((player) => {
+    const original = initialPlayers.find((p) => p.id === player.id);
+    if (!original) return false;
+    return player.name !== original.name || player.avatar?.id !== original.avatar?.id;
+  });
+
+  return {
+    connect: registeredPlayers.map((player) => ({
+      where: { id: player.id },
+    })),
+    create: unregisteredPlayers.map((player) => {
+      return {
+        name: player.name,
+        hasVerifiedEmail: false,
+        isRegistered: false,
+        avatar: { connect: { id: player.avatar.id } },
+      };
+    }),
+    update: updatedPlayers.map((player) => ({
+      where: { id: player.id },
+      data: {
+        name: player.name,
+        avatar: { connect: { id: player.avatar.id } },
+      },
+    })),
+    disconnect: deletedPlayers.map((player) => ({ id: player.id })),
   };
 };
 
@@ -100,4 +144,14 @@ export const getResultsFromPlayers = (players: Array<IGamePlayer>) => {
   });
 
   return playersLeaderboard;
+};
+
+export const sortPlayersByHost = (game: GameWithPlayers): GameWithPlayers => {
+  const hostId = game.hostedBy.id;
+
+  const orderedPlayers = [
+    ...game.players.filter((p) => p.id === hostId),
+    ...game.players.filter((p) => p.id !== hostId),
+  ];
+  return { ...game, players: orderedPlayers };
 };

@@ -6,6 +6,7 @@
   "useNectar": "Inclure Nectar (Extension Océanie)",
   "estimatedTime": "Durée estimée de la partie : {{duration}}",
   "startGame": "Démarrer la partie",
+  "saveAndContinue": "Sauvegarder et continuer",
   "howInvitePlayer": "Comment inviter un joueur",
   "howInviteDescription": "L'id de votre partie est {{gameId}}",
   "howInviteIntro": "Pour rejoindre la partie, votre ami doit :",

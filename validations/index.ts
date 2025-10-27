@@ -44,6 +44,15 @@ export const signUpSchema = yup.object({
   passwordValidation,
 });
 
+export const gamePlayerSchema = yup.object().shape({
+  id: yup.string().required(),
+  name: username,
+  avatar: yup.object().required('validations:fieldRequired'),
+  isRegistered: yup.boolean().required('validations:fieldRequired'),
+});
+
+export const gamePlayersListSchema = yup.array().of(gamePlayerSchema);
+
 export type Step<T extends yup.ObjectSchema<any>> = {
   schema: T;
   data: yup.InferType<T>;

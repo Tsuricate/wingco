@@ -1,4 +1,4 @@
-import { AnyObjectSchema, ValidationError } from 'yup';
+import { AnyObjectSchema, ArraySchema, ValidationError } from 'yup';
 import { i18n } from 'next-i18next';
 
 export interface FormError {
@@ -18,7 +18,10 @@ export const getErrorsMessages = (errorsArray: Array<FormError>, inputName: stri
   return errorsArray.filter((error) => error.name === inputName).map((error) => error.message);
 };
 
-export const validateFormData = (schema: AnyObjectSchema, formData: formData) => {
+export const validateFormData = (
+  schema: AnyObjectSchema | ArraySchema<any, any, any, any>,
+  formData: formData
+) => {
   return new Promise<FormError[] | null>((resolve, reject) => {
     schema
       .validate(formData, { abortEarly: false })

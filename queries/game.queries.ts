@@ -24,6 +24,41 @@ export const CREATE_GAME_WITH_PLAYERS = gql`
       players {
         id
         name
+        isRegistered
+        avatar {
+          id
+          url
+        }
+      }
+      hostedBy {
+        id
+        name
+      }
+      scores {
+        category {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_GAME_WITH_PLAYERS = gql`
+  mutation UpdateGame(
+    $players: PlayerUpdateManyInlineInput!
+    $withOceaniaExpansion: Boolean
+    $gameSlug: String!
+  ) {
+    updateGame(
+      where: { slug: $gameSlug }
+      data: { withOceaniaExpansion: $withOceaniaExpansion, players: $players }
+    ) {
+      slug
+      id
+      players {
+        id
+        name
+        isRegistered
         avatar {
           id
           url
@@ -131,6 +166,28 @@ export const GET_GAME_RESULTS = gql`
           }
           value
         }
+      }
+    }
+  }
+`;
+
+export const GET_GAME_BY_SLUG = gql`
+  query GetGameBySlug($gameSlug: String!) {
+    game(where: { slug: $gameSlug }) {
+      slug
+      id
+      players {
+        id
+        name
+        isRegistered
+        avatar {
+          id
+          url
+        }
+      }
+      hostedBy {
+        id
+        name
       }
     }
   }

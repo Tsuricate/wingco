@@ -14,6 +14,7 @@ interface NewGamePlayerProps extends PlayerWithRegisteredInfos {
   playerNumber: number;
   onDeletePlayer: () => void;
   updateField: (name: string, value: string) => void;
+  errors?: Array<string>;
 }
 
 const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
@@ -24,6 +25,7 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
   playerNumber,
   onDeletePlayer,
   updateField,
+  errors,
 }) => {
   const { t } = useTranslation('newGame');
   const dispatch = useDispatch();
@@ -56,6 +58,7 @@ const NewGamePlayer: React.FC<NewGamePlayerProps> = ({
           </IconButton>
         ) : undefined
       }
+      errors={errors}
     />
   );
 };

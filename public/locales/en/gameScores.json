@@ -1,5 +1,6 @@
 {
   "title": "Scores",
   "computeScores": "Compute scores",
-  "enterScores": "Enter scores"
+  "enterScores": "Enter scores",
+  "modifyGame": "Modify game"
 }

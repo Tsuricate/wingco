@@ -12,24 +12,24 @@ export type newGameAction =
   | ReturnType<typeof saveGameSlug>
   | ReturnType<typeof saveGameId>
   | ReturnType<typeof createNewGame>
-  | ReturnType<typeof saveNewGame>
   | ReturnType<typeof deleteGame>
-  | ReturnType<typeof updateUnregisteredPlayersId>
+  | ReturnType<typeof initializeGamePlayers>
   | ReturnType<typeof isCreatingNewGame>;
 
 export const SET_FIRST_PLAYER = 'SET_FIRST_PLAYER';
 export const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
 export const ADD_PLAYER = 'ADD_PLAYER';
+export const UPDATE_PLAYERS_LIST = 'UPDATE_PLAYERS_LIST';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const UPDATE_PLAYER_INFOS = 'UPDATE_PLAYER_INFOS';
 export const RESET_GAME_INFOS = 'RESET_GAME_INFOS';
 export const UPDATE_GAME_WITH_NECTAR = 'UPDATE_GAME_WITH_NECTAR';
 export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
-export const SAVE_NEW_GAME = 'SAVE_NEW_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const SAVE_GAME_SLUG = 'SAVE_GAME_SLUG';
 export const SAVE_GAME_ID = 'SAVE_GAME_ID';
-export const UPDATE_UNREGISTERED_PLAYERS_ID = 'UPDATE_UNREGISTERED_PLAYERS_ID';
+export const INITIALIZE_GAME_PLAYERS = 'INITIALIZE_GAME_PLAYERS';
 export const IS_CREATING_NEW_GAME = 'IS_CREATING_NEW_GAME';
 
 export const setFirstPlayer = (player: IGamePlayer) => ({
@@ -81,17 +81,23 @@ export const createNewGame = () => ({
   type: CREATE_NEW_GAME,
 });
 
-export const saveNewGame = (id: string) => ({
-  type: SAVE_NEW_GAME,
-  id,
+export const updateGame = (
+  initialPlayers: Array<PlayerWithRegisteredInfos>,
+  currentPlayers: Array<PlayerWithRegisteredInfos>,
+  activeSlug: string
+) => ({
+  type: UPDATE_GAME,
+  initialPlayers,
+  currentPlayers,
+  activeSlug,
 });
 
 export const deleteGame = () => ({
   type: DELETE_GAME,
 });
 
-export const updateUnregisteredPlayersId = (players: Array<PlayerWithRegisteredInfos>) => ({
-  type: UPDATE_UNREGISTERED_PLAYERS_ID,
+export const initializeGamePlayers = (players: Array<PlayerWithRegisteredInfos>) => ({
+  type: INITIALIZE_GAME_PLAYERS,
   players,
 });
 

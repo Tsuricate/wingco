@@ -13,11 +13,11 @@ import {
   SAVE_CATEGORIES,
   SAVE_GAME_ID,
   SAVE_GAME_SLUG,
-  SAVE_NEW_GAME,
   SET_FIRST_PLAYER,
   UPDATE_GAME_WITH_NECTAR,
   UPDATE_PLAYER_INFOS,
-  UPDATE_UNREGISTERED_PLAYERS_ID,
+  UPDATE_PLAYERS_LIST,
+  INITIALIZE_GAME_PLAYERS,
 } from '../actions/newGame';
 import { UPDATE_NEW_PLAYER_AVATAR } from '../actions/player';
 
@@ -34,20 +34,13 @@ const initialState: gameReducerProps = {
   gameId: '',
   gameSlug: '',
   categories: [],
-  players: [defaultPlayer],
+  players: [],
   gameWithNectar: false,
   isCreatingNewGame: false,
 };
 
 const gameReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case HYDRATE: {
-      return {
-        ...state,
-        categories: action.payload.game.categories,
-      };
-    }
-
     case SET_FIRST_PLAYER: {
       return {
         ...state,
@@ -119,13 +112,6 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       };
     }
 
-    case SAVE_NEW_GAME: {
-      return {
-        ...state,
-        gameId: action.id,
-      };
-    }
-
     case SAVE_GAME_SLUG: {
       return {
         ...state,
@@ -140,7 +126,14 @@ const gameReducer = (state = initialState, action: AnyAction) => {
       };
     }
 
-    case UPDATE_UNREGISTERED_PLAYERS_ID: {
+    case UPDATE_PLAYERS_LIST: {
+      return {
+        ...state,
+        players: action.players,
+      };
+    }
+
+    case INITIALIZE_GAME_PLAYERS: {
       const players = action.players.map((player: PlayerWithRegisteredInfos) => {
         if (player.isRegistered) {
           return { ...player, scores: defaultScores };

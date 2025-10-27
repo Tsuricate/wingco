@@ -1,8 +1,10 @@
 import client from '../../apollo-client';
+import { previewClient } from '../../apollo-preview-client';
 import {
   GET_ALL_GAME_IDS,
   GET_CATEGORIES,
   GET_GAMES_HISTORY,
+  GET_GAME_BY_SLUG,
   GET_GAME_RESULTS,
 } from '../../queries/game.queries';
 
@@ -30,6 +32,28 @@ export const getGameResults = async (gameId: string) => {
     return game;
   } catch (err) {
     throw new Error('Cannot fetch game results');
+  }
+};
+
+export const getGameBySlug = async (gameSlug: string, preview = false) => {
+  try {
+    const chosenClient = preview ? previewClient : client;
+
+    const { data } = await chosenClient.query({
+      query: GET_GAME_BY_SLUG,
+      variables: { gameSlug },
+      fetchPolicy: 'network-only',
+    });
+
+    if (!data || !data.game) {
+      console.warn('Game not found or not accessible', gameSlug);
+      return null;
+    }
+
+    return data.game;
+  } catch (err) {
+    console.error('GraphQL query failed:', err);
+    return null;
   }
 };
 

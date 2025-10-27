@@ -1,59 +1,78 @@
-import { Stack, Switch, Text, useDisclosure } from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { Stack, Switch, Text, useDisclosure } from '@chakra-ui/react';
 import Button from '../components/Button';
-import Form from '../components/Form';
 import InvitePlayerButton from '../components/InvitePlayerButton';
 import PageLayout from '../components/layout/PageLayout';
 import Dialog from '../components/Dialog';
 import NewGamePlayer from '../components/NewGamePlayer';
+import { SafeSwitchLabel } from '../components/ui/chakraFixes';
 import { defaultPlayer, defaultScores } from '../constants/game';
-import { IGamePlayer, Player } from '../models/players';
+import { IGamePlayer, Player, PlayerWithRegisteredInfos } from '../models/players';
 import { addPlayerInQueue, answerJoinRequest, deletePlayerInQueue } from '../redux/actions/joinGame';
 import {
   addPlayer,
   createNewGame,
+  initializeGamePlayers,
   removePlayer,
-  saveGameSlug,
+  updateGame,
   updateGameWithNectar,
   updatePlayerInfos,
 } from '../redux/actions/newGame';
 import { RootState } from '../redux/reducers';
 import { getEstimatedTime } from '../utils/newGame';
-import { SafeSwitchLabel } from '../components/ui/chakraFixes';
+import { GameWithPlayers } from '../models/game';
+import { FormError, validateFormData } from '../utils/formUtils';
+import { gamePlayersListSchema } from '../validations';
 
-const NewGame: React.FC = () => {
-  const { t } = useTranslation(['common', 'newGame']);
+interface NewGameProps {
+  isEditing: boolean;
+  urlGameSlug?: string;
+  game?: GameWithPlayers;
+}
+
+const NewGame: React.FC<NewGameProps> = ({ isEditing = false, urlGameSlug, game }) => {
+  const { t } = useTranslation(['common', 'newGame', 'validations']);
   const dispatch = useDispatch();
   const router = useRouter();
   const { open, onOpen, onClose } = useDisclosure();
+  const [initialPlayers, setInitialPlayers] = useState<PlayerWithRegisteredInfos[]>([]);
+  const [formErrors, setFormErrors] = useState<FormError[]>([]);
   const { gameSlug, players, gameWithNectar } = useSelector((state: RootState) => state.game);
   const { playersInQueue } = useSelector((state: RootState) => state.joinGame);
   const hasReachedMaxPlayers = players.length === 5;
   const estimatedTime = getEstimatedTime(players.length * 35);
 
+  const activeSlug = isEditing && urlGameSlug ? urlGameSlug : gameSlug;
+  const gameButtonLabel = isEditing ? t('newGame:saveAndContinue') : t('newGame:startGame');
+
   useEffect(() => {
-    const gameSlug = Math.random().toString(36).substring(2, 8).toUpperCase();
-    dispatch(saveGameSlug(gameSlug));
-  }, [dispatch]);
+    setInitialPlayers(players);
+  }, []);
+
+  useEffect(() => {
+    if (game?.players && players.length === 0) {
+      dispatch(initializeGamePlayers(game.players));
+      setInitialPlayers(game.players);
+    }
+  }, [game, players]);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY || '', {
       cluster: 'eu',
     });
-    const channel = pusher.subscribe(`game-${gameSlug}`);
+    const channel = pusher.subscribe(`game-${activeSlug}`);
     channel.bind('join-game-request', async (data: { player: Player }) => {
       dispatch(addPlayerInQueue(data.player));
     });
     return () => {
       pusher.unsubscribe('join-game-request');
     };
-  }, [dispatch, gameSlug]);
+  }, [dispatch, activeSlug]);
 
   useEffect(() => {
     if (playersInQueue.length > 0) {
@@ -97,8 +116,17 @@ const NewGame: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    router.push('/game-scores');
-    dispatch(createNewGame());
+    validateFormData(gamePlayersListSchema, players)
+      .then(async () => {
+        setFormErrors([]);
+        isEditing
+          ? dispatch(updateGame(initialPlayers, players, activeSlug))
+          : dispatch(createNewGame());
+        router.push(`/game-scores/${activeSlug}`);
+      })
+      .catch((errorsArray) => {
+        setFormErrors(errorsArray);
+      });
   };
 
   const handleAnswerJoinRequest = (player: Player, isAccepted: boolean) => {
@@ -110,20 +138,26 @@ const NewGame: React.FC = () => {
 
   return (
     <PageLayout title={t('newGame:title')}>
-      <Text>ID {gameSlug}</Text>
+      <Text>ID {activeSlug}</Text>
       <Stack>
-        {players.map((player: IGamePlayer, index: number) => (
-          <NewGamePlayer
-            key={player.id}
-            id={player.id}
-            name={player.name}
-            avatar={player.avatar}
-            isRegistered={player.isRegistered}
-            playerNumber={index + 1}
-            onDeletePlayer={() => handleDeletePlayer(player.id)}
-            updateField={(value: any) => handleUpdatePlayerInfos(value, player.id)}
-          />
-        ))}
+        {players.map((player: IGamePlayer, index: number) => {
+          const playerErrors: string[] = formErrors
+            .filter((err) => err.name === `[${index}].name`)
+            .map((err) => err.message);
+          return (
+            <NewGamePlayer
+              key={player.id}
+              id={player.id}
+              name={player.name}
+              avatar={player.avatar}
+              isRegistered={player.isRegistered}
+              playerNumber={index + 1}
+              onDeletePlayer={() => handleDeletePlayer(player.id)}
+              updateField={(value: any) => handleUpdatePlayerInfos(value, player.id)}
+              errors={playerErrors}
+            />
+          );
+        })}
         <Button isDisabled={hasReachedMaxPlayers} onClick={() => handleAddPlayer(undefined)}>
           {t('newGame:addPlayer')}
         </Button>
@@ -137,7 +171,7 @@ const NewGame: React.FC = () => {
         </Switch.Root>
         <Text>{t('newGame:estimatedTime', { duration: estimatedTime })}</Text>
         <Button type="submit" onClick={handleSubmit}>
-          {t('newGame:startGame')}
+          {gameButtonLabel}
         </Button>
         <Button variant="outline" onClick={() => router.push('/')}>
           {t('common:home')}
@@ -162,9 +196,3 @@ const NewGame: React.FC = () => {
 };
 
 export default NewGame;
-
-export const getStaticProps = async ({ locale }: { locale: string }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['newGame', 'common'])),
-  },
-});
