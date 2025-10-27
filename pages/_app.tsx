@@ -1,18 +1,17 @@
 import { ApolloProvider } from '@apollo/client';
-import { Provider } from '../components/ui/Provider';
-import axios from 'axios';
+import { Provider as ReduxProvider, useDispatch } from 'react-redux';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { Provider } from '../components/ui/Provider';
+
 import client from '../apollo-client';
 import AuthGuard from '../components/AuthGuard';
-import { defaultScores } from '../constants/game';
-import { NextPageWithAuth } from '../models/pageWithAuth';
-import { saveUser } from '../redux/actions/auth';
-import { setFirstPlayer } from '../redux/actions/newGame';
-import { wrapper } from '../redux/store';
 import { ColorModeProvider } from '../components/ui/color-mode';
+import { wrapper } from '../redux/store';
+import { saveUser } from '../redux/actions/auth';
+import { NextPageWithAuth } from '../models/pageWithAuth';
 
 interface MyAppProps extends AppProps {
   Component: NextPageWithAuth;
@@ -30,16 +29,13 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         .then((res) => {
           if (res.data.player) {
             dispatch(saveUser(res.data.player, true));
-            const { id, name, avatar } = res.data.player;
-            dispatch(setFirstPlayer({ id, name, avatar, isRegistered: true, scores: defaultScores }));
-
-            setShouldGetPlayer(false);
           }
         })
-        .catch(() => {
+        .catch(() => {})
+        .finally(() => {
           setShouldGetPlayer(false);
-        })
-        .finally(() => setIsLoading(false));
+          setIsLoading(false);
+        });
     }
   }, [shouldGetPlayer, dispatch]);
 
@@ -60,4 +56,14 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   );
 };
 
-export default wrapper.withRedux(appWithTranslation(MyApp));
+const WrappedApp = (props: AppProps) => {
+  const { store, props: wrappedProps } = wrapper.useWrappedStore(props);
+
+  return (
+    <ReduxProvider store={store}>
+      <MyApp {...wrappedProps} />
+    </ReduxProvider>
+  );
+};
+
+export default appWithTranslation(WrappedApp);
