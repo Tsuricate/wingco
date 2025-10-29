@@ -6,6 +6,7 @@ import { RootState } from '../redux/reducers';
 import ColorModeToggle from './ColorModeToggle';
 import PlayerAvatar from './PlayerAvatar';
 import Link from './Link';
+import LanguageSwitch from './LanguageSwitch';
 
 const NavBar: React.FC = () => {
   const { isLogged, avatar } = useSelector((state: RootState) => state.auth);
@@ -16,6 +17,7 @@ const NavBar: React.FC = () => {
         <Heading>WingCo</Heading>
 
         <Stack direction="row" display="flex">
+          <LanguageSwitch />
           <ColorModeToggle />
           {isLogged && (
             <Link href="/account">

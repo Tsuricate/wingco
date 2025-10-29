@@ -6,6 +6,7 @@ import {
   Dialog,
   Field,
   NumberInput,
+  SegmentGroup,
   Switch,
   Toast,
   Toaster,
@@ -26,6 +27,10 @@ export const SafeFieldErrorText: React.FC<React.HTMLAttributes<HTMLDivElement>> 
 
 export const SafeSwitchLabel = ({ children, ...props }: any) => {
   return <Switch.Label {...props}>{children}</Switch.Label>;
+};
+
+export const SafeSegmentGroupItem = ({ children, ...props }: any) => {
+  return <SegmentGroup.Item {...props}>{children}</SegmentGroup.Item>;
 };
 
 export const SafeDialogContent = ({ children, ...props }: any) => {

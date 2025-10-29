@@ -1,4 +1,4 @@
-import { Stack, IconButton, Text } from '@chakra-ui/react';
+import { Stack, IconButton } from '@chakra-ui/react';
 import { LuMoon, LuSun } from 'react-icons/lu';
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
@@ -23,7 +23,6 @@ const ColorModeToggle: React.FC = () => {
       <IconButton aria-label={label} onClick={toggleColorMode} title={label}>
         {colorMode === 'light' ? <LuMoon /> : <LuSun />}
       </IconButton>
-      <Text>Toggle theme</Text>
     </Stack>
   );
 };
