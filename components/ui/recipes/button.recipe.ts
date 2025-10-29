@@ -7,6 +7,10 @@ export const buttonRecipe = defineRecipe({
     justifyContent: 'center',
     borderRadius: 'md',
     cursor: 'pointer',
+    minH: '44px',
+    minW: '44px',
+    px: '16px',
+    py: '8px',
   },
   variants: {
     variant: {

@@ -1,7 +1,7 @@
-import React from 'react';
+import { useRouter } from 'next/router';
 import { SegmentGroup } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
 import { SafeSegmentGroupItem } from './ui/chakraFixes';
+import { i18n } from 'next-i18next';
 
 const languages = [
   { key: 'en', label: 'EN' },
@@ -9,14 +9,15 @@ const languages = [
 ];
 
 const LanguageToggle = () => {
-  const { i18n } = useTranslation();
+  const router = useRouter();
+  const { asPath, locale } = router;
 
-  const handleChange = (lang: string) => {
-    i18n.changeLanguage(lang);
+  const handleChange = async (lang: string) => {
+    await i18n?.changeLanguage(lang);
+    router.replace(asPath, asPath, { locale: lang, scroll: false });
   };
-
   return (
-    <SegmentGroup.Root value={i18n.language ?? 'en'}>
+    <SegmentGroup.Root value={locale ?? 'fr'}>
       <SegmentGroup.Indicator />
       {languages.map((language) => (
         <SafeSegmentGroupItem

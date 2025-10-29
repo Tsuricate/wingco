@@ -1,6 +1,7 @@
 {
   "home": "Accueil",
-  "signIn": "Se connecter / S'inscrire",
+  "signIn": "Se connecter",
+  "signUp": "S'inscrire",
   "newGameAsGuest": "Nouvelle partie en tant qu'invité",
   "newGame": "Nouvelle partie",
   "joinGame": "Rejoindre une partie",

@@ -12,20 +12,20 @@ const NavBar: React.FC = () => {
   const { isLogged, avatar } = useSelector((state: RootState) => state.auth);
 
   return (
-    <Box as="header" p={2}>
-      <Flex align="center" justifyContent="space-between">
-        <Heading>WingCo</Heading>
+    <Box as="header" p={2} display="flex" justifyContent="space-between">
+      {isLogged && (
+        <>
+          <Link href="/account">
+            <PlayerAvatar badge={PLAYER_BADGE.Logged} avatar={avatar.url} />
+          </Link>
+          <Heading>WingCo</Heading>
+        </>
+      )}
 
-        <Stack direction="row" display="flex">
-          <LanguageSwitch />
-          <ColorModeToggle />
-          {isLogged && (
-            <Link href="/account">
-              <PlayerAvatar badge={PLAYER_BADGE.Logged} avatar={avatar.url} />
-            </Link>
-          )}
-        </Stack>
-      </Flex>
+      <Stack direction="row" ml="auto">
+        <LanguageSwitch />
+        <ColorModeToggle />
+      </Stack>
     </Box>
   );
 };
