@@ -1,5 +1,6 @@
 {
   "title": "Sign Up",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, nostrum ipsam repudiandae numquam libero.",
   "usernameLabel": "Username",
   "usernameHelperText": "Chose your username",
   "passwordLabel": "Password",
@@ -8,7 +9,7 @@
   "passwordLabelValidation": "Password verification",
   "passwordValidationHelperText": "Confirm your password",
   "alreadyRegistered": "Already have an account ?",
-  "signIn": "Connection",
+  "signIn": "Sign In",
   "errorUniqueUsername": "Username must be unique",
   "successModal": {
     "title": "Your account has been created !",

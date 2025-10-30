@@ -1,19 +1,25 @@
-interface signUpFormProps {
+import { HiOutlineMail } from 'react-icons/hi';
+import { FiUser } from 'react-icons/fi';
+
+interface SignUpFormProps {
   name: 'username' | 'email' | 'password' | 'passwordValidation';
   label: string;
   helperText: string;
+  startElement?: React.ReactNode;
 }
 
-export const signUpForm: Array<signUpFormProps> = [
+export const signUpForm: SignUpFormProps[] = [
   {
     name: 'username',
     label: 'common:usernameLabel',
     helperText: 'common:usernameHelperText',
+    startElement: <FiUser />,
   },
   {
     name: 'email',
     label: 'common:emailLabel',
     helperText: 'common:emailHelperText',
+    startElement: <HiOutlineMail />,
   },
   {
     name: 'password',

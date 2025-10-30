@@ -46,7 +46,7 @@ const FormControl: React.FC<FormControlProps> = ({
         <SafeFieldLabel htmlFor={id}>{label}</SafeFieldLabel>
       </VisuallyHidden>
       {['password', 'passwordValidation'].includes(name) ? (
-        <>
+        <Stack width="100%">
           <PasswordInput
             autoComplete="off"
             id={id}
@@ -57,8 +57,8 @@ const FormControl: React.FC<FormControlProps> = ({
             required
             size="lg"
           />
-          {extraElement && <Box>{extraElement}</Box>}
-        </>
+          {extraElement && <Box maxW="300px">{extraElement}</Box>}
+        </Stack>
       ) : (
         <Stack direction="row" align="center" gap={5} width="100%">
           {leftSlot}

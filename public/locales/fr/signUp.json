@@ -1,5 +1,6 @@
 {
   "title": "S'inscrire",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, nostrum ipsam repudiandae numquam libero.",
   "usernameLabel": "Nom d'utilisateur",
   "usernameHelperText": "Choisissez votre nom d'utilisateur",
   "passwordLabel": "Mot de passe",
