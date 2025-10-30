@@ -27,8 +27,6 @@ const SignUp: React.FC = () => {
   const [isRetryDisabled, setIsRetryDisabled] = useState(false);
   const userInfos = useSelector((state: RootState) => state.signUp);
 
-  console.log("userInfos['email'] :", userInfos.password);
-
   const strengthOptions: Options<string> = [
     { id: 1, value: 'weak', minDiversity: 0, minLength: 0 },
     { id: 2, value: 'medium', minDiversity: 2, minLength: 6 },
