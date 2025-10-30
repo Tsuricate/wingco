@@ -17,7 +17,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ title, children }) => (
     </Head>
     <NavBar />
 
-    <Container display="flex" flexDirection="column" as="main" flex="1" my={4}>
+    <Container display="flex" flexDirection="column" flex="1" p={{ base: 12, md: 24 }}>
       <Heading as="h1">{title}</Heading>
       {children}
     </Container>

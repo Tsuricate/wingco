@@ -1,9 +1,10 @@
-import { Checkbox, Text } from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Checkbox, Heading, Stack, Text } from '@chakra-ui/react';
+import { HiOutlineMail } from 'react-icons/hi';
 import AlertMessage from '../components/AlertMessage';
 import Button from '../components/Button';
 import Form from '../components/Form';
@@ -11,6 +12,7 @@ import FormControl from '../components/FormControl';
 import PageLayout from '../components/layout/PageLayout';
 import Link from '../components/Link';
 import { Toaster, toaster } from '../components/ui/toaster';
+import { SafeCheckboxLabel } from '../components/ui/chakraFixes';
 import { resetPasswordAssistanceInfos } from '../redux/actions/passwordAssistance';
 import {
   submitSignIn,
@@ -22,7 +24,6 @@ import { RootState } from '../redux/reducers';
 import { getErrorsMessages, validateFormData } from '../utils/formUtils';
 import { getRedirection, removeRedirection } from '../utils/redirection';
 import { emailValidationSchema } from '../validations';
-import { SafeCheckboxLabel } from '../components/ui/chakraFixes';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation(['signIn', 'signUp', 'validations', 'common']);
@@ -84,45 +85,63 @@ const SignIn: React.FC = () => {
   }, [errorSignIn]);
 
   return (
-    <PageLayout title={t('signIn:title')}>
+    <PageLayout>
       <Toaster />
       {validatedEmail === 'true' && (
         <AlertMessage status="success" description={t('signUp:emailAddressValid')} />
       )}
       {unauthorized && <AlertMessage status="error" description={t('signIn:errorUnauthorized')} />}
+      <Stack width={{ base: '100%', lg: '40%' }} flex="1" gap={8} justifyContent={{ base: 'center' }}>
+        <Stack gap={4}>
+          <Heading size="2xl">{t('signIn:title')}</Heading>
+          <Text>{t('signIn:description')}</Text>
+        </Stack>
 
-      <Form onSubmit={handleSubmit}>
-        <FormControl
-          id="email"
-          name="email"
-          label={t('common:emailLabel')}
-          helperText={t('common:emailHelperText')}
-          value={email}
-          updateField={updateField}
-          errors={getErrorsMessages(formErrors, 'email')}
-        />
-        <FormControl
-          id="password"
-          name="password"
-          label={t('signIn:passwordLabel')}
-          helperText={t('signIn:passwordHelperText')}
-          value={password}
-          updateField={updateField}
-        />
-        <Link href="/password-assistance" onClick={handleClick}>
-          {t('signIn:forgotPassword')}
-        </Link>
-        <Checkbox.Root name="rememberMe" checked={rememberMe} onChange={handleCheckbox}>
-          <Checkbox.HiddenInput />
-          <Checkbox.Control />
-          <SafeCheckboxLabel>{t('signIn:rememberMe')}</SafeCheckboxLabel>
-        </Checkbox.Root>
-        <Button type="submit" dataCy="signIn" variant="solid">
-          {t('signIn:signInButtonLabel')}
-        </Button>
-        <Text>{t('signIn:notRegisteredYet')}</Text>
-        <Link href="/sign-up">{t('signIn:signUp')}</Link>
-      </Form>
+        <Form onSubmit={handleSubmit}>
+          <Stack gap={12}>
+            <Stack gap={4} width="100%">
+              <FormControl
+                id="email"
+                name="email"
+                label={t('common:emailLabel')}
+                helperText={t('common:emailHelperText')}
+                startElement={<HiOutlineMail />}
+                value={email}
+                updateField={updateField}
+                errors={getErrorsMessages(formErrors, 'email')}
+              />
+              <FormControl
+                id="password"
+                name="password"
+                label={t('signIn:passwordLabel')}
+                helperText={t('signIn:passwordHelperText')}
+                value={password}
+                updateField={updateField}
+              />
+              <Stack direction="row" justifyContent="space-between">
+                <Checkbox.Root name="rememberMe" checked={rememberMe} onChange={handleCheckbox}>
+                  <Checkbox.HiddenInput />
+                  <Checkbox.Control />
+                  <SafeCheckboxLabel>{t('signIn:rememberMe')}</SafeCheckboxLabel>
+                </Checkbox.Root>
+                <Link href="/password-assistance" onClick={handleClick}>
+                  {t('signIn:forgotPassword')}
+                </Link>
+              </Stack>
+            </Stack>
+            <Button type="submit" dataCy="signIn" variant="solid">
+              {t('signIn:signInButtonLabel')}
+            </Button>
+
+            <Text alignSelf="center">
+              {t('signIn:notRegisteredYet')}{' '}
+              <Link href="/sign-up" linkVariant="underline">
+                {t('signIn:signUp')}
+              </Link>
+            </Text>
+          </Stack>
+        </Form>
+      </Stack>
     </PageLayout>
   );
 };

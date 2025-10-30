@@ -31,7 +31,7 @@
   "usernameLabel": "Username",
   "usernameHelperText": "Enter your username",
   "emailLabel": "Email address",
-  "emailHelperText": "Enter your email address",
+  "emailHelperText": "me@example.com",
   "save": "Save",
   "close": "Close",
   "gotIt": "Got it !",

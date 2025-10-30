@@ -1,7 +1,7 @@
-import { Field, Button, Stack, Input, InputGroup } from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
-import React, { ReactElement, useState } from 'react';
-import { SafeFieldErrorText, SafeFieldHelperText, SafeFieldLabel } from './ui/chakraFixes';
+import React, { ReactElement } from 'react';
+import { Field, Stack, Input, InputGroup, VisuallyHidden, Box } from '@chakra-ui/react';
+import { SafeFieldErrorText, SafeFieldLabel } from './ui/chakraFixes';
+import { PasswordInput } from './ui/password-input';
 
 interface FormControlProps {
   id: string;
@@ -15,6 +15,8 @@ interface FormControlProps {
   errors?: Array<string>;
   isReadOnly?: boolean;
   isDisabled?: boolean;
+  startElement?: any;
+  extraElement?: React.ReactNode;
 }
 
 const FormControl: React.FC<FormControlProps> = ({
@@ -29,11 +31,9 @@ const FormControl: React.FC<FormControlProps> = ({
   errors = [],
   isReadOnly = false,
   isDisabled = false,
+  startElement,
+  extraElement,
 }) => {
-  const { t } = useTranslation();
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
-
   const isInvalid: boolean = errors.length > 0;
 
   const manageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,48 +42,42 @@ const FormControl: React.FC<FormControlProps> = ({
 
   return (
     <Field.Root invalid={isInvalid} readOnly={isReadOnly} id={id}>
-      <SafeFieldLabel htmlFor={id}>{label}</SafeFieldLabel>
+      <VisuallyHidden>
+        <SafeFieldLabel htmlFor={id}>{label}</SafeFieldLabel>
+      </VisuallyHidden>
       {['password', 'passwordValidation'].includes(name) ? (
-        <Stack>
-          <InputGroup
-            endElement={
-              <Button h={7} size="sm" onClick={handleClick} disabled={isDisabled}>
-                {show ? t('common:hide') : t('common:show')}
-              </Button>
-            }
-          >
-            <Input
-              autoComplete="off"
-              type={show ? 'text' : 'password'}
-              id={id}
-              name={name}
-              value={value}
-              onChange={manageChange}
-              disabled={isDisabled}
-              required
-            />
-          </InputGroup>
-        </Stack>
-      ) : (
-        <Stack direction="row" align="center" gap={5}>
-          {leftSlot}
-          <Input
+        <>
+          <PasswordInput
+            autoComplete="off"
             id={id}
             name={name}
             value={value}
             onChange={manageChange}
+            placeholder={helperText}
             required
-            disabled={isDisabled}
+            size="lg"
           />
+          {extraElement && <Box>{extraElement}</Box>}
+        </>
+      ) : (
+        <Stack direction="row" align="center" gap={5} width="100%">
+          {leftSlot}
+          <InputGroup startElement={startElement}>
+            <Input
+              id={id}
+              name={name}
+              value={value}
+              onChange={manageChange}
+              required
+              disabled={isDisabled}
+              placeholder={helperText}
+              size="lg"
+            />
+          </InputGroup>
           {rightSlot}
         </Stack>
       )}
-
-      {!isInvalid ? (
-        <SafeFieldHelperText>{helperText}</SafeFieldHelperText>
-      ) : (
-        errors.map((error) => <SafeFieldErrorText key={error}>{error}</SafeFieldErrorText>)
-      )}
+      {!isInvalid && errors.map((error) => <SafeFieldErrorText key={error}>{error}</SafeFieldErrorText>)}
     </Field.Root>
   );
 };
