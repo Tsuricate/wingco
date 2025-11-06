@@ -1,11 +1,13 @@
+import React, { useMemo } from 'react';
 import { useTranslation } from 'next-i18next';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { FormError, getErrorsMessages } from '../utils/formUtils';
 import AlertMessage from './AlertMessage';
 import FormControl from './FormControl';
 import Link from './Link';
+import { PasswordStrengthMeter } from './ui/password-input';
+import { type Options, passwordStrength } from 'check-password-strength';
 
 interface PasswordAssistanceProps {
   updateField: (value: string, name: string) => void;
@@ -26,6 +28,22 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
   );
   const { isLogged } = useSelector((state: RootState) => state.auth);
 
+  const strengthOptions: Options<string> = [
+    { id: 1, value: 'weak', minDiversity: 0, minLength: 0 },
+    { id: 2, value: 'medium', minDiversity: 2, minLength: 6 },
+    { id: 3, value: 'strong', minDiversity: 3, minLength: 8 },
+    { id: 4, value: 'very-strong', minDiversity: 4, minLength: 10 },
+  ];
+
+  const strength = useMemo(
+    (value = password) => {
+      if (!value) return 0;
+      const result = passwordStrength(value, strengthOptions);
+      return result.id;
+    },
+    [password]
+  );
+
   return (
     <>
       {hasCorrectResetCode && !hasChangedPassword && (
@@ -41,7 +59,7 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
             </Link>
           ) : (
             <Link asButton href="/sign-in">
-              {t('common:goToSignIn')}
+              {t('common:signIn')}
             </Link>
           )}
         </>
@@ -56,6 +74,7 @@ const PasswordAssistStep3: React.FC<PasswordAssistanceProps> = ({
             helperText={t('passwordAssistance:newPasswordHelperText')}
             updateField={updateField}
             errors={getErrorsMessages(errors, 'password')}
+            extraElement={<PasswordStrengthMeter value={strength} />}
           />
           <FormControl
             id="passwordValidation"

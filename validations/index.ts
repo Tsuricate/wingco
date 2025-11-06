@@ -54,6 +54,7 @@ export const gamePlayerSchema = yup.object().shape({
 export const gamePlayersListSchema = yup.array().of(gamePlayerSchema);
 
 export type Step<T extends yup.ObjectSchema<any>> = {
+  title: string;
   schema: T;
   data: yup.InferType<T>;
   action: () => any;

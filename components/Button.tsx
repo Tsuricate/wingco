@@ -1,4 +1,4 @@
-import { chakra, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
+import { chakra, ButtonProps as ChakraButtonProps, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { buttonRecipe } from './ui/recipes/button.recipe';
 
@@ -39,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       {...buttonDefaultStyle}
     >
-      {children}
+      {isLoading ? <Spinner size="sm" color="white" /> : children}
     </RecipeButton>
   );
 };

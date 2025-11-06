@@ -15,7 +15,7 @@ const FormActions: React.FC<FormActionsProps> = ({ cancelUrl, isLoading, loading
   const { t } = useTranslation('common');
 
   return (
-    <Stack direction={{ base: 'column', md: 'row-reverse' }}>
+    <Stack direction="column" width="100%">
       <Button type="submit" dataCy="submitButton" isLoading={isLoading} loadingText={loadingText}>
         {t('common:continue')}
       </Button>
